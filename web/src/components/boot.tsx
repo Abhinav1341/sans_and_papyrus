@@ -7,6 +7,8 @@ import { applyVolumes, audioState, installAudioUnlock, onUnlock } from '@/lib/au
 import { loadManifest, stopVoice } from '@/lib/voice';
 import { playMusic, resumeWantedMusic, type Mood } from '@/lib/music';
 import { CHAPTER_IDS } from '@/story/ids';
+import { api } from '@/lib/api';
+import { fetchMe, signInAsGuest } from '@/lib/auth';
 import { registerServiceWorker } from './install';
 
 let booted = false;
@@ -22,7 +24,7 @@ export function boot() {
   if ((demo === '1' || demo === 'all') && !store.get().hero) {
     store.update((s) => {
       s.auth = { signedIn: true, method: 'demo' };
-      s.hero = { name: 'Aarav', voice: 'a', look: { skin: '#c98e62', hair: 'spiky', hairColor: '#1c1530', eyes: '#3f5fa8', outfit: '#ffd36e' } };
+      s.hero = { name: 'Aarav', age: 9, voice: 'a', look: { skin: '#c98e62', hair: 'spiky', hairColor: '#1c1530', eyes: '#3f5fa8', outfit: '#ffd36e' } };
     });
   }
   if (demo === 'all') store.update((s) => { CHAPTER_IDS.forEach((id) => { if (!s.done.includes(id)) s.done.push(id); }); });
@@ -37,6 +39,35 @@ export function boot() {
   onUnlock(() => { applyVolumes(); resumeWantedMusic(); });
   loadManifest();
   registerServiceWorker();
+  void syncSession();
+}
+
+/** Tells the server about the Captain on this device (name and age), so bonus rounds fit them. */
+export async function pushHero(): Promise<void> {
+  const h = store.get().hero;
+  if (h?.age) await api('player', { method: 'PUT', body: { heroName: h.name, age: h.age } });
+}
+
+/**
+ * Keeps this device and the server in step. The server session (an httpOnly cookie) is the truth:
+ * if it has ended, the device goes back to sign-in. Demo links get a guest session automatically.
+ */
+async function syncSession() {
+  try {
+    const me = await fetchMe();
+    const local = store.get();
+    if (!me.signedIn) {
+      if (local.auth.method === 'demo') { await signInAsGuest(); await pushHero(); }
+      else if (local.auth.signedIn) store.update((s) => { s.auth = { signedIn: false, method: null }; });
+      return;
+    }
+    if (!local.auth.signedIn) store.update((s) => { s.auth = { signedIn: true, method: me.account?.type ?? 'email' }; });
+    const serverAge = me.player?.age;
+    if (local.hero && !local.hero.age && serverAge) store.update((s) => { if (s.hero) s.hero.age = serverAge; });
+    else if (local.hero?.age && (!me.player || me.player.age !== local.hero.age || me.player.heroName !== local.hero.name)) await pushHero();
+  } catch {
+    // Offline or server unreachable: keep playing; bonus rounds will try again.
+  }
 }
 
 export function AppBoot() {
@@ -58,13 +89,14 @@ export function useGuard(need: 'auth' | 'hero'): boolean {
   const s = useSave();
   const router = useRouter();
   const ok = hydrated && s.auth.signedIn && (need === 'auth' || !!s.hero);
+  const signedIn = s.auth.signedIn, hasHero = !!s.hero;
   useEffect(() => {
     if (!hydrated) return;
     boot();
     const st = store.get();
     if (!st.auth.signedIn) router.replace('/login');
     else if (need === 'hero' && !st.hero) router.replace('/hero');
-  }, [hydrated, need, router]);
+  }, [hydrated, need, router, signedIn, hasHero]);
   useEffect(() => () => stopVoice(), []);
   return ok;
 }

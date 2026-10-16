@@ -9,7 +9,7 @@ chapter opens on the world itself before it meets the characters: the Party Gala
 a fly-down through candy-floss clouds, and sky views of the Candy Nebula with a board-game path
 that joins every place in the story. Birds, butterflies, bubbles, balloons and shooting stars keep
 every place moving.
-Tasks ("Bonus rounds") appear as gates in the story. For now each one shows **Skip for now**.
+Tasks ("Bonus rounds") appear as gates in the story: 3–5 situations and puzzles picked for the Captain (see Backend).
 
 On a laptop the game is shown inside a phone-shaped frame. On a phone it fills the screen.
 
@@ -117,18 +117,58 @@ The model files come from https://github.com/thewh1teagle/kokoro-onnx/releases (
 ## Host on Google Cloud (Cloud Run)
 
 ```
-gcloud run deploy party-galaxy --source . --region asia-south1 --allow-unauthenticated
+gcloud run deploy sans-and-papyrus --source . --project project-b87959c5-a26a-49fe-adf --region asia-south1 \
+  --allow-unauthenticated --min-instances 0 --max-instances 3 \
+  --update-env-vars GOOGLE_CLOUD_PROJECT=project-b87959c5-a26a-49fe-adf,GOOGLE_CLOUD_LOCATION=global,GOOGLE_GENAI_USE_VERTEXAI=true,SESSION_SECRET=<your secret>
 ```
+
+The Cloud Run service account needs the **Cloud Datastore User** and **Vertex AI User** roles.
 
 This builds the `Dockerfile` (a Next.js standalone server on port 8080) and gives you an https link.
 
-## UI-only for now
+## Backend (bonus rounds, accounts, parent report)
 
-- **Sign in with Google and email:** no real accounts yet. `src/lib/auth.ts` marks where Google Identity Services or Firebase Auth plugs in. Accounts are for grown-ups, and parental consent comes first.
-- **Parent Corner:** layout only, behind a 3-second press-and-hold.
-- **Tasks:** each bonus round shows **Skip for now**, and the story carries on.
-- **Worlds 2–8:** locked ("coming soon").
-- **Saving:** progress stays on this device (localStorage).
+The game's backend runs inside this Next.js app (route handlers in `src/app/api/`, logic in `src/server/`).
+It reads the question bank that `generator/` writes to Firestore (`seedItems` + `generatedItems`).
+
+- **Accounts (grown-ups only):** email + password (scrypt-hashed), Google sign-in, or **Play as a guest**.
+  The session is a signed, httpOnly cookie. Children never type an email; a Captain lives inside the account.
+- **The Captain's age** (picked in the Captain builder) sets the question band (8–10 or 11–14), the starting
+  level and the round size (3 items up to age 8, 4 for 9–10, 5 for 11+). Ages 6–7 get the easiest 8–10 items.
+- **Bonus rounds:** each story gate opens a round. For every item, code builds a shortlist (right band and
+  level, no recent repeats or near-duplicates, varied categories, gentle focus on growing skills, about one
+  puzzle per round) and **Gemini 3.5 Flash-Lite picks one** with a reason. If Gemini is slow or off, code picks.
+  Each answer updates Elo-style skill levels from the option's CASEL scores, the time taken and hint use.
+  Children never see scores, timers or "wrong"; every choice shows its consequence and the story goes on.
+- **Parent Corner:** a growth report written by **Gemini 3.8 Flash** from aggregated play (cached, refreshed
+  after new play). "Delete all data" erases the account and every record of play on the server.
+- **Tuning:** every number (round sizes, starting levels, learning rate, variety rules) is in `src/server/config.ts`.
+
+### Settings (environment variables)
+
+| Variable | Needed | What it does |
+| --- | --- | --- |
+| `GOOGLE_CLOUD_PROJECT` | yes | Project with Firestore and Vertex AI |
+| `GOOGLE_CLOUD_LOCATION` | yes | `global` |
+| `GOOGLE_GENAI_USE_VERTEXAI` | yes | `true` |
+| `SESSION_SECRET` | yes in production | 32+ random characters that sign sign-in cookies (the server refuses sign-ins without it in production) |
+| `TTS_NARRATOR_VOICE` | optional | Cloud Text-to-Speech voice that reads bonus rounds (default `en-IN-Chirp3-HD-Charon`) |
+| `TTS_FIZZ_VOICE` | optional | Voice for Fizz's hints (default `en-IN-Chirp3-HD-Puck`) |
+| `GOOGLE_CLIENT_ID` | optional | OAuth web client id; turns on "Sign in with Google" |
+| `GAME_AI` | optional | `off` skips Gemini (code picker, plain report) |
+
+For local development, put these in `web/.env.local` and run `gcloud auth application-default login` once.
+
+### Tests
+
+```
+npm run test:backend   # whole backend flow on an in-memory database with the real seed bank (no cloud needed)
+```
+
+### Still to do before a public launch
+
+- Verifiable parental consent before a child's data is stored (DPDP Act s.9, COPPA).
+- Worlds 2–8 are locked ("coming soon"); story progress itself still stays on the device (localStorage).
 
 ## Child-safety choices
 

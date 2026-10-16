@@ -208,6 +208,15 @@ export const PlayerProfile = z.object({
   recentSituationIds: z.array(z.string()).max(30),  // excluded from the next shortlist
   itemsSinceLastPuzzle: z.number().int().nonnegative(), // picker keeps puzzles to ~1 in 4 items
   totalPlayed: z.number().int().nonnegative(),
+  // Game backend fields (optional so older profiles still load):
+  age: z.number().int().min(5).max(15).optional(),       // set by the grown-up; decides band and starting level
+  heroName: z.string().max(24).optional(),              // from the game's name picker, never a real name
+  startSkill: z.number().optional(),                    // starting level for this age, for growth reporting
+  recentCategories: z.array(z.string()).max(10).optional(), // variety: last categories served
+  roundsPlayed: z.number().int().nonnegative().optional(),
+  // Running totals for the parent report, so it never has to read every play event:
+  skillPlays: z.record(z.string(), z.number().int().nonnegative()).optional(), // items that moved each skill
+  recentReasons: z.array(z.string()).max(5).optional(),   // the AI picker's last reasons, oldest first
   createdAt: z.string(),
   updatedAt: z.string(),
 });
@@ -277,6 +286,10 @@ export const PlayEvent = z.object({
     openedAtMs: z.number().int().nonnegative().optional(), // ms after the item appeared
   }),
   picker: PickerDecision,            // how this item was chosen
+  roundId: z.string().optional(),
+  gateId: z.string().optional(),     // the story gate that opened the round
+  performance: z.number().min(0).max(1).optional(), // 0–1: how well the choice showed the item's skills
+  skillChanges: z.record(z.string(), z.number()).optional(),
   createdAt: z.string(),
 });
 export type PlayEvent = z.infer<typeof PlayEvent>;

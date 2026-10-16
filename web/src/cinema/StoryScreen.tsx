@@ -12,6 +12,7 @@ import { stopVoice } from '@/lib/voice';
 import { useGuard } from '@/components/boot';
 import { Button, IconButton, Icon, Svg } from '@/components/ui';
 import { SettingsSheet } from '@/components/settings';
+import { BonusRound } from '@/components/bonus-round';
 import { Controller, type Caption, type Overlay } from './controller';
 import { fill } from './lines';
 import { Insert } from './inserts';
@@ -179,12 +180,7 @@ function OverlayCard({ overlay, chapter, heroName, onDone, onLeave }: { overlay:
         <div className="gate-card">
           <div className="ask"><Svg html={askerArt} className="face" /><p>{fill(g.ask, heroName)}</p></div>
         </div>
-        <div className="gate-task">
-          <h3>{g.title}</h3>
-          <p>Captain {heroName}, the crew needs you!</p>
-          <p className="muted">Your task will appear here.</p>
-        </div>
-        <div className="gate-actions"><Button variant="sun" xl icon="skip" onClick={onDone} data-autofocus>Skip for now</Button></div>
+        <BonusRound gateId={g.id} title={g.title} heroName={heroName} onDone={onDone} />
       </div>
     );
   }

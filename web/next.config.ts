@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   // Lets a phone on the same Wi-Fi open the dev server (http://<laptop-ip>:3000) for testing.
   allowedDevOrigins: ['192.168.*.*', '10.*.*.*', '172.*.*.*', '*.local'],
+  // Firestore loads gRPC and protobuf files at runtime: keep it as a plain Node.js dependency.
+  serverExternalPackages: ['@google-cloud/firestore'],
   async headers() {
     return [
       // The service worker must always be fresh, or players would keep an old version of the game.

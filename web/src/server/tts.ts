@@ -1,0 +1,107 @@
+/**
+ * Spoken bonus rounds: Google Cloud Text-to-Speech (Chirp 3 HD) reads each item aloud.
+ * Only bank text is ever spoken (never text sent by the browser), so cost is bounded by the bank.
+ * Each clip is made once: kept in memory, stored in Firestore for every server instance, and served
+ * under a URL that changes when the text or voice changes, so browsers can cache it forever.
+ */
+import { createHash } from 'node:crypto';
+import { GoogleAuth } from 'google-auth-library';
+import type { Situation } from '../../lib/schemas';
+import { COLLECTIONS, GAME } from './config';
+import { db } from './db';
+
+export type Speaker = 'narrator' | 'fizz';
+
+/** Parts of an item that can be spoken. `o.<id>` is an option, `c.<id>` its consequence. */
+export type VoicePart = 'q' | 'hint' | 'x' | `o.${string}` | `c.${string}`;
+
+/** Said when a round ends. Fixed text (no child's name), so it is one shared clip. */
+export const DONE_LINE = 'Brilliant work, Captain! The crew says thank you.';
+
+/** What a part says, and who says it. Null when the item has no such part. */
+export function partText(item: Situation, part: string): { text: string; speaker: Speaker } | null {
+  if (part === 'q') return { text: `${item.title}. ${item.text}`, speaker: 'narrator' };
+  if (part === 'hint') return item.hint ? { text: item.hint.text, speaker: 'fizz' } : null;
+  if (part === 'x') return item.kind === 'puzzle' && item.puzzle ? { text: item.puzzle.explanation, speaker: 'narrator' } : null;
+  const [kind, id] = part.split('.');
+  const option = item.options.find((o) => o.id === id);
+  if (!option) return null;
+  if (kind === 'o') return { text: option.text, speaker: 'narrator' };
+  if (kind === 'c') return { text: option.consequence, speaker: 'narrator' };
+  return null;
+}
+
+const voiceName = (s: Speaker) => GAME.tts.voices[s];
+/** Identifies one clip: changes whenever the words, the voice or its pace change. */
+export const clipHash = (speaker: Speaker, text: string) =>
+  createHash('sha256').update(`${voiceName(speaker)}|${GAME.tts.speakingRate}|${text}`).digest('hex').slice(0, 24);
+
+/** The URL the browser fetches for one part of an item. */
+export function voiceUrl(item: Situation, part: VoicePart): string | null {
+  const p = partText(item, part);
+  return p ? `/api/voice?item=${encodeURIComponent(item.id)}&part=${encodeURIComponent(part)}&v=${clipHash(p.speaker, p.text)}` : null;
+}
+export const doneVoiceUrl = () => `/api/voice?part=done&v=${clipHash('narrator', DONE_LINE)}`;
+
+/* ---------- synthesis ---------- */
+
+let auth: GoogleAuth | null = null;
+
+/** Fetches the Google access token ahead of time, so the first clip doesn't wait for sign-in. */
+export async function warmTts(): Promise<void> {
+  auth ??= new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/cloud-platform'] });
+  await (await auth.getClient()).getAccessToken();
+}
+
+async function synthesize(speaker: Speaker, text: string): Promise<Buffer> {
+  auth ??= new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/cloud-platform'] });
+  const client = await auth.getClient();
+  const name = voiceName(speaker);
+  const res = await client.request<{ audioContent?: string }>({
+    url: 'https://texttospeech.googleapis.com/v1/text:synthesize',
+    method: 'POST',
+    // Local sign-ins (gcloud user credentials) need a project to bill; Cloud Run's service account doesn't.
+    headers: process.env.GOOGLE_CLOUD_PROJECT ? { 'x-goog-user-project': process.env.GOOGLE_CLOUD_PROJECT } : undefined,
+    data: {
+      input: { text },
+      voice: { languageCode: name.split('-').slice(0, 2).join('-'), name },
+      audioConfig: { audioEncoding: 'MP3', sampleRateHertz: 24000, speakingRate: GAME.tts.speakingRate },
+    },
+    timeout: GAME.tts.timeoutMs,
+  });
+  if (!res.data.audioContent) throw new Error('Text-to-Speech returned no audio.');
+  return Buffer.from(res.data.audioContent, 'base64');
+}
+
+/* ---------- cache: memory → Firestore → synthesize ---------- */
+
+interface StoredClip { audio: Buffer | Uint8Array; voice: string; text: string; createdAt: string }
+
+const memory = new Map<string, Buffer>();
+const inFlight = new Map<string, Promise<Buffer>>();
+
+function remember(key: string, audio: Buffer) {
+  memory.set(key, audio);
+  while (memory.size > GAME.tts.memoryClips) memory.delete(memory.keys().next().value as string);
+}
+
+/** The MP3 for a line, made at most once per text and voice across all instances. */
+export function clip(speaker: Speaker, text: string): Promise<Buffer> {
+  const key = clipHash(speaker, text);
+  const hit = memory.get(key);
+  if (hit) return Promise.resolve(hit);
+  let p = inFlight.get(key);
+  if (!p) {
+    p = (async () => {
+      const stored = await db().get<StoredClip>(COLLECTIONS.voiceClips, key);
+      if (stored?.audio) return Buffer.from(stored.audio);
+      const audio = await synthesize(speaker, text);
+      await db().set<StoredClip>(COLLECTIONS.voiceClips, key, { audio, voice: voiceName(speaker), text, createdAt: new Date().toISOString() });
+      return audio;
+    })()
+      .then((audio) => { remember(key, audio); return audio; })
+      .finally(() => inFlight.delete(key));
+    inFlight.set(key, p);
+  }
+  return p;
+}

@@ -10,11 +10,14 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "tsx tests/validate-story.ts",
-    "voices:export": "tsx tools/voices/export-lines.ts"
+    "voices:export": "tsx tools/voices/export-lines.ts",
+    "voices:warm": "tsx --env-file=.env.local tools/warm-voices.mts",
+    "test:backend": "tsx tests/backend-flow.mts"
   },
   "dependencies": {
     "@google-cloud/firestore": "^9.3.1",
     "@google/genai": "^2.30.0",
+    "google-auth-library": "^10.9.1",
     "gsap": "^3.15.0",
     "next": "16.4.1",
     "react": "19.3.0",

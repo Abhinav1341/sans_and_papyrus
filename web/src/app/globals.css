@@ -469,3 +469,5 @@ svg .leap { animation: leap 7s ease-in-out infinite; }
 .parent-link .ico { width: 20px; height: 20px; }
 .parent-link small { font-weight: 700; opacity: .8; }
 @media (prefers-reduced-motion: reduce) { .episode, .episode-fizz { animation: none; } }
+
+.report-list { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 6px; font-weight: 700; }

@@ -11,16 +11,17 @@ import { faceSVG } from '@/art/portrait';
 import { say, VOICE_LABELS } from '@/lib/voice';
 import { sfx } from '@/lib/sfx';
 import { HERO_NAMES, UI_LINES, captainCall } from '@/data/ui-lines';
-import { Button, GalaxyBg, IconButton, Svg, Icon } from './ui';
-import { useGuard, useMusic } from './boot';
+import { Button, GalaxyBg, IconButton, Svg, Icon, toast } from './ui';
+import { pushHero, useGuard, useMusic } from './boot';
 
 const HAIR_LABEL: Record<string, string> = { short: 'Short', spiky: 'Spiky', bob: 'Bob', ponytail: 'Ponytail', braid: 'Braid', curly: 'Curly', bun: 'Bun', long: 'Long' };
 const VOICES: VoiceChoice[] = ['a', 'b', 'c'];
-type Draft = { name: string; look: Look; voice: VoiceChoice };
+const AGES = [6, 7, 8, 9, 10, 11, 12, 13, 14];
+type Draft = { name: string; look: Look; voice: VoiceChoice; age: number | null };
 
 function savedDraft(): Draft {
   const h = store.get().hero;
-  return h ? { name: h.name, look: { ...h.look }, voice: h.voice } : { name: HERO_NAMES[0], voice: 'a', look: { skin: SKINS[3], hair: 'spiky', hairColor: HAIR_COLORS[0], eyes: EYE_COLORS[0], outfit: OUTFITS[2] } };
+  return h ? { name: h.name, look: { ...h.look }, voice: h.voice, age: h.age ?? null } : { name: HERO_NAMES[0], voice: 'a', age: null, look: { skin: SKINS[3], hair: 'spiky', hairColor: HAIR_COLORS[0], eyes: EYE_COLORS[0], outfit: OUTFITS[2] } };
 }
 
 export function HeroBuilder({ editing }: { editing: boolean }) {
@@ -46,9 +47,12 @@ export function HeroBuilder({ editing }: { editing: boolean }) {
     <button key={c} type="button" className="swatch" style={{ background: c }} aria-label={label} aria-pressed={on} onClick={pick} />
   );
 
-  const save = () => {
-    store.update((s) => { s.hero = { name: draft.name, look: { ...draft.look }, voice: draft.voice }; });
+  const save = async () => {
+    if (!draft.age) { toast('Grown-ups: please pick the Captain’s age'); document.getElementById('age-row')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    store.update((s) => { s.hero = { name: draft.name, look: { ...draft.look }, voice: draft.voice, age: draft.age! }; });
     sfx('fanfare');
+    // The server uses the age to pitch bonus rounds; the game still works offline if this fails.
+    pushHero().catch(() => toast('Saved on this device. Bonus rounds will sync when you are online.'));
     router.replace(editing ? '/profile' : '/home');
   };
 
@@ -71,6 +75,16 @@ export function HeroBuilder({ editing }: { editing: boolean }) {
           {HERO_NAMES.map((n) => (
             <button key={n} type="button" className="chip" aria-pressed={draft.name === n}
               onClick={() => { sfx('pop'); setDraft({ ...draft, name: n }); say('fizz', captainCall(n), { force: true }); }}>{n}</button>
+          ))}
+        </div>
+      </div>
+
+      <div id="age-row">
+        <h3>Age <small className="muted">(grown-ups: this sets how hard bonus rounds start)</small></h3>
+        <div className="chip-row" role="group" aria-label="Age">
+          {AGES.map((a) => (
+            <button key={a} type="button" className="chip" aria-pressed={draft.age === a}
+              onClick={() => { sfx('pop'); setDraft({ ...draft, age: a }); }}>{a}</button>
           ))}
         </div>
       </div>
@@ -113,7 +127,7 @@ export function HeroBuilder({ editing }: { editing: boolean }) {
         <h3>Outfit</h3>
         <div className="swatches" role="group" aria-label="Outfit">{OUTFITS.map((c, i) => swatch(c, `Outfit colour ${i + 1}`, draft.look.outfit === c, () => setLook({ outfit: c })))}</div>
       </div>
-      <Button variant="sun" xl icon="check" onClick={save}>{editing ? 'Save my Captain' : 'I’m ready!'}</Button>
+      <Button variant="sun" xl icon="check" onClick={() => { void save(); }}>{editing ? 'Save my Captain' : 'I’m ready!'}</Button>
     </section>
   );
 }

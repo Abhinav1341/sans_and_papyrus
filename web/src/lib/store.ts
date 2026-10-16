@@ -7,7 +7,7 @@ import type { Look } from '@/art/looks';
 export type VoiceChoice = 'a' | 'b' | 'c';
 export type Speed = 'slow' | 'normal' | 'fast';
 
-export interface Hero { name: string; look: Look; voice: VoiceChoice }
+export interface Hero { name: string; look: Look; voice: VoiceChoice; age?: number } // age (6–14) is set in the builder; it decides the starting level of bonus rounds
 export interface Settings {
   voice: boolean;   // read every line aloud
   sound: boolean;   // sound effects
@@ -72,7 +72,7 @@ export function migrate(raw: unknown): Save {
   const legacy = d.v === 1;
   const look = readLook(h.look);
   const hero: Hero | null = typeof h.name === 'string' && look
-    ? { name: h.name, look, voice: h.voice === 'b' || h.voice === 'c' ? h.voice : 'a' }
+    ? { name: h.name, look, voice: h.voice === 'b' || h.voice === 'c' ? h.voice : 'a', ...(typeof h.age === 'number' && h.age >= 6 && h.age <= 14 ? { age: Math.round(h.age) } : {}) }
     : null;
   const speed: Speed = s.speed === 'slow' || s.speed === 'normal' || s.speed === 'fast' ? s.speed
     : s.textSpeed === 'slow' ? 'slow' : s.textSpeed === 'fast' || s.textSpeed === 'instant' ? 'fast' : 'normal';
