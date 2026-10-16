@@ -24,7 +24,10 @@ npm run bank:upload-seeds                      # seeds/ → Firestore "seedItems
 npm run bank:expand -- --count 10 --kind mixed # pilot run
 npm run bank:expand -- --kind situation --competency socialAwareness --count 30 --concurrency 3
 npm run bank:expand -- --kind puzzle --domain math --count 12
+npm run bank:dashboard                         # output/dashboard.html: runs, funnel, coverage, costs, item browser
+npm run bank:export                            # output/bank-readable.md: every item as a readable document
 ```
+
 Options: `--count`, `--kind situation|puzzle|mixed`, `--band 8-10|11-14|any`, `--competency`, `--domain`,
 `--concurrency`, `--local-only` (skip Firestore).
 

@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Question Generator Dashboard</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,0.10);
+    --s1: #2a78d6; --s2: #eb6834; --wash: rgba(42,120,214,0.10);
+    --good: #006300; --critical: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+      --s1: #3987e5; --s2: #d95926; --wash: rgba(57,135,229,0.12);
+      --good: #0ca30c; --critical: #e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,0.10);
+    --s1: #3987e5; --s2: #d95926; --wash: rgba(57,135,229,0.12);
+    --good: #0ca30c; --critical: #e66767;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 24px 16px 64px; }
+  header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 16px; }
+  h1 { font-size: 22px; margin: 0; }
+  h2 { font-size: 15px; margin: 0 0 4px; }
+  .sub { color: var(--ink-2); font-size: 13px; margin: 0 0 12px; }
+  .muted { color: var(--muted); }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(12, 1fr); align-items: start; }
+  .card { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 16px; min-width: 0; }
+  .span-12 { grid-column: span 12; } .span-6 { grid-column: span 6; } .span-4 { grid-column: span 4; } .span-8 { grid-column: span 8; }
+  @media (max-width: 860px) { .span-6, .span-4, .span-8 { grid-column: span 12; } }
+  .tiles { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .tile .label { color: var(--ink-2); font-size: 13px; }
+  .tile .value { font-size: 26px; font-weight: 600; margin-top: 2px; }
+  .tile.hero .value { font-size: 48px; line-height: 1.1; }
+  .tile .note { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; background: var(--c); }
+  svg { display: block; width: 100%; overflow: visible; }
+  svg text { fill: var(--ink-2); font-size: 12px; }
+  svg .val { fill: var(--ink); font-variant-numeric: tabular-nums; }
+  svg .tick { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+  .hit { fill: transparent; cursor: default; }
+  .hit:hover + .bar, .bar:hover { opacity: .85; }
+  #tip { position: fixed; pointer-events: none; z-index: 10; background: var(--surface); color: var(--ink); border: 1px solid var(--ring);
+         box-shadow: 0 4px 16px rgba(0,0,0,.12); border-radius: 8px; padding: 8px 10px; font-size: 12px; max-width: 280px; display: none; }
+  #tip b { display: block; margin-bottom: 2px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  th { color: var(--ink-2); font-weight: 600; font-size: 12px; position: sticky; top: 0; background: var(--surface); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .scroll { max-height: 360px; overflow: auto; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px; }
+  select, input[type=search] { font: inherit; color: var(--ink); background: var(--page); border: 1px solid var(--ring); border-radius: 8px; padding: 6px 8px; }
+  input[type=search] { flex: 1 1 200px; }
+  details.item { border-bottom: 1px solid var(--grid); padding: 8px 0; }
+  details.item summary { cursor: pointer; display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; }
+  details.item summary b { font-weight: 600; }
+  .chip { font-size: 11px; color: var(--ink-2); border: 1px solid var(--ring); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+  .chip.gen { border-color: var(--s1); }
+  .body { padding: 8px 0 4px 16px; }
+  .body p { margin: 6px 0; }
+  .opt { margin: 6px 0; }
+  .opt .sc { color: var(--muted); font-size: 12px; }
+  .opt .cons { color: var(--ink-2); }
+  .ok { color: var(--good); font-weight: 600; }
+  .stage { white-space: nowrap; }
+  .empty { color: var(--muted); padding: 24px 0; text-align: center; }
+  .count { color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>Question generator</h1>
+      <div class="sub" id="built"></div>
+    </div>
+    <div class="sub">Rebuild after each run: <code>npm run bank:dashboard</code></div>
+  </header>
+
+  <section class="tiles" id="tiles"></section>
+
+  <div class="grid" style="margin-top:16px">
+    <section class="card span-6">
+      <h2>Pipeline funnel</h2>
+      <p class="sub">All runs: how many candidates survive each check.</p>
+      <div id="funnel"></div>
+    </section>
+    <section class="card span-6">
+      <h2>Bank coverage</h2>
+      <p class="sub">Seeds and accepted generated items per category and age band.</p>
+      <div class="legend"><span style="--c:var(--s1)">Ages 8–10</span><span style="--c:var(--s2)">Ages 11–14</span></div>
+      <div id="coverage"></div>
+    </section>
+    <section class="card span-6">
+      <h2>Bank growth</h2>
+      <p class="sub">Items in the bank after each run.</p>
+      <div id="growth"></div>
+    </section>
+    <section class="card span-6">
+      <h2>Difficulty spread</h2>
+      <p class="sub">Grader's difficulty rating, all items. The game needs items across 1–4 to adapt.</p>
+      <div class="legend"><span style="--c:var(--s1)">Ages 8–10</span><span style="--c:var(--s2)">Ages 11–14</span></div>
+      <div id="difficulty"></div>
+      <p class="sub" id="asked" style="margin-top:8px"></p>
+    </section>
+
+    <section class="card span-12">
+      <h2>Runs</h2>
+      <p class="sub">Newest first. Cost is approximate and counts only models with a known price.</p>
+      <div class="scroll"><table id="runs"></table></div>
+    </section>
+
+    <section class="card span-8">
+      <h2>Rejected candidates</h2>
+      <p class="sub">Newest first: where each candidate was stopped and why.</p>
+      <div class="scroll"><table id="rejected"></table></div>
+    </section>
+    <section class="card span-4">
+      <h2>Model usage</h2>
+      <p class="sub">All runs. Thinking tokens are billed as output.</p>
+      <table id="usage"></table>
+    </section>
+
+    <section class="card span-12">
+      <h2>Item browser</h2>
+      <div class="filters">
+        <select id="f-source"><option value="">Seeds and generated</option><option>Seed</option><option>Generated</option></select>
+        <select id="f-category"><option value="">All categories</option></select>
+        <select id="f-band"><option value="">All ages</option><option>8-10</option><option>11-14</option></select>
+        <select id="f-diff"><option value="">Any difficulty</option><option>1</option><option>2</option><option>3</option><option>4</option></select>
+        <input type="search" id="f-q" placeholder="Search titles and text">
+      </div>
+      <div class="count" id="f-count"></div>
+      <div id="items"></div>
+    </section>
+  </div>
+</main>
+<div id="tip" role="tooltip"></div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = (n) => (n == null ? "–" : Number(n).toLocaleString("en-IN"));
+const pct = (x) => (x == null ? "–" : `${Math.round(x * 100)}%`);
+const usd = (x, d = 2) => (x == null ? "–" : `$${x.toFixed(d)}`);
+const compact = (n) => (n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e4 ? `${(n / 1e3).toFixed(0)}K` : n >= 1e3 ? `${(n / 1e3).toFixed(1)}K` : String(n));
+const when = (iso) => (iso ? new Date(iso).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "–");
+const SVGNS = "http://www.w3.org/2000/svg";
+
+/* ---------- tooltip ---------- */
+const tip = $("#tip");
+function showTip(e, html) { tip.innerHTML = html; tip.style.display = "block"; moveTip(e); }
+function moveTip(e) {
+  const pad = 14, r = tip.getBoundingClientRect();
+  let x = e.clientX + pad, y = e.clientY + pad;
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - pad;
+  if (y + r.height > innerHeight - 8) y = e.clientY - r.height - pad;
+  tip.style.left = `${x}px`; tip.style.top = `${y}px`;
+}
+function hideTip() { tip.style.display = "none"; }
+function bindTip(el, html) {
+  el.addEventListener("mouseenter", (e) => showTip(e, html));
+  el.addEventListener("mousemove", moveTip);
+  el.addEventListener("mouseleave", hideTip);
+}
+
+/* ---------- svg helpers ---------- */
+function svgEl(tag, attrs = {}, parent) {
+  const el = document.createElementNS(SVGNS, tag);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  if (parent) parent.appendChild(el);
+  return el;
+}
+/** Horizontal bar: square at the baseline, 4px rounded data end. */
+function barPath(x0, x1, y, h, r = 4) {
+  const w = Math.max(0, x1 - x0);
+  if (w === 0) return "";
+  r = Math.min(r, w, h / 2);
+  return `M${x0},${y}H${x0 + w - r}Q${x0 + w},${y} ${x0 + w},${y + r}V${y + h - r}Q${x0 + w},${y + h} ${x0 + w - r},${y + h}H${x0}Z`;
+}
+
+/**
+ * Horizontal (grouped) bars. rows: [{label, values:[...], tips?:[...]}], series: [{name, color}]
+ */
+function hbars(container, rows, series, opts = {}) {
+  container.innerHTML = "";
+  if (!rows.length) { container.innerHTML = `<div class="empty">No data yet</div>`; return; }
+  const width = container.clientWidth || 500;
+  const labelW = Math.min(170, Math.max(148, width * 0.38));
+  const longest = Math.max(...rows.flatMap((r) => r.values.map((v, s) => String(opts.format ? opts.format(v, r, s) : fmt(v)).length)));
+  const valueW = 12 + longest * 7.2;
+  const barH = series.length > 1 ? 12 : 16, gap = 2, rowPad = 12;
+  const rowH = series.length * barH + (series.length - 1) * gap + rowPad;
+  const height = rows.length * rowH;
+  const max = Math.max(1, ...rows.flatMap((r) => r.values));
+  const x = (v) => labelW + (v / max) * (width - labelW - valueW);
+  const svg = svgEl("svg", { viewBox: `0 0 ${width} ${height}`, height, role: "img", "aria-label": opts.aria || "bar chart" });
+  svgEl("line", { x1: labelW, x2: labelW, y1: 0, y2: height, style: "stroke:var(--axis);stroke-width:1" }, svg);
+  rows.forEach((row, i) => {
+    const y0 = i * rowH + rowPad / 2;
+    const t = svgEl("text", { x: labelW - 8, y: y0 + (rowH - rowPad) / 2 + 4, "text-anchor": "end" }, svg);
+    t.textContent = row.label;
+    row.values.forEach((v, s) => {
+      const y = y0 + s * (barH + gap);
+      svgEl("path", { d: barPath(labelW, x(v), y, barH), class: "bar", style: `fill:${series[s].color}` }, svg);
+      const lbl = svgEl("text", { x: x(v) + 6, y: y + barH / 2 + 4, class: "val" }, svg);
+      lbl.textContent = opts.format ? opts.format(v, row, s) : fmt(v);
+      const hit = svgEl("rect", { x: labelW, y: y - gap / 2, width: width - labelW, height: barH + gap, class: "hit" }, svg);
+      const detail = row.tips?.[s] ?? "";
+      bindTip(hit, `<b>${esc(row.label)}${series.length > 1 ? ` · ${esc(series[s].name)}` : ""}</b>${opts.format ? opts.format(v, row, s) : fmt(v)}${detail ? `<br><span class="muted">${esc(detail)}</span>` : ""}`);
+    });
+  });
+  container.appendChild(svg);
+}
+
+/** Line with area wash, end dot and crosshair tooltip. points: [{label, value, tip}] */
+function line(container, points) {
+  container.innerHTML = "";
+  if (points.length < 2) { container.innerHTML = `<div class="empty">Shows after the first run</div>`; return; }
+  const width = container.clientWidth || 500, height = 220, m = { l: 40, r: 16, t: 12, b: 28 };
+  const top = Math.max(...points.map((p) => p.value));
+  const rawStep = top / 4, mag = 10 ** Math.floor(Math.log10(rawStep || 1));
+  const tickStep = [1, 2, 2.5, 5, 10].map((f) => f * mag).find((st) => st >= rawStep) || mag * 10;
+  const min = 0, max = Math.ceil((top * 1.05) / tickStep) * tickStep;
+  const x = (i) => m.l + (i / (points.length - 1)) * (width - m.l - m.r);
+  const y = (v) => height - m.b - ((v - min) / (max - min)) * (height - m.t - m.b);
+  const svg = svgEl("svg", { viewBox: `0 0 ${width} ${height}`, height, role: "img", "aria-label": "bank growth line chart" });
+  for (let k = 0; k * tickStep <= max + 1e-9; k++) {
+    const v = k * tickStep, yy = y(v);
+    svgEl("line", { x1: m.l, x2: width - m.r, y1: yy, y2: yy, style: `stroke:var(${k === 0 ? "--axis" : "--grid"});stroke-width:1` }, svg);
+    const t = svgEl("text", { x: m.l - 6, y: yy + 4, "text-anchor": "end", class: "tick" }, svg); t.textContent = fmt(v);
+  }
+  const step = Math.max(1, Math.ceil(points.length / 6));
+  points.forEach((p, i) => {
+    if (i % step && i !== points.length - 1) return;
+    const t = svgEl("text", { x: x(i), y: height - 8, "text-anchor": "middle", class: "tick" }, svg); t.textContent = p.label;
+  });
+  const d = points.map((p, i) => `${i ? "L" : "M"}${x(i)},${y(p.value)}`).join("");
+  svgEl("path", { d: `${d}L${x(points.length - 1)},${y(0)}L${x(0)},${y(0)}Z`, style: "fill:var(--wash)" }, svg);
+  svgEl("path", { d, style: "fill:none;stroke:var(--s1);stroke-width:2;stroke-linejoin:round;stroke-linecap:round" }, svg);
+  const last = points[points.length - 1];
+  svgEl("circle", { cx: x(points.length - 1), cy: y(last.value), r: 4, style: "fill:var(--s1);stroke:var(--surface);stroke-width:2" }, svg);
+  const endLbl = svgEl("text", { x: x(points.length - 1) - 8, y: y(last.value) - 10, "text-anchor": "end", class: "val" }, svg); endLbl.textContent = fmt(last.value);
+  const cross = svgEl("line", { y1: m.t, y2: height - m.b, style: "stroke:var(--axis);stroke-width:1;display:none" }, svg);
+  const dot = svgEl("circle", { r: 4, style: "fill:var(--s1);stroke:var(--surface);stroke-width:2;display:none" }, svg);
+  const hit = svgEl("rect", { x: m.l, y: m.t, width: width - m.l - m.r, height: height - m.t - m.b, class: "hit" }, svg);
+  hit.addEventListener("mousemove", (e) => {
+    const bx = svg.getBoundingClientRect(), px = ((e.clientX - bx.left) / bx.width) * width;
+    const i = Math.max(0, Math.min(points.length - 1, Math.round(((px - m.l) / (width - m.l - m.r)) * (points.length - 1))));
+    cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i)); cross.style.display = "";
+    dot.setAttribute("cx", x(i)); dot.setAttribute("cy", y(points[i].value)); dot.style.display = "";
+    showTip(e, points[i].tip);
+  });
+  hit.addEventListener("mouseleave", () => { cross.style.display = "none"; dot.style.display = "none"; hideTip(); });
+  container.appendChild(svg);
+}
+
+/* ---------- sections ---------- */
+function renderTiles() {
+  const k = DATA.kpis;
+  const tiles = [
+    { label: "Items in the bank", value: fmt(k.bank), note: `${fmt(k.seeds)} seeds · ${fmt(k.generated)} generated`, hero: true },
+    { label: "Generator runs", value: fmt(k.runs), note: `${fmt(k.requested)} candidates requested` },
+    { label: "Acceptance rate", value: pct(k.acceptance), note: `${fmt(k.generated)} of ${fmt(k.requested)} accepted` },
+    { label: "Approximate cost", value: usd(k.cost), note: "priced models only" },
+    { label: "Cost per accepted item", value: k.costPerItem == null ? "–" : `${(k.costPerItem * 100).toFixed(1)}¢`, note: "approximate" },
+  ];
+  $("#tiles").innerHTML = tiles.map((t) => `<div class="card tile${t.hero ? " hero" : ""}"><div class="label">${t.label}</div><div class="value">${t.value}</div><div class="note">${t.note}</div></div>`).join("");
+  $("#built").textContent = `Built ${when(DATA.builtAt)} from local seed and run files`;
+}
+
+function renderCharts() {
+  const first = DATA.funnel[0]?.value || 0;
+  hbars($("#funnel"), DATA.funnel.filter((f, i) => i === 0 || f.dropped > 0 || i === DATA.funnel.length - 1).map((f) => ({
+    label: f.label, values: [f.value], tips: [f.dropped ? `${fmt(f.dropped)} stopped at this step` : ""],
+  })), [{ name: "Candidates", color: "var(--s1)" }], { aria: "pipeline funnel", format: (v) => `${fmt(v)}${first ? ` (${Math.round((v / first) * 100)}%)` : ""}` });
+
+  hbars($("#coverage"), DATA.coverage.map((c) => ({ label: c.label, values: c.values, tips: c.detail })),
+    [{ name: "Ages 8–10", color: "var(--s1)" }, { name: "Ages 11–14", color: "var(--s2)" }], { aria: "bank coverage by category and age band" });
+
+  hbars($("#difficulty"), DATA.difficulty, [{ name: "Ages 8–10", color: "var(--s1)" }, { name: "Ages 11–14", color: "var(--s2)" }], { aria: "difficulty spread" });
+  const avg = DATA.askedVsGraded;
+  if (avg.length) {
+    const exact = avg.filter((a) => a.asked === a.graded).length, under = avg.filter((a) => a.graded < a.asked).length;
+    $("#asked").textContent = `Generated items asked for a difficulty: graded the same ${exact}, graded easier ${under}, graded harder ${avg.length - exact - under} (of ${avg.length}).`;
+  }
+
+  line($("#growth"), [{ label: "Seeds", value: DATA.kpis.seeds, tip: `<b>Hand-written seeds</b>${fmt(DATA.kpis.seeds)} items before any generator run` }].concat(DATA.runs.map((r) => ({
+    label: `#${r.n}`, value: r.bankAfter,
+    tip: `<b>Run #${r.n} · ${esc(when(r.startedAt))}</b>${fmt(r.bankAfter)} items after this run<br><span class="muted">+${fmt(r.accepted)} accepted · ${esc(r.targets)}</span>`,
+  }))));
+}
+
+function renderTables() {
+  const stageShort = { generator: "A", rules: "rules", duplicate: "dup", grader: "B", category: "category", curator: "C", schema: "schema" };
+  const runs = [...DATA.runs].reverse();
+  $("#runs").innerHTML = `<thead><tr><th>#</th><th>Started</th><th>Target</th><th class="num">Requested</th><th class="num">Accepted</th><th class="num">Rate</th><th>Rejected at</th><th class="num">Tokens</th><th class="num">Cost</th><th class="num">Minutes</th></tr></thead><tbody>${
+    runs.map((r) => `<tr><td class="num">${r.n}</td><td>${esc(when(r.startedAt))}</td><td>${esc(r.targets)}</td><td class="num">${fmt(r.requested)}</td><td class="num">${fmt(r.accepted)}</td><td class="num">${pct(r.requested ? r.accepted / r.requested : null)}</td><td>${
+      Object.entries(r.rejectedByStage).map(([k, v]) => `${stageShort[k] ?? k} ${v}`).join(", ") || "–"}</td><td class="num">${compact(r.tokens)}</td><td class="num">${usd(r.cost, 3)}</td><td class="num">${r.minutes == null ? "–" : r.minutes.toFixed(1)}</td></tr>`).join("")
+  }</tbody>`;
+  if (!runs.length) $("#runs").innerHTML = `<tr><td class="empty">No runs yet</td></tr>`;
+
+  $("#rejected").innerHTML = DATA.rejected.length
+    ? `<thead><tr><th>Candidate</th><th>Stopped at</th><th>Reason</th><th>Target</th></tr></thead><tbody>${
+      DATA.rejected.map((r) => `<tr><td>${esc(r.title)}</td><td class="stage">${esc(r.stage)}</td><td>${esc(r.reason)}</td><td>${esc(r.target)} ${esc(r.band)}</td></tr>`).join("")}</tbody>`
+    : `<tr><td class="empty">Nothing rejected yet</td></tr>`;
+
+  $("#usage").innerHTML = DATA.usage.length
+    ? `<thead><tr><th>Model</th><th class="num">Calls</th><th class="num">Input</th><th class="num">Output</th></tr></thead><tbody>${
+      DATA.usage.map((u) => `<tr><td>${esc(u.model)}</td><td class="num">${fmt(u.calls)}</td><td class="num">${compact(u.input)}</td><td class="num">${compact(u.output + u.thinking)}</td></tr>`).join("")}</tbody>`
+    : `<tr><td class="empty">No usage recorded</td></tr>`;
+}
+
+/* ---------- item browser ---------- */
+const cats = [...new Set(DATA.items.map((i) => i.category))].sort();
+$("#f-category").insertAdjacentHTML("beforeend", cats.map((c) => `<option>${esc(c)}</option>`).join(""));
+function renderItems() {
+  const f = { source: $("#f-source").value, category: $("#f-category").value, band: $("#f-band").value, diff: $("#f-diff").value, q: $("#f-q").value.trim().toLowerCase() };
+  const list = DATA.items.filter((i) =>
+    (!f.source || i.source === f.source) && (!f.category || i.category === f.category) && (!f.band || i.band === f.band) &&
+    (!f.diff || String(i.difficulty) === f.diff) && (!f.q || `${i.title} ${i.text}`.toLowerCase().includes(f.q)));
+  $("#f-count").textContent = `${list.length} of ${DATA.items.length} items`;
+  $("#items").innerHTML = list.length ? list.map((i) => `
+    <details class="item"><summary><b>${esc(i.title)}</b>
+      <span class="chip${i.source === "Generated" ? " gen" : ""}">${i.source}</span><span class="chip">${esc(i.category)}</span>
+      <span class="chip">ages ${i.band}</span><span class="chip">difficulty ${i.difficulty}${i.askedDifficulty && i.askedDifficulty !== i.difficulty ? ` (asked ${i.askedDifficulty})` : ""}</span>
+      <span class="chip">~${i.seconds}s</span></summary>
+      <div class="body">
+        <p>${esc(i.text)}</p>
+        ${i.options.map((o) => `<div class="opt"><b>${o.id})</b> ${esc(o.text)} ${o.correct ? `<span class="ok">✓ correct</span>` : ""}
+          ${o.scores.length ? `<div class="sc">${esc(o.scores.join(" · "))}</div>` : ""}<div class="cons">→ ${esc(o.consequence)}</div></div>`).join("")}
+        ${i.hint ? `<p><b>Hint:</b> ${esc(i.hint)}</p>` : ""}
+        ${i.explanation ? `<p><b>Explanation:</b> ${esc(i.explanation)}</p>` : ""}
+        ${i.grader ? `<p class="muted"><b>Grader (B):</b> ${esc(i.grader)}</p>` : ""}
+        ${i.curator ? `<p class="muted"><b>Curator (C):</b> ${esc(i.curator.join(" · "))}</p>` : ""}
+        <p class="muted">${esc(i.id)}${i.similarity != null ? ` · closest existing item similarity ${i.similarity.toFixed(2)}` : ""}${i.runId ? ` · run ${esc(i.runId)}` : ""}</p>
+      </div></details>`).join("") : `<div class="empty">No items match these filters</div>`;
+}
+["#f-source", "#f-category", "#f-band", "#f-diff"].forEach((s) => $(s).addEventListener("change", renderItems));
+$("#f-q").addEventListener("input", renderItems);
+
+renderTiles(); renderCharts(); renderTables(); renderItems();
+let resizeTimer;
+addEventListener("resize", () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(renderCharts, 150); });
+</script>
+</body>
+</html>

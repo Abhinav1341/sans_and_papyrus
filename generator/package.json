@@ -7,7 +7,8 @@
     "bank:upload-seeds": "tsx scripts/upload-seeds.ts",
     "bank:expand": "tsx scripts/expand-bank.ts",
     "typecheck": "tsc --noEmit",
-    "bank:export": "tsx scripts/export-readable.ts"
+    "bank:export": "tsx scripts/export-readable.ts",
+    "bank:dashboard": "tsx scripts/dashboard.ts"
   },
   "dependencies": {
     "@google-cloud/firestore": "^9.3.1",
