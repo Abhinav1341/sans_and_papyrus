@@ -1,0 +1,4 @@
+node_modules/
+# embedding caches (large, regenerated as needed)
+output/*.embeddings.json
+output/.seed-embeddings.json

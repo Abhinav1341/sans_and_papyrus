@@ -1,0 +1,924 @@
+[
+  {
+    "id": "pz-math-01",
+    "kind": "puzzle",
+    "title": "Sharing sweets fairly",
+    "text": "You have 12 sweets and 4 friends at your birthday party. You want everyone to get the same number. How many sweets does each friend get?",
+    "ageBand": "8-10",
+    "readingLevel": 1,
+    "wordCount": 26,
+    "expectedTimeSec": 30,
+    "difficulty": 1,
+    "primaryCompetencies": [
+      "responsibleDecisionMaking"
+    ],
+    "valueTags": [
+      "fairness",
+      "sharing"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "2",
+        "consequence": "Four sweets are left over in the box."
+      },
+      {
+        "id": "b",
+        "text": "3",
+        "consequence": "Everyone gets the same, and nobody feels left out!"
+      },
+      {
+        "id": "c",
+        "text": "4",
+        "consequence": "You run out before the last friend gets any."
+      },
+      {
+        "id": "d",
+        "text": "6",
+        "consequence": "Only two friends would get sweets."
+      }
+    ],
+    "puzzle": {
+      "domain": "math",
+      "correctOptionId": "b",
+      "explanation": "12 sweets shared by 4 friends is 12 ÷ 4 = 3 each.",
+      "computation": "12 / 4"
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Try handing out one sweet to each friend at a time."
+    }
+  },
+  {
+    "id": "pz-math-02",
+    "kind": "puzzle",
+    "title": "Saving for a book",
+    "text": "Aarav has ₹45. The storybook he wants costs ₹70. If he saves ₹5 every day, how many days until he can buy it?",
+    "ageBand": "8-10",
+    "readingLevel": 2,
+    "wordCount": 23,
+    "expectedTimeSec": 34,
+    "difficulty": 2,
+    "primaryCompetencies": [
+      "selfManagement"
+    ],
+    "valueTags": [
+      "patience",
+      "saving"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "4 days",
+        "consequence": "He's still a little short at the shop."
+      },
+      {
+        "id": "b",
+        "text": "5 days",
+        "consequence": "On day five, the book is his!"
+      },
+      {
+        "id": "c",
+        "text": "6 days",
+        "consequence": "He has ₹5 extra for a bookmark."
+      },
+      {
+        "id": "d",
+        "text": "25 days",
+        "consequence": "That's much longer than he needs to wait."
+      }
+    ],
+    "puzzle": {
+      "domain": "math",
+      "correctOptionId": "b",
+      "explanation": "He needs ₹70 − ₹45 = ₹25 more. At ₹5 a day, that's 25 ÷ 5 = 5 days.",
+      "computation": "(70 - 45) / 5"
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "First work out how much more money he needs."
+    }
+  },
+  {
+    "id": "pz-math-03",
+    "kind": "puzzle",
+    "title": "When does lunch end?",
+    "text": "Lunch break starts at 12:40 and lasts 35 minutes. What time does lunch break end?",
+    "ageBand": "8-10",
+    "readingLevel": 2,
+    "wordCount": 15,
+    "expectedTimeSec": 29,
+    "difficulty": 2,
+    "primaryCompetencies": [],
+    "valueTags": [
+      "time"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "1:05",
+        "consequence": "The bell hasn't rung yet!"
+      },
+      {
+        "id": "b",
+        "text": "1:15",
+        "consequence": "The bell rings right on time."
+      },
+      {
+        "id": "c",
+        "text": "1:25",
+        "consequence": "Oops, you'd be late for class."
+      },
+      {
+        "id": "d",
+        "text": "12:75",
+        "consequence": "Clocks only go up to 59 minutes."
+      }
+    ],
+    "puzzle": {
+      "domain": "math",
+      "correctOptionId": "b",
+      "explanation": "12:40 plus 20 minutes is 1:00. Then 15 more minutes makes 1:15."
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "How many minutes until 1:00?"
+    }
+  },
+  {
+    "id": "pz-math-04",
+    "kind": "puzzle",
+    "title": "Vans for the class trip",
+    "text": "38 students are going on a class trip. Each van holds 8 students. How many vans are needed so nobody is left behind?",
+    "ageBand": "11-14",
+    "readingLevel": 3,
+    "wordCount": 23,
+    "expectedTimeSec": 29,
+    "difficulty": 2,
+    "primaryCompetencies": [
+      "responsibleDecisionMaking"
+    ],
+    "valueTags": [
+      "planning",
+      "inclusion"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "4",
+        "consequence": "Six students would be left at school."
+      },
+      {
+        "id": "b",
+        "text": "5",
+        "consequence": "Everyone fits, with room for two bags!"
+      },
+      {
+        "id": "c",
+        "text": "6",
+        "consequence": "One van drives along empty."
+      },
+      {
+        "id": "d",
+        "text": "4.75",
+        "consequence": "You can't book three-quarters of a van."
+      }
+    ],
+    "puzzle": {
+      "domain": "math",
+      "correctOptionId": "b",
+      "explanation": "38 ÷ 8 = 4.75, but you can't have part of a van, so round up to 5.",
+      "computation": "ceil(38 / 8)"
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "What happens to the students who don't fit in 4 vans?"
+    }
+  },
+  {
+    "id": "pz-math-05",
+    "kind": "puzzle",
+    "title": "Festival sale",
+    "text": "A pair of shoes costs ₹800. The shop has a 25% off sale for the festival. What is the sale price?",
+    "ageBand": "11-14",
+    "readingLevel": 3,
+    "wordCount": 21,
+    "expectedTimeSec": 28,
+    "difficulty": 2,
+    "primaryCompetencies": [],
+    "valueTags": [
+      "money"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "₹200",
+        "consequence": "That's only the discount, not the price."
+      },
+      {
+        "id": "b",
+        "text": "₹575",
+        "consequence": "Close, but the shopkeeper shakes his head."
+      },
+      {
+        "id": "c",
+        "text": "₹600",
+        "consequence": "You pay ₹600 and walk out happy."
+      },
+      {
+        "id": "d",
+        "text": "₹775",
+        "consequence": "That's only ₹25 off."
+      }
+    ],
+    "puzzle": {
+      "domain": "math",
+      "correctOptionId": "c",
+      "explanation": "25% of ₹800 is ₹200. So the price is ₹800 − ₹200 = ₹600.",
+      "computation": "800 * (1 - 0.25)"
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "25% is the same as one quarter."
+    }
+  },
+  {
+    "id": "pz-math-06",
+    "kind": "puzzle",
+    "title": "Meera's next test",
+    "text": "Meera scored 72, 85 and 90 in three tests. What does she need in the fourth test to have an average of 85?",
+    "ageBand": "11-14",
+    "readingLevel": 4,
+    "wordCount": 23,
+    "expectedTimeSec": 35,
+    "difficulty": 3,
+    "primaryCompetencies": [
+      "selfManagement"
+    ],
+    "valueTags": [
+      "perseverance",
+      "goals"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "85",
+        "consequence": "Her average would be a little under 85."
+      },
+      {
+        "id": "b",
+        "text": "88",
+        "consequence": "Nearly there, but just short."
+      },
+      {
+        "id": "c",
+        "text": "93",
+        "consequence": "Her average lands exactly on 85!"
+      },
+      {
+        "id": "d",
+        "text": "95",
+        "consequence": "She'd go a bit above her goal."
+      }
+    ],
+    "puzzle": {
+      "domain": "math",
+      "correctOptionId": "c",
+      "explanation": "An average of 85 over 4 tests needs 85 × 4 = 340 marks. She has 247, so she needs 340 − 247 = 93.",
+      "computation": "85 * 4 - (72 + 85 + 90)"
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "What total marks would four tests need for an average of 85?"
+    }
+  },
+  {
+    "id": "pz-reason-01",
+    "kind": "puzzle",
+    "title": "What comes next?",
+    "text": "Look at the numbers: 2, 4, 8, 16, … What number comes next?",
+    "ageBand": "8-10",
+    "readingLevel": 1,
+    "wordCount": 13,
+    "expectedTimeSec": 22,
+    "difficulty": 1,
+    "primaryCompetencies": [],
+    "valueTags": [
+      "patterns"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "18",
+        "consequence": "That pattern would add 2 each time."
+      },
+      {
+        "id": "b",
+        "text": "20",
+        "consequence": "That would add 4."
+      },
+      {
+        "id": "c",
+        "text": "24",
+        "consequence": "That would add 8."
+      },
+      {
+        "id": "d",
+        "text": "32",
+        "consequence": "The pattern keeps doubling!"
+      }
+    ],
+    "puzzle": {
+      "domain": "reasoning",
+      "correctOptionId": "d",
+      "explanation": "Each number is double the one before it, so 16 × 2 = 32.",
+      "computation": "16 * 2"
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "How do you get from 2 to 4, and from 4 to 8?"
+    }
+  },
+  {
+    "id": "pz-reason-02",
+    "kind": "puzzle",
+    "title": "The lunch queue",
+    "text": "In the lunch queue, Riya is in front of Kabir. Kabir is in front of Sam. Who is at the back of the queue?",
+    "ageBand": "8-10",
+    "readingLevel": 1,
+    "wordCount": 24,
+    "expectedTimeSec": 28,
+    "difficulty": 1,
+    "primaryCompetencies": [],
+    "valueTags": [
+      "logic"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Riya",
+        "consequence": "Riya is actually at the front."
+      },
+      {
+        "id": "b",
+        "text": "Kabir",
+        "consequence": "Kabir is in the middle."
+      },
+      {
+        "id": "c",
+        "text": "Sam",
+        "consequence": "Sam waits at the back for his turn."
+      }
+    ],
+    "puzzle": {
+      "domain": "reasoning",
+      "correctOptionId": "c",
+      "explanation": "Riya is first, then Kabir, then Sam. So Sam is at the back."
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Try drawing three stick people in a line."
+    }
+  },
+  {
+    "id": "pz-reason-03",
+    "kind": "puzzle",
+    "title": "Odd one out",
+    "text": "Which one does not belong with the others: apple, mango, carrot, banana?",
+    "ageBand": "8-10",
+    "readingLevel": 1,
+    "wordCount": 12,
+    "expectedTimeSec": 21,
+    "difficulty": 1,
+    "primaryCompetencies": [],
+    "valueTags": [
+      "categories"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Apple",
+        "consequence": "Apple is a fruit like the others."
+      },
+      {
+        "id": "b",
+        "text": "Mango",
+        "consequence": "Mango is a fruit too."
+      },
+      {
+        "id": "c",
+        "text": "Carrot",
+        "consequence": "Carrot is the only vegetable!"
+      },
+      {
+        "id": "d",
+        "text": "Banana",
+        "consequence": "Banana is also a fruit."
+      }
+    ],
+    "puzzle": {
+      "domain": "reasoning",
+      "correctOptionId": "c",
+      "explanation": "Apple, mango and banana are fruits. Carrot is a vegetable."
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z"
+  },
+  {
+    "id": "pz-reason-04",
+    "kind": "puzzle",
+    "title": "The last laddoo",
+    "text": "Someone ate the last laddoo. Anu says, \"Bilal ate it.\" Bilal says, \"I didn't eat it.\" Chitra says, \"I didn't eat it.\" Only one of them is telling the truth. Who ate the laddoo?",
+    "ageBand": "11-14",
+    "readingLevel": 4,
+    "wordCount": 34,
+    "expectedTimeSec": 40,
+    "difficulty": 3,
+    "primaryCompetencies": [
+      "responsibleDecisionMaking"
+    ],
+    "valueTags": [
+      "honesty",
+      "logic"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Anu",
+        "consequence": "Then two people would be telling the truth."
+      },
+      {
+        "id": "b",
+        "text": "Bilal",
+        "consequence": "Then two people would be telling the truth."
+      },
+      {
+        "id": "c",
+        "text": "Chitra",
+        "consequence": "Chitra smiles sheepishly and says sorry."
+      }
+    ],
+    "puzzle": {
+      "domain": "reasoning",
+      "correctOptionId": "c",
+      "explanation": "Test each person. Only if Chitra ate it is exactly one statement true: Bilal's \"I didn't eat it.\""
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Pretend each person ate it, then count how many are telling the truth."
+    }
+  },
+  {
+    "id": "pz-reason-05",
+    "kind": "puzzle",
+    "title": "Square numbers",
+    "text": "What comes next: 1, 4, 9, 16, 25, …?",
+    "ageBand": "11-14",
+    "readingLevel": 3,
+    "wordCount": 9,
+    "expectedTimeSec": 24,
+    "difficulty": 2,
+    "primaryCompetencies": [],
+    "valueTags": [
+      "patterns"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "30",
+        "consequence": "That would add 5."
+      },
+      {
+        "id": "b",
+        "text": "34",
+        "consequence": "Close, but the gaps keep growing."
+      },
+      {
+        "id": "c",
+        "text": "36",
+        "consequence": "The pattern continues perfectly!"
+      },
+      {
+        "id": "d",
+        "text": "49",
+        "consequence": "That skips a step."
+      }
+    ],
+    "puzzle": {
+      "domain": "reasoning",
+      "correctOptionId": "c",
+      "explanation": "These are square numbers: 1×1, 2×2, 3×3, 4×4, 5×5. Next is 6×6 = 36.",
+      "computation": "6 * 6"
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Look at the gaps between the numbers: 3, 5, 7, 9…"
+    }
+  },
+  {
+    "id": "pz-reason-06",
+    "kind": "puzzle",
+    "title": "Which day was it?",
+    "text": "If the day after tomorrow is Sunday, what day was yesterday?",
+    "ageBand": "11-14",
+    "readingLevel": 3,
+    "wordCount": 11,
+    "expectedTimeSec": 24,
+    "difficulty": 2,
+    "primaryCompetencies": [],
+    "valueTags": [
+      "time",
+      "logic"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Wednesday",
+        "consequence": "That's one day too early."
+      },
+      {
+        "id": "b",
+        "text": "Thursday",
+        "consequence": "Yes, yesterday was Thursday!"
+      },
+      {
+        "id": "c",
+        "text": "Friday",
+        "consequence": "Friday is actually today."
+      },
+      {
+        "id": "d",
+        "text": "Saturday",
+        "consequence": "Saturday is tomorrow."
+      }
+    ],
+    "puzzle": {
+      "domain": "reasoning",
+      "correctOptionId": "b",
+      "explanation": "If the day after tomorrow is Sunday, tomorrow is Saturday and today is Friday. So yesterday was Thursday."
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Start from Sunday and count backwards."
+    }
+  },
+  {
+    "id": "pz-vocab-01",
+    "kind": "puzzle",
+    "title": "Feeling anxious",
+    "text": "Kabir felt anxious before the school race. What does anxious mean?",
+    "ageBand": "8-10",
+    "readingLevel": 1,
+    "wordCount": 11,
+    "expectedTimeSec": 21,
+    "difficulty": 1,
+    "primaryCompetencies": [
+      "selfAwareness"
+    ],
+    "valueTags": [
+      "feelings"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Worried or nervous",
+        "consequence": "Kabir takes a deep breath and feels a bit calmer."
+      },
+      {
+        "id": "b",
+        "text": "Very happy",
+        "consequence": "Happy is a different feeling."
+      },
+      {
+        "id": "c",
+        "text": "Sleepy",
+        "consequence": "Sleepy is when you need rest."
+      },
+      {
+        "id": "d",
+        "text": "Angry",
+        "consequence": "Angry is a different feeling."
+      }
+    ],
+    "puzzle": {
+      "domain": "vocabulary",
+      "correctOptionId": "a",
+      "explanation": "Anxious means feeling worried or nervous about something that's going to happen."
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "How might you feel just before a race starts?"
+    }
+  },
+  {
+    "id": "pz-vocab-02",
+    "kind": "puzzle",
+    "title": "Opposite of generous",
+    "text": "Priya is generous. She always shares her colours. What is the opposite of generous?",
+    "ageBand": "8-10",
+    "readingLevel": 1,
+    "wordCount": 14,
+    "expectedTimeSec": 22,
+    "difficulty": 1,
+    "primaryCompetencies": [
+      "relationshipSkills"
+    ],
+    "valueTags": [
+      "sharing"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Kind",
+        "consequence": "Kind is close in meaning, not opposite."
+      },
+      {
+        "id": "b",
+        "text": "Selfish",
+        "consequence": "Yes, selfish means not wanting to share."
+      },
+      {
+        "id": "c",
+        "text": "Rich",
+        "consequence": "Rich means having lots of money."
+      },
+      {
+        "id": "d",
+        "text": "Brave",
+        "consequence": "Brave means facing fear."
+      }
+    ],
+    "puzzle": {
+      "domain": "vocabulary",
+      "correctOptionId": "b",
+      "explanation": "Generous means happy to share. The opposite is selfish, which means not wanting to share."
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z"
+  },
+  {
+    "id": "pz-vocab-03",
+    "kind": "puzzle",
+    "title": "Another word for brave",
+    "text": "Zoya was brave when she spoke up for a new student. Which word means the same as brave?",
+    "ageBand": "8-10",
+    "readingLevel": 2,
+    "wordCount": 18,
+    "expectedTimeSec": 31,
+    "difficulty": 2,
+    "primaryCompetencies": [
+      "socialAwareness"
+    ],
+    "valueTags": [
+      "courage",
+      "kindness"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Scared",
+        "consequence": "Scared is almost the opposite."
+      },
+      {
+        "id": "b",
+        "text": "Courageous",
+        "consequence": "Courageous, just like Zoya!"
+      },
+      {
+        "id": "c",
+        "text": "Quiet",
+        "consequence": "Quiet means not making much noise."
+      },
+      {
+        "id": "d",
+        "text": "Tired",
+        "consequence": "Tired means needing rest."
+      }
+    ],
+    "puzzle": {
+      "domain": "vocabulary",
+      "correctOptionId": "b",
+      "explanation": "Courageous means brave: doing the right thing even when it feels hard."
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Which word would describe a superhero?"
+    }
+  },
+  {
+    "id": "pz-vocab-04",
+    "kind": "puzzle",
+    "title": "Feeling frustrated",
+    "text": "Ira felt frustrated when her science model kept falling apart. What does frustrated mean here?",
+    "ageBand": "11-14",
+    "readingLevel": 3,
+    "wordCount": 15,
+    "expectedTimeSec": 26,
+    "difficulty": 2,
+    "primaryCompetencies": [
+      "selfAwareness"
+    ],
+    "valueTags": [
+      "feelings",
+      "perseverance"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Annoyed because things weren't working",
+        "consequence": "Ira takes a short break, then tries again."
+      },
+      {
+        "id": "b",
+        "text": "Excited about something new",
+        "consequence": "That's a happier feeling."
+      },
+      {
+        "id": "c",
+        "text": "Tired after a long day",
+        "consequence": "Tired is about energy, not this feeling."
+      },
+      {
+        "id": "d",
+        "text": "Proud of her work",
+        "consequence": "Proud comes when things go well."
+      }
+    ],
+    "puzzle": {
+      "domain": "vocabulary",
+      "correctOptionId": "a",
+      "explanation": "Frustrated means feeling annoyed or upset because you can't do something you're trying to do."
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Think about how you feel when something keeps going wrong."
+    }
+  },
+  {
+    "id": "pz-vocab-05",
+    "kind": "puzzle",
+    "title": "What is empathy?",
+    "text": "Your teacher says, \"Arjun showed real empathy today.\" Which sentence best describes empathy?",
+    "ageBand": "11-14",
+    "readingLevel": 3,
+    "wordCount": 13,
+    "expectedTimeSec": 25,
+    "difficulty": 2,
+    "primaryCompetencies": [
+      "socialAwareness"
+    ],
+    "valueTags": [
+      "empathy"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Understanding how someone else feels",
+        "consequence": "Arjun noticed his friend was sad and sat with him."
+      },
+      {
+        "id": "b",
+        "text": "Being the best at a game",
+        "consequence": "That's about winning, not feelings."
+      },
+      {
+        "id": "c",
+        "text": "Following every rule",
+        "consequence": "That's being obedient."
+      },
+      {
+        "id": "d",
+        "text": "Speaking very loudly",
+        "consequence": "That's about volume, not feelings."
+      }
+    ],
+    "puzzle": {
+      "domain": "vocabulary",
+      "correctOptionId": "a",
+      "explanation": "Empathy means understanding and sharing how someone else feels, like imagining being in their shoes."
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Think about putting yourself in someone else's shoes."
+    }
+  },
+  {
+    "id": "pz-vocab-06",
+    "kind": "puzzle",
+    "title": "A gracious loser",
+    "text": "After losing the cricket match, Dev stayed ______ and congratulated the other team. Which word fits best?",
+    "ageBand": "11-14",
+    "readingLevel": 4,
+    "wordCount": 17,
+    "expectedTimeSec": 33,
+    "difficulty": 3,
+    "primaryCompetencies": [
+      "selfManagement",
+      "relationshipSkills"
+    ],
+    "valueTags": [
+      "sportsmanship"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "gracious",
+        "consequence": "The other team shakes Dev's hand warmly."
+      },
+      {
+        "id": "b",
+        "text": "furious",
+        "consequence": "Furious means very angry, which doesn't fit."
+      },
+      {
+        "id": "c",
+        "text": "careless",
+        "consequence": "Careless means not paying attention."
+      },
+      {
+        "id": "d",
+        "text": "boastful",
+        "consequence": "Boastful means showing off."
+      }
+    ],
+    "puzzle": {
+      "domain": "vocabulary",
+      "correctOptionId": "a",
+      "explanation": "Gracious means polite and kind, even when things don't go your way."
+    },
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Which word fits someone who congratulates the winners?"
+    }
+  }
+]

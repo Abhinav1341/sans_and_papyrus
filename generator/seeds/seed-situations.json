@@ -1,0 +1,1189 @@
+[
+  {
+    "id": "sit-01",
+    "kind": "situation",
+    "title": "Reading aloud",
+    "text": "Your teacher asks you to read a page aloud in front of the class. Your tummy feels fluttery and your hands are a little shaky. What do you do?",
+    "ageBand": "8-10",
+    "readingLevel": 1,
+    "wordCount": 63,
+    "expectedTimeSec": 48,
+    "difficulty": 1,
+    "primaryCompetencies": [
+      "selfAwareness",
+      "selfManagement"
+    ],
+    "valueTags": [
+      "courage",
+      "feelings"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Notice I'm nervous, take a slow breath, and start reading",
+        "scores": {
+          "selfAwareness": 2,
+          "selfManagement": 2,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Your voice wobbles at first, then gets steadier with each line."
+      },
+      {
+        "id": "b",
+        "text": "Say I feel sick so I don't have to read",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "You sit out, but the fluttery feeling comes back next time."
+      },
+      {
+        "id": "c",
+        "text": "Quietly tell the teacher I'm nervous",
+        "scores": {
+          "selfAwareness": 2,
+          "selfManagement": 1,
+          "socialAwareness": 0,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Your teacher smiles and lets you read just one paragraph first."
+      },
+      {
+        "id": "d",
+        "text": "Read super fast to get it over with",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "It's over quickly, but nobody could follow the story."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "What is your body telling you about how you feel?"
+    }
+  },
+  {
+    "id": "sit-02",
+    "kind": "situation",
+    "title": "A grumpy morning",
+    "text": "You've been grumpy all morning. When your little sister asks to borrow a pencil, you snap at her and she walks away upset. You're not even sure why you feel this way. What do you do?",
+    "ageBand": "11-14",
+    "readingLevel": 4,
+    "wordCount": 74,
+    "expectedTimeSec": 48,
+    "difficulty": 3,
+    "primaryCompetencies": [
+      "selfAwareness"
+    ],
+    "valueTags": [
+      "feelings",
+      "family"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Think about what's bothering me. Maybe I'm worried about today's test",
+        "scores": {
+          "selfAwareness": 2,
+          "selfManagement": 1,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "You realise it's the test. Naming it makes it feel a bit smaller."
+      },
+      {
+        "id": "b",
+        "text": "Ignore it. It's her fault for bothering me",
+        "scores": {
+          "selfAwareness": -1,
+          "selfManagement": -1,
+          "socialAwareness": -1,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "Your sister avoids you all day, and the grumpy feeling stays."
+      },
+      {
+        "id": "c",
+        "text": "Say sorry to my sister and tell her I'm in a bad mood",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 1,
+          "socialAwareness": 1,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "She lends you the pencil anyway and asks if you're okay."
+      },
+      {
+        "id": "d",
+        "text": "Put on headphones and avoid everyone",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "It's quieter, but you still feel heavy inside."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z"
+  },
+  {
+    "id": "sit-03",
+    "kind": "situation",
+    "title": "The knocked-over tower",
+    "text": "You spent all break building a tall block tower. Arjun walks past, knocks it over on purpose, and laughs. Your face feels hot and you want to shout. What do you do?",
+    "ageBand": "8-10",
+    "readingLevel": 2,
+    "wordCount": 62,
+    "expectedTimeSec": 51,
+    "difficulty": 2,
+    "primaryCompetencies": [
+      "selfManagement"
+    ],
+    "valueTags": [
+      "anger",
+      "calm"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Shout at Arjun and knock over his things",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -2,
+          "socialAwareness": -1,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -2
+        },
+        "consequence": "Now you're both in trouble, and you still don't have your tower."
+      },
+      {
+        "id": "b",
+        "text": "Count to five, breathe, then tell him that wasn't okay",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 2,
+          "socialAwareness": 0,
+          "relationshipSkills": 1,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Arjun stops laughing. He mumbles sorry and helps pick up the blocks."
+      },
+      {
+        "id": "c",
+        "text": "Tell a teacher what happened",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 1,
+          "socialAwareness": 0,
+          "relationshipSkills": 1,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "The teacher talks to Arjun, and he has to help you rebuild."
+      },
+      {
+        "id": "d",
+        "text": "Walk away and keep it all inside",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": -1,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "You feel a bit better later, but nobody knows what happened."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "What could help your angry feeling cool down first?"
+    }
+  },
+  {
+    "id": "sit-04",
+    "kind": "situation",
+    "title": "The dropped catch",
+    "text": "It's the last over of the inter-house cricket match. The ball flies straight to you, and you drop it. Your team loses by two runs, and a few teammates groan loudly. What do you do?",
+    "ageBand": "11-14",
+    "readingLevel": 4,
+    "wordCount": 70,
+    "expectedTimeSec": 46,
+    "difficulty": 3,
+    "primaryCompetencies": [
+      "selfManagement",
+      "selfAwareness"
+    ],
+    "valueTags": [
+      "resilience",
+      "sportsmanship"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Blame the sun in my eyes",
+        "scores": {
+          "selfAwareness": -1,
+          "selfManagement": 0,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "Nobody believes it, and you feel worse for not being honest."
+      },
+      {
+        "id": "b",
+        "text": "Feel bad for a while, then tell the team I'll practise my catching",
+        "scores": {
+          "selfAwareness": 2,
+          "selfManagement": 2,
+          "socialAwareness": 0,
+          "relationshipSkills": 1,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "The captain pats your back. \"Everyone drops one sometimes.\""
+      },
+      {
+        "id": "c",
+        "text": "Quit the team so it never happens again",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -2,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "You miss the next match, and you miss your friends too."
+      },
+      {
+        "id": "d",
+        "text": "Pretend I don't care and laugh it off",
+        "scores": {
+          "selfAwareness": -1,
+          "selfManagement": 0,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "You laugh, but the dropped catch replays in your head all night."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Is one mistake the end of the story?"
+    }
+  },
+  {
+    "id": "sit-05",
+    "kind": "situation",
+    "title": "The night before results",
+    "text": "Exam results come out tomorrow. It's late, but you can't sleep. Your mind keeps imagining bad marks and what your parents might say. What do you do?",
+    "ageBand": "11-14",
+    "readingLevel": 4,
+    "wordCount": 58,
+    "expectedTimeSec": 41,
+    "difficulty": 3,
+    "primaryCompetencies": [
+      "selfManagement"
+    ],
+    "valueTags": [
+      "stress",
+      "worry"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Scroll on my phone for hours to distract myself",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "It's 2 a.m., and you feel even more tired and worried."
+      },
+      {
+        "id": "b",
+        "text": "Tell a parent I'm worried about tomorrow",
+        "scores": {
+          "selfAwareness": 2,
+          "selfManagement": 1,
+          "socialAwareness": 0,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Your mum sits with you. \"We'll handle it together, whatever it is.\""
+      },
+      {
+        "id": "c",
+        "text": "Write down my worries and take slow breaths",
+        "scores": {
+          "selfAwareness": 2,
+          "selfManagement": 2,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Your thoughts slow down, and eventually you drift off."
+      },
+      {
+        "id": "d",
+        "text": "Decide I've definitely failed and get upset",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -2,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "The worry grows bigger than any result could be."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Is there someone or something that helps you feel calm?"
+    }
+  },
+  {
+    "id": "sit-06",
+    "kind": "situation",
+    "title": "Lunch alone",
+    "text": "A new girl, Meher, joined your class this week. Every lunch break she sits alone and stares at her tiffin. Your friends are waving you over to their table. What do you do?",
+    "ageBand": "8-10",
+    "readingLevel": 1,
+    "wordCount": 56,
+    "expectedTimeSec": 44,
+    "difficulty": 1,
+    "primaryCompetencies": [
+      "socialAwareness",
+      "relationshipSkills"
+    ],
+    "valueTags": [
+      "kindness",
+      "inclusion"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Go and sit with my friends like always",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": -1,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "You have fun, but Meher eats alone again."
+      },
+      {
+        "id": "b",
+        "text": "Ask Meher if she'd like to join us",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 2,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Meher's face lights up. She has mango pickle to share!"
+      },
+      {
+        "id": "c",
+        "text": "Ask my friends to invite her over",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 1,
+          "relationshipSkills": 1,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "One friend calls her over, and Meher shyly joins in."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "How might it feel to be new and eat alone?"
+    }
+  },
+  {
+    "id": "sit-07",
+    "kind": "situation",
+    "title": "A quiet friend",
+    "text": "Your best friend Kabir usually talks non-stop. Today he's quiet, isn't joining the game, and keeps looking at the ground. What do you do?",
+    "ageBand": "8-10",
+    "readingLevel": 2,
+    "wordCount": 55,
+    "expectedTimeSec": 47,
+    "difficulty": 2,
+    "primaryCompetencies": [
+      "socialAwareness"
+    ],
+    "valueTags": [
+      "empathy",
+      "friendship"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Leave him alone and keep playing",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": -1,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "Kabir sits on the steps by himself all break."
+      },
+      {
+        "id": "b",
+        "text": "Sit with him and ask if he's okay",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 2,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Kabir says his dog is sick. He's glad you asked."
+      },
+      {
+        "id": "c",
+        "text": "Tell him to stop being boring and come play",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": -2,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "Kabir looks even sadder and walks away."
+      },
+      {
+        "id": "d",
+        "text": "Make a silly face to cheer him up",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 1,
+          "relationshipSkills": 1,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "He gives a tiny smile, but he still seems sad inside."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z"
+  },
+  {
+    "id": "sit-08",
+    "kind": "situation",
+    "title": "One swing, two friends",
+    "text": "There's only one free swing, and you and your friend Zoya reach it at the same time. You both really want it. What do you do?",
+    "ageBand": "8-10",
+    "readingLevel": 1,
+    "wordCount": 53,
+    "expectedTimeSec": 42,
+    "difficulty": 1,
+    "primaryCompetencies": [
+      "relationshipSkills"
+    ],
+    "valueTags": [
+      "sharing",
+      "fairness"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Grab it. I was here first",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": -1,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "Zoya stomps off, and swinging alone isn't much fun."
+      },
+      {
+        "id": "b",
+        "text": "Take turns, counting 20 swings each",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 1,
+          "socialAwareness": 1,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 2
+        },
+        "consequence": "You both get turns, and counting together becomes a game."
+      },
+      {
+        "id": "c",
+        "text": "Let Zoya have it and walk away sad",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 1,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "Zoya swings happily, but you feel a bit left out."
+      },
+      {
+        "id": "d",
+        "text": "Play rock-paper-scissors to decide who goes first",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 1,
+          "socialAwareness": 0,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Zoya wins this round, and you go next. Fair is fair!"
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z"
+  },
+  {
+    "id": "sit-09",
+    "kind": "situation",
+    "title": "The group project",
+    "text": "Your science project is due on Monday. Your partner Rohan hasn't done any of his part and keeps saying, \"I'll do it later.\" You're getting worried. What do you do?",
+    "ageBand": "11-14",
+    "readingLevel": 4,
+    "wordCount": 60,
+    "expectedTimeSec": 42,
+    "difficulty": 3,
+    "primaryCompetencies": [
+      "relationshipSkills",
+      "responsibleDecisionMaking"
+    ],
+    "valueTags": [
+      "teamwork",
+      "fairness"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Do his part myself without saying anything",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "The project's done, but you're exhausted and annoyed."
+      },
+      {
+        "id": "b",
+        "text": "Talk to Rohan and agree who does what by Saturday",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 1,
+          "socialAwareness": 1,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 2
+        },
+        "consequence": "Rohan admits he was stuck and asks you to explain one part."
+      },
+      {
+        "id": "c",
+        "text": "Complain about him to the whole class",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": -1,
+          "relationshipSkills": -2,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "Rohan feels embarrassed and helps even less."
+      },
+      {
+        "id": "d",
+        "text": "Tell the teacher Rohan isn't helping",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 1,
+          "socialAwareness": 0,
+          "relationshipSkills": 1,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "The teacher checks in with you both and helps plan the work."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Could there be a reason Rohan keeps putting it off?"
+    }
+  },
+  {
+    "id": "sit-10",
+    "kind": "situation",
+    "title": "Lost in maths class",
+    "text": "Your teacher explains a new kind of sum. Everyone else seems to understand, but you're completely lost. The teacher asks, \"Any questions?\" What do you do?",
+    "ageBand": "8-10",
+    "readingLevel": 2,
+    "wordCount": 49,
+    "expectedTimeSec": 43,
+    "difficulty": 2,
+    "primaryCompetencies": [
+      "relationshipSkills",
+      "selfAwareness"
+    ],
+    "valueTags": [
+      "asking for help"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Stay quiet so nobody thinks I'm silly",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "At home, the homework makes no sense and you feel stuck."
+      },
+      {
+        "id": "b",
+        "text": "Put my hand up and ask",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 1,
+          "socialAwareness": 0,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 2
+        },
+        "consequence": "Two other kids say, \"Me too!\" The teacher explains it again."
+      },
+      {
+        "id": "c",
+        "text": "Ask the teacher after class",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 1,
+          "socialAwareness": 0,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Your teacher shows you a trick, and it finally clicks."
+      },
+      {
+        "id": "d",
+        "text": "Copy a friend's answers later",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -2
+        },
+        "consequence": "You finish, but you still don't know how to do it."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Do you think you're the only one who's confused?"
+    }
+  },
+  {
+    "id": "sit-11",
+    "kind": "situation",
+    "title": "Words that hurt",
+    "text": "Yesterday, when your best friend Ananya forgot to save you a seat, you called her \"useless\" in front of others. Today she's sitting with someone else and won't look at you. What do you do?",
+    "ageBand": "11-14",
+    "readingLevel": 4,
+    "wordCount": 67,
+    "expectedTimeSec": 45,
+    "difficulty": 3,
+    "primaryCompetencies": [
+      "relationshipSkills",
+      "selfAwareness"
+    ],
+    "valueTags": [
+      "apology",
+      "friendship"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Wait for her to talk to me first",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": -1,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "Days pass, and the silence gets harder to break."
+      },
+      {
+        "id": "b",
+        "text": "Say sorry and explain I was upset, not angry at her",
+        "scores": {
+          "selfAwareness": 2,
+          "selfManagement": 1,
+          "socialAwareness": 1,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Ananya is quiet, then says, \"It really hurt.\" You talk it out."
+      },
+      {
+        "id": "c",
+        "text": "Make fun of her new friend",
+        "scores": {
+          "selfAwareness": -1,
+          "selfManagement": -1,
+          "socialAwareness": -2,
+          "relationshipSkills": -2,
+          "responsibleDecisionMaking": -2
+        },
+        "consequence": "Now two people are upset with you."
+      },
+      {
+        "id": "d",
+        "text": "Write her a note to say sorry",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 1,
+          "socialAwareness": 1,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "At lunch, Ananya slides the note back with a smiley face."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z"
+  },
+  {
+    "id": "sit-12",
+    "kind": "situation",
+    "title": "The broken vase",
+    "text": "While playing ball indoors, you knock your grandmother's favourite vase off the shelf. It breaks. Nobody saw it happen. What do you do?",
+    "ageBand": "8-10",
+    "readingLevel": 2,
+    "wordCount": 42,
+    "expectedTimeSec": 39,
+    "difficulty": 2,
+    "primaryCompetencies": [
+      "responsibleDecisionMaking"
+    ],
+    "valueTags": [
+      "honesty"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Hide the pieces and say nothing",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -2
+        },
+        "consequence": "Dadi searches everywhere and gets more and more worried."
+      },
+      {
+        "id": "b",
+        "text": "Tell Dadi what happened and say sorry",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 1,
+          "socialAwareness": 1,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 2
+        },
+        "consequence": "Dadi is sad about the vase, but hugs you for telling the truth."
+      },
+      {
+        "id": "c",
+        "text": "Say the cat knocked it over",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -2
+        },
+        "consequence": "The cat gets shooed out, and you feel guilty all evening."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "How would you feel if you kept it a secret?"
+    }
+  },
+  {
+    "id": "sit-13",
+    "kind": "situation",
+    "title": "The dare",
+    "text": "Your friends plan to skip the last class and go to the shop. They dare you to come: \"Don't be a baby, nobody will notice.\" You don't want to get into trouble, but you don't want to look scared either. What do you do?",
+    "ageBand": "11-14",
+    "readingLevel": 4,
+    "wordCount": 77,
+    "expectedTimeSec": 49,
+    "difficulty": 3,
+    "primaryCompetencies": [
+      "responsibleDecisionMaking",
+      "selfManagement"
+    ],
+    "valueTags": [
+      "peer pressure"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Go with them so they don't laugh at me",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": -2
+        },
+        "consequence": "The teacher notices, and all of your parents get a call."
+      },
+      {
+        "id": "b",
+        "text": "Say no and stay for class",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 2,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 2
+        },
+        "consequence": "A couple of friends tease you, but one stays back with you."
+      },
+      {
+        "id": "c",
+        "text": "Suggest we go to the shop together after school instead",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 1,
+          "socialAwareness": 1,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 2
+        },
+        "consequence": "Some friends agree, and you all go after the bell. No trouble."
+      },
+      {
+        "id": "d",
+        "text": "Pretend I'm sick so I have an excuse",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "It works, but you know you couldn't just say no."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Is there a way to say no and still stay friends?"
+    }
+  },
+  {
+    "id": "sit-14",
+    "kind": "situation",
+    "title": "The group chat photo",
+    "text": "Someone posts an embarrassing photo of a classmate, Tara, in your class group chat. People are adding laughing emojis. Tara is in the group too. What do you do?",
+    "ageBand": "11-14",
+    "readingLevel": 5,
+    "wordCount": 58,
+    "expectedTimeSec": 45,
+    "difficulty": 4,
+    "primaryCompetencies": [
+      "responsibleDecisionMaking",
+      "socialAwareness"
+    ],
+    "valueTags": [
+      "online kindness",
+      "bystander"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Add a laughing emoji like everyone else",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": -2,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -2
+        },
+        "consequence": "The jokes keep coming, and Tara leaves the group."
+      },
+      {
+        "id": "b",
+        "text": "Message the person privately and ask them to delete it",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 1,
+          "socialAwareness": 2,
+          "relationshipSkills": 1,
+          "responsibleDecisionMaking": 2
+        },
+        "consequence": "They delete it later that evening."
+      },
+      {
+        "id": "c",
+        "text": "Tell a teacher or parent about it",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 1,
+          "socialAwareness": 1,
+          "relationshipSkills": 1,
+          "responsibleDecisionMaking": 2
+        },
+        "consequence": "A teacher reminds the class about kindness online, and the photo comes down."
+      },
+      {
+        "id": "d",
+        "text": "Send Tara a kind message",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": 0,
+          "socialAwareness": 2,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Tara replies, \"Thanks. That really helped.\""
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "How might Tara feel seeing those emojis?"
+    }
+  },
+  {
+    "id": "sit-15",
+    "kind": "situation",
+    "title": "Left out of the game",
+    "text": "For three days, a group of kids hasn't let you join their game. Today one of them said, \"There's no space for you.\" You feel lonely and sad. What do you do?",
+    "ageBand": "8-10",
+    "readingLevel": 2,
+    "wordCount": 62,
+    "expectedTimeSec": 51,
+    "difficulty": 2,
+    "primaryCompetencies": [
+      "relationshipSkills",
+      "selfManagement"
+    ],
+    "valueTags": [
+      "exclusion",
+      "asking for help"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Tell a teacher or someone at home how I feel",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 1,
+          "socialAwareness": 0,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 2
+        },
+        "consequence": "Your teacher listens and helps you find a new game to join."
+      },
+      {
+        "id": "b",
+        "text": "Look for someone else who's playing alone",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 1,
+          "socialAwareness": 1,
+          "relationshipSkills": 1,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "You meet Ishaan, who turns out to be great at hopscotch."
+      },
+      {
+        "id": "c",
+        "text": "Decide nobody likes me and stop trying",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -2,
+          "socialAwareness": 0,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "Lunch breaks feel very long and lonely."
+      },
+      {
+        "id": "d",
+        "text": "Say something mean back to them",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": -1,
+          "relationshipSkills": -1,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "They laugh, and you feel even worse."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "Who could you talk to about this?"
+    }
+  },
+  {
+    "id": "sit-16",
+    "kind": "situation",
+    "title": "Not picked",
+    "text": "You've practised basketball every evening for weeks. Today the coach announced the team, and your name wasn't on the list. Your best friend made it. What do you do?",
+    "ageBand": "11-14",
+    "readingLevel": 4,
+    "wordCount": 60,
+    "expectedTimeSec": 42,
+    "difficulty": 3,
+    "primaryCompetencies": [
+      "selfManagement",
+      "selfAwareness"
+    ],
+    "valueTags": [
+      "hope",
+      "perseverance"
+    ],
+    "options": [
+      {
+        "id": "a",
+        "text": "Ask the coach what I can work on for next time",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 2,
+          "socialAwareness": 0,
+          "relationshipSkills": 1,
+          "responsibleDecisionMaking": 2
+        },
+        "consequence": "The coach says, \"Work on your passing. Try again next term.\""
+      },
+      {
+        "id": "b",
+        "text": "Tell myself I'm bad at everything",
+        "scores": {
+          "selfAwareness": -1,
+          "selfManagement": -2,
+          "socialAwareness": 0,
+          "relationshipSkills": 0,
+          "responsibleDecisionMaking": 0
+        },
+        "consequence": "You stop practising, and the hoop gathers dust."
+      },
+      {
+        "id": "c",
+        "text": "Congratulate my friend, even though I feel sad",
+        "scores": {
+          "selfAwareness": 1,
+          "selfManagement": 1,
+          "socialAwareness": 2,
+          "relationshipSkills": 2,
+          "responsibleDecisionMaking": 1
+        },
+        "consequence": "Your friend hugs you. \"We'll practise together.\""
+      },
+      {
+        "id": "d",
+        "text": "Ignore my friend because I'm jealous",
+        "scores": {
+          "selfAwareness": 0,
+          "selfManagement": -1,
+          "socialAwareness": -1,
+          "relationshipSkills": -2,
+          "responsibleDecisionMaking": -1
+        },
+        "consequence": "Your friend doesn't understand why you're upset with them."
+      }
+    ],
+    "source": "seed",
+    "seedIds": [],
+    "status": "active",
+    "similarIds": [],
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "hint": {
+      "text": "What would you say to a friend who didn't get picked?"
+    }
+  }
+]
