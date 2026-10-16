@@ -49,8 +49,8 @@ function loadGis(): Promise<void> {
   }));
 }
 
-/** Opens Google's sign-in popup, then lets the server check the token and sign the grown-up in. */
-export async function signInWithGoogle(): Promise<SignInResult> {
+/** Opens Google's sign-in popup and returns an access token for the server to check. */
+async function googleAccessToken(): Promise<string> {
   const { googleClientId } = await api<{ googleClientId: string | null }>('auth/config');
   if (!googleClientId) throw new Error('Google sign-in is not connected yet. Use email, or play as a guest.');
   await loadGis();
@@ -63,5 +63,22 @@ export async function signInWithGoogle(): Promise<SignInResult> {
     });
     client.requestAccessToken();
   });
-  return api<SignInResult>('auth/google', { body: { accessToken } });
+  return accessToken;
+}
+
+/** Google sign-in: the server checks the token and signs the grown-up in. */
+export async function signInWithGoogle(): Promise<SignInResult> {
+  return api<SignInResult>('auth/google', { body: { accessToken: await googleAccessToken() } });
+}
+
+/* ---------- guests: "Save progress" ---------- */
+
+/** Turns the current guest into an email account. Same account, so the Captain's progress is kept. */
+export function saveGuestWithEmail(email: string, password: string): Promise<{ account: PublicAccount }> {
+  return api('account/save', { body: { method: 'email', email, password } });
+}
+
+/** Turns the current guest into a Google account, keeping the Captain's progress. */
+export async function saveGuestWithGoogle(): Promise<{ account: PublicAccount }> {
+  return api('account/save', { body: { method: 'google', accessToken: await googleAccessToken() } });
 }

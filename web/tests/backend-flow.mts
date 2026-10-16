@@ -7,11 +7,11 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { Situation, type PlayEvent } from '../lib/schemas';
-import { deleteAccountAndData, signInWithEmail, signUpWithEmail } from '../src/server/accounts';
+import { createGuest, deleteAccountAndData, signInWithEmail, signUpWithEmail, upgradeGuest } from '../src/server/accounts';
 import { setBankForTests } from '../src/server/bank';
 import { COLLECTIONS, GAME } from '../src/server/config';
 import { MemoryDb, setDb } from '../src/server/db';
-import { categoryOf } from '../src/server/engine';
+import { categoryOf, createPlayer, ratingFor, shortlist, type Round } from '../src/server/engine';
 import { limit, resetLimits } from '../src/server/limits';
 import { getPlayer, upsertPlayer } from '../src/server/players';
 import { getReport } from '../src/server/report';
@@ -129,6 +129,29 @@ check(puzzles >= 1 && puzzles <= Math.ceil(events.length / 3), 'puzzle share sta
 check(events.every((e) => e.picker.shortlistIds.includes(e.picker.chosenId)), 'every pick came from its shortlist');
 check(events.every((e) => e.picker.source === 'fallback'), 'without Gemini, the code fallback picks (no waiting, no crash)');
 
+console.log('\nStrong 8-10 players can step up to gentle 11-14 items');
+// A round in progress with a puzzle due (the seed bank's gentle 11-14 items are puzzles).
+const firstSit = bank.find((i) => i.ageBand === '8-10' && i.kind === 'situation')!;
+const midRound: Round = { id: 'r', playerId: 't', gateId: 'g', size: 4, served: [firstSit.id], answered: [firstSit.id], current: null, ease: 0, status: 'active', createdAt: '', updatedAt: '' };
+const withSkills = (age: number, level: number) => {
+  const pl = { ...createPlayer('t', age, 'T'), itemsSinceLastPuzzle: 3 };
+  for (const k of Object.keys(pl.skills) as (keyof typeof pl.skills)[]) pl.skills[k] = level;
+  return pl;
+};
+const offered = (pl: ReturnType<typeof withSkills>) => {
+  const seen = new Map<string, Situation>();
+  for (let n = 0; n < 40; n++) for (const c of shortlist(bank, pl, midRound, byId)) seen.set(c.item.id, c.item);
+  return [...seen.values()];
+};
+const strongOffers = offered(withSkills(9, 1400));
+const older = strongOffers.filter((i) => i.ageBand === '11-14');
+check(older.length > 0, `a strong 9-year-old is offered some 11-14 items (${older.length})`);
+check(older.every((i) => i.difficulty <= GAME.stepUp.maxDifficulty), 'only the gentlest 11-14 items (difficulty 1-2)');
+check(offered(withSkills(9, GAME.initialSkill(9))).every((i) => i.ageBand === '8-10'), 'a typical 9-year-old stays in the 8-10 band');
+check(offered(withSkills(7, 1400)).every((i) => i.ageBand === '8-10'), 'under-8s never step up, however strong');
+const olderPuzzle = bank.find((i) => i.ageBand === '11-14')!;
+check(ratingFor(withSkills(9, 1000), olderPuzzle) === GAME.itemRating(olderPuzzle.difficulty) + GAME.stepUp.bandOffset, 'older-band items count harder for a younger player');
+
 console.log('\nAge change re-centres skills');
 const pBefore = (await getPlayer(acct.id))!;
 const pOlder = await upsertPlayer(acct.id, 'Aarav', 12);
@@ -164,6 +187,11 @@ const rep = await getReport(acct.id);
 check(rep.status === 'ready' && 'report' in rep && rep.report.summary.length > 0, `report ready (${'source' in rep ? rep.source : '?'})`);
 const pr = (await getPlayer(acct.id))!;
 check(Object.values(pr.skillPlays ?? {}).reduce((a, b) => a + b, 0) > 0, 'the profile keeps running totals, so the report reads no events');
+const shape = 'shape' in rep ? rep.shape : undefined;
+check(shape && shape.social.length === 5 && [...shape.social, ...(shape.thinking ?? [])].every((x) => x.now >= 0 && x.now <= 1 && x.start === 0.5),
+  'the report carries a skill shape: 5 social axes, positions between 0 and 1, start in the middle');
+check(!JSON.stringify(shape).match(/\b(9|1[0-4])\d\d\b/), 'the shape holds positions only, never raw skill numbers');
+check(shape?.social.some((x) => x.trend !== 'new'), 'skills the Captain practised are marked with a trend');
 const rep2 = await getReport(acct.id, true);
 check('createdAt' in rep && 'createdAt' in rep2 && rep2.createdAt === rep.createdAt, '"refresh" straight away reuses the report (cooldown)');
 // A profile saved before the running totals existed: the report counts them from the events, once.
@@ -191,6 +219,20 @@ let threw = false;
 try { createSessionValue('x'); } catch { threw = true; }
 env.NODE_ENV = savedEnv; env.SESSION_SECRET = savedSecret;
 check(threw, 'without SESSION_SECRET, production refuses to sign sessions');
+
+console.log('\nGuests can save their progress');
+const g = await createGuest();
+await upsertPlayer(g.id, 'Kiran', 10);
+const gr = await startRound(g.id, 'g-p-warmup');
+await answerItem(g.id, gr.roundId, gr.item.id, { optionId: best(byId.get(gr.item.id)!), responseTimeMs: 5000, hintOpened: false });
+const guestBefore = (await getPlayer(g.id))!;
+const saved = await upgradeGuest(g.id, { method: 'email', email: 'Kiran.Parent@example.com', password: 'longenough' });
+check(saved.id === g.id && saved.type === 'email', 'saving keeps the same account and makes it an email account');
+check((await getPlayer(g.id))!.totalPlayed === guestBefore.totalPlayed && guestBefore.totalPlayed === 1, 'the Captain and their play carry over');
+check((await signInWithEmail('kiran.parent@example.com', 'longenough')).id === g.id, 'they can now sign in with the email (on any device)');
+await rejects(upgradeGuest(g.id, { method: 'email', email: 'x@example.com', password: 'longenough' }), 400, 'an account that is already saved cannot be saved again');
+const g2 = await createGuest();
+await rejects(upgradeGuest(g2.id, { method: 'email', email: 'PARENT@example.com', password: 'longenough' }), 409, "a guest can't take an email that already has an account");
 
 console.log('\nDelete all data');
 await deleteAccountAndData(acct.id);

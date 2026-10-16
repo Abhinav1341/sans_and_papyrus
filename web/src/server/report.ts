@@ -88,6 +88,37 @@ function fallbackReport(s: ReturnType<typeof summarise>): ParentReport {
   };
 }
 
+/* ---------- the skill shape (Parent Corner chart) ---------- */
+
+/** One spoke of the chart. Positions only (0–1), never the skill numbers, and no scores are shown. */
+export interface ShapeAxis { key: string; label: string; now: number; start: number; played: number; trend: 'more' | 'some' | 'steady' | 'harder' | 'new' }
+
+const SHAPE_LABEL: Record<string, string> = {
+  selfAwareness: 'Knowing their feelings', selfManagement: 'Staying calm', socialAwareness: 'Noticing others',
+  relationshipSkills: 'Getting along', responsibleDecisionMaking: 'Fair choices',
+  math: 'Maths', reasoning: 'Reasoning', vocabulary: 'Words',
+};
+
+/**
+ * Where each skill sits now compared with where the Captain started (the starting level for their age).
+ * The start is the middle of the chart (0.5); ±SPAN skill points reach the centre or the edge. A few good
+ * rounds move a skill 50–100 points, so the scale is tight enough for that growth to show.
+ */
+export function skillShape(p: PlayerProfile) {
+  const SPAN = 150;
+  const start = p.startSkill ?? 1000;
+  const plays = p.skillPlays ?? {};
+  const axis = (key: string): ShapeAxis => {
+    const d = p.skills[key as keyof typeof p.skills] - start;
+    const played = plays[key] ?? 0;
+    const trend = !played ? 'new' : d >= 60 ? 'more' : d >= 20 ? 'some' : d > -20 ? 'steady' : 'harder';
+    return { key, label: SHAPE_LABEL[key], now: Math.max(0.08, Math.min(1, 0.5 + d / (2 * SPAN))), start: 0.5, played, trend };
+  };
+  const social = ['selfAwareness', 'selfManagement', 'socialAwareness', 'relationshipSkills', 'responsibleDecisionMaking'].map(axis);
+  const thinking = ['math', 'reasoning', 'vocabulary'].map(axis);
+  return { social, thinking: thinking.some((a) => a.played > 0) ? thinking : null };
+}
+
 /** One report being written per account at a time: a second request waits for the first. */
 const writing = new Map<string, Promise<ReportResult>>();
 type ReportResult = Awaited<ReturnType<typeof buildReport>>;
@@ -113,7 +144,8 @@ async function buildReport(accountId: string, refresh: boolean) {
   // "Refresh" can't be used to call Gemini over and over: a report younger than the cooldown is reused.
   const forced = refresh && age >= GAME.reportRefreshCooldownMs;
   const stats = { itemsPlayed, roundsPlayed: p.roundsPlayed ?? 0 };
-  if (cached && (fresh || age < GAME.reportRefreshCooldownMs) && !forced) return { status: 'ready' as const, ...cached, stats };
+  const shape = skillShape(p); // always from the live profile, so the chart is current even when the note is cached
+  if (cached && (fresh || age < GAME.reportRefreshCooldownMs) && !forced) return { status: 'ready' as const, ...cached, stats, shape };
 
   const s = summarise(p);
   let report: ParentReport, source: StoredReport['source'] = 'ai';
@@ -127,5 +159,5 @@ async function buildReport(accountId: string, refresh: boolean) {
   }
   const stored: StoredReport = { playerId: accountId, report, basedOnEvents: itemsPlayed, createdAt: new Date().toISOString(), source };
   await db().set(COLLECTIONS.reports, accountId, stored);
-  return { status: 'ready' as const, ...stored, stats };
+  return { status: 'ready' as const, ...stored, stats, shape };
 }

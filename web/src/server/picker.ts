@@ -63,6 +63,7 @@ export async function pickNext(p: PlayerProfile, candidates: Candidate[], lastSt
     focus: catLabel(categoryOf(c.item)),
     difficulty: c.item.difficulty,
     fitsLevel: Math.abs(c.rating - c.target) <= 100 ? 'good fit' : c.rating > c.target ? 'harder' : 'easier',
+    ...(c.item.ageBand !== p.ageBand ? { note: 'from the older age band: a stretch for a strong player' } : {}),
     title: c.item.title,
     story: c.item.text.slice(0, 160),
   }));

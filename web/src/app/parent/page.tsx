@@ -5,10 +5,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { store, useSave } from '@/lib/store';
 import { sfx } from '@/lib/sfx';
-import { Button, GalaxyBg, IconButton, toast } from '@/components/ui';
-import { api } from '@/lib/api';
-import { deleteAccount, signOut } from '@/lib/auth';
+import { Button, GalaxyBg, IconButton, Svg, toast } from '@/components/ui';
+import { api, type PublicAccount } from '@/lib/api';
+import { deleteAccount, fetchMe, saveGuestWithEmail, saveGuestWithGoogle, signOut } from '@/lib/auth';
+import { GOOGLE_G } from '@/art/icons';
 import { useGuard, useMusic } from '@/components/boot';
+import { SkillShape, type ShapeAxis } from '@/components/skill-shape';
 
 const HOLD_MS = 3000;
 const C = 2 * Math.PI * 88;
@@ -65,7 +67,8 @@ type ReportState =
   | { status: 'error'; message: string }
   | { status: 'no-captain' }
   | { status: 'too-early'; itemsPlayed: number; needed: number }
-  | { status: 'ready'; report: ParentReport; createdAt: string; source: 'ai' | 'fallback'; stats: { itemsPlayed: number; roundsPlayed: number } };
+  | { status: 'ready'; report: ParentReport; createdAt: string; source: 'ai' | 'fallback'; stats: { itemsPlayed: number; roundsPlayed: number };
+      shape?: { social: ShapeAxis[]; thinking: ShapeAxis[] | null } };
 
 function List({ title, items }: { title: string; items: string[] }) {
   if (!items.length) return null;
@@ -91,6 +94,14 @@ function Report() {
         <p>{r.summary}</p>
         <p className="muted" style={{ fontSize: 14 }}>{state.stats.itemsPlayed} choices in {state.stats.roundsPlayed} bonus rounds · updated {new Date(state.createdAt).toLocaleDateString()}</p>
       </div>
+      {state.shape ? (
+        <div className="card shape-card">
+          <p style={{ fontWeight: 800 }}>Their skill shape</p>
+          <p className="muted" style={{ fontSize: 14 }}>How each skill has moved since they started. The dashed shape is where they began; tap a point to read it.</p>
+          <SkillShape title="Feelings and friendships" axes={state.shape.social} />
+          {state.shape.thinking ? <SkillShape title="Puzzles" axes={state.shape.thinking} /> : null}
+        </div>
+      ) : null}
       <List title="Strengths" items={r.strengths} />
       <List title="Skills that are growing" items={r.growingAreas} />
       <List title="How they approach choices" items={r.habits} />
@@ -102,12 +113,49 @@ function Report() {
   );
 }
 
+/** Guests: keep this Captain by attaching Google or an email to the account they are playing on. */
+function GuestSave({ onSaved }: { onSaved: (a: PublicAccount) => void }) {
+  const [busy, setBusy] = useState(false);
+  const [withEmail, setWithEmail] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const run = async (go: () => Promise<{ account: PublicAccount }>) => {
+    if (busy) return;
+    setBusy(true);
+    try { onSaved((await go()).account); } catch (e) { toast((e as Error).message || 'Could not save. Please try again.'); } finally { setBusy(false); }
+  };
+  return (
+    <div className="card stack guest-save">
+      <p style={{ fontWeight: 800 }}>Playing as a guest</p>
+      <p className="muted">This Captain&rsquo;s skills and reports are kept only while this browser stays signed in. Save them to an account to keep them, and to sign in on another device.</p>
+      <button type="button" className="btn btn-white btn-block" disabled={busy} onClick={() => run(saveGuestWithGoogle)}>
+        <Svg html={GOOGLE_G} />Save with Google
+      </button>
+      {withEmail ? (
+        <form className="stack" noValidate onSubmit={(e) => { e.preventDefault(); void run(() => saveGuestWithEmail(email, password)); }}>
+          <div className="field"><label htmlFor="save-email">Email</label>
+            <input id="save-email" type="email" autoComplete="email" inputMode="email" value={email} onChange={(e) => setEmail(e.target.value)} /></div>
+          <div className="field"><label htmlFor="save-pw">Password (8 or more characters)</label>
+            <input id="save-pw" type="password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} /></div>
+          <Button type="submit" variant="sun" icon="mail" disabled={busy}>Save with email</Button>
+        </form>
+      ) : (
+        <button type="button" className="linkish" onClick={() => setWithEmail(true)}>Use an email and password instead</button>
+      )}
+    </div>
+  );
+}
+
 export default function ParentPage() {
   const ok = useGuard('hero');
   const s = useSave();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [armed, setArmed] = useState(false);
+  const [account, setAccount] = useState<PublicAccount | null>(null);
+  const [endArmed, setEndArmed] = useState(false);
+  useEffect(() => { if (open) fetchMe().then((m) => setAccount(m.account ?? null)).catch(() => {}); }, [open]);
+  const guest = account?.type === 'guest';
   useMusic('none');
   if (!ok) return <div className="screen-blank" />;
   return (
@@ -121,8 +169,17 @@ export default function ParentPage() {
       {!open ? <HoldGate onOpen={() => setOpen(true)} /> : (
         <div className="stack">
           <div className="card"><p style={{ fontWeight: 800 }}>Captain {s.hero?.name}{s.hero?.age ? `, age ${s.hero.age}` : ''}</p></div>
+          {guest ? <GuestSave onSaved={(a) => {
+            setAccount(a);
+            store.update((st) => { st.auth = { signedIn: true, method: a.type }; });
+            toast('Progress saved. Sign in with it on any device.');
+          }} /> : null}
           <Report />
-          <Button variant="ghost" onClick={async () => { await signOut(); store.update((st) => { st.auth = { signedIn: false, method: null }; }); router.replace('/login'); }}>Sign out</Button>
+          <Button variant="ghost" onClick={async () => {
+            if (guest && !endArmed) { setEndArmed(true); return; }
+            await signOut(); store.update((st) => { st.auth = { signedIn: false, method: null }; }); router.replace('/login');
+          }}>{guest ? 'End guest session' : 'Sign out'}</Button>
+          {guest && endArmed ? <p className="muted" style={{ textAlign: 'center' }} role="status">Ending a guest session deletes this Captain&rsquo;s skills and reports from our server. Save progress above to keep them, or tap &ldquo;End guest session&rdquo; again.</p> : null}
           <Button variant="ghost" onClick={async () => {
             if (!armed) { setArmed(true); return; }
             try { await deleteAccount(); } catch (e) { toast((e as Error).message); return; }

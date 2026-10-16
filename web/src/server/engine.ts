@@ -47,6 +47,17 @@ export function skillsOf(i: Situation): Skill[] {
 
 const avg = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / (xs.length || 1);
 export const levelFor = (p: PlayerProfile, i: Situation) => avg(skillsOf(i).map((s) => p.skills[s]));
+
+/** An item's difficulty on the skill scale, for this player: items from the older band count harder. */
+export const ratingFor = (p: PlayerProfile, i: Situation) =>
+  GAME.itemRating(i.difficulty) + (i.ageBand !== p.ageBand ? GAME.stepUp.bandOffset : 0);
+
+/** A strong 8–10 player may get the gentlest 11–14 items once their own band can no longer stretch them. */
+export function canStepUp(p: PlayerProfile, i: Situation): boolean {
+  const s = GAME.stepUp;
+  return p.ageBand === '8-10' && i.ageBand === '11-14' && (p.age ?? 9) >= s.minAge
+    && i.difficulty <= s.maxDifficulty && levelFor(p, i) >= s.fromLevel;
+}
 const caselAverage = (p: PlayerProfile) => avg(COMPETENCIES.map((c) => p.skills[c]));
 
 /* ------------------------------------------------------------------ */
@@ -103,7 +114,8 @@ export function shortlist(bank: Situation[], p: PlayerProfile, round: Round, byI
 
   const eligible = (strictRecent: number) =>
     bank.filter((i) => {
-      if (i.ageBand !== band || inRound.has(i.id)) return false;
+      if (inRound.has(i.id)) return false;
+      if (i.ageBand !== band && !canStepUp(p, i)) return false;
       if (strictRecent > 0 && recent.slice(-strictRecent).includes(i.id)) return false; // slice(-0) would be everything
       if (i.kind === 'puzzle' && (isFirst || puzzlesInRound >= GAME.maxPuzzlesPerRound)) return false;
       return true;
@@ -117,8 +129,9 @@ export function shortlist(bank: Situation[], p: PlayerProfile, round: Round, byI
     const why: string[] = [];
     const level = levelFor(p, item);
     const target = level + GAME.stretch + round.ease;
-    const rating = GAME.itemRating(item.difficulty);
+    const rating = ratingFor(p, item);
     let score = -Math.abs(rating - target) / 150;
+    if (item.ageBand !== band) { score -= GAME.stepUp.preferOwnBand; why.push('a stretch from the older band'); }
 
     if (avoidSimilar.has(item.id)) { score -= 1.2; why.push('similar to a recent item'); }
     const cat = categoryOf(item);
@@ -166,7 +179,7 @@ const round1 = (n: number) => Math.round(n * 10) / 10;
 
 export function applyAnswer(p0: PlayerProfile, item: Situation, a: AnswerInput): AnswerOutcome {
   const p: PlayerProfile = structuredClone(p0);
-  const rating = GAME.itemRating(item.difficulty);
+  const rating = ratingFor(p0, item);
   const timeRatio = Math.max(0, a.responseTimeMs / 1000 / item.expectedTimeSec);
   const rushed = timeRatio < GAME.rushedRatio;
   const weight = rushed ? 0.5 : timeRatio > GAME.slowRatio ? 0.7 : 1;

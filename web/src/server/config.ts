@@ -30,6 +30,13 @@ export const GAME = {
     return 700 + 150 * difficulty;
   },
 
+  /**
+   * Stepping up: an 8–10 player who has outgrown their band (level at or above this) may also get the
+   * gentlest 11–14 items (difficulty up to `maxDifficulty`). Older-band difficulty is counted
+   * `bandOffset` higher for them (two steps), and own-band items win ties by `preferOwnBand`.
+   */
+  stepUp: { fromLevel: 1260, minAge: 8, maxDifficulty: 2, bandOffset: 300, preferOwnBand: 0.3 },
+
   /** Elo-style learning rate for skill updates. */
   kFactor: 28,
   /** Aim slightly above the child's level so rounds stretch them a little. */

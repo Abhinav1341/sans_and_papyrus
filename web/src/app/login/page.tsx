@@ -2,6 +2,7 @@
 // Sign in. A grown-up signs in; then they hand the phone to their young Captain.
 // Real accounts on the game's server: email + password, Google, or a guest account for trying the game.
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { store, useHydrated } from '@/lib/store';
 import { signInAsGuest, signInWithEmail, signInWithGoogle } from '@/lib/auth';
@@ -67,7 +68,7 @@ export default function LoginPage() {
       <button type="button" className="linkish guest-link" disabled={!hydrated || busy} onClick={() => run('guest', signInAsGuest)}>
         Just looking? Play as a guest
       </button>
-      <p className="legal">No ads. No purchases. No real names: only what helps the game fit your child.</p>
+      <p className="legal">No ads. No purchases. No real names: only what helps the game fit your child. <Link href="/privacy">Privacy</Link></p>
     </section>
   );
 }

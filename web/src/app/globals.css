@@ -471,3 +471,31 @@ svg .leap { animation: leap 7s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .episode, .episode-fizz { animation: none; } }
 
 .report-list { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 6px; font-weight: 700; }
+
+/* Parent Corner: the skill shape (radar chart) */
+.shape-card { display: flex; flex-direction: column; gap: 6px; }
+.shape { margin: 8px 0 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.shape + .shape { margin-top: 18px; padding-top: 14px; border-top: 2px dashed var(--line); width: 100%; }
+.shape-title { align-self: flex-start; font-family: var(--font-display); font-weight: 800; color: var(--text); }
+.shape svg { display: block; overflow: visible; }
+.shape-label { fill: var(--text-soft); font-family: var(--font-body); font-weight: 800; font-size: 15px; }
+.shape-label.new { fill: var(--text-muted); font-style: italic; }
+.shape-label.on { fill: var(--text); }
+.shape-pt { cursor: pointer; outline: none; }
+.shape-pt:focus-visible circle:last-child { stroke: var(--sun); stroke-width: 3px; }
+.shape-readout { min-height: 1.4em; text-align: center; font-weight: 800; color: var(--text); }
+.shape-legend { display: flex; gap: 18px; justify-content: center; font-size: var(--fs-sm); font-weight: 700; color: var(--text-soft); }
+.shape-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.shape-legend .sw { display: inline-block; width: 22px; height: 0; border-top: 3px solid #2fa585; }
+.shape-legend .sw.start { border-top: 3px dashed #8b78e8; }
+.shape-list { align-self: stretch; font-size: var(--fs-sm); color: var(--text-soft); }
+.shape-list summary { cursor: pointer; font-weight: 800; color: var(--text-muted); }
+.shape-list ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 4px; }
+
+/* Privacy page */
+.legal-page { gap: var(--sp-4); }
+.legal-page h2 { font-size: var(--fs-2xl); }
+.legal-page h3 { font-size: var(--fs-lg); }
+.legal-page .card p, .legal-page .card li { font-weight: 700; line-height: 1.45; }
+.legal-page a { color: var(--sun); }
+.legal a { color: inherit; text-decoration: underline; }

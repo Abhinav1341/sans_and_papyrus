@@ -184,7 +184,6 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
     r.start([{ key: 'hint', line: { text: item.hint, url: item.voice.hint, speaker: 'fizz' } }]);
   };
 
-  const skip = <Button variant="ghost" icon="skip" onClick={() => { r.stop(); onDone(); }}>Skip for now</Button>;
   const top = (itemTitle: string, n: number, replay?: () => void) => (
     <div className="round-top">
       <span className="round-title">{itemTitle}</span>
@@ -210,9 +209,8 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
             <p>Captain {heroName}, the crew needs you!</p>
             <p className="muted">A few quick choices. There are no wrong turns: every choice moves the story on.</p>
           </div>
-          <div className="gate-actions stack">
+          <div className="gate-actions">
             <Button variant="sun" xl icon="play" onClick={() => { void start(); }} data-autofocus>Let’s go!</Button>
-            {skip}
           </div>
         </>
       );
@@ -224,7 +222,6 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
           <div className="chip-row" role="group" aria-label="Age">
             {AGES.map((a) => <button key={a} type="button" className="chip" onClick={() => { void setAge(a); }}>{a}</button>)}
           </div>
-          {skip}
         </div>
       );
     case 'loading':
@@ -318,7 +315,8 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
           <div className="gate-task"><h3>Oh no, a space hiccup!</h3><p className="muted">{phase.message}</p></div>
           <div className="gate-actions stack">
             <Button variant="sun" icon="replay" onClick={() => { void start(); }} data-autofocus>Try again</Button>
-            {skip}
+            {/* Only a way out when the server can't be reached, so a network problem never traps a child here. */}
+            <Button variant="ghost" icon="play" onClick={() => { r.stop(); onDone(); }}>Continue the story</Button>
           </div>
         </>
       );
