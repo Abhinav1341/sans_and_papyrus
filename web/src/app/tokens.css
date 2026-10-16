@@ -1,0 +1,92 @@
+/* Design tokens for Party Galaxy.
+   Primary scale generated with the ui-design-system skill
+   (design_token_generator.py "#7B61FF" --style playful), then adapted to a dark galaxy theme.
+   Kid overrides (child-psychology-evidence, game-craft-for-kids): touch targets >= 64px,
+   body text 18px, soft low-saturation accents, no saturated red. */
+:root {
+  /* Generated primary scale (playful, #7B61FF) */
+  --violet-50: #c7bff2;
+  --violet-200: #b9adf2;
+  --violet-300: #afa2f2;
+  --violet-500: #a492ff;
+  --violet-600: #7b6bcc;
+  --violet-700: #564899;
+  --violet-800: #352b66;
+  --violet-900: #181332;
+  --violet: #7B61FF;
+
+  /* Galaxy surfaces */
+  --space-0: #0b0820;
+  --space-1: #120e2b;
+  --space-2: #1d1745;
+  --space-3: #2a2163;
+  --glass: rgba(42, 33, 99, 0.72);
+  --glass-strong: rgba(29, 23, 69, 0.92);
+  --line: rgba(199, 191, 242, 0.22);
+
+  /* Soft candy accents (low saturation, kid-friendly) */
+  --pink: #ff9fcf;
+  --mint: #7fe6c9;
+  --sun: #ffd36e;
+  --peach: #ffb38a;
+  --sky: #8fc8ff;
+  --lilac: #c9b6ff;
+
+  /* Text */
+  --text: #ffffff;
+  --text-soft: #e6e1ff;
+  --text-muted: #bdb5ec;
+  --text-dark: #1d1745;
+
+  /* Character colours (name plates) */
+  --c-you: #ffd36e;
+  --c-ro: #ff9b85;
+  --c-meera: #7fe6c9;
+  --c-kiki: #ffe066;
+  --c-bunty: #ffb38a;
+  --c-fizz: #8fc8ff;
+  --c-narrator: #e6e1ff;
+
+  /* Typography (1.25 ratio from the generator, base raised to 18px for kids) */
+  --font-display: var(--font-baloo), "Baloo 2", system-ui, sans-serif;
+  --font-body: var(--font-nunito), "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-sm: 15px;
+  --fs-base: 18px;
+  --fs-lg: 22px;
+  --fs-xl: 28px;
+  --fs-2xl: 35px;
+  --fs-3xl: 44px;
+
+  /* Spacing (8pt grid) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+
+  /* Shape (playful preset: 16px default radius) */
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  /* Sizing */
+  --tap: 64px;          /* minimum touch target for ages 6-7 */
+  --tap-sm: 56px;       /* minimum for small secondary controls */
+  --device-w: 430px;
+  --device-h: 932px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(.2, .8, .2, 1);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+  --dur-fast: 160ms;
+  --dur: 280ms;
+  --dur-slow: 600ms;
+
+  /* Shadows */
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, .35);
+  --shadow-pop: 0 6px 0 rgba(0, 0, 0, .28);
+}

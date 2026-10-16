@@ -1,0 +1,118 @@
+{
+  "version": "v1",
+  "engine": "Kokoro-82M v1.0 (Apache-2.0), generated offline by tools/voices/generate.py",
+  "note": "Every speaker has a different voice. The storyteller is a calm adult man; the children are adult voices raised a few semitones, spread apart in pitch so no two sound alike; Fizz has a light robot shimmer.",
+  "voices": {
+    "narrator": {
+      "model": "bm_george",
+      "semitones": -2,
+      "speed": 0.93,
+      "label": "Storyteller"
+    },
+    "fizz": {
+      "model": "am_puck",
+      "semitones": 2,
+      "speed": 1.06,
+      "fx": "robot",
+      "label": "Fizz"
+    },
+    "ro": {
+      "model": "am_michael",
+      "semitones": 6,
+      "speed": 1.04,
+      "label": "Ro"
+    },
+    "meera": {
+      "model": "bf_emma",
+      "semitones": 2,
+      "speed": 1.0,
+      "label": "Meera"
+    },
+    "kiki": {
+      "model": "af_bella",
+      "semitones": 3,
+      "speed": 1.1,
+      "label": "Kiki"
+    },
+    "bunty": {
+      "model": "af_kore",
+      "semitones": 6,
+      "speed": 1.06,
+      "label": "Bunty"
+    },
+    "you-a": {
+      "model": "af_aoede",
+      "semitones": 4,
+      "speed": 1.0,
+      "label": "Bright"
+    },
+    "you-b": {
+      "model": "bm_fable",
+      "semitones": 5,
+      "speed": 1.0,
+      "label": "Bold"
+    },
+    "you-c": {
+      "model": "af_nova",
+      "semitones": 3,
+      "speed": 0.98,
+      "label": "Soft"
+    }
+  },
+  "fallback": {
+    "narrator": {
+      "pitch": 0.9,
+      "rate": 0.94
+    },
+    "fizz": {
+      "pitch": 1.6,
+      "rate": 1.12
+    },
+    "ro": {
+      "pitch": 1.25,
+      "rate": 1.06
+    },
+    "meera": {
+      "pitch": 1.35,
+      "rate": 1.0
+    },
+    "kiki": {
+      "pitch": 1.55,
+      "rate": 1.12
+    },
+    "bunty": {
+      "pitch": 1.75,
+      "rate": 1.06
+    },
+    "you-a": {
+      "pitch": 1.35,
+      "rate": 1.0
+    },
+    "you-b": {
+      "pitch": 1.15,
+      "rate": 1.0
+    },
+    "you-c": {
+      "pitch": 1.25,
+      "rate": 0.96
+    }
+  },
+  "say": {
+    "Ro": "Roh",
+    "Ro's": "Roh's",
+    "Kiki": "Kee-kee",
+    "Kiki's": "Kee-kee's",
+    "Aarav": "Aarav",
+    "Anaya": "Anaaya",
+    "Kabir": "Kabeer",
+    "Diya": "Deeya",
+    "Ishaan": "Eeshaan",
+    "Riya": "Reeya",
+    "Arjun": "Arjun",
+    "Zara": "Zaara",
+    "Vihaan": "Vihaan",
+    "Saanvi": "Saanvee",
+    "Reyansh": "Ray-ansh",
+    "Myra": "Myra"
+  }
+}

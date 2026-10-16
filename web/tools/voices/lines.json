@@ -1,0 +1,2763 @@
+{
+ "version": "v1",
+ "lines": [
+  {
+   "voice": "narrator",
+   "text": "Prologue. Press Start.",
+   "say": "Prologue. Press Start.",
+   "key": "narrator|430bad62",
+   "where": "p-1#0"
+  },
+  {
+   "voice": "narrator",
+   "text": "Science fair day! The hall smells of glue and paint.",
+   "say": "Science fair day! The hall smells of glue and paint.",
+   "key": "narrator|f3d43d6c",
+   "where": "p-1#1"
+  },
+  {
+   "voice": "meera",
+   "text": "Ta-da! The calmest volcano in the whole world.",
+   "say": "Ta-da! The calmest volcano in the whole world.",
+   "key": "meera|7f21c08e",
+   "where": "p-1#2"
+  },
+  {
+   "voice": "ro",
+   "text": "Calm? Meera, it’s just a cup of baking soda.",
+   "say": "Calm? Meera, it’s just a cup of baking soda.",
+   "key": "ro|2b68f081",
+   "where": "p-1#3"
+  },
+  {
+   "voice": "meera",
+   "text": "Just watch. Three... two... one...",
+   "say": "Just watch. Three... two... one...",
+   "key": "meera|079f5f46",
+   "where": "p-1#4"
+  },
+  {
+   "voice": "narrator",
+   "text": "The volcano gives a tiny gurgle.",
+   "say": "The volcano gives a tiny gurgle.",
+   "key": "narrator|876118c2",
+   "where": "p-1#5"
+  },
+  {
+   "voice": "narrator",
+   "text": "Then... it is not calm at all!",
+   "say": "Then... it is not calm at all!",
+   "key": "narrator|84692543",
+   "where": "p-1#6"
+  },
+  {
+   "voice": "ro",
+   "text": "I’m pink. Why am I PINK?",
+   "say": "I’m pink. Why am I PINK?",
+   "key": "ro|2450342c",
+   "where": "p-1#7"
+  },
+  {
+   "voice": "meera",
+   "text": "Food colouring. For science!",
+   "say": "Food colouring. For science!",
+   "key": "meera|357d3c9b",
+   "where": "p-1#8"
+  },
+  {
+   "voice": "kiki",
+   "text": "Ro looks like a strawberry! Can I press the volcano too?",
+   "say": "Roh looks like a strawberry! Can I press the volcano too?",
+   "key": "kiki|e3da648b",
+   "where": "p-1#9"
+  },
+  {
+   "voice": "meera",
+   "text": "Nobody presses ANYTHING! Kiki, you pressed the fire alarm last week.",
+   "say": "Nobody presses ANYTHING! Kee-kee, you pressed the fire alarm last week.",
+   "key": "meera|8db29a3f",
+   "where": "p-1#10"
+  },
+  {
+   "voice": "kiki",
+   "text": "It had a little red lid! I just HAD to.",
+   "say": "It had a little red lid! I just HAD to.",
+   "key": "kiki|bc4b0ba7",
+   "where": "p-1#11"
+  },
+  {
+   "voice": "narrator",
+   "text": "When nobody is looking, Kiki tiptoes over to a robot.",
+   "say": "When nobody is looking, Kee-kee tiptoes over to a robot.",
+   "key": "narrator|6fedb6c0",
+   "where": "p-1#12"
+  },
+  {
+   "voice": "narrator",
+   "text": "She presses its nose...",
+   "say": "She presses its nose...",
+   "key": "narrator|d878bdba",
+   "where": "p-1#13"
+  },
+  {
+   "voice": "kiki",
+   "text": "Bless you, robot!",
+   "say": "Bless you, robot!",
+   "key": "kiki|d74e8f2d",
+   "where": "p-1#14"
+  },
+  {
+   "voice": "bunty",
+   "text": "EVERYONE! There’s a mystery machine in the store room!",
+   "say": "EVERYONE! There’s a mystery machine in the store room!",
+   "key": "bunty|43a1c9dd",
+   "where": "p-1#15"
+  },
+  {
+   "voice": "kiki",
+   "text": "A MYSTERY machine?",
+   "say": "A MYSTERY machine?",
+   "key": "kiki|f494fb02",
+   "where": "p-1#16"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone runs over to Bunty.",
+   "say": "Everyone runs over to Bunty.",
+   "key": "narrator|76484fd8",
+   "where": "p-1#17"
+  },
+  {
+   "voice": "ro",
+   "text": "Bunty! You’re supposed to be in Class 4.",
+   "say": "Bunty! You’re supposed to be in Class 4.",
+   "key": "ro|e336351d",
+   "where": "p-1#18"
+  },
+  {
+   "voice": "bunty",
+   "text": "Class 4 is boring. This is a MYSTERY!",
+   "say": "Class 4 is boring. This is a MYSTERY!",
+   "key": "bunty|1716e41b",
+   "where": "p-1#19"
+  },
+  {
+   "voice": "narrator",
+   "text": "Aarav looks at the store-room door. Something behind it is humming.",
+   "say": "Aarav looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|6550534c",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Anaya looks at the store-room door. Something behind it is humming.",
+   "say": "Anaaya looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|575d8cff",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Kabir looks at the store-room door. Something behind it is humming.",
+   "say": "Kabeer looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|54a25482",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Diya looks at the store-room door. Something behind it is humming.",
+   "say": "Deeya looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|5b299066",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ishaan looks at the store-room door. Something behind it is humming.",
+   "say": "Eeshaan looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|c070ca37",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Riya looks at the store-room door. Something behind it is humming.",
+   "say": "Reeya looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|e10849b8",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Arjun looks at the store-room door. Something behind it is humming.",
+   "say": "Arjun looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|6ecf063b",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Zara looks at the store-room door. Something behind it is humming.",
+   "say": "Zaara looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|faaee8fb",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Vihaan looks at the store-room door. Something behind it is humming.",
+   "say": "Vihaan looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|306cfbfe",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Saanvi looks at the store-room door. Something behind it is humming.",
+   "say": "Saanvee looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|55a968e9",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Reyansh looks at the store-room door. Something behind it is humming.",
+   "say": "Ray-ansh looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|af141bf3",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Myra looks at the store-room door. Something behind it is humming.",
+   "say": "Myra looks at the store-room door. Something behind it is humming.",
+   "key": "narrator|e3ac3a04",
+   "where": "p-1#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Five pairs of feet race across the hall.",
+   "say": "Five pairs of feet race across the hall.",
+   "key": "narrator|dd6e7b76",
+   "where": "p-1#21"
+  },
+  {
+   "voice": "narrator",
+   "text": "The store room is dark and dusty. Sunlight falls on something big.",
+   "say": "The store room is dark and dusty. Sunlight falls on something big.",
+   "key": "narrator|c884b104",
+   "where": "p-1#22"
+  },
+  {
+   "voice": "narrator",
+   "text": "An old arcade machine. It hums. It glows.",
+   "say": "An old arcade machine. It hums. It glows.",
+   "key": "narrator|f668b652",
+   "where": "p-1#23"
+  },
+  {
+   "voice": "kiki",
+   "text": "Party... Galaxy? It looks SO fun.",
+   "say": "Party... Galaxy? It looks SO fun.",
+   "key": "kiki|8faad375",
+   "where": "p-1#24"
+  },
+  {
+   "voice": "meera",
+   "text": "But it’s not even plugged in. Look at the wire!",
+   "say": "But it’s not even plugged in. Look at the wire!",
+   "key": "meera|0d0ebc7a",
+   "where": "p-1#25"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Aarav’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Aarav’s pocket. Nobody put it there.",
+   "key": "narrator|3969b2ba",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Anaya’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Anaaya’s pocket. Nobody put it there.",
+   "key": "narrator|a4ac6d03",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Kabir’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Kabeer’s pocket. Nobody put it there.",
+   "key": "narrator|3b933750",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Diya’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Deeya’s pocket. Nobody put it there.",
+   "key": "narrator|14b0f8ec",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Ishaan’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Eeshaan’s pocket. Nobody put it there.",
+   "key": "narrator|c20c7d43",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Riya’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Reeya’s pocket. Nobody put it there.",
+   "key": "narrator|e3c6bc1e",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Arjun’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Arjun’s pocket. Nobody put it there.",
+   "key": "narrator|b937e737",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Zara’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Zaara’s pocket. Nobody put it there.",
+   "key": "narrator|ab97f027",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Vihaan’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Vihaan’s pocket. Nobody put it there.",
+   "key": "narrator|c271c4e4",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Saanvi’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Saanvee’s pocket. Nobody put it there.",
+   "key": "narrator|68c32f05",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Reyansh’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Ray-ansh’s pocket. Nobody put it there.",
+   "key": "narrator|a0b9d017",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Clink! A golden token appears in Myra’s pocket. Nobody put it there.",
+   "say": "Clink! A golden token appears in Myra’s pocket. Nobody put it there.",
+   "key": "narrator|59b42a2a",
+   "where": "p-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "New treasure! Golden Token!",
+   "say": "New treasure! Golden Token!",
+   "key": "fizz|78b29dee",
+   "where": "p-1#28"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Aarav, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Aarav, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|41336fc0",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Anaya, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Anaaya, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|3f55a109",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Kabir, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Kabeer, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|3fd23d66",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Diya, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Deeya, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|7ac3ec22",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Ishaan, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Eeshaan, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|31071e49",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Riya, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Reeya, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|cf7e28a4",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Arjun, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Arjun, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|55a9769d",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Zara, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Zaara, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|88ee308d",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Vihaan, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Vihaan, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|a7fa2e4a",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Saanvi, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Saanvee, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|22fa6d9b",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Reyansh, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Ray-ansh, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|0eead30d",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "ro",
+   "text": "Whoa. Myra, the coin slot is glowing. It’s glowing for YOU.",
+   "say": "Whoa. Myra, the coin slot is glowing. It’s glowing for YOU.",
+   "key": "ro|fb3d3180",
+   "where": "p-1#29"
+  },
+  {
+   "voice": "narrator",
+   "text": "Aarav holds up the token. It pulls, like a magnet.",
+   "say": "Aarav holds up the token. It pulls, like a magnet.",
+   "key": "narrator|55130791",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Anaya holds up the token. It pulls, like a magnet.",
+   "say": "Anaaya holds up the token. It pulls, like a magnet.",
+   "key": "narrator|5076484c",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Kabir holds up the token. It pulls, like a magnet.",
+   "say": "Kabeer holds up the token. It pulls, like a magnet.",
+   "key": "narrator|00649baf",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Diya holds up the token. It pulls, like a magnet.",
+   "say": "Deeya holds up the token. It pulls, like a magnet.",
+   "key": "narrator|60e9aa73",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ishaan holds up the token. It pulls, like a magnet.",
+   "say": "Eeshaan holds up the token. It pulls, like a magnet.",
+   "key": "narrator|20b29064",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Riya holds up the token. It pulls, like a magnet.",
+   "say": "Reeya holds up the token. It pulls, like a magnet.",
+   "key": "narrator|b4207bdd",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Arjun holds up the token. It pulls, like a magnet.",
+   "say": "Arjun holds up the token. It pulls, like a magnet.",
+   "key": "narrator|344b62a8",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Zara holds up the token. It pulls, like a magnet.",
+   "say": "Zaara holds up the token. It pulls, like a magnet.",
+   "key": "narrator|d07c8ae8",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Vihaan holds up the token. It pulls, like a magnet.",
+   "say": "Vihaan holds up the token. It pulls, like a magnet.",
+   "key": "narrator|dc41356b",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Saanvi holds up the token. It pulls, like a magnet.",
+   "say": "Saanvee holds up the token. It pulls, like a magnet.",
+   "key": "narrator|e29ce90e",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Reyansh holds up the token. It pulls, like a magnet.",
+   "say": "Ray-ansh holds up the token. It pulls, like a magnet.",
+   "key": "narrator|4d6bc980",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "Myra holds up the token. It pulls, like a magnet.",
+   "say": "Myra holds up the token. It pulls, like a magnet.",
+   "key": "narrator|b2b024c9",
+   "where": "p-1#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Aarav’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Aarav’s hand... and into the slot. CLINK!",
+   "key": "narrator|14dbb35a",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Anaya’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Anaaya’s hand... and into the slot. CLINK!",
+   "key": "narrator|4c3f913d",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Kabir’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Kabeer’s hand... and into the slot. CLINK!",
+   "key": "narrator|c6e91ef4",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Diya’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Deeya’s hand... and into the slot. CLINK!",
+   "key": "narrator|aa8dec60",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Ishaan’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Eeshaan’s hand... and into the slot. CLINK!",
+   "key": "narrator|4111bc45",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Riya’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Reeya’s hand... and into the slot. CLINK!",
+   "key": "narrator|d62906fe",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Arjun’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Arjun’s hand... and into the slot. CLINK!",
+   "key": "narrator|aea56e71",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Zara’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Zaara’s hand... and into the slot. CLINK!",
+   "key": "narrator|fdf95c31",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Vihaan’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Vihaan’s hand... and into the slot. CLINK!",
+   "key": "narrator|52e38638",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Saanvi’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Saanvee’s hand... and into the slot. CLINK!",
+   "key": "narrator|e8132443",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Reyansh’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Ray-ansh’s hand... and into the slot. CLINK!",
+   "key": "narrator|a169ba29",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The token jumps out of Myra’s hand... and into the slot. CLINK!",
+   "say": "The token jumps out of Myra’s hand... and into the slot. CLINK!",
+   "key": "narrator|6a1dd452",
+   "where": "p-1#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "The machine wakes up!",
+   "say": "The machine wakes up!",
+   "key": "narrator|9a0e8871",
+   "where": "p-1#32"
+  },
+  {
+   "voice": "meera",
+   "text": "It says PLAYERS: 5. There are five of us!",
+   "say": "It says PLAYERS: 5. There are five of us!",
+   "key": "meera|86c5ae41",
+   "where": "p-1#33"
+  },
+  {
+   "voice": "kiki",
+   "text": "Press it, press it, PRESS IT!",
+   "say": "Press it, press it, PRESS IT!",
+   "key": "kiki|a881d699",
+   "where": "p-1#34"
+  },
+  {
+   "voice": "meera",
+   "text": "Wait! Is it safe? What if it’s NOT safe?",
+   "say": "Wait! Is it safe? What if it’s NOT safe?",
+   "key": "meera|0ec2755f",
+   "where": "p-1#35"
+  },
+  {
+   "voice": "you-a",
+   "text": "We stick together, whatever happens. Okay, crew?",
+   "say": "We stick together, whatever happens. Okay, crew?",
+   "key": "you-a|7619c3f0",
+   "where": "p-1#36"
+  },
+  {
+   "voice": "you-b",
+   "text": "We stick together, whatever happens. Okay, crew?",
+   "say": "We stick together, whatever happens. Okay, crew?",
+   "key": "you-b|89f414a0",
+   "where": "p-1#36"
+  },
+  {
+   "voice": "you-c",
+   "text": "We stick together, whatever happens. Okay, crew?",
+   "say": "We stick together, whatever happens. Okay, crew?",
+   "key": "you-c|ac2768c3",
+   "where": "p-1#36"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone nods. Even Meera. Slowly.",
+   "say": "Everyone nods. Even Meera. Slowly.",
+   "key": "narrator|ec691795",
+   "where": "p-1#37"
+  },
+  {
+   "voice": "you-a",
+   "text": "On three. One... two...",
+   "say": "On three. One... two...",
+   "key": "you-a|0cfa4dd2",
+   "where": "p-1#38"
+  },
+  {
+   "voice": "you-b",
+   "text": "On three. One... two...",
+   "say": "On three. One... two...",
+   "key": "you-b|f280a302",
+   "where": "p-1#38"
+  },
+  {
+   "voice": "you-c",
+   "text": "On three. One... two...",
+   "say": "On three. One... two...",
+   "key": "you-c|1e855b2f",
+   "where": "p-1#38"
+  },
+  {
+   "voice": "narrator",
+   "text": "Three!",
+   "say": "Three!",
+   "key": "narrator|6fba5abd",
+   "where": "p-1#39"
+  },
+  {
+   "voice": "narrator",
+   "text": "The floor disappears. The whole crew falls into the screen!",
+   "say": "The floor disappears. The whole crew falls into the screen!",
+   "key": "narrator|4f0da484",
+   "where": "p-1#40"
+  },
+  {
+   "voice": "kiki",
+   "text": "WHEEEE! I didn’t even press it this time!",
+   "say": "WHEEEE! I didn’t even press it this time!",
+   "key": "kiki|edf0c2b5",
+   "where": "p-1#41"
+  },
+  {
+   "voice": "meera",
+   "text": "I would like a seatbelt, please!",
+   "say": "I would like a seatbelt, please!",
+   "key": "meera|c087c36e",
+   "where": "p-1#42"
+  },
+  {
+   "voice": "narrator",
+   "text": "Then everything slows down. They float through a sky full of planets.",
+   "say": "Then everything slows down. They float through a sky full of planets.",
+   "key": "narrator|96d24b96",
+   "where": "p-1#43"
+  },
+  {
+   "voice": "bunty",
+   "text": "We’re falling slowly. Like feathers!",
+   "say": "We’re falling slowly. Like feathers!",
+   "key": "bunty|a77f8df2",
+   "where": "p-1#44"
+  },
+  {
+   "voice": "meera",
+   "text": "Look! That planet down there is made of CANDY.",
+   "say": "Look! That planet down there is made of CANDY.",
+   "key": "meera|f1bcb655",
+   "where": "p-1#45"
+  },
+  {
+   "voice": "narrator",
+   "text": "Far below, a pink planet sparkles. And somewhere, somebody is singing.",
+   "say": "Far below, a pink planet sparkles. And somewhere, somebody is singing.",
+   "key": "narrator|29d5c603",
+   "where": "p-1#46"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! A golden token woke up a machine. The crew fell into the Party Galaxy.",
+   "say": "Chapter complete! A golden token woke up a machine. The crew fell into the Party Galaxy.",
+   "key": "narrator|073dec79",
+   "where": "p-1#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Prologue. Welcome to the Party Galaxy.",
+   "say": "Prologue. Welcome to the Party Galaxy.",
+   "key": "narrator|70a287a1",
+   "where": "p-2#0"
+  },
+  {
+   "voice": "narrator",
+   "text": "Out in space, eight worlds float in a giant ring.",
+   "say": "Out in space, eight worlds float in a giant ring.",
+   "key": "narrator|fd7de3c2",
+   "where": "p-2#1"
+  },
+  {
+   "voice": "narrator",
+   "text": "In the middle floats a giant game board.",
+   "say": "In the middle floats a giant game board.",
+   "key": "narrator|71888274",
+   "where": "p-2#2"
+  },
+  {
+   "voice": "narrator",
+   "text": "BOING! Five kids bounce onto the giant game board.",
+   "say": "BOING! Five kids bounce onto the giant game board.",
+   "key": "narrator|e880965d",
+   "where": "p-2#3"
+  },
+  {
+   "voice": "bunty",
+   "text": "I bounced on my face. It was GREAT!",
+   "say": "I bounced on my face. It was GREAT!",
+   "key": "bunty|0104672a",
+   "where": "p-2#4"
+  },
+  {
+   "voice": "fizz",
+   "text": "WELCOME, everybody, to the PARTY GALAXYYYY!",
+   "say": "WELCOME, everybody, to the PARTY GALAXYYYY!",
+   "key": "fizz|8b89addc",
+   "where": "p-2#5"
+  },
+  {
+   "voice": "ro",
+   "text": "Is that... a talking disco ball?",
+   "say": "Is that... a talking disco ball?",
+   "key": "ro|631b8041",
+   "where": "p-2#6"
+  },
+  {
+   "voice": "fizz",
+   "text": "I am FIZZ! I’m the host. And a super good dancer!",
+   "say": "I am FIZZ! I’m the host. And a super good dancer!",
+   "key": "fizz|290a8482",
+   "where": "p-2#7"
+  },
+  {
+   "voice": "meera",
+   "text": "Where are we? And how do we get home?",
+   "say": "Where are we? And how do we get home?",
+   "key": "meera|bc504b5b",
+   "where": "p-2#8"
+  },
+  {
+   "voice": "fizz",
+   "text": "Great question! I will answer it with a SONG.",
+   "say": "Great question! I will answer it with a SONG.",
+   "key": "fizz|02d52921",
+   "where": "p-2#9"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone groans. Except Kiki.",
+   "say": "Everyone groans. Except Kee-kee.",
+   "key": "narrator|bc63f72a",
+   "where": "p-2#10"
+  },
+  {
+   "voice": "fizz",
+   "text": "♪ Eight big worlds, in a great big ring! ♪",
+   "say": "Eight big worlds, in a great big ring!",
+   "key": "fizz|77c73237",
+   "where": "p-2#11"
+  },
+  {
+   "voice": "fizz",
+   "text": "♪ Win the Big Prize, and then... go to the next world! ♪",
+   "say": "Win the Big Prize, and then... go to the next world!",
+   "key": "fizz|39cf7ba0",
+   "where": "p-2#12"
+  },
+  {
+   "voice": "meera",
+   "text": "That didn’t rhyme.",
+   "say": "That didn’t rhyme.",
+   "key": "meera|d46758c9",
+   "where": "p-2#13"
+  },
+  {
+   "voice": "fizz",
+   "text": "It ALMOST rhymed!",
+   "say": "It ALMOST rhymed!",
+   "key": "fizz|e7f1b882",
+   "where": "p-2#14"
+  },
+  {
+   "voice": "fizz",
+   "text": "Rule one! Every world gives you new powers.",
+   "say": "Rule one! Every world gives you new powers.",
+   "key": "fizz|723aaf12",
+   "where": "p-2#15"
+  },
+  {
+   "voice": "fizz",
+   "text": "Rule two! Play silly games. Win shiny Stars.",
+   "say": "Rule two! Play silly games. Win shiny Stars.",
+   "key": "fizz|9f0c4932",
+   "where": "p-2#16"
+  },
+  {
+   "voice": "fizz",
+   "text": "Rule three! Win the Big Prize, and EVERYONE goes on together!",
+   "say": "Rule three! Win the Big Prize, and EVERYONE goes on together!",
+   "key": "fizz|c96da82d",
+   "where": "p-2#17"
+  },
+  {
+   "voice": "bunty",
+   "text": "But what about our families? Won’t they worry?",
+   "say": "But what about our families? Won’t they worry?",
+   "key": "bunty|840eb6f5",
+   "where": "p-2#18"
+  },
+  {
+   "voice": "fizz",
+   "text": "Time at home is frozen! Not one second will pass.",
+   "say": "Time at home is frozen! Not one second will pass.",
+   "key": "fizz|cd69edf5",
+   "where": "p-2#19"
+  },
+  {
+   "voice": "bunty",
+   "text": "Oh. Okay. That’s actually really nice.",
+   "say": "Oh. Okay. That’s actually really nice.",
+   "key": "bunty|e8b6120a",
+   "where": "p-2#20"
+  },
+  {
+   "voice": "ro",
+   "text": "Games? I’m going to win EVERY world!",
+   "say": "Games? I’m going to win EVERY world!",
+   "key": "ro|25b6d7ff",
+   "where": "p-2#21"
+  },
+  {
+   "voice": "kiki",
+   "text": "Not if I press more buttons than you!",
+   "say": "Not if I press more buttons than you!",
+   "key": "kiki|15951d05",
+   "where": "p-2#22"
+  },
+  {
+   "voice": "fizz",
+   "text": "Oh! One more thing. Who pressed START?",
+   "say": "Oh! One more thing. Who pressed START?",
+   "key": "fizz|2d2d0953",
+   "where": "p-2#23"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Aarav.",
+   "say": "Everyone turns to look at Aarav.",
+   "key": "narrator|e81a1383",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Anaya.",
+   "say": "Everyone turns to look at Anaaya.",
+   "key": "narrator|a9707ac6",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Kabir.",
+   "say": "Everyone turns to look at Kabeer.",
+   "key": "narrator|53ab881d",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Diya.",
+   "say": "Everyone turns to look at Deeya.",
+   "key": "narrator|d882c139",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Ishaan.",
+   "say": "Everyone turns to look at Eeshaan.",
+   "key": "narrator|48fa5206",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Riya.",
+   "say": "Everyone turns to look at Reeya.",
+   "key": "narrator|25e52327",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Arjun.",
+   "say": "Everyone turns to look at Arjun.",
+   "key": "narrator|3013775a",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Zara.",
+   "say": "Everyone turns to look at Zaara.",
+   "key": "narrator|b24013aa",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Vihaan.",
+   "say": "Everyone turns to look at Vihaan.",
+   "key": "narrator|ed53e211",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Saanvi.",
+   "say": "Everyone turns to look at Saanvee.",
+   "key": "narrator|d01fe864",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Reyansh.",
+   "say": "Everyone turns to look at Ray-ansh.",
+   "key": "narrator|2bb9117a",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone turns to look at Myra.",
+   "say": "Everyone turns to look at Myra.",
+   "key": "narrator|c6100093",
+   "where": "p-2#24"
+  },
+  {
+   "voice": "you-a",
+   "text": "Um. Me?",
+   "say": "Um. Me?",
+   "key": "you-a|83c8f122",
+   "where": "p-2#25"
+  },
+  {
+   "voice": "you-b",
+   "text": "Um. Me?",
+   "say": "Um. Me?",
+   "key": "you-b|b7a5bf92",
+   "where": "p-2#25"
+  },
+  {
+   "voice": "you-c",
+   "text": "Um. Me?",
+   "say": "Um. Me?",
+   "key": "you-c|bb2afe7b",
+   "where": "p-2#25"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Aarav!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Aarav!",
+   "key": "fizz|8a89f54a",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Anaya!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Anaaya!",
+   "key": "fizz|c2c94a07",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Kabir!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Kabeer!",
+   "key": "fizz|3b4b0b30",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Diya!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Deeya!",
+   "key": "fizz|206b8674",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Ishaan!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Eeshaan!",
+   "key": "fizz|80294467",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Riya!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Reeya!",
+   "key": "fizz|acaa5dc6",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Arjun!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Arjun!",
+   "key": "fizz|c04e04f3",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Zara!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Zaara!",
+   "key": "fizz|93256623",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Vihaan!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Vihaan!",
+   "key": "fizz|6f25201c",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Saanvi!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Saanvee!",
+   "key": "fizz|ecc727e9",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Reyansh!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Ray-ansh!",
+   "key": "fizz|ce00e073",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "Then YOU are the TEAM CAPTAIN! Captain Myra!",
+   "say": "Then YOU are the TEAM CAPTAIN! Captain Myra!",
+   "key": "fizz|78d8633a",
+   "where": "p-2#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "New treasure! Captain Badge!",
+   "say": "New treasure! Captain Badge!",
+   "key": "fizz|be8faa61",
+   "where": "p-2#27"
+  },
+  {
+   "voice": "ro",
+   "text": "Captain? But I wanted to be captain.",
+   "say": "Captain? But I wanted to be captain.",
+   "key": "ro|e50707d5",
+   "where": "p-2#28"
+  },
+  {
+   "voice": "meera",
+   "text": "And I wanted a calm volcano. Things change!",
+   "say": "And I wanted a calm volcano. Things change!",
+   "key": "meera|164ab158",
+   "where": "p-2#29"
+  },
+  {
+   "voice": "you-a",
+   "text": "We stick together. Nobody gets left behind. Deal?",
+   "say": "We stick together. Nobody gets left behind. Deal?",
+   "key": "you-a|d0356321",
+   "where": "p-2#30"
+  },
+  {
+   "voice": "you-b",
+   "text": "We stick together. Nobody gets left behind. Deal?",
+   "say": "We stick together. Nobody gets left behind. Deal?",
+   "key": "you-b|471aa6f1",
+   "where": "p-2#30"
+  },
+  {
+   "voice": "you-c",
+   "text": "We stick together. Nobody gets left behind. Deal?",
+   "say": "We stick together. Nobody gets left behind. Deal?",
+   "key": "you-c|3c3a376c",
+   "where": "p-2#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "One by one, the crew puts their hands in.",
+   "say": "One by one, the crew puts their hands in.",
+   "key": "narrator|e1a88bee",
+   "where": "p-2#31"
+  },
+  {
+   "voice": "bunty",
+   "text": "DEAL!",
+   "say": "DEAL!",
+   "key": "bunty|31c4d440",
+   "where": "p-2#32"
+  },
+  {
+   "voice": "fizz",
+   "text": "New power! Captain's Call!",
+   "say": "New power! Captain's Call!",
+   "key": "fizz|c7adaaca",
+   "where": "p-2#33"
+  },
+  {
+   "voice": "fizz",
+   "text": "Wonderful! First, a warm-up. Show me you’re ready, Captain!",
+   "say": "Wonderful! First, a warm-up. Show me you’re ready, Captain!",
+   "key": "fizz|605ad258",
+   "where": "p-2#34"
+  },
+  {
+   "voice": "fizz",
+   "text": "Bonus round! Fizz wants to see what the new Captain can do!",
+   "say": "Bonus round! Fizz wants to see what the new Captain can do!",
+   "key": "fizz|e77db49c",
+   "where": "p-2#35"
+  },
+  {
+   "voice": "fizz",
+   "text": "Super! Here is your Rule Card, Captain.",
+   "say": "Super! Here is your Rule Card, Captain.",
+   "key": "fizz|e19ebaf2",
+   "where": "p-2#36"
+  },
+  {
+   "voice": "fizz",
+   "text": "New treasure! Fizz's Rule Card!",
+   "say": "New treasure! Fizz's Rule Card!",
+   "key": "fizz|8414201f",
+   "where": "p-2#37"
+  },
+  {
+   "voice": "fizz",
+   "text": "Next stop... the CANDY NEBULA!",
+   "say": "Next stop... the CANDY NEBULA!",
+   "key": "fizz|10721afa",
+   "where": "p-2#38"
+  },
+  {
+   "voice": "narrator",
+   "text": "The board tips like a slide. Wheee! Down to a pink planet!",
+   "say": "The board tips like a slide. Wheee! Down to a pink planet!",
+   "key": "narrator|f8227dc2",
+   "where": "p-2#39"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Aarav became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Aarav became Team Captain.",
+   "key": "narrator|f4def06b",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Anaya became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Anaaya became Team Captain.",
+   "key": "narrator|d0836a6e",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Kabir became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Kabeer became Team Captain.",
+   "key": "narrator|214f24bd",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Diya became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Deeya became Team Captain.",
+   "key": "narrator|3db6d5f9",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Ishaan became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Eeshaan became Team Captain.",
+   "key": "narrator|51eb782e",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Riya became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Reeya became Team Captain.",
+   "key": "narrator|b817b86f",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Arjun became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Arjun became Team Captain.",
+   "key": "narrator|45d54722",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Zara became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Zaara became Team Captain.",
+   "key": "narrator|10c50f52",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Vihaan became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Vihaan became Team Captain.",
+   "key": "narrator|0a884d11",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Saanvi became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Saanvee became Team Captain.",
+   "key": "narrator|a6e27654",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Reyansh became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Ray-ansh became Team Captain.",
+   "key": "narrator|e81b28c2",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Fizz told them the rules, and Myra became Team Captain.",
+   "say": "Chapter complete! Fizz told them the rules, and Myra became Team Captain.",
+   "key": "narrator|5cf57f9b",
+   "where": "p-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "World 1. Sweet Landing.",
+   "say": "World 1. Sweet Landing.",
+   "key": "narrator|027f1fa4",
+   "where": "c-1#0"
+  },
+  {
+   "voice": "narrator",
+   "text": "Down, down, down they float, through clouds of candy floss.",
+   "say": "Down, down, down they float, through clouds of candy floss.",
+   "key": "narrator|84e685ba",
+   "where": "c-1#1"
+  },
+  {
+   "voice": "narrator",
+   "text": "Below them is the Candy Nebula. Everything here is made of sweets!",
+   "say": "Below them is the Candy Nebula. Everything here is made of sweets!",
+   "key": "narrator|a37367d5",
+   "where": "c-1#2"
+  },
+  {
+   "voice": "narrator",
+   "text": "A chocolate river. Jelly hills. Lollipop trees as tall as houses!",
+   "say": "A chocolate river. Jelly hills. Lollipop trees as tall as houses!",
+   "key": "narrator|fe09f5e6",
+   "where": "c-1#3"
+  },
+  {
+   "voice": "narrator",
+   "text": "And far away, on top of Sugar Mountain, something glows.",
+   "say": "And far away, on top of Sugar Mountain, something glows.",
+   "key": "narrator|6f4822d4",
+   "where": "c-1#4"
+  },
+  {
+   "voice": "narrator",
+   "text": "SPLOOSH! The crew lands in a big pink cloud of candy floss.",
+   "say": "SPLOOSH! The crew lands in a big pink cloud of candy floss.",
+   "key": "narrator|1cef216f",
+   "where": "c-1#5"
+  },
+  {
+   "voice": "kiki",
+   "text": "The grass is JELLY. The rocks are GUMDROPS. I live here now!",
+   "say": "The grass is JELLY. The rocks are GUMDROPS. I live here now!",
+   "key": "kiki|841263b5",
+   "where": "c-1#6"
+  },
+  {
+   "voice": "meera",
+   "text": "Uh-oh. Something is wobbling under my feet...",
+   "say": "Uh-oh. Something is wobbling under my feet...",
+   "key": "meera|375b6d26",
+   "where": "c-1#7"
+  },
+  {
+   "voice": "narrator",
+   "text": "It’s a jelly hill! Meera bounces. Up... and down... and up.",
+   "say": "It’s a jelly hill! Meera bounces. Up... and down... and up.",
+   "key": "narrator|14aec747",
+   "where": "c-1#8"
+  },
+  {
+   "voice": "meera",
+   "text": "Okay. Okay. That IS fun.",
+   "say": "Okay. Okay. That IS fun.",
+   "key": "meera|be850e01",
+   "where": "c-1#9"
+  },
+  {
+   "voice": "fizz",
+   "text": "Hello, crew! It’s time for your CANDY POWERS!",
+   "say": "Hello, crew! It’s time for your CANDY POWERS!",
+   "key": "fizz|4c7b4249",
+   "where": "c-1#10"
+  },
+  {
+   "voice": "fizz",
+   "text": "Ro! TOFFEE STRETCH! You can stretch like warm toffee!",
+   "say": "Roh! TOFFEE STRETCH! You can stretch like warm toffee!",
+   "key": "fizz|73fb0712",
+   "where": "c-1#11"
+  },
+  {
+   "voice": "ro",
+   "text": "Let’s GO!",
+   "say": "Let’s GO!",
+   "key": "ro|b98ce5dd",
+   "where": "c-1#12"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ro reaches out. His arm goes on... and on... and on.",
+   "say": "Roh reaches out. His arm goes on... and on... and on.",
+   "key": "narrator|94cf9bb9",
+   "where": "c-1#13"
+  },
+  {
+   "voice": "ro",
+   "text": "HOW DO I GET IT BACK?",
+   "say": "HOW DO I GET IT BACK?",
+   "key": "ro|ebead522",
+   "where": "c-1#14"
+  },
+  {
+   "voice": "narrator",
+   "text": "SNAP! It springs back... and ties itself in a little bow.",
+   "say": "SNAP! It springs back... and ties itself in a little bow.",
+   "key": "narrator|83ebf41e",
+   "where": "c-1#15"
+  },
+  {
+   "voice": "fizz",
+   "text": "Kiki! GUMBALL POPPER!",
+   "say": "Kee-kee! GUMBALL POPPER!",
+   "key": "fizz|9665d45b",
+   "where": "c-1#16"
+  },
+  {
+   "voice": "narrator",
+   "text": "Kiki pops a gumball. It hits a tree, a rock, a cloud...",
+   "say": "Kee-kee pops a gumball. It hits a tree, a rock, a cloud...",
+   "key": "narrator|790e5363",
+   "where": "c-1#17"
+  },
+  {
+   "voice": "narrator",
+   "text": "...and lands right on Kiki’s head.",
+   "say": "...and lands right on Kee-kee’s head.",
+   "key": "narrator|15283324",
+   "where": "c-1#18"
+  },
+  {
+   "voice": "kiki",
+   "text": "AGAIN!",
+   "say": "AGAIN!",
+   "key": "kiki|a8cb945d",
+   "where": "c-1#19"
+  },
+  {
+   "voice": "fizz",
+   "text": "Meera! CANDY SHIELD! Strong and shiny!",
+   "say": "Meera! CANDY SHIELD! Strong and shiny!",
+   "key": "fizz|e0058f63",
+   "where": "c-1#20"
+  },
+  {
+   "voice": "meera",
+   "text": "Finally! A power that makes sense.",
+   "say": "Finally! A power that makes sense.",
+   "key": "meera|06564647",
+   "where": "c-1#21"
+  },
+  {
+   "voice": "narrator",
+   "text": "Her shield is round. It is shiny. It looks very, very lickable.",
+   "say": "Her shield is round. It is shiny. It looks very, very lickable.",
+   "key": "narrator|8acae734",
+   "where": "c-1#22"
+  },
+  {
+   "voice": "meera",
+   "text": "Nobody. Licks. The shield.",
+   "say": "Nobody. Licks. The shield.",
+   "key": "meera|f988820a",
+   "where": "c-1#23"
+  },
+  {
+   "voice": "fizz",
+   "text": "And Bunty! STICKY... FINGERS! Everything you touch gets sticky!",
+   "say": "And Bunty! STICKY... FINGERS! Everything you touch gets sticky!",
+   "key": "fizz|af3fcb65",
+   "where": "c-1#24"
+  },
+  {
+   "voice": "bunty",
+   "text": "That’s it? That’s just... my normal hands.",
+   "say": "That’s it? That’s just... my normal hands.",
+   "key": "bunty|cd3e6f28",
+   "where": "c-1#25"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Aarav gets...",
+   "say": "And our Captain Aarav gets...",
+   "key": "fizz|9cf0bdd6",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Anaya gets...",
+   "say": "And our Captain Anaaya gets...",
+   "key": "fizz|f13be349",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Kabir gets...",
+   "say": "And our Captain Kabeer gets...",
+   "key": "fizz|8fb888bc",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Diya gets...",
+   "say": "And our Captain Deeya gets...",
+   "key": "fizz|00783988",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Ishaan gets...",
+   "say": "And our Captain Eeshaan gets...",
+   "key": "fizz|2f1c6291",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Riya gets...",
+   "say": "And our Captain Reeya gets...",
+   "key": "fizz|d0d94eba",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Arjun gets...",
+   "say": "And our Captain Arjun gets...",
+   "key": "fizz|19fab015",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Zara gets...",
+   "say": "And our Captain Zaara gets...",
+   "key": "fizz|bd7a1d2d",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Vihaan gets...",
+   "say": "And our Captain Vihaan gets...",
+   "key": "fizz|bc495858",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Saanvi gets...",
+   "say": "And our Captain Saanvee gets...",
+   "key": "fizz|e7d1ebbb",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Reyansh gets...",
+   "say": "And our Captain Ray-ansh gets...",
+   "key": "fizz|16ae4025",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "fizz",
+   "text": "And our Captain Myra gets...",
+   "say": "And our Captain Myra gets...",
+   "key": "fizz|4161c1ce",
+   "where": "c-1#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Rainbow sprinkles rain down. Everything they touch turns bouncy and bright!",
+   "say": "Rainbow sprinkles rain down. Everything they touch turns bouncy and bright!",
+   "key": "narrator|49330813",
+   "where": "c-1#27"
+  },
+  {
+   "voice": "fizz",
+   "text": "New power! Sprinkle Shower!",
+   "say": "New power! Sprinkle Shower!",
+   "key": "fizz|c77cebea",
+   "where": "c-1#28"
+  },
+  {
+   "voice": "you-a",
+   "text": "Sprinkles! Okay. I can work with sprinkles.",
+   "say": "Sprinkles! Okay. I can work with sprinkles.",
+   "key": "you-a|8126f164",
+   "where": "c-1#29"
+  },
+  {
+   "voice": "you-b",
+   "text": "Sprinkles! Okay. I can work with sprinkles.",
+   "say": "Sprinkles! Okay. I can work with sprinkles.",
+   "key": "you-b|151c43b4",
+   "where": "c-1#29"
+  },
+  {
+   "voice": "you-c",
+   "text": "Sprinkles! Okay. I can work with sprinkles.",
+   "say": "Sprinkles! Okay. I can work with sprinkles.",
+   "key": "you-c|40a5bded",
+   "where": "c-1#29"
+  },
+  {
+   "voice": "fizz",
+   "text": "And here is a map of the Candy Nebula, Captain!",
+   "say": "And here is a map of the Candy Nebula, Captain!",
+   "key": "fizz|33b7c9bc",
+   "where": "c-1#30"
+  },
+  {
+   "voice": "fizz",
+   "text": "New treasure! Candy Nebula Map!",
+   "say": "New treasure! Candy Nebula Map!",
+   "key": "fizz|752c5054",
+   "where": "c-1#31"
+  },
+  {
+   "voice": "meera",
+   "text": "Captain, these powers are a mess. We need to practise first.",
+   "say": "Captain, these powers are a mess. We need to practise first.",
+   "key": "meera|2d674ba7",
+   "where": "c-1#32"
+  },
+  {
+   "voice": "fizz",
+   "text": "Bonus round! Help everyone get used to their new candy powers!",
+   "say": "Bonus round! Help everyone get used to their new candy powers!",
+   "key": "fizz|a5e563ab",
+   "where": "c-1#33"
+  },
+  {
+   "voice": "narrator",
+   "text": "After lots of practice, nobody gets tied in a bow. Mostly.",
+   "say": "After lots of practice, nobody gets tied in a bow. Mostly.",
+   "key": "narrator|18ee5188",
+   "where": "c-1#34"
+  },
+  {
+   "voice": "ro",
+   "text": "Mostly.",
+   "say": "Mostly.",
+   "key": "ro|e39b9e05",
+   "where": "c-1#35"
+  },
+  {
+   "voice": "narrator",
+   "text": "Evening. The crew shares candy floss. Ro sits by himself.",
+   "say": "Evening. The crew shares candy floss. Roh sits by himself.",
+   "key": "narrator|b08122af",
+   "where": "c-1#36"
+  },
+  {
+   "voice": "ro",
+   "text": "Tomorrow, I win.",
+   "say": "Tomorrow, I win.",
+   "key": "ro|59b4280f",
+   "where": "c-1#37"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Everyone got a candy power. Bunty got Sticky Fingers. Ro’s arm got tied in a bow.",
+   "say": "Chapter complete! Everyone got a candy power. Bunty got Sticky Fingers. Roh’s arm got tied in a bow.",
+   "key": "narrator|d780a34d",
+   "where": "c-1#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "World 1. Jelly Bean Bounce.",
+   "say": "World 1. Jelly Bean Bounce.",
+   "key": "narrator|79964653",
+   "where": "c-2#0"
+  },
+  {
+   "voice": "narrator",
+   "text": "Morning comes to the Candy Nebula. Today is the very first game!",
+   "say": "Morning comes to the Candy Nebula. Today is the very first game!",
+   "key": "narrator|c81cff02",
+   "where": "c-2#1"
+  },
+  {
+   "voice": "fizz",
+   "text": "GAME ONE! The Jelly Bean Bounce!",
+   "say": "GAME ONE! The Jelly Bean Bounce!",
+   "key": "fizz|1f485ce6",
+   "where": "c-2#2"
+  },
+  {
+   "voice": "fizz",
+   "text": "Bounce from bean to bean. First to the finish wins three Stars!",
+   "say": "Bounce from bean to bean. First to the finish wins three Stars!",
+   "key": "fizz|3bfbca1a",
+   "where": "c-2#3"
+  },
+  {
+   "voice": "ro",
+   "text": "Three Stars. Mine.",
+   "say": "Three Stars. Mine.",
+   "key": "ro|ff0b114b",
+   "where": "c-2#5"
+  },
+  {
+   "voice": "kiki",
+   "text": "Not if I bounce ON you first!",
+   "say": "Not if I bounce ON you first!",
+   "key": "kiki|aa3a2b24",
+   "where": "c-2#6"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone crouches on the start line...",
+   "say": "Everyone crouches on the start line...",
+   "key": "narrator|ed21b11b",
+   "where": "c-2#7"
+  },
+  {
+   "voice": "fizz",
+   "text": "Ready... set...",
+   "say": "Ready... set...",
+   "key": "fizz|eb2c44ac",
+   "where": "c-2#8"
+  },
+  {
+   "voice": "fizz",
+   "text": "GO!",
+   "say": "GO!",
+   "key": "fizz|1e2c9dc6",
+   "where": "c-2#9"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ro stretches across three beans at once!",
+   "say": "Roh stretches across three beans at once!",
+   "key": "narrator|5ad93df7",
+   "where": "c-2#10"
+  },
+  {
+   "voice": "meera",
+   "text": "Hey! My head is NOT a trampoline!",
+   "say": "Hey! My head is NOT a trampoline!",
+   "key": "meera|3514065c",
+   "where": "c-2#11"
+  },
+  {
+   "voice": "kiki",
+   "text": "Wait! Bunty is stuck to a bean!",
+   "say": "Wait! Bunty is stuck to a bean!",
+   "key": "kiki|3b843287",
+   "where": "c-2#12"
+  },
+  {
+   "voice": "bunty",
+   "text": "My sticky fingers! I’m part of the jelly bean now!",
+   "say": "My sticky fingers! I’m part of the jelly bean now!",
+   "key": "bunty|c6acd602",
+   "where": "c-2#13"
+  },
+  {
+   "voice": "you-a",
+   "text": "Hold on, Bunty! Nobody gets left behind!",
+   "say": "Hold on, Bunty! Nobody gets left behind!",
+   "key": "you-a|d56b85c8",
+   "where": "c-2#14"
+  },
+  {
+   "voice": "you-b",
+   "text": "Hold on, Bunty! Nobody gets left behind!",
+   "say": "Hold on, Bunty! Nobody gets left behind!",
+   "key": "you-b|dc9e5b78",
+   "where": "c-2#14"
+  },
+  {
+   "voice": "you-c",
+   "text": "Hold on, Bunty! Nobody gets left behind!",
+   "say": "Hold on, Bunty! Nobody gets left behind!",
+   "key": "you-c|176a834b",
+   "where": "c-2#14"
+  },
+  {
+   "voice": "fizz",
+   "text": "Bonus round! Bunty is stuck! Help the crew bounce over to him.",
+   "say": "Bonus round! Bunty is stuck! Help the crew bounce over to him.",
+   "key": "fizz|7cba3d7a",
+   "where": "c-2#15"
+  },
+  {
+   "voice": "narrator",
+   "text": "A sprinkle shower makes the bean extra bouncy...",
+   "say": "A sprinkle shower makes the bean extra bouncy...",
+   "key": "narrator|31d0a46d",
+   "where": "c-2#16"
+  },
+  {
+   "voice": "bunty",
+   "text": "I’M FLYING! I’M A BIRD! A STICKY BIRD!",
+   "say": "I’M FLYING! I’M A BIRD! A STICKY BIRD!",
+   "key": "bunty|7ab168a6",
+   "where": "c-2#17"
+  },
+  {
+   "voice": "narrator",
+   "text": "But up ahead, someone is already at the finish line.",
+   "say": "But up ahead, someone is already at the finish line.",
+   "key": "narrator|6f0441ca",
+   "where": "c-2#18"
+  },
+  {
+   "voice": "ro",
+   "text": "FIRST! Three Stars for Ro!",
+   "say": "FIRST! Three Stars for Roh!",
+   "key": "ro|b6e7e184",
+   "where": "c-2#19"
+  },
+  {
+   "voice": "kiki",
+   "text": "You didn’t even look back for Bunty.",
+   "say": "You didn’t even look back for Bunty.",
+   "key": "kiki|fdf4d81a",
+   "where": "c-2#20"
+  },
+  {
+   "voice": "ro",
+   "text": "It’s a race! You’re supposed to race.",
+   "say": "It’s a race! You’re supposed to race.",
+   "key": "ro|0f5eed17",
+   "where": "c-2#21"
+  },
+  {
+   "voice": "you-a",
+   "text": "Bunty, are you okay?",
+   "say": "Bunty, are you okay?",
+   "key": "you-a|b60973ed",
+   "where": "c-2#22"
+  },
+  {
+   "voice": "you-b",
+   "text": "Bunty, are you okay?",
+   "say": "Bunty, are you okay?",
+   "key": "you-b|1dae5e7d",
+   "where": "c-2#22"
+  },
+  {
+   "voice": "you-c",
+   "text": "Bunty, are you okay?",
+   "say": "Bunty, are you okay?",
+   "key": "you-c|2276bc6a",
+   "where": "c-2#22"
+  },
+  {
+   "voice": "bunty",
+   "text": "I was a jelly bean. Best. Day. Ever.",
+   "say": "I was a jelly bean. Best. Day. Ever.",
+   "key": "bunty|c367676e",
+   "where": "c-2#23"
+  },
+  {
+   "voice": "fizz",
+   "text": "A gift for the Captain: Jelly Boots! Extra bouncy, not sticky!",
+   "say": "A gift for the Captain: Jelly Boots! Extra bouncy, not sticky!",
+   "key": "fizz|38f40b95",
+   "where": "c-2#24"
+  },
+  {
+   "voice": "fizz",
+   "text": "New treasure! Jelly Boots!",
+   "say": "New treasure! Jelly Boots!",
+   "key": "fizz|5fb28dfb",
+   "where": "c-2#25"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ro holds his three Stars. The others laugh. He doesn’t look up.",
+   "say": "Roh holds his three Stars. The others laugh. He doesn’t look up.",
+   "key": "narrator|d8ff3886",
+   "where": "c-2#26"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Ro won the race. Bunty got stuck to a bean, flew like a bird, and loved it.",
+   "say": "Chapter complete! Roh won the race. Bunty got stuck to a bean, flew like a bird, and loved it.",
+   "key": "narrator|3d4371b5",
+   "where": "c-2#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "World 1. The Chocolate River.",
+   "say": "World 1. The Chocolate River.",
+   "key": "narrator|2807ae5c",
+   "where": "c-3#0"
+  },
+  {
+   "voice": "narrator",
+   "text": "Next is the chocolate river. It starts at a waterfall cave.",
+   "say": "Next is the chocolate river. It starts at a waterfall cave.",
+   "key": "narrator|4c46277f",
+   "where": "c-3#1"
+  },
+  {
+   "voice": "fizz",
+   "text": "GAME TWO! Chocolate River Rafting!",
+   "say": "GAME TWO! Chocolate River Rafting!",
+   "key": "fizz|418a4968",
+   "where": "c-3#2"
+  },
+  {
+   "voice": "fizz",
+   "text": "Paddle your raft to the cave. And do NOT eat the raft!",
+   "say": "Paddle your raft to the cave. And do NOT eat the raft!",
+   "key": "fizz|b765c056",
+   "where": "c-3#3"
+  },
+  {
+   "voice": "kiki",
+   "text": "Don’t eat the raft? That’s the hardest rule EVER.",
+   "say": "Don’t eat the raft? That’s the hardest rule EVER.",
+   "key": "kiki|7b7c75b8",
+   "where": "c-3#4"
+  },
+  {
+   "voice": "ro",
+   "text": "I’ll take my own raft. I’m faster alone.",
+   "say": "I’ll take my own raft. I’m faster alone.",
+   "key": "ro|2e9c5486",
+   "where": "c-3#5"
+  },
+  {
+   "voice": "meera",
+   "text": "Ro, the rafts are for teams.",
+   "say": "Roh, the rafts are for teams.",
+   "key": "meera|258c53f0",
+   "where": "c-3#6"
+  },
+  {
+   "voice": "ro",
+   "text": "Then I’m a team of one.",
+   "say": "Then I’m a team of one.",
+   "key": "ro|3c1e25a2",
+   "where": "c-3#7"
+  },
+  {
+   "voice": "bunty",
+   "text": "That’s not how teams work, Ro.",
+   "say": "That’s not how teams work, Roh.",
+   "key": "bunty|f397f959",
+   "where": "c-3#8"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ro paddles off alone. Everyone else squeezes onto one big raft.",
+   "say": "Roh paddles off alone. Everyone else squeezes onto one big raft.",
+   "key": "narrator|84e94e10",
+   "where": "c-3#9"
+  },
+  {
+   "voice": "meera",
+   "text": "Is it just me, or is the raft getting... smaller?",
+   "say": "Is it just me, or is the raft getting... smaller?",
+   "key": "meera|d9a02446",
+   "where": "c-3#10"
+  },
+  {
+   "voice": "narrator",
+   "text": "Kiki is eating the raft.",
+   "say": "Kee-kee is eating the raft.",
+   "key": "narrator|abf1bd4c",
+   "where": "c-3#11"
+  },
+  {
+   "voice": "kiki",
+   "text": "I’m SORRY! It’s REALLY good wafer!",
+   "say": "I’m SORRY! It’s REALLY good wafer!",
+   "key": "kiki|6cf8c936",
+   "where": "c-3#12"
+  },
+  {
+   "voice": "meera",
+   "text": "It’s falling apart! We’re going to sink into the chocolate!",
+   "say": "It’s falling apart! We’re going to sink into the chocolate!",
+   "key": "meera|e70b363a",
+   "where": "c-3#13"
+  },
+  {
+   "voice": "bunty",
+   "text": "Wait! My sticky fingers! I can glue the raft back together!",
+   "say": "Wait! My sticky fingers! I can glue the raft back together!",
+   "key": "bunty|28c325e5",
+   "where": "c-3#14"
+  },
+  {
+   "voice": "fizz",
+   "text": "Bonus round! The raft is falling apart! Help Bunty stick every piece back.",
+   "say": "Bonus round! The raft is falling apart! Help Bunty stick every piece back.",
+   "key": "fizz|0c8b8cf2",
+   "where": "c-3#15"
+  },
+  {
+   "voice": "narrator",
+   "text": "Bunty’s sticky hands hold every piece in place. The raft is saved!",
+   "say": "Bunty’s sticky hands hold every piece in place. The raft is saved!",
+   "key": "narrator|2f1a8259",
+   "where": "c-3#16"
+  },
+  {
+   "voice": "bunty",
+   "text": "STICKY FINGERS FOR THE WIN!",
+   "say": "STICKY FINGERS FOR THE WIN!",
+   "key": "bunty|3cc53117",
+   "where": "c-3#17"
+  },
+  {
+   "voice": "narrator",
+   "text": "The crew cheers so loudly, a chocolate fish jumps up to see!",
+   "say": "The crew cheers so loudly, a chocolate fish jumps up to see!",
+   "key": "narrator|106bf783",
+   "where": "c-3#18"
+  },
+  {
+   "voice": "narrator",
+   "text": "At the cave, Ro is waiting. A chocolate fish ate his raft!",
+   "say": "At the cave, Roh is waiting. A chocolate fish ate his raft!",
+   "key": "narrator|e85755c8",
+   "where": "c-3#19"
+  },
+  {
+   "voice": "ro",
+   "text": "...It ate my paddle too.",
+   "say": "...It ate my paddle too.",
+   "key": "ro|036653be",
+   "where": "c-3#20"
+  },
+  {
+   "voice": "fizz",
+   "text": "Bunty’s raft wins three Stars! Teamwork wins!",
+   "say": "Bunty’s raft wins three Stars! Teamwork wins!",
+   "key": "fizz|86f257df",
+   "where": "c-3#21"
+  },
+  {
+   "voice": "you-a",
+   "text": "Ro, hop on. There’s room.",
+   "say": "Roh, hop on. There’s room.",
+   "key": "you-a|cb662199",
+   "where": "c-3#22"
+  },
+  {
+   "voice": "you-b",
+   "text": "Ro, hop on. There’s room.",
+   "say": "Roh, hop on. There’s room.",
+   "key": "you-b|d6b36ee9",
+   "where": "c-3#22"
+  },
+  {
+   "voice": "you-c",
+   "text": "Ro, hop on. There’s room.",
+   "say": "Roh, hop on. There’s room.",
+   "key": "you-c|82e30304",
+   "where": "c-3#22"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ro climbs on. He says nothing. But he holds Bunty’s sticky hand.",
+   "say": "Roh climbs on. He says nothing. But he holds Bunty’s sticky hand.",
+   "key": "narrator|1de02d8c",
+   "where": "c-3#23"
+  },
+  {
+   "voice": "fizz",
+   "text": "New treasure! Wafer Paddle!",
+   "say": "New treasure! Wafer Paddle!",
+   "key": "fizz|6b67f64f",
+   "where": "c-3#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Bunty’s Sticky Fingers held the raft together, and the team won together.",
+   "say": "Chapter complete! Bunty’s Sticky Fingers held the raft together, and the team won together.",
+   "key": "narrator|cb6f7f0e",
+   "where": "c-3#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "World 1. Don’t Lick the Lollipop.",
+   "say": "World 1. Don’t Lick the Lollipop.",
+   "key": "narrator|54ccacc4",
+   "where": "c-4#0"
+  },
+  {
+   "voice": "narrator",
+   "text": "In the afternoon, the crew comes to a garden of giant lollipops.",
+   "say": "In the afternoon, the crew comes to a garden of giant lollipops.",
+   "key": "narrator|14fae44e",
+   "where": "c-4#1"
+  },
+  {
+   "voice": "fizz",
+   "text": "GAME THREE! Don’t. Lick. The. Lollipop!",
+   "say": "GAME THREE! Don’t. Lick. The. Lollipop!",
+   "key": "fizz|a05e1bd4",
+   "where": "c-4#2"
+  },
+  {
+   "voice": "fizz",
+   "text": "Stand next to a giant lollipop. Whoever lasts longest without licking wins!",
+   "say": "Stand next to a giant lollipop. Whoever lasts longest without licking wins!",
+   "key": "fizz|d47d4e86",
+   "where": "c-4#3"
+  },
+  {
+   "voice": "kiki",
+   "text": "This is a trap! It’s the HARDEST game in the whole galaxy.",
+   "say": "This is a trap! It’s the HARDEST game in the whole galaxy.",
+   "key": "kiki|65147045",
+   "where": "c-4#4"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ten seconds. The lollipops smell of mango and strawberry.",
+   "say": "Ten seconds. The lollipops smell of mango and strawberry.",
+   "key": "narrator|582911b9",
+   "where": "c-4#5"
+  },
+  {
+   "voice": "bunty",
+   "text": "I am fine. I am totally fine.",
+   "say": "I am fine. I am totally fine.",
+   "key": "bunty|0ddf444a",
+   "where": "c-4#6"
+  },
+  {
+   "voice": "narrator",
+   "text": "Thirty seconds. Kiki is sweating.",
+   "say": "Thirty seconds. Kee-kee is sweating.",
+   "key": "narrator|5b7f0e25",
+   "where": "c-4#7"
+  },
+  {
+   "voice": "kiki",
+   "text": "My tongue is moving on its OWN!",
+   "say": "My tongue is moving on its OWN!",
+   "key": "kiki|61a3822c",
+   "where": "c-4#8"
+  },
+  {
+   "voice": "narrator",
+   "text": "Sixty seconds. Ro has not moved at all.",
+   "say": "Sixty seconds. Roh has not moved at all.",
+   "key": "narrator|19a4e0ab",
+   "where": "c-4#9"
+  },
+  {
+   "voice": "ro",
+   "text": "I can win this. I just have to want it more.",
+   "say": "I can win this. I just have to want it more.",
+   "key": "ro|6acfd248",
+   "where": "c-4#10"
+  },
+  {
+   "voice": "narrator",
+   "text": "Then the wind blows. The lollipops sway closer... closer... CLOSER...",
+   "say": "Then the wind blows. The lollipops sway closer... closer... CLOSER...",
+   "key": "narrator|99d0e5ce",
+   "where": "c-4#11"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everybody licks at exactly the same time!",
+   "say": "Everybody licks at exactly the same time!",
+   "key": "narrator|6a07261b",
+   "where": "c-4#12"
+  },
+  {
+   "voice": "kiki",
+   "text": "WE ALL LOST!",
+   "say": "WE ALL LOST!",
+   "key": "kiki|13d45b8c",
+   "where": "c-4#13"
+  },
+  {
+   "voice": "meera",
+   "text": "Best. Game. Ever.",
+   "say": "Best. Game. Ever.",
+   "key": "meera|90c0b7c1",
+   "where": "c-4#14"
+  },
+  {
+   "voice": "narrator",
+   "text": "Even Ro laughs so hard that he falls over.",
+   "say": "Even Roh laughs so hard that he falls over.",
+   "key": "narrator|3747243c",
+   "where": "c-4#15"
+  },
+  {
+   "voice": "fizz",
+   "text": "Nobody wins? That has NEVER happened before!",
+   "say": "Nobody wins? That has NEVER happened before!",
+   "key": "fizz|6ee030f0",
+   "where": "c-4#16"
+  },
+  {
+   "voice": "fizz",
+   "text": "Fine! I hid one Star for each of you in this garden.",
+   "say": "Fine! I hid one Star for each of you in this garden.",
+   "key": "fizz|c805f2e8",
+   "where": "c-4#17"
+  },
+  {
+   "voice": "fizz",
+   "text": "Bonus round! Help the crew find their hidden Stars among the giant lollipops!",
+   "say": "Bonus round! Help the crew find their hidden Stars among the giant lollipops!",
+   "key": "fizz|3bc8f9eb",
+   "where": "c-4#18"
+  },
+  {
+   "voice": "narrator",
+   "text": "One Star each. Five Stars, five smiles.",
+   "say": "One Star each. Five Stars, five smiles.",
+   "key": "narrator|8782d2d5",
+   "where": "c-4#19"
+  },
+  {
+   "voice": "narrator",
+   "text": "That night they sleep under the lollipops. Tomorrow is the Big Prize!",
+   "say": "That night they sleep under the lollipops. Tomorrow is the Big Prize!",
+   "key": "narrator|774c9fc2",
+   "where": "c-4#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Everybody licked at once. Nobody won, and everybody laughed.",
+   "say": "Chapter complete! Everybody licked at once. Nobody won, and everybody laughed.",
+   "key": "narrator|7398ac31",
+   "where": "c-4#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "World 1. The Giant Lollipop.",
+   "say": "World 1. The Giant Lollipop.",
+   "key": "narrator|43ca40a8",
+   "where": "c-5#0"
+  },
+  {
+   "voice": "narrator",
+   "text": "The last day. The Giant Lollipop shines on top of Sugar Mountain.",
+   "say": "The last day. The Giant Lollipop shines on top of Sugar Mountain.",
+   "key": "narrator|302ecef4",
+   "where": "c-5#1"
+  },
+  {
+   "voice": "fizz",
+   "text": "The BIG PRIZE! The Giant Lollipop at the top of Sugar Mountain!",
+   "say": "The BIG PRIZE! The Giant Lollipop at the top of Sugar Mountain!",
+   "key": "fizz|02ee2f78",
+   "where": "c-5#2"
+  },
+  {
+   "voice": "fizz",
+   "text": "The first one to touch the Lollipop wins the Candy Nebula!",
+   "say": "The first one to touch the Lollipop wins the Candy Nebula!",
+   "key": "fizz|92364161",
+   "where": "c-5#3"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ro has the most Stars. He starts climbing before Fizz even finishes!",
+   "say": "Roh has the most Stars. He starts climbing before Fizz even finishes!",
+   "key": "narrator|51982039",
+   "where": "c-5#4"
+  },
+  {
+   "voice": "ro",
+   "text": "Sorry! It’s a race!",
+   "say": "Sorry! It’s a race!",
+   "key": "ro|0fb16a3b",
+   "where": "c-5#5"
+  },
+  {
+   "voice": "meera",
+   "text": "He didn’t even look back.",
+   "say": "He didn’t even look back.",
+   "key": "meera|32239ec0",
+   "where": "c-5#6"
+  },
+  {
+   "voice": "kiki",
+   "text": "Then let’s catch up!",
+   "say": "Then let’s catch up!",
+   "key": "kiki|b3aefa4d",
+   "where": "c-5#7"
+  },
+  {
+   "voice": "you-a",
+   "text": "Together! Hold hands, crew. Nobody gets left behind.",
+   "say": "Together! Hold hands, crew. Nobody gets left behind.",
+   "key": "you-a|e577b91f",
+   "where": "c-5#8"
+  },
+  {
+   "voice": "you-b",
+   "text": "Together! Hold hands, crew. Nobody gets left behind.",
+   "say": "Together! Hold hands, crew. Nobody gets left behind.",
+   "key": "you-b|ed2582ef",
+   "where": "c-5#8"
+  },
+  {
+   "voice": "you-c",
+   "text": "Together! Hold hands, crew. Nobody gets left behind.",
+   "say": "Together! Hold hands, crew. Nobody gets left behind.",
+   "key": "you-c|ed33a4a4",
+   "where": "c-5#8"
+  },
+  {
+   "voice": "narrator",
+   "text": "The mountain is steep and slippery. Icing everywhere!",
+   "say": "The mountain is steep and slippery. Icing everywhere!",
+   "key": "narrator|6fa85225",
+   "where": "c-5#9"
+  },
+  {
+   "voice": "meera",
+   "text": "I’ve got you, Bunty. Climb on my back!",
+   "say": "I’ve got you, Bunty. Climb on my back!",
+   "key": "meera|8dc6e85f",
+   "where": "c-5#10"
+  },
+  {
+   "voice": "fizz",
+   "text": "Bonus round! Help the crew climb Sugar Mountain together, one icy step at a time!",
+   "say": "Bonus round! Help the crew climb Sugar Mountain together, one icy step at a time!",
+   "key": "fizz|12281ea9",
+   "where": "c-5#11"
+  },
+  {
+   "voice": "narrator",
+   "text": "At the very top, Ro reaches out... and touches the Giant Lollipop.",
+   "say": "At the very top, Roh reaches out... and touches the Giant Lollipop.",
+   "key": "narrator|65ffbb5c",
+   "where": "c-5#12"
+  },
+  {
+   "voice": "fizz",
+   "text": "RO WINS THE CANDY NEBULA!",
+   "say": "RO WINS THE CANDY NEBULA!",
+   "key": "fizz|59c8e2f9",
+   "where": "c-5#13"
+  },
+  {
+   "voice": "ro",
+   "text": "YES! I won! I won, I won, I...",
+   "say": "YES! I won! I won, I won, I...",
+   "key": "ro|adcf21dc",
+   "where": "c-5#14"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ro turns around. Nobody is cheering. His friends are far below.",
+   "say": "Roh turns around. Nobody is cheering. His friends are far below.",
+   "key": "narrator|0151e725",
+   "where": "c-5#15"
+  },
+  {
+   "voice": "ro",
+   "text": "...Guys?",
+   "say": "...Guys?",
+   "key": "ro|5ba928a6",
+   "where": "c-5#16"
+  },
+  {
+   "voice": "narrator",
+   "text": "The biggest lollipop in the galaxy. And nobody to share it with.",
+   "say": "The biggest lollipop in the galaxy. And nobody to share it with.",
+   "key": "narrator|9c5088d8",
+   "where": "c-5#17"
+  },
+  {
+   "voice": "ro",
+   "text": "Hold on. I’m coming!",
+   "say": "Hold on. I’m coming!",
+   "key": "ro|203b1338",
+   "where": "c-5#18"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ro stretches his toffee arm all the way down Sugar Mountain.",
+   "say": "Roh stretches his toffee arm all the way down Sugar Mountain.",
+   "key": "narrator|2b2cce43",
+   "where": "c-5#19"
+  },
+  {
+   "voice": "bunty",
+   "text": "Ro’s arm is a LADDER!",
+   "say": "Roh’s arm is a LADDER!",
+   "key": "bunty|5c502320",
+   "where": "c-5#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "One by one, the crew climbs up Ro’s arm to the top.",
+   "say": "One by one, the crew climbs up Roh’s arm to the top.",
+   "key": "narrator|a5dd5992",
+   "where": "c-5#21"
+  },
+  {
+   "voice": "kiki",
+   "text": "This is the weirdest ladder in the whole universe!",
+   "say": "This is the weirdest ladder in the whole universe!",
+   "key": "kiki|dc847a99",
+   "where": "c-5#22"
+  },
+  {
+   "voice": "ro",
+   "text": "I won. But it wasn’t much fun up here by myself.",
+   "say": "I won. But it wasn’t much fun up here by myself.",
+   "key": "ro|8e831aa4",
+   "where": "c-5#23"
+  },
+  {
+   "voice": "you-a",
+   "text": "Well, now we’re all here.",
+   "say": "Well, now we’re all here.",
+   "key": "you-a|b4f992ca",
+   "where": "c-5#24"
+  },
+  {
+   "voice": "you-b",
+   "text": "Well, now we’re all here.",
+   "say": "Well, now we’re all here.",
+   "key": "you-b|6a2cb23a",
+   "where": "c-5#24"
+  },
+  {
+   "voice": "you-c",
+   "text": "Well, now we’re all here.",
+   "say": "Well, now we’re all here.",
+   "key": "you-c|1a766c03",
+   "where": "c-5#24"
+  },
+  {
+   "voice": "ro",
+   "text": "So... who wants some lollipop?",
+   "say": "So... who wants some lollipop?",
+   "key": "ro|ab18eae8",
+   "where": "c-5#25"
+  },
+  {
+   "voice": "narrator",
+   "text": "Ro breaks the lollipop into five pieces. He keeps the smallest one.",
+   "say": "Roh breaks the lollipop into five pieces. He keeps the smallest one.",
+   "key": "narrator|9991c29d",
+   "where": "c-5#26"
+  },
+  {
+   "voice": "kiki",
+   "text": "Ro! You have lollipop in your EYEBROWS!",
+   "say": "Roh! You have lollipop in your EYEBROWS!",
+   "key": "kiki|6ac7f0e3",
+   "where": "c-5#27"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everybody laughs. Ro laughs the loudest.",
+   "say": "Everybody laughs. Roh laughs the loudest.",
+   "key": "narrator|cbec8b0d",
+   "where": "c-5#28"
+  },
+  {
+   "voice": "fizz",
+   "text": "STAGE CLEAR! The whole crew goes on to WORLD TWO!",
+   "say": "STAGE CLEAR! The whole crew goes on to WORLD TWO!",
+   "key": "fizz|71ec1061",
+   "where": "c-5#29"
+  },
+  {
+   "voice": "fizz",
+   "text": "New treasure! Lollipop Stick!",
+   "say": "New treasure! Lollipop Stick!",
+   "key": "fizz|b9519077",
+   "where": "c-5#30"
+  },
+  {
+   "voice": "narrator",
+   "text": "From the top, they can see the whole Candy Nebula.",
+   "say": "From the top, they can see the whole Candy Nebula.",
+   "key": "narrator|99ea79bb",
+   "where": "c-5#31"
+  },
+  {
+   "voice": "narrator",
+   "text": "That night, under candy stars, the crew sits close together.",
+   "say": "That night, under candy stars, the crew sits close together.",
+   "key": "narrator|8bf91326",
+   "where": "c-5#32"
+  },
+  {
+   "voice": "bunty",
+   "text": "I miss home a little.",
+   "say": "I miss home a little.",
+   "key": "bunty|e0ee765c",
+   "where": "c-5#33"
+  },
+  {
+   "voice": "meera",
+   "text": "Me too. But this is a good kind of far away.",
+   "say": "Me too. But this is a good kind of far away.",
+   "key": "meera|da153e58",
+   "where": "c-5#34"
+  },
+  {
+   "voice": "you-a",
+   "text": "Rest up, crew. Next stop: Wizzlewick, the magic kingdom!",
+   "say": "Rest up, crew. Next stop: Wizzlewick, the magic kingdom!",
+   "key": "you-a|4d38c123",
+   "where": "c-5#35"
+  },
+  {
+   "voice": "you-b",
+   "text": "Rest up, crew. Next stop: Wizzlewick, the magic kingdom!",
+   "say": "Rest up, crew. Next stop: Wizzlewick, the magic kingdom!",
+   "key": "you-b|a84f4ab3",
+   "where": "c-5#35"
+  },
+  {
+   "voice": "you-c",
+   "text": "Rest up, crew. Next stop: Wizzlewick, the magic kingdom!",
+   "say": "Rest up, crew. Next stop: Wizzlewick, the magic kingdom!",
+   "key": "you-c|85c00c28",
+   "where": "c-5#35"
+  },
+  {
+   "voice": "narrator",
+   "text": "High above them, the next world is already twinkling.",
+   "say": "High above them, the next world is already twinkling.",
+   "key": "narrator|b9ef1b00",
+   "where": "c-5#36"
+  },
+  {
+   "voice": "fizz",
+   "text": "♪ Magic and fun, coming up soon! ♪",
+   "say": "Magic and fun, coming up soon!",
+   "key": "fizz|68452f38",
+   "where": "c-5#37"
+  },
+  {
+   "voice": "meera",
+   "text": "Still doesn’t rhyme.",
+   "say": "Still doesn’t rhyme.",
+   "key": "meera|6fc71262",
+   "where": "c-5#38"
+  },
+  {
+   "voice": "narrator",
+   "text": "Chapter complete! Ro won the Giant Lollipop, and shared it with everyone. World 1 is done!",
+   "say": "Chapter complete! Roh won the Giant Lollipop, and shared it with everyone. World 1 is done!",
+   "key": "narrator|7fc5f10d",
+   "where": "c-5#end"
+  },
+  {
+   "voice": "narrator",
+   "text": "Make your Captain! Pick a name, then tap the colours you like.",
+   "say": "Make your Captain! Pick a name, then tap the colours you like.",
+   "key": "narrator|3c92fd43",
+   "where": "ui.builderIntro"
+  },
+  {
+   "voice": "narrator",
+   "text": "Change your look. Tap the colours you like.",
+   "say": "Change your look. Tap the colours you like.",
+   "key": "narrator|e7404141",
+   "where": "ui.builderEdit"
+  },
+  {
+   "voice": "you-a",
+   "text": "Okay, crew. Let’s go!",
+   "say": "Okay, crew. Let’s go!",
+   "key": "you-a|d4113552",
+   "where": "ui.voicePreview"
+  },
+  {
+   "voice": "you-b",
+   "text": "Okay, crew. Let’s go!",
+   "say": "Okay, crew. Let’s go!",
+   "key": "you-b|d65a9982",
+   "where": "ui.voicePreview"
+  },
+  {
+   "voice": "you-c",
+   "text": "Okay, crew. Let’s go!",
+   "say": "Okay, crew. Let’s go!",
+   "key": "you-c|516a3527",
+   "where": "ui.voicePreview"
+  },
+  {
+   "voice": "narrator",
+   "text": "Welcome back, Captain! Tap Play to carry on the story.",
+   "say": "Welcome back, Captain! Tap Play to carry on the story.",
+   "key": "narrator|6dd52068",
+   "where": "ui.homeIntro"
+  },
+  {
+   "voice": "narrator",
+   "text": "This is the Party Galaxy. Eight worlds in a ring. Tap a glowing chapter to play.",
+   "say": "This is the Party Galaxy. Eight worlds in a ring. Tap a glowing chapter to play.",
+   "key": "narrator|9f93f930",
+   "where": "ui.mapIntro"
+  },
+  {
+   "voice": "narrator",
+   "text": "This is your Captain page. Tap a power or a treasure to hear about it.",
+   "say": "This is your Captain page. Tap a power or a treasure to hear about it.",
+   "key": "narrator|28cc1c55",
+   "where": "ui.profileIntro"
+  },
+  {
+   "voice": "narrator",
+   "text": "Keep playing the story to find this one!",
+   "say": "Keep playing the story to find this one!",
+   "key": "narrator|3dc6cb70",
+   "where": "ui.lockedItem"
+  },
+  {
+   "voice": "narrator",
+   "text": "World two is coming soon!",
+   "say": "World two is coming soon!",
+   "key": "narrator|c9a7af21",
+   "where": "ui.comingSoon"
+  },
+  {
+   "voice": "narrator",
+   "text": "Captain's Call. Call the whole crew together. Nobody gets left behind.",
+   "say": "Captain's Call. Call the whole crew together. Nobody gets left behind.",
+   "key": "narrator|03c67aae",
+   "where": "ui.collectible.captains-call"
+  },
+  {
+   "voice": "narrator",
+   "text": "Sprinkle Shower. Rainbow sprinkles fall from the sky. Everything they touch turns bouncy.",
+   "say": "Sprinkle Shower. Rainbow sprinkles fall from the sky. Everything they touch turns bouncy.",
+   "key": "narrator|dbe88d3a",
+   "where": "ui.collectible.sprinkle-shower"
+  },
+  {
+   "voice": "narrator",
+   "text": "Golden Token. It popped up in your pocket. It fits the Party Galaxy machine.",
+   "say": "Golden Token. It popped up in your pocket. It fits the Party Galaxy machine.",
+   "key": "narrator|f4d81797",
+   "where": "ui.collectible.golden-token"
+  },
+  {
+   "voice": "narrator",
+   "text": "Captain Badge. You pressed START, so you lead the crew.",
+   "say": "Captain Badge. You pressed START, so you lead the crew.",
+   "key": "narrator|2540aa3f",
+   "where": "ui.collectible.captain-badge"
+  },
+  {
+   "voice": "narrator",
+   "text": "Fizz's Rule Card. Eight worlds. Silly games. Win the Big Prize, and everyone goes on together.",
+   "say": "Fizz's Rule Card. Eight worlds. Silly games. Win the Big Prize, and everyone goes on together.",
+   "key": "narrator|5502d48d",
+   "where": "ui.collectible.rule-card"
+  },
+  {
+   "voice": "narrator",
+   "text": "Candy Nebula Map. Jelly fields, a chocolate river, and Sugar Mountain.",
+   "say": "Candy Nebula Map. Jelly fields, a chocolate river, and Sugar Mountain.",
+   "key": "narrator|c2221d62",
+   "where": "ui.collectible.candy-map"
+  },
+  {
+   "voice": "narrator",
+   "text": "Jelly Boots. Extra bounce for every step.",
+   "say": "Jelly Boots. Extra bounce for every step.",
+   "key": "narrator|efe9cbe7",
+   "where": "ui.collectible.jelly-boots"
+  },
+  {
+   "voice": "narrator",
+   "text": "Wafer Paddle. From the raft Bunty stuck back together.",
+   "say": "Wafer Paddle. From the raft Bunty stuck back together.",
+   "key": "narrator|b12980e4",
+   "where": "ui.collectible.wafer-paddle"
+  },
+  {
+   "voice": "narrator",
+   "text": "Lollipop Stick. All that is left of the Giant Lollipop. Ro shared it with everyone.",
+   "say": "Lollipop Stick. All that is left of the Giant Lollipop. Roh shared it with everyone.",
+   "key": "narrator|06b47580",
+   "where": "ui.collectible.lollipop-stick"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Aarav!",
+   "say": "Captain Aarav!",
+   "key": "fizz|268e86ab",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Anaya!",
+   "say": "Captain Anaaya!",
+   "key": "fizz|6ea6eac6",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Kabir!",
+   "say": "Captain Kabeer!",
+   "key": "fizz|db1f1a09",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Diya!",
+   "say": "Captain Deeya!",
+   "key": "fizz|e919b0fb",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Ishaan!",
+   "say": "Captain Eeshaan!",
+   "key": "fizz|547f5470",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Riya!",
+   "say": "Captain Reeya!",
+   "key": "fizz|5eb61a85",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Arjun!",
+   "say": "Captain Arjun!",
+   "key": "fizz|aad57dea",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Zara!",
+   "say": "Captain Zaara!",
+   "key": "fizz|4644d3f4",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Vihaan!",
+   "say": "Captain Vihaan!",
+   "key": "fizz|0066d7af",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Saanvi!",
+   "say": "Captain Saanvee!",
+   "key": "fizz|244c0aa6",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Reyansh!",
+   "say": "Captain Ray-ansh!",
+   "key": "fizz|17815d6a",
+   "where": "ui.captainCall"
+  },
+  {
+   "voice": "fizz",
+   "text": "Captain Myra!",
+   "say": "Captain Myra!",
+   "key": "fizz|0f93f0f9",
+   "where": "ui.captainCall"
+  }
+ ]
+}
