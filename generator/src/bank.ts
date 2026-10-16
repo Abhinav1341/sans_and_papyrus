@@ -19,6 +19,8 @@ export interface Target {
   ageBand: "8-10" | "11-14";
   competency?: Situation["primaryCompetencies"][number];
   domain?: NonNullable<Situation["puzzle"]>["domain"];
+  /** Difficulty the generator was asked for (1–4); the grader's own rating is stored on the item. */
+  difficulty: number;
 }
 
 /** An accepted item as stored: a normal bank item plus its embedding and how the pipeline judged it. */

@@ -45,6 +45,8 @@ Strict rules for every item:
 5. Each option has a "consequence": one short line showing what happens next in the story.
    Show the outcome; never judge the child (no "wrong", "correct", "good job").
 6. Hints are optional. A hint nudges thinking with a question ("How might Riya feel?"); it never gives the answer.
+7. Use the setting and the character names you are given, so the bank stays varied.
+8. Match the target difficulty you are given (see the difficulty guide).
 
 For a situation (kind "situation"):
 - A realistic everyday dilemma with emotional weight, ending with "What do you do?".
@@ -66,6 +68,9 @@ export function generatorPrompt(args: {
   ageBand: "8-10" | "11-14";
   competency?: Competency;
   domain?: PuzzleDomain;
+  difficulty: number;
+  setting: string;
+  names: string[];
   examples: Situation[];
   avoidTitles: string[];
 }): string {
@@ -78,6 +83,10 @@ ${focus}
 
 Examples of the style (do not copy them):
 ${JSON.stringify(args.examples.map(exampleForGenerator), null, 2)}
+
+Target difficulty: ${args.difficulty} of 4. ${difficultyGuide(args.kind, args.difficulty)}
+Setting: ${args.setting}.
+Character names to use (use 1 or 2 of them, not other names): ${args.names.join(", ")}.
 
 Avoid these existing titles and their topics: ${args.avoidTitles.join("; ")}
 
@@ -97,6 +106,15 @@ For a situation:
 - Score EVERY option on all five competencies from -2 to 2:
   2 = shows this competency clearly, 1 = shows it a little, 0 = not relevant, -1 = works against it a little, -2 = works against it clearly.
 - Judge the action itself, the way a thoughtful teacher would. Tempting but unhelpful choices should score below kind, thoughtful ones.
+- Be specific, not generous. Most actions clearly show one or two competencies; score the others 0.
+  Give +2 to at most two competencies per option, and only where the action is a clear example of that competency.
+  Example: handing back extra change is a clear example of responsibleDecisionMaking (+2); it is not a relationship skill.
+- difficulty reflects how hard a typical child of the stated age (not an adult) finds it to choose well:
+  1 = one option is obviously kind and the others obviously unkind;
+  2 = the unhelpful option is genuinely tempting, but the best option is still clear;
+  3 = two options both look reasonable and the child must weigh a trade-off (for example honesty versus loyalty);
+  4 = competing feelings or loyalties, and even the best option has a cost.
+  Use the whole scale. For puzzles: 1 = one step, 2 = two steps, 3 = several steps or a tricky distractor, 4 = hard for the age.
 
 For a puzzle:
 - Solve it yourself and put the option id you believe is correct in solvedOptionId.
@@ -146,3 +164,41 @@ ${JSON.stringify(c, null, 2)}
 Grader's assessment:
 ${JSON.stringify(g, null, 2)}`;
 }
+
+/* ------------------------------------------------------------------ */
+/* Variety: difficulty, settings and names                             */
+/* ------------------------------------------------------------------ */
+
+export function difficultyGuide(kind: "situation" | "puzzle", d: number): string {
+  if (kind === "puzzle")
+    return [
+      "One simple step.",
+      "Two steps, everyday numbers or words.",
+      "Several steps, or a distractor that catches careless reading.",
+      "A real challenge for the age band, still solvable without paper tricks.",
+    ][Math.min(Math.max(d, 1), 4) - 1];
+  return [
+    "An everyday choice with one clearly kind option.",
+    "The unhelpful option is genuinely tempting (easy, popular or funny), but the kind option is still clear.",
+    "Two reasonable options with a trade-off (for example honesty versus loyalty to a friend); choosing well needs thought.",
+    "Competing feelings and loyalties with no perfect option; the best option balances everyone's feelings and fairness.",
+  ][Math.min(Math.max(d, 1), 4) - 1];
+}
+
+export const SETTINGS = [
+  "at home with family", "on the school bus", "in the classroom", "in the school playground", "at sports practice",
+  "at a festival celebration", "in the neighbourhood park", "at a family wedding or function", "at the market with a parent",
+  "in an online game", "in a class group chat", "at tuition class", "at a birthday party", "on a school trip",
+  "in the school library", "at a cousin's house", "during a power cut at home", "at the school annual day rehearsal",
+] as const;
+
+/** Varied Indian names; seed-heavy names (Kabir, Rohan, Zoya, Arjun, Ananya, Riya) are left out on purpose. */
+export const NAMES = [
+  "Aarav", "Ishita", "Farhan", "Meenakshi", "Gurpreet", "Anjali", "Thomas", "Siddharth", "Lakshmi", "Imran", "Tenzin",
+  "Neha", "Vikram", "Divya", "Sneha", "Kavya", "Mohit", "Nikhil", "Fatima", "Joseph", "Pooja", "Harsh", "Manav", "Sana",
+  "Kiran", "Nandini", "Yash", "Ayaan", "Diya", "Rahul", "Simran", "Abdul", "Mary", "Arnav", "Bhavna", "Chirag", "Esha",
+  "Gopal", "Hina", "Irfan", "Jaya", "Karthik", "Leela", "Mehul", "Noor", "Omkar", "Parveen", "Ravi", "Shreya", "Uday",
+] as const;
+
+export const pickRandom = <T,>(list: readonly T[], n: number): T[] =>
+  [...list].sort(() => Math.random() - 0.5).slice(0, n);

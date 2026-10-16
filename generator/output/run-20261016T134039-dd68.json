@@ -1,0 +1,1096 @@
+{
+  "summary": {
+    "runId": "20261016T134039-dd68",
+    "startedAt": "2026-10-16T13:40:39.997Z",
+    "finishedAt": "2026-10-16T13:44:28.746Z",
+    "requested": 10,
+    "accepted": 9,
+    "rejectedByStage": {
+      "rules": 1
+    },
+    "acceptedByCategory": {
+      "situation:socialAwareness": 2,
+      "situation:responsibleDecisionMaking": 2,
+      "puzzle:math": 1,
+      "situation:relationshipSkills": 1,
+      "situation:selfManagement": 1,
+      "situation:selfAwareness": 2
+    },
+    "models": {
+      "generator": "gemini-3.8-flash",
+      "grader": "gemini-3.6-flash",
+      "curator": "gemini-3.8-flash",
+      "embedding": "gemini-embedding-001"
+    },
+    "usage": {
+      "gemini-embedding-001": {
+        "calls": 43,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thinkingTokens": 0
+      },
+      "gemini-3.8-flash": {
+        "calls": 19,
+        "inputTokens": 45661,
+        "outputTokens": 4676,
+        "thinkingTokens": 16192
+      },
+      "gemini-3.6-flash": {
+        "calls": 9,
+        "inputTokens": 9188,
+        "outputTokens": 2934,
+        "thinkingTokens": 6246
+      }
+    },
+    "estimatedCostUsd": 0.11250075
+  },
+  "accepted": [
+    {
+      "id": "gen-sit-mvb0nmjg873e",
+      "kind": "situation",
+      "title": "Spilled paint water",
+      "text": "In drawing class, Rohan accidentally knocks over his water bowl. It spills across his peacock sketch, blurring all the bright colours. The bell will ring soon. Rohan lowers his head and blinks back tears. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 76,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "empathy",
+        "kindness",
+        "helping"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Pretend not to notice so he does not feel shy",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Rohan sits alone trying to soak up the water with his sleeve."
+        },
+        {
+          "id": "b",
+          "text": "Quickly pass him some tissues and help blot the paper",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Rohan takes a deep breath, and together you save most of his drawing."
+        },
+        {
+          "id": "c",
+          "text": "Tell him loudly that his painting is completely ruined",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -2,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Rohan pulls his head down further and hides his face."
+        },
+        {
+          "id": "d",
+          "text": "Call the art teacher over to explain what happened",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "The teacher gently pats Rohan's shoulder and gives him extra time."
+        }
+      ],
+      "hint": {
+        "text": "How might Rohan be feeling about his hard work getting spoiled?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-07",
+        "sit-06",
+        "sit-10"
+      ],
+      "status": "active",
+      "similarIds": [
+        "sit-12",
+        "sit-03",
+        "sit-04"
+      ],
+      "createdAt": "2026-10-16T13:41:32.773Z",
+      "pipeline": {
+        "runId": "20261016T134039-dd68",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "socialAwareness"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B demonstrates high social awareness and strong relationship skills by providing immediate, compassionate help. Option C lacks empathy and worsens the peer's distress, while Option A avoids helping and Option D relies on an adult when quick peer support is most effective."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Relatable and gentle everyday classroom scenario for Indian children aged 8-10.",
+            "Promotes empathy, quick support, and kindness without preaching.",
+            "Hint provides a thoughtful nudge without giving away the best choice directly."
+          ]
+        },
+        "maxSimilarity": 0.839301595909129,
+        "mostSimilarId": "sit-12"
+      }
+    },
+    {
+      "id": "gen-sit-mvb0nt5taeba",
+      "kind": "situation",
+      "title": "The leaked answers",
+      "text": "An hour before the terminal science exam, Kabir sends a photo of handwritten test questions to your study group. 'Someone found Sir's notes on the staffroom table. Memorise these!' he texts. You struggled with this unit and really want good marks, but using it feels dishonest. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 91,
+      "expectedTimeSec": 45,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "honesty",
+        "peer pressure",
+        "integrity"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Study the leaked questions to secure a top score",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "You score high, but stay anxious all week that someone will discover the leak."
+        },
+        {
+          "id": "b",
+          "text": "Tell Kabir you won't use it, and revise your own notes instead",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Kabir calls you overly cautious, but you enter the exam hall feeling calm."
+        },
+        {
+          "id": "c",
+          "text": "Quietly inform your class teacher about the circulating paper",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 1,
+            "socialAwareness": 2,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "The teacher investigates discreetly and replaces the questions before the test starts."
+        },
+        {
+          "id": "d",
+          "text": "Forward the questions to other classmates so nobody is left behind",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "The photo spreads across the grade, and the exam gets cancelled for everyone."
+        }
+      ],
+      "hint": {
+        "text": "How might relying on these notes affect your confidence and fairness to others?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-13",
+        "sit-09",
+        "sit-14"
+      ],
+      "status": "active",
+      "similarIds": [
+        "sit-14",
+        "sit-09",
+        "sit-10"
+      ],
+      "createdAt": "2026-10-16T13:41:41.345Z",
+      "pipeline": {
+        "runId": "20261016T134039-dd68",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "responsibleDecisionMaking"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario presents a realistic ethical dilemma around academic honesty and peer pressure. Choosing to decline the leaked notes or report the incident demonstrates strong responsible decision-making and self-management, whereas using or spreading the leaked questions undermines fairness and integrity."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Presents a very relatable and realistic academic integrity dilemma for Indian middle schoolers.",
+            "Consequences clearly illustrate the internal and collective impact of choices without being preachy.",
+            "The hint nudges reflection on personal integrity and fairness without giving away a single right answer."
+          ]
+        },
+        "maxSimilarity": 0.8369245187727103,
+        "mostSimilarId": "sit-14"
+      }
+    },
+    {
+      "id": "gen-pz-mvb0oa43b18e",
+      "kind": "puzzle",
+      "title": "Team jersey printing",
+      "text": "Aditi and her 4 teammates want matching jerseys for the inter-school kho-kho tournament. The printer charges a flat ₹150 design fee plus ₹120 per jersey. If all 5 players share the total bill equally, how much should each player contribute?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 44,
+      "expectedTimeSec": 40,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "fairness",
+        "teamwork",
+        "money"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "₹120",
+          "consequence": "That leaves the ₹150 design fee unpaid."
+        },
+        {
+          "id": "b",
+          "text": "₹150",
+          "consequence": "Everyone chips in an equal share and the jerseys are ordered."
+        },
+        {
+          "id": "c",
+          "text": "₹175",
+          "consequence": "The team would end up collecting more money than required."
+        },
+        {
+          "id": "d",
+          "text": "₹270",
+          "consequence": "That assumes each person pays the full design fee by themselves."
+        }
+      ],
+      "hint": {
+        "text": "How much does the design fee add to each person's share when divided by 5?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "The total cost is ₹150 + (5 × ₹120) = ₹750. Dividing ₹750 equally among 5 players gives ₹150 per person.",
+        "computation": "(150 + 5 * 120) / 5"
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-math-06",
+        "pz-math-04",
+        "pz-math-05"
+      ],
+      "status": "active",
+      "similarIds": [
+        "pz-math-01",
+        "pz-math-04",
+        "pz-math-02"
+      ],
+      "createdAt": "2026-10-16T13:42:03.315Z",
+      "pipeline": {
+        "runId": "20261016T134039-dd68",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "math"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "The total cost for 5 jerseys is ₹150 + (5 × ₹120) = ₹750. Divided equally among the 5 players, each person pays ₹150 (or ₹120 + ₹150/5 = ₹150). This is a straightforward multi-step arithmetic word problem suitable for the 11–14 age group.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Culturally relatable context featuring a school kho-kho team",
+            "Encourages fair sharing and practical budgeting skills",
+            "Hint gently guides mathematical breakdown without revealing the answer",
+            "Clear, gentle explanation suitable for the age group"
+          ]
+        },
+        "maxSimilarity": 0.8287531374264788,
+        "mostSimilarId": "pz-math-01"
+      }
+    },
+    {
+      "id": "gen-sit-mvb0ovbt1f27",
+      "kind": "situation",
+      "title": "The broken sketch pen",
+      "text": "You borrowed Rohan's favourite green sketch pen to finish your art drawing. While colouring, the nib snaps with a loud click. Rohan hasn't noticed yet. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 60,
+      "expectedTimeSec": 30,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "honesty",
+        "apologising",
+        "friendship"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Slip it back into his pencil box quietly",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Rohan finds it later and feels upset, wondering who broke it."
+        },
+        {
+          "id": "b",
+          "text": "Tell Rohan right away, say sorry, and lend him your colours",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 1,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Rohan appreciates your honesty, and you share your colours happily."
+        },
+        {
+          "id": "c",
+          "text": "Say that the pen was already broken when you picked it up",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Rohan looks confused and hurt, and you feel guilty all afternoon."
+        }
+      ],
+      "hint": {
+        "text": "How would you feel if a friend broke something of yours?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-06",
+        "sit-10",
+        "sit-15"
+      ],
+      "status": "active",
+      "similarIds": [
+        "gen-sit-mvb0nmjg873e",
+        "sit-12",
+        "sit-11"
+      ],
+      "createdAt": "2026-10-16T13:42:30.809Z",
+      "pipeline": {
+        "runId": "20261016T134039-dd68",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "relationshipSkills"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B demonstrates clear responsibility, honesty, and empathy by admitting the mistake, apologizing, and offering a fair solution. Options A and C show dishonesty and avoidance of accountability, which hurts peer trust."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Realistic, relatable scenario for an Indian primary school classroom.",
+            "Promotes honesty, empathy, and restorative problem-solving without preaching.",
+            "Hint provides a reflective nudge toward perspective-taking without giving away the answer directly."
+          ]
+        },
+        "maxSimilarity": 0.8792135351268857,
+        "mostSimilarId": "gen-sit-mvb0nmjg873e"
+      }
+    },
+    {
+      "id": "gen-sit-mvb0pjmr08ab",
+      "kind": "situation",
+      "title": "Heated debate",
+      "text": "During practice for the inter-house debate, your teammate keeps talking over you and rejecting every idea you propose. With each interruption, heat creeps up your neck and your patience wears thin. You feel an urge to slam your notebook shut and walk out. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 97,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "patience",
+        "self-control",
+        "teamwork"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Slam my notebook down and shout that they are impossible to work with",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Practice stops abruptly, and both of you are left too angry to rehearse."
+        },
+        {
+          "id": "b",
+          "text": "Suggest we take a five-minute water break so we can both cool down",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Stepping away clears the tension, and you return with calmer heads."
+        },
+        {
+          "id": "c",
+          "text": "Stop contributing altogether and let them do all the talking",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You sit in sulky silence while the team's preparation falls apart."
+        },
+        {
+          "id": "d",
+          "text": "Take three deep breaths, then calmly ask for two minutes to share my point",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Your teammate pauses, listens, and agrees to try your opening argument."
+        }
+      ],
+      "hint": {
+        "text": "When anger flares up, what helps you pause before reacting?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-16",
+        "sit-04",
+        "sit-05"
+      ],
+      "status": "active",
+      "similarIds": [
+        "sit-03",
+        "sit-09",
+        "sit-02"
+      ],
+      "createdAt": "2026-10-16T13:43:02.307Z",
+      "pipeline": {
+        "runId": "20261016T134039-dd68",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfManagement"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario tests self-regulation and conflict resolution during group work. Options B and D show excellent self-management and constructive communication, whereas options A and C represent unhelpful aggressive and passive reactions."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Realistic Indian school scenario centered on inter-house activities and group conflict.",
+            "Provides realistic constructive and unhelpful options that teach emotional regulation without lecturing.",
+            "The hint gently nudges the player toward mindful pausing without giving away the best choice."
+          ]
+        },
+        "maxSimilarity": 0.8774815426000542,
+        "mostSimilarId": "sit-03"
+      }
+    },
+    {
+      "id": "gen-sit-mvb0q1ce1c29",
+      "kind": "situation",
+      "title": "Tanya's peacock",
+      "text": "Tanya shows her drawing of a peacock to the class. Everyone claps and praises her. Looking at your own sketch, your chest feels tight and a sour feeling rises inside. You realise you are feeling jealous. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 86,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "jealousy",
+        "recognising feelings",
+        "friendship"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Make a mean comment about her colours so I feel better",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": -2,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Tanya looks hurt, and the sour knot inside you feels even heavier."
+        },
+        {
+          "id": "b",
+          "text": "Notice that I am feeling jealous, take a deep breath, and clap for her",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "The tightness in your chest loosens, and Tanya smiles warmly at your praise."
+        },
+        {
+          "id": "c",
+          "text": "Stuff my sketch into my bag and sit with my arms crossed",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You stay gloomy and miss out on drawing for the rest of class."
+        },
+        {
+          "id": "d",
+          "text": "Ask Tanya how she blended the feathers so neatly",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Tanya happily shares her pencil trick, and you both sketch together."
+        }
+      ],
+      "hint": {
+        "text": "Is it normal to feel a little jealous sometimes when a friend does well?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-10",
+        "sit-01",
+        "sit-15"
+      ],
+      "status": "active",
+      "similarIds": [
+        "sit-16",
+        "sit-03",
+        "gen-sit-mvb0nmjg873e"
+      ],
+      "createdAt": "2026-10-16T13:43:25.263Z",
+      "pipeline": {
+        "runId": "20261016T134039-dd68",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfAwareness"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario directly tests self-awareness and emotion regulation in response to jealousy. Option B and D provide excellent strategies for recognizing feelings, self-calming, and turning envy into supportive or curious engagement, whereas Option A is hostile and Option C shows unhelpful disengagement."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Addresses a very relatable, nuanced emotional experience (jealousy) in an age-appropriate classroom context.",
+            "Promotes healthy self-awareness and constructive coping mechanisms like curiosity and genuine praise.",
+            "Consequences clearly illustrate the emotional payoff without preaching.",
+            "The hint is reflective and gently normalizes big emotions without giving away the answer."
+          ]
+        },
+        "maxSimilarity": 0.8360254150342903,
+        "mostSimilarId": "sit-16"
+      }
+    },
+    {
+      "id": "gen-sit-mvb0qc20432d",
+      "kind": "situation",
+      "title": "A heavy stack",
+      "text": "Ananya is carrying a tall stack of library books down the stairs. Her arms are shaking, and the top books are wobbling. Everyone is rushing past to reach the playground for break. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 65,
+      "expectedTimeSec": 25,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "empathy",
+        "helping"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Run past her to get to the playground quickly",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You get outside early, but you hear books tumble behind you on the stairs."
+        },
+        {
+          "id": "b",
+          "text": "Offer to carry half of the books for her",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Ananya smiles with relief, and you both carry the books safely."
+        },
+        {
+          "id": "c",
+          "text": "Tell her to walk faster because she is blocking the way",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -2,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Ananya looks nervous and tries to hurry, almost losing her grip."
+        }
+      ],
+      "hint": {
+        "text": "How might Ananya feel trying to balance that heavy load alone?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-07",
+        "sit-06",
+        "sit-01"
+      ],
+      "status": "active",
+      "similarIds": [
+        "sit-01",
+        "sit-08",
+        "sit-06"
+      ],
+      "createdAt": "2026-10-16T13:43:39.144Z",
+      "pipeline": {
+        "runId": "20261016T134039-dd68",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "socialAwareness"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B demonstrates strong empathy, patience, and prosocial behavior by noticing a peer in need and offering safe assistance. Options A and C show impatience and self-centeredness, with Option C actively creating distress and safety hazards on the stairs."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Realistic school scenario that models prosocial behavior and empathy.",
+            "Consequences clearly reflect the impact of choices without lecturing.",
+            "Hint gently nudges the child to empathize with the classmate."
+          ]
+        },
+        "maxSimilarity": 0.8209016294246733,
+        "mostSimilarId": "sit-01"
+      }
+    },
+    {
+      "id": "gen-sit-mvb0qqw1fc71",
+      "kind": "situation",
+      "title": "The canteen coin",
+      "text": "At the school canteen, Bhaiya hands you your snack and change. You notice he gave you five rupees extra by mistake. You could buy a sweet with it. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 1,
+      "wordCount": 63,
+      "expectedTimeSec": 25,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "honesty",
+        "fairness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Pocket the coin and buy a sweet later",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "You get the sweet, but you feel uneasy every time you walk past the canteen."
+        },
+        {
+          "id": "b",
+          "text": "Tell Bhaiya he gave you extra change and hand it back",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 1,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Bhaiya smiles warmly, thanks you, and puts the coin back into the box."
+        },
+        {
+          "id": "c",
+          "text": "Leave the coin on the counter and walk away without saying anything",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Another student scoops it up, and Bhaiya doesn't notice what happened."
+        }
+      ],
+      "hint": {
+        "text": "Who does the extra money really belong to?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-12",
+        "sit-03",
+        "sit-08"
+      ],
+      "status": "active",
+      "similarIds": [
+        "gen-sit-mvb0nt5taeba",
+        "gen-sit-mvb0ovbt1f27",
+        "sit-03"
+      ],
+      "createdAt": "2026-10-16T13:43:58.369Z",
+      "pipeline": {
+        "runId": "20261016T134039-dd68",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "responsibleDecisionMaking"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This situation assesses honesty and responsible decision-making. Returning the money directly to Bhaiya demonstrates honesty, social awareness, and integrity. Keeping the coin prioritizes personal gain dishonestly, while leaving it unattended is passive and risks the money being lost."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Realistic and relatable Indian school canteen scenario for 8-10 year olds.",
+            "Promotes honesty and integrity through natural consequences rather than lecturing.",
+            "The hint acts as an effective reflective nudge without giving away the answer directly."
+          ]
+        },
+        "maxSimilarity": 0.8214832003436445,
+        "mostSimilarId": "gen-sit-mvb0nt5taeba"
+      }
+    },
+    {
+      "id": "gen-sit-mvb0re6833df",
+      "kind": "situation",
+      "title": "Kabir's badge",
+      "text": "In your class group chat, Kabir announces he was chosen as junior school captain. Messages and celebratory stickers flood the screen. You also interviewed for the badge and wanted it badly. Looking at your phone, your chest feels tight and a bitter feeling rises up. You haven't typed anything yet. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 108,
+      "expectedTimeSec": 45,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "friendship",
+        "self-reflection",
+        "envy"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Acknowledge to myself that I feel envious, take a breath, and congratulate Kabir honestly",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Recognising the envy helps it soften, and Kabir messages back thanking you warmly."
+        },
+        {
+          "id": "b",
+          "text": "Type a sarcastic comment hinting that the selection panel was biased",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": -2,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "The chat falls quiet, and seeing the awkward silence makes you feel worse."
+        },
+        {
+          "id": "c",
+          "text": "Mute the chat and pretend to myself that the captain role is silly anyway",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Pretending not to care does not stop the sour feeling from lingering all evening."
+        },
+        {
+          "id": "d",
+          "text": "Talk to my elder brother about feeling jealous even though Kabir is my good friend",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "He listens and reminds you that feeling disappointed is natural, helping the knot in your chest loosen."
+        }
+      ],
+      "hint": {
+        "text": "Can you feel sad about your own outcome while still caring for a friend?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-11",
+        "sit-04",
+        "sit-02"
+      ],
+      "status": "active",
+      "similarIds": [
+        "gen-sit-mvb0q1ce1c29",
+        "sit-16",
+        "gen-sit-mvb0nt5taeba"
+      ],
+      "createdAt": "2026-10-16T13:44:28.544Z",
+      "pipeline": {
+        "runId": "20261016T134039-dd68",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfAwareness"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Options A and D demonstrate high self-awareness and healthy self-management by identifying difficult feelings of envy and addressing them constructively. Option B exhibits poor self-management and harms relationships through public sarcasm. Option C uses avoidance and denial, which hinders genuine emotional growth."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Addresses complex emotions like envy and disappointment in a relatable school context.",
+            "Promotes healthy emotional regulation and communication with peers and family.",
+            "The hint provides a thoughtful nudge without giving away the choices."
+          ]
+        },
+        "maxSimilarity": 0.8789133196196298,
+        "mostSimilarId": "gen-sit-mvb0q1ce1c29"
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "gen-pz-mvb0qnia6397",
+      "runId": "20261016T134039-dd68",
+      "target": {
+        "kind": "puzzle",
+        "ageBand": "11-14",
+        "domain": "reasoning"
+      },
+      "stage": "rules",
+      "reasons": [
+        "The hint gives away the answer"
+      ],
+      "createdAt": "2026-10-16T13:43:53.986Z",
+      "candidate": {
+        "kind": "puzzle",
+        "title": "Inter-house relay lineup",
+        "text": "Four friends—Arjun, Kabir, Deven, and Farhan—are planning their inter-house 4×100m relay running order. Arjun takes the opening leg (first). Kabir insists he cannot run the anchor leg (fourth). Farhan must run immediately after Deven. Who will run the fourth leg?",
+        "ageBand": "11-14",
+        "primaryCompetencies": [
+          "relationshipSkills",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "teamwork",
+          "logic"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Arjun",
+            "consequence": "Arjun has already taken the first leg."
+          },
+          {
+            "id": "b",
+            "text": "Kabir",
+            "consequence": "Kabir already said he cannot run the fourth leg."
+          },
+          {
+            "id": "c",
+            "text": "Deven",
+            "consequence": "If Deven runs fourth, Farhan cannot run immediately after him."
+          },
+          {
+            "id": "d",
+            "text": "Farhan",
+            "consequence": "Farhan takes the baton from Deven and anchors the race!"
+          }
+        ],
+        "hint": {
+          "text": "Since Arjun runs first, slots 2, 3, and 4 are left. Where must Deven and Farhan fit together?"
+        },
+        "puzzle": {
+          "domain": "reasoning",
+          "correctOptionId": "d",
+          "explanation": "With Arjun in slot 1, putting Deven and Farhan in 2 and 3 would force Kabir into slot 4. Therefore, Kabir runs 2nd, Deven 3rd, and Farhan 4th."
+        }
+      }
+    }
+  ]
+}

@@ -2,11 +2,12 @@
   "name": "question-generator",
   "private": true,
   "type": "module",
-  "description": "Offline pipeline that expands the game's question bank (A generate → rules → dedup → B grade → category → C curate). Runs locally; never deployed.",
+  "description": "Offline pipeline that expands the game's question bank (A generate \u2192 rules \u2192 dedup \u2192 B grade \u2192 category \u2192 C curate). Runs locally; never deployed.",
   "scripts": {
     "bank:upload-seeds": "tsx scripts/upload-seeds.ts",
     "bank:expand": "tsx scripts/expand-bank.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "bank:export": "tsx scripts/export-readable.ts"
   },
   "dependencies": {
     "@google-cloud/firestore": "^9.3.1",

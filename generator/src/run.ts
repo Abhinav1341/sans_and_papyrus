@@ -10,7 +10,7 @@ import {
 import { PIPELINE_CONFIG as CFG } from "./config";
 import { UsageTracker, callJson, cosine, embed, type LlmClient } from "./gemini";
 import {
-  CURATOR_SYSTEM, GENERATOR_SYSTEM, GRADER_SYSTEM, curatorPrompt, generatorPrompt, graderPrompt,
+  CURATOR_SYSTEM, GENERATOR_SYSTEM, GRADER_SYSTEM, NAMES, SETTINGS, curatorPrompt, generatorPrompt, graderPrompt, pickRandom,
 } from "./prompts";
 import { checkCandidate, checkCategory, checkGrade, countWords } from "./rules";
 import {
@@ -48,14 +48,15 @@ function planTargets(opts: ExpandOptions, bank: BankEntry[]): Target[] {
   const domains = opts.domain ? [opts.domain] : [...PUZZLE_DOMAINS];
   const targets: Target[] = [];
   let s = 0, p = 0;
+  const difficultyFor = (i: number, band: "8-10" | "11-14") => (band === "8-10" ? [1, 2, 3, 2, 3] : [2, 3, 4, 3, 4])[Math.floor(i / 2) % 5];
   for (let i = 0; i < opts.count; i++) {
     const kind =
       opts.kind === "mixed" ? ((i + 1) % PUZZLE_EVERY_N_ITEMS === 0 ? "puzzle" : "situation") : opts.kind;
     const ageBand = opts.ageBand === "any" ? (i % 2 === 0 ? "8-10" : "11-14") : opts.ageBand;
     targets.push(
       kind === "situation"
-        ? { kind, ageBand, competency: competencies[s++ % competencies.length] }
-        : { kind, ageBand, domain: domains[p++ % domains.length] }
+        ? { kind, ageBand, competency: competencies[s++ % competencies.length], difficulty: difficultyFor(i, ageBand) }
+        : { kind, ageBand, domain: domains[p++ % domains.length], difficulty: difficultyFor(i, ageBand) }
     );
   }
   return targets;
@@ -115,12 +116,14 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
     const r: RejectedRecord = { id: newId(t.kind), runId, target: t, stage, reasons, createdAt: new Date().toISOString(), ...extra };
     rejected.push(r);
     await deps.store?.saveRejected(r);
-    log(`  ✗ rejected at ${stage}: ${reasons[0]}`);
+    log(`  ${labels.get(t) ?? ""} ✗ rejected at ${stage}: ${reasons[0]}`);
   };
 
+  const labels = new Map<Target, string>();
   await pool(targets, opts.concurrency, async (t, i) => {
-    const label = `[${i + 1}/${targets.length}] ${t.kind} ${t.ageBand} ${t.competency ?? t.domain}`;
-    log(label);
+    const label = `[${i + 1}/${targets.length}]`;
+    labels.set(t, label);
+    log(`${label} start: ${t.kind} ${t.ageBand} ${t.competency ?? t.domain}, difficulty ${t.difficulty}`);
     const examples = pickExamples(seeds, t);
     const avoidTitles = bank.map((b) => b.title).slice(-80);
 
@@ -129,7 +132,7 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
     try {
       candidate = await callJson(deps.ai, {
         usage, model: models.generator, system: GENERATOR_SYSTEM, schema: GeneratedSituation, temperature: CFG.temperature.generator,
-        prompt: generatorPrompt({ ...t, examples, avoidTitles }),
+        prompt: generatorPrompt({ ...t, examples, avoidTitles, setting: pickRandom(SETTINGS, 1)[0], names: pickRandom(NAMES, 3) }),
       });
     } catch (err) {
       return reject(t, "generator", [(err as Error).message]);
@@ -229,7 +232,7 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
     accepted.push(record);
     bank.push({ id: record.id, title: record.title, embedding, kind: record.kind, competencies: record.primaryCompetencies });
     await deps.store?.saveAccepted(record);
-    log(`  ✓ accepted: "${record.title}" (difficulty ${record.difficulty})`);
+    log(`  ${label} ✓ accepted: "${record.title}" (asked difficulty ${t.difficulty}, graded ${record.difficulty})`);
   });
 
   // 4. Summary, stored in Firestore and as a local run file.

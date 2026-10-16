@@ -114,7 +114,10 @@ export function checkCandidate(c: GeneratedSituation, target: { kind: string; ag
     } else {
       const correct = c.options.find((o) => o.id === p.correctOptionId);
       if (!correct) problems.push(`correctOptionId "${p.correctOptionId}" does not match any option`);
-      if (correct && c.hint && correct.text.length >= 3 && c.hint.text.toLowerCase().includes(correct.text.toLowerCase()))
+      // A hint gives the answer away only if it names the answer when the question itself didn't
+      // (reasoning puzzles often list every option in the question, so mentioning one is fine there).
+      const answer = correct?.text.toLowerCase() ?? "";
+      if (correct && c.hint && answer.length >= 3 && c.hint.text.toLowerCase().includes(answer) && !c.text.toLowerCase().includes(answer))
         problems.push("The hint gives away the answer");
       if (p.domain === "math") {
         if (!p.computation) {

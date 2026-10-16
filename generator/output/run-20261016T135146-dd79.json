@@ -1,0 +1,1103 @@
+{
+  "summary": {
+    "runId": "20261016T135146-dd79",
+    "startedAt": "2026-10-16T13:51:46.358Z",
+    "finishedAt": "2026-10-16T13:54:54.709Z",
+    "requested": 10,
+    "accepted": 9,
+    "rejectedByStage": {
+      "rules": 1
+    },
+    "acceptedByCategory": {
+      "situation:socialAwareness": 2,
+      "situation:responsibleDecisionMaking": 2,
+      "puzzle:math": 1,
+      "situation:selfAwareness": 2,
+      "situation:selfManagement": 1,
+      "situation:relationshipSkills": 1
+    },
+    "models": {
+      "generator": "gemini-3.8-flash",
+      "grader": "gemini-3.6-flash",
+      "curator": "gemini-3.8-flash",
+      "embedding": "gemini-embedding-001"
+    },
+    "usage": {
+      "gemini-3.8-flash": {
+        "calls": 19,
+        "inputTokens": 47235,
+        "outputTokens": 4807,
+        "thinkingTokens": 14756
+      },
+      "gemini-embedding-001": {
+        "calls": 9,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thinkingTokens": 0
+      },
+      "gemini-3.6-flash": {
+        "calls": 9,
+        "inputTokens": 10260,
+        "outputTokens": 2937,
+        "thinkingTokens": 6710
+      }
+    },
+    "estimatedCostUsd": 0.1087875
+  },
+  "accepted": [
+    {
+      "id": "gen-sit-mvb11i6z6678",
+      "kind": "situation",
+      "title": "Heavy market bags",
+      "text": "You are at the busy vegetable market with Papa. You spot your classmate Mohit carrying two heavy bags, struggling to keep up with his grandmother. His arms are shaking and his face is red. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 71,
+      "expectedTimeSec": 25,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "empathy",
+        "helping",
+        "kindness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Walk past quickly so Papa does not ask me to help",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -2,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You reach the fruit stall quickly, while Mohit keeps struggling behind."
+        },
+        {
+          "id": "b",
+          "text": "Ask Papa if we can take one bag to help Mohit",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Mohit smiles with relief, and his grandmother thanks you warmly."
+        },
+        {
+          "id": "c",
+          "text": "Wave from far away and keep walking to the snack cart",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Mohit gives a small nod, but he still looks very tired."
+        }
+      ],
+      "hint": {
+        "text": "How might Mohit be feeling right now with those heavy bags?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-07",
+        "sit-06",
+        "sit-01"
+      ],
+      "status": "active",
+      "similarIds": [
+        "gen-sit-mvb0qc20432d",
+        "sit-13",
+        "gen-sit-mvb0nmjg873e"
+      ],
+      "createdAt": "2026-10-16T13:52:20.317Z",
+      "pipeline": {
+        "runId": "20261016T135146-dd79",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "socialAwareness",
+          "difficulty": 1
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option b shows clear empathy and helpfulness by recognizing a peer's physical distress and seeking parent permission to assist. Options a and c reflect self-centered choices that actively ignore a peer in need. The scenario is clear and easy for 8 to 10-year-olds to evaluate."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Relatable everyday Indian setting that naturally teaches empathy and helpfulness.",
+            "Option B responsibly involves the accompanying adult (Papa) before offering help.",
+            "The hint nudges the child to consider Mohit's perspective without dictating the answer."
+          ]
+        },
+        "maxSimilarity": 0.8531477903124588,
+        "mostSimilarId": "gen-sit-mvb0qc20432d"
+      }
+    },
+    {
+      "id": "gen-sit-mvb11mwjfd86",
+      "kind": "situation",
+      "title": "The missing revision sheet",
+      "text": "Right before the unit test, Meenakshi gets called to the staffroom, leaving her handwritten revision sheet on her desk. Sana picks it up with a grin and whispers, \"Let's hide it inside a drawer. It'll be hilarious watching her panic before the bell!\" What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 90,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking",
+        "socialAwareness"
+      ],
+      "valueTags": [
+        "empathy",
+        "fairness",
+        "honesty"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Laugh along and help Sana hide the sheet",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -2,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Meenakshi returns panicked, and you spend the whole test feeling guilty."
+        },
+        {
+          "id": "b",
+          "text": "Tell Sana it's not fair to stress Meenakshi out, and put the sheet back",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 2,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Sana grumbles a bit, but puts the sheet back right before Meenakshi walks in."
+        },
+        {
+          "id": "c",
+          "text": "Walk away quietly so you don't get involved in the drama",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Sana hides the notes, and Meenakshi scrambles in distress until the teacher enters."
+        },
+        {
+          "id": "d",
+          "text": "Tell the teacher on corridor duty what Sana is planning",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "The teacher steps inside, ensuring Meenakshi's notes remain safe on her desk."
+        }
+      ],
+      "hint": {
+        "text": "How would you feel if your revision notes went missing minutes before a test?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-09",
+        "sit-13",
+        "sit-14"
+      ],
+      "status": "active",
+      "similarIds": [
+        "gen-sit-mvb0nt5taeba",
+        "sit-14",
+        "sit-13"
+      ],
+      "createdAt": "2026-10-16T13:52:26.420Z",
+      "pipeline": {
+        "runId": "20261016T135146-dd79",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "responsibleDecisionMaking",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B clearly demonstrates social awareness and responsible decision-making by showing empathy for a stressed classmate and standing up to peer pressure. Option A actively promotes unkind behavior, while Option C shows bystander passivity. Option D is acceptable but less constructive than directly intervening in a low-risk peer conflict."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Realistic and relatable classroom situation for Indian students.",
+            "Promotes empathy and standing up against unkind pranks.",
+            "Includes an option to tell a trusted adult alongside constructive peer communication.",
+            "Hint gently prompts empathy without dictating the choice."
+          ]
+        },
+        "maxSimilarity": 0.8503050818834531,
+        "mostSimilarId": "gen-sit-mvb0nt5taeba"
+      }
+    },
+    {
+      "id": "gen-pz-mvb12i8e8a0b",
+      "kind": "puzzle",
+      "title": "Splitting the project bill",
+      "text": "In the science group chat, Sana texts Mohit and the team: 'The poster boards and paints cost ₹360, plus ₹40 for delivery. Luckily, I found a coupon that takes ₹50 off our total bill! If the 5 of us split the remaining cost equally, how much should each person pay?'",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 54,
+      "expectedTimeSec": 40,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "teamwork",
+        "fairness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "₹62",
+          "consequence": "That forgets to include the delivery charge."
+        },
+        {
+          "id": "b",
+          "text": "₹70",
+          "consequence": "Everyone sends their exact share and the bill is cleared."
+        },
+        {
+          "id": "c",
+          "text": "₹72",
+          "consequence": "That only divides the ₹360 craft items."
+        },
+        {
+          "id": "d",
+          "text": "₹80",
+          "consequence": "That forgets to apply the ₹50 coupon discount."
+        }
+      ],
+      "hint": {
+        "text": "Calculate the final total bill after adding delivery and subtracting the coupon first."
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "Add the delivery charge and subtract the coupon: ₹360 + ₹40 − ₹50 = ₹350. Dividing ₹350 equally among 5 friends gives ₹70 each.",
+        "computation": "(360 + 40 - 50) / 5"
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-math-04",
+        "pz-math-05",
+        "pz-math-06"
+      ],
+      "status": "active",
+      "similarIds": [
+        "gen-pz-mvb0oa43b18e",
+        "pz-math-01",
+        "pz-math-05"
+      ],
+      "createdAt": "2026-10-16T13:53:07.022Z",
+      "pipeline": {
+        "runId": "20261016T135146-dd79",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "math",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "The total cost before the discount is ₹360 + ₹40 = ₹400. Subtracting the ₹50 coupon leaves ₹350. Dividing ₹350 equally among the 5 team members gives ₹70 per person.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Realistic scenario of Indian students splitting costs for a school project.",
+            "Promotes fairness and teamwork through practical math application.",
+            "Hint gently nudges the multi-step calculation without spoiling the answer.",
+            "Explanation is clear and kind."
+          ]
+        },
+        "maxSimilarity": 0.885741523524578,
+        "mostSimilarId": "gen-pz-mvb0oa43b18e"
+      }
+    },
+    {
+      "id": "gen-sit-mvb12y6kd952",
+      "kind": "situation",
+      "title": "The tumbling castle",
+      "text": "You and Chirag are building a cardboard castle at home. Your walls keep collapsing. Your chest feels tight, your cheeks feel hot, and you want to stomp on the boxes. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 78,
+      "expectedTimeSec": 25,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "recognising feelings",
+        "patience"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Yell at Chirag that he is holding the tape wrong",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Chirag feels hurt, puts the tape down, and walks away."
+        },
+        {
+          "id": "b",
+          "text": "Notice my hot face, step back, and tell Chirag I need a quick break",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "You drink some water, feel your shoulders drop, and return feeling ready."
+        },
+        {
+          "id": "c",
+          "text": "Kick the tower down so we can just give up",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "The cardboard rips, and you feel upset that the fort is ruined."
+        },
+        {
+          "id": "d",
+          "text": "Keep forcing the walls up fast while still feeling angry",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Your hands shake, and the wall crashes down again right away."
+        }
+      ],
+      "hint": {
+        "text": "What are your body's signs telling you about your mood right now?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-01",
+        "sit-10",
+        "sit-07"
+      ],
+      "status": "active",
+      "similarIds": [
+        "sit-03",
+        "gen-sit-mvb0pjmr08ab",
+        "sit-02"
+      ],
+      "createdAt": "2026-10-16T13:53:27.692Z",
+      "pipeline": {
+        "runId": "20261016T135146-dd79",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfAwareness",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B clearly demonstrates self-awareness by recognizing physical signs of anger and self-management by taking a break to calm down. The incorrect options represent typical unhelpful responses to frustration, making the best choice straightforward for 8-10 year olds."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Relatable everyday frustration scenario for 8-10 year olds.",
+            "Promotes self-awareness of physical sensations tied to anger.",
+            "Hint gently nudges reflection on bodily cues without revealing the best option."
+          ]
+        },
+        "maxSimilarity": 0.908036106060236,
+        "mostSimilarId": "sit-03"
+      }
+    },
+    {
+      "id": "gen-sit-mvb1356i36b5",
+      "kind": "situation",
+      "title": "The final game round",
+      "text": "You and Kavya are one round away from winning a rare game badge. Kavya makes a mistake, and the level restarts. Your screen time ends in five minutes. You feel your chest tighten with frustration. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 88,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "frustration",
+        "patience",
+        "friendship"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Take a slow breath and use the last minutes to cheer Kavya up",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 2,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "You miss getting the badge today, but Kavya smiles and feels ready to try again tomorrow."
+        },
+        {
+          "id": "b",
+          "text": "Switch to single-player mode quickly to grab the badge for yourself",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You win your badge, but Kavya quietly logs off feeling left behind."
+        },
+        {
+          "id": "c",
+          "text": "Send a sharp message in the chat and exit the game immediately",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You stay irritated all evening, and Kavya does not reply to your messages."
+        },
+        {
+          "id": "d",
+          "text": "Step away from the screen and tell an elder that you feel upset",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Talking it through helps you cool down before you say something hurtful."
+        }
+      ],
+      "hint": {
+        "text": "What helps your frustration settle, and how might Kavya be feeling right now?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-03",
+        "sit-01",
+        "sit-15"
+      ],
+      "status": "active",
+      "similarIds": [
+        "gen-sit-mvb0pjmr08ab",
+        "gen-sit-mvb0re6833df",
+        "sit-03"
+      ],
+      "createdAt": "2026-10-16T13:53:36.762Z",
+      "pipeline": {
+        "runId": "20261016T135146-dd79",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfManagement",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A is the best choice as it demonstrates self-management by taking deep breaths to handle frustration, along with excellent relationship skills in supporting a peer. Option D is also constructive for self-awareness, while B and C represent impulsive and unkind reactions."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Relatable digital gaming scenario that deals with screen-time limits and peer frustration.",
+            "Options provide clear emotional-regulation choices with natural consequences.",
+            "The hint nudges perspective-taking without giving away the response."
+          ]
+        },
+        "maxSimilarity": 0.8771308121407244,
+        "mostSimilarId": "gen-sit-mvb0pjmr08ab"
+      }
+    },
+    {
+      "id": "gen-sit-mvb13f4m1e28",
+      "kind": "situation",
+      "title": "Final spot on the field",
+      "text": "During football practice, Coach asks you to pick the final starter for tomorrow's inter-school match. Your close friend Mohit missed three practices this week to study, but he is skilled and eager to play. Thomas attended every grueling drill on time, though he is quieter and lacks Mohit's flair. Mohit whispers, \"Come on, we've played together for years!\" Thomas stands quietly near the goalpost, waiting. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 117,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "fairness",
+        "loyalty",
+        "teamwork"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Choose Mohit because your friendship and his skills give the team an edge",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Mohit celebrates, but Thomas looks down at his boots and walks away quietly."
+        },
+        {
+          "id": "b",
+          "text": "Choose Thomas for his commitment, then talk to Mohit privately to explain",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Thomas smiles proudly, and while Mohit feels disappointed, he respects your honesty."
+        },
+        {
+          "id": "c",
+          "text": "Ask Coach to decide so neither of them blames you",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Coach makes the call, but both boys realise you avoided taking responsibility."
+        },
+        {
+          "id": "d",
+          "text": "Pick Thomas and tell Mohit in front of everyone that attendance comes first",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Mohit feels publicly embarrassed and packs his kit bag without speaking to you."
+        }
+      ],
+      "hint": {
+        "text": "How can you honor hard work while still being considerate of a close friend's feelings?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-11",
+        "sit-09",
+        "sit-02"
+      ],
+      "status": "active",
+      "similarIds": [
+        "sit-08",
+        "gen-sit-mvb0nt5taeba",
+        "sit-16"
+      ],
+      "createdAt": "2026-10-16T13:53:49.655Z",
+      "pipeline": {
+        "runId": "20261016T135146-dd79",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "relationshipSkills",
+          "difficulty": 4
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B is the best response as it rewards effort and commitment fairly while protecting the friendship through private, respectful communication. Option A gives in to bias, Option C avoids leadership responsibility, and Option D lacks tact and empathy."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Presents a realistic, relatable peer-group dilemma around sports, friendship, and fairness.",
+            "Consequences are natural, balanced, and teach empathy without lecturing.",
+            "The hint nudges the child to balance fairness and respect without giving away the exact choice."
+          ]
+        },
+        "maxSimilarity": 0.842019407987404,
+        "mostSimilarId": "sit-08"
+      }
+    },
+    {
+      "id": "gen-sit-mvb14bh24b87",
+      "kind": "situation",
+      "title": "A noisy bus ride",
+      "text": "On the school bus trip, everyone is singing and clapping loudly. You notice Tenzin sitting alone near the front, pressing his hands over his ears and looking dizzy. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 63,
+      "expectedTimeSec": 25,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "socialAwareness"
+      ],
+      "valueTags": [
+        "empathy",
+        "caring",
+        "consideration"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Keep singing and cheering with the loud group",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You have fun, but Tenzin curls up tighter against the window."
+        },
+        {
+          "id": "b",
+          "text": "Sit next to Tenzin and ask quietly if he is feeling okay",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Tenzin whispers that the noise is giving him a headache, and he feels relieved you noticed."
+        },
+        {
+          "id": "c",
+          "text": "Shout at everyone across the bus to shut up for Tenzin",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "The singing stops suddenly, but Tenzin hides his face in embarrassment from the attention."
+        }
+      ],
+      "hint": {
+        "text": "Why might Tenzin be covering his ears while others are singing?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-06",
+        "sit-07",
+        "sit-03"
+      ],
+      "status": "active",
+      "similarIds": [
+        "sit-07",
+        "gen-sit-mvb11i6z6678",
+        "sit-06"
+      ],
+      "createdAt": "2026-10-16T13:54:31.574Z",
+      "pipeline": {
+        "runId": "20261016T135146-dd79",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "socialAwareness",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B clearly demonstrates social awareness and relationship skills by noticing Tenzin's distress and offering thoughtful, quiet support. Option A ignores a struggling peer, while Option C attempts to help using aggressive shouting, which escalates conflict on the bus."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Depicts a relatable situation of sensory overload and teaches thoughtful empathy.",
+            "The hint guides reflection on another person's feelings without giving away the answer.",
+            "Options and consequences illustrate the difference between helpful quiet support and counterproductive shouting."
+          ]
+        },
+        "maxSimilarity": 0.8347876081966096,
+        "mostSimilarId": "sit-07"
+      }
+    },
+    {
+      "id": "gen-sit-mvb14i63c777",
+      "kind": "situation",
+      "title": "The dropped note at the stall",
+      "text": "While shopping at the vegetable market with Ma, your friend Sana spots a fifty-rupee note that fell from a fruit seller's pouch. Sana quickly picks it up and whispers, 'Keep quiet! We can buy roasted corn.' What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 74,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "honesty",
+        "peer pressure",
+        "fairness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell Sana it belongs to the seller and suggest returning it together",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Sana hesitates, then nods. The seller smiles warmly and thanks you both."
+        },
+        {
+          "id": "b",
+          "text": "Stay quiet so Sana doesn't get annoyed with you",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "You share the corn, but watching the seller search his pouch makes you feel uneasy."
+        },
+        {
+          "id": "c",
+          "text": "Tell Ma quietly so she can help sort it out without blaming Sana",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Ma gently guides you both to return the note, and the seller breathes a sigh of relief."
+        }
+      ],
+      "hint": {
+        "text": "How might the fruit seller feel when he notices the money is missing?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-12",
+        "sit-15",
+        "sit-03"
+      ],
+      "status": "active",
+      "similarIds": [
+        "gen-sit-mvb0qqw1fc71",
+        "gen-sit-mvb11mwjfd86",
+        "gen-sit-mvb11i6z6678"
+      ],
+      "createdAt": "2026-10-16T13:54:40.251Z",
+      "pipeline": {
+        "runId": "20261016T135146-dd79",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "responsibleDecisionMaking",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A promotes honesty and direct peer guidance, showing strong decision-making and relationship skills. Option C also shows good decision-making and empathy by involving a trusted adult while protecting the friend's dignity. Option B gives in to peer pressure at the expense of honesty."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Relatable everyday Indian setting that effectively explores honesty and peer pressure.",
+            "Realistic options that allow children to explore direct communication or seeking an adult's gentle support.",
+            "The hint nudges empathy without dictating the exact answer."
+          ]
+        },
+        "maxSimilarity": 0.8595628369789517,
+        "mostSimilarId": "gen-sit-mvb0qqw1fc71"
+      }
+    },
+    {
+      "id": "gen-sit-mvb14t58ee57",
+      "kind": "situation",
+      "title": "The wedding performance",
+      "text": "At your cousin's sangeet, Nikhil asks you to join a dance he rehearsed all week, but you feel completely overwhelmed by the crowded hall and loud music. At the same time, you dread letting him down on stage after promising to back him up. Your palms are sweating, and your chest feels tight. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 3,
+      "wordCount": 108,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "boundaries",
+        "honesty",
+        "loyalty"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Force myself on stage anyway and pretend everything is fine",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You freeze during the chorus, feeling thoroughly exhausted and miserable afterwards."
+        },
+        {
+          "id": "b",
+          "text": "Slip outside into the garden without telling Nikhil so I can breathe",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "You catch your breath, but Nikhil scrambles on stage alone, wondering where you went."
+        },
+        {
+          "id": "c",
+          "text": "Recognise my sensory overload, explain it quickly to Nikhil, and offer to cheer from the front row",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Nikhil looks briefly disappointed, but appreciates your honesty and smiles when he sees you clapping up front."
+        },
+        {
+          "id": "d",
+          "text": "Snap at Nikhil that the routine is silly and refuse to dance",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Nikhil walks off hurt, and you are left stewing in guilt and frustration."
+        }
+      ],
+      "hint": {
+        "text": "How can you honour your own physical limits while still caring about Nikhil's feelings?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-02",
+        "sit-04",
+        "sit-11"
+      ],
+      "status": "active",
+      "similarIds": [
+        "sit-01",
+        "gen-sit-mvb0pjmr08ab",
+        "sit-13"
+      ],
+      "createdAt": "2026-10-16T13:54:54.476Z",
+      "pipeline": {
+        "runId": "20261016T135146-dd79",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfAwareness",
+          "difficulty": 4
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option C balances self-awareness of emotional and physical sensory overload with clear, respectful communication. Option A ignores clear stress signals, Option B neglects the friend without explanation, and Option D projects internal stress onto the friend aggressively."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Culturally relatable setting (a family sangeet) that deals with real emotional overwhelm.",
+            "Promotes healthy boundary-setting and open communication without being preachy.",
+            "The hint nudges the child to balance their own limits with care for others."
+          ]
+        },
+        "maxSimilarity": 0.8372802284677278,
+        "mostSimilarId": "sit-01"
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "gen-pz-mvb13yd3b6f9",
+      "runId": "20261016T135146-dd79",
+      "target": {
+        "kind": "puzzle",
+        "ageBand": "11-14",
+        "domain": "reasoning",
+        "difficulty": 3
+      },
+      "stage": "rules",
+      "reasons": [
+        "The hint gives away the answer"
+      ],
+      "createdAt": "2026-10-16T13:54:14.583Z",
+      "candidate": {
+        "kind": "puzzle",
+        "title": "Library file order",
+        "text": "In the school library, Imran and Kavya are arranging four revision files in slots 1 to 4 from left to right: Physics, Chemistry, Biology, and Maths.\n\n• Physics is immediately to the right of Chemistry.\n• Maths is in slot 1 or slot 4.\n• Biology is to the left of Physics, but not in slot 1.\n\nWhich file goes into slot 3?",
+        "ageBand": "11-14",
+        "primaryCompetencies": [
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "logic",
+          "problem solving"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Biology",
+            "consequence": "That leaves no room for Chemistry and Physics to stay side by side."
+          },
+          {
+            "id": "b",
+            "text": "Chemistry",
+            "consequence": "Chemistry sits neatly in slot 3, right next to Physics in slot 4."
+          },
+          {
+            "id": "c",
+            "text": "Physics",
+            "consequence": "Physics must sit immediately right of Chemistry, pushing it to slot 4."
+          },
+          {
+            "id": "d",
+            "text": "Maths",
+            "consequence": "Maths can only go into an end slot, either slot 1 or 4."
+          }
+        ],
+        "hint": {
+          "text": "Where can Chemistry and Physics sit together if Biology must be to their left without taking slot 1?"
+        },
+        "puzzle": {
+          "domain": "reasoning",
+          "correctOptionId": "b",
+          "explanation": "Since Biology cannot be in slot 1 but must be left of Physics, Maths takes slot 1 and Biology takes slot 2. That leaves Chemistry in slot 3 and Physics in slot 4."
+        }
+      }
+    }
+  ]
+}
