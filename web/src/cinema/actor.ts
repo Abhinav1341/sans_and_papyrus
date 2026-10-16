@@ -14,15 +14,18 @@ export const NS = 'http://www.w3.org/2000/svg';
 const f1 = (n: number) => Math.round(n * 10) / 10;
 const GESTURE_POSES = new Set<PoseName>(['stand', 'relaxed', 'hips', 'point', 'present']);
 /** Which of an actor's widths a pose or cycle uses. */
+/** Which way a lying pose stretches out from the feet (the pose's turn: lie -90°, splat 90°), 0 when not lying. */
+export function lyingSide(pose: string | null): number { return pose === 'lie' ? -1 : pose === 'splat' ? 1 : 0; }
 export function widthFor(w: { narrow: number; wide: number; lie: number }, pose: string): number {
   // Lying flat, or bent right over (stuck by the hands), the body spreads out sideways.
   if (pose === 'lie' || pose === 'splat' || pose === 'stuck' || pose === 'stuckPull') return w.lie;
   return WIDE_POSES.has(pose) ? w.wide : w.narrow;
 }
 /** Poses and cycles with arms held out to the side (the body is wider on screen). */
-const WIDE_POSES = new Set<string>(['cheer', 'hold', 'flail', 'float', 'carry', 'jump', 'present', 'point', 'reach', 'yay', 'wave', 'shrug', 'hips', 'ride', 'stretchArm', 'dance', 'paddle', 'brace', 'holdUp']);
+const WIDE_POSES = new Set<string>(['cheer', 'hold', 'flail', 'float', 'carry', 'jump', 'present', 'point', 'reach', 'yay', 'wave', 'shrug', 'hips', 'ride', 'stretchArm', 'dance', 'paddle', 'brace', 'holdUp', 'piggy', 'kneelDown']);
 
-export interface RideTarget { kind: 'el' | 'actor'; name: string; dx: number; dy: number }
+/** Riding on a set element or on another character; `behind` draws the rider behind them (a piggyback). */
+export interface RideTarget { kind: 'el' | 'actor'; name: string; dx: number; dy: number; behind?: boolean }
 
 let uid = 0;
 
@@ -189,7 +192,7 @@ export class KidActor extends Actor {
   widths() {
     // Bigger builds are wider, and a prop in hand (a shield, a paddle) reaches further out.
     const k = this.dims.scale, extra = this.prop ? 30 * this.s : 0;
-    return { narrow: 76 * this.s * k + extra * 0.5, wide: 100 * this.s * k + extra, lie: 160 * this.s * k };
+    return { narrow: 76 * this.s * k + extra * 0.5, wide: 100 * this.s * k + extra, lie: 330 * this.s * k };
   }
 
   setProp(p: PropId | null) {

@@ -78,7 +78,7 @@ export type Action = At & (
   | { do: 'hide'; who: CastId }
   | { do: 'place'; who: CastId; x: number; y?: number; s?: number; lift?: number }
   | { do: 'scale'; who: CastId; s: number; dur?: number }
-  | { do: 'ride'; who: CastId; on: string | null; dx?: number; dy?: number }
+  | { do: 'ride'; who: CastId; on: string | null; dx?: number; dy?: number; behind?: boolean }
   | { do: 'cape'; who: CastId; on: boolean }
   | { do: 'mess'; who: CastId; color: string | null }
   | { do: 'el'; el: string; to: ElTween; dur?: number; ease?: Ease; yoyo?: number }
@@ -135,7 +135,8 @@ export interface LineShot {
   tone?: Tone;              // how the line is spoken, when the speaker's face and the words do not say it
 }
 
-export interface Panel { who: CastId; expr: AnyExpr; bg?: Backdrop; color?: string }
+/** A manga panel: a close-up face; `lolli` (a candy colour) holds a lollipop right at the mouth, being licked. */
+export interface Panel { who: CastId; expr: AnyExpr; bg?: Backdrop; color?: string; lolli?: string }
 
 export interface TitleShot { title: { ep: string; name: string; sub: string } }
 export interface GateShot { gate: { id: string; title: string; ask: string; by: CastId } }

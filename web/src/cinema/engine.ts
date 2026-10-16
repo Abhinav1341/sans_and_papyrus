@@ -3,7 +3,7 @@
 // Kid rules: no camera shake, no flashes (glows fade slowly), calm mode removes busy effects.
 import gsap from 'gsap';
 import { getSet, type SetDef } from './sets';
-import { Actor, FizzActor, KidActor, NS } from './actor';
+import { Actor, FizzActor, KidActor, NS, lyingSide } from './actor';
 import type { Backdrop, CastId, Frame, Placement } from './types';
 import { CREW, captainLook, type CrewId, type Look } from '@/art/looks';
 import type { PoseName } from '@/art/poses';
@@ -11,9 +11,12 @@ import { POWER_ICONS, auraMarkup, type PowerIcon } from './powers';
 
 export interface CamState { x: number; y: number; zoom: number }
 export interface ElState { node: SVGGElement; ax: number; ay: number; x: number; y: number; rot: number; scale: number; opacity: number; last: string }
-export interface ActorSnap { x: number; y: number; lift: number; s: number; height: number; full: number; face: 1 | -1; visible: boolean; hw: number; widths: { narrow: number; wide: number; lie: number } }
+/** `lying`: 0 standing; -1 or 1 lying down (the body then stretches out to one side of the feet, see `bodyX`). */
+export interface ActorSnap { x: number; y: number; lift: number; s: number; height: number; full: number; face: 1 | -1; visible: boolean; hw: number; widths: { narrow: number; wide: number; lie: number }; lying: number }
 
 const f1 = (n: number) => Math.round(n * 10) / 10;
+/** The middle of a body, side to side. Lying down, it is not over the feet: the body lies out to one side. */
+export const bodyX = (a: ActorSnap) => a.x + a.lying * a.face * 0.49 * a.full * a.s;
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
 /** Subjects sit a little above the middle so subtitles never cover faces. */
 const CAPTION_SHIFT = 70;
@@ -274,7 +277,7 @@ export class Engine {
   /* ---------- camera ---------- */
   snapshot(): Map<CastId, ActorSnap> {
     const m = new Map<CastId, ActorSnap>();
-    for (const [id, a] of this.actors) m.set(id, { x: a.x, y: a.y, lift: a.lift, s: a.s, height: a.heightNow(), full: a.height, face: a.face, visible: a.visible, hw: a.halfWidth(), widths: a.widths() });
+    for (const [id, a] of this.actors) m.set(id, { x: a.x, y: a.y, lift: a.lift, s: a.s, height: a.heightNow(), full: a.height, face: a.face, visible: a.visible, hw: a.halfWidth(), widths: a.widths(), lying: lyingSide(a.cycle ? null : a.pose) });
     return m;
   }
 
@@ -297,7 +300,7 @@ export class Engine {
     let req: [number, number][] = [];
     let zooms: number[];
     let maxShift = Infinity;
-    const body = (id: CastId): [number, number] => { const a = snap.get(id)!; return [a.x - a.hw, a.x + a.hw]; };
+    const body = (id: CastId): [number, number] => { const a = snap.get(id)!; return [bodyX(a) - a.hw, bodyX(a) + a.hw]; };
     if ('full' in f || 'medium' in f) {
       subjects = listOf('full' in f ? f.full : f.medium);
       req = subjects.map(body);
@@ -329,7 +332,7 @@ export class Engine {
     }
     const skip = new Set(subjects);
     const others: [number, number][] = [];
-    for (const [id, a] of snap) if (a.visible && !skip.has(id)) others.push([a.x - a.hw, a.x + a.hw]);
+    for (const [id, a] of snap) if (a.visible && !skip.has(id)) others.push([bodyX(a) - a.hw, bodyX(a) + a.hw]);
     if (!others.length && !req.length) return c;
     const m = 14, mi = 12, mo = 6; // margins: subjects and people fully inside keep clear of the edge; people outside stay just off it
     let fallback: { x: number; zoom: number; cuts: number } | null = null;
@@ -366,7 +369,7 @@ export class Engine {
         const a = snap.get(id)!;
         const h = a.height * a.s;
         const feet = a.y - a.lift;
-        minX = Math.min(minX, a.x - a.hw); maxX = Math.max(maxX, a.x + a.hw);
+        minX = Math.min(minX, bodyX(a) - a.hw); maxX = Math.max(maxX, bodyX(a) + a.hw);
         top = Math.min(top, feet - h * topFrac); bot = Math.max(bot, feet - h * botFrac);
       }
       return { minX, maxX, top, bot };
@@ -426,7 +429,7 @@ export class Engine {
     const out: CastId[] = [];
     for (const [id, a] of snap) {
       if (!a.visible || subjects.includes(id)) continue;
-      const l = a.x - a.hw, r = a.x + a.hw;
+      const l = bodyX(a) - a.hw, r = bodyX(a) + a.hw;
       const outside = r <= cc.x - hw + 6 || l >= cc.x + hw - 6, inside = l >= cc.x - hw + 12 && r <= cc.x + hw - 12;
       if (!outside && !inside) out.push(id);
     }
@@ -479,7 +482,7 @@ export class Engine {
           if (e) { a.x = e.ax + e.x + a.ride.dx; a.y = e.ay + e.y + a.ride.dy; }
         } else {
           const p = this.actors.get(a.ride.name as CastId);
-          if (p) { a.x = p.x + a.ride.dx * p.face * p.s; a.y = p.y + 0.5; a.lift = p.lift + a.ride.dy * p.s; }
+          if (p) { a.x = p.x + a.ride.dx * p.face * p.s; a.y = p.y + (a.ride.behind ? -0.5 : 0.5); a.lift = p.lift + a.ride.dy * p.s; }
         }
       }
       a.speaking = !!this.speaker && this.speaker.who === a.id;

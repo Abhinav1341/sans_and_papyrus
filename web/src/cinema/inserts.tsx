@@ -32,7 +32,38 @@ const HANDS: [number, string, string][] = [
   [288, '#ffb38a', '#c98e63'],    // Bunty
 ];
 
+/**
+ * Kiki eating the wafer raft, one bite per close-up (`n` bites): her hand holds a slab of raft, each
+ * bite is cut out of it, and crumbs tumble down into the chocolate.
+ */
+function waferBites(n: number): string {
+  const bites: [number, number, number][] = [[292, 262, 40], [318, 330, 36], [238, 236, 38]];
+  const holes = bites.slice(0, n).map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#000"/>`).join('');
+  const grid = Array.from({ length: 7 }, (_, i) => `<path d="M${88 + i * 34} 240 V390" stroke="#c48a4a" stroke-width="4"/>`).join('')
+    + [280, 320, 360].map((y) => `<path d="M80 ${y} H330" stroke="#c48a4a" stroke-width="4"/>`).join('');
+  const [bx, by] = bites[n - 1];
+  const crumbs = Array.from({ length: 6 + n * 2 }, (_, i) => {
+    const dx = ((i * 53) % 90) - 45, sz = 8 + (i % 3) * 5;
+    return `<rect class="ins-crumb" style="--dx:${dx}px;animation-delay:${(i * 0.06).toFixed(2)}s" x="${bx - 10 + (i % 4) * 7}" y="${by + 10}" width="${sz}" height="${sz * 0.7}" rx="2" fill="#f2c98a" stroke="#2a1838" stroke-width="2"/>`;
+  }).join('');
+  return `<defs><linearGradient id="ins-wb${n}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffc6e4"/><stop offset=".6" stop-color="#e7a07a"/><stop offset="1" stop-color="#6a3a22"/></linearGradient>
+    <mask id="ins-wm${n}"><rect width="400" height="800" fill="#fff"/>${holes}</mask></defs>
+    <rect width="400" height="800" fill="url(#ins-wb${n})"/>
+    <path d="M-20 640 Q100 620 200 640 T420 640 V800 H-20 Z" fill="#5a3420"/><path d="M20 670 q40 -12 80 0 M220 690 q40 -12 80 0" stroke="#b07a52" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <g transform="translate(218 446) rotate(-14)">${handArm('#ffd33d', '#f0c49c')}</g>
+    <g transform="rotate(-10 205 315)" mask="url(#ins-wm${n})">
+      <rect x="72" y="232" width="266" height="166" rx="14" fill="#e0a85a" stroke="#2a1838" stroke-width="7"/>
+      <rect x="80" y="240" width="250" height="150" rx="10" fill="#f2c98a"/>${grid}
+      <rect x="86" y="246" width="120" height="16" rx="8" fill="#fff" opacity=".45"/>
+    </g>
+    <g class="ins-pop">${crumbs}</g>
+    <text class="ins-pop" x="${n === 3 ? 200 : 120}" y="${n === 3 ? 170 : 190}" text-anchor="middle" font-size="${n === 3 ? 74 : 58}" fill="#fff" stroke="#2a1838" stroke-width="8" paint-order="stroke" transform="rotate(-8 200 180)" style="${F}">${n === 3 ? 'CRUNCH!' : 'crunch'}</text>`;
+}
+
 const INSERTS: Record<string, string> = {
+  wafer1: waferBites(1),
+  wafer2: waferBites(2),
+  wafer3: waferBites(3),
   screen: `<defs><radialGradient id="ins-scr" cx=".5" cy=".45" r=".7"><stop offset="0" stop-color="#3b6fe0"/><stop offset="1" stop-color="#101a5a"/></radialGradient></defs>
     <rect width="400" height="800" fill="#1a1238"/>
     <rect x="18" y="150" width="364" height="470" rx="40" fill="#2a1f50" stroke="#7B61FF" stroke-width="10"/>

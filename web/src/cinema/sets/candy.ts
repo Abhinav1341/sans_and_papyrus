@@ -2,7 +2,7 @@
 // lollipop garden, Sugar Mountain, its summit and the night camp.
 import type { SetDef } from './types';
 import { INK, FONT, lin, rad, stars, planet, cloud, lollipop, gumdrop, candyCane, hills, rng, sparkleStar, star5, elements, birds, butterflies, bubbles, comets } from './kit';
-import { BEAN_X, SINK_X, POLE_X, COURSE, BEAN_TOP, GUMBALL_TOP, SHIELD, LOLLI_X, PATH, SEATS } from './candy-layout';
+import { BEAN_X, SINK_X, POLE_X, COURSE, BEAN_TOP, GUMBALL_TOP, SHIELD, RIVER, PLANK_DX, GARDEN, gardenScale, PATH, GRIPS, ICY_RAMP, SUMMIT, SHARE, SEATS } from './candy-layout';
 
 const SKY = (id: string) => lin(id, [[0, '#b9a6ff'], [0.45, '#ffc6e4'], [1, '#ffe8c4']]);
 const JELLY = (id: string) => lin(id, [[0, '#a6f0d4'], [1, '#5ccfae']]);
@@ -148,10 +148,21 @@ function bigBean(c: string, seed: number) {
 }
 
 /* ---------------- Mini-game two: rafting down the Chocolate River ---------------- */
+/** A chocolate fish, facing right (`flip` faces it left). `open` shows a wide-open hungry mouth. */
+function chocFish(open: boolean, flip = false, s = 1) {
+  const body = open
+    ? `<path d="M-70 0 Q-30 -48 26 -30 L70 -34 L22 -2 L70 30 L26 28 Q-30 48 -70 0 Z" fill="#6a3a22" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><path d="M60 -30 l-8 10 l-8 -9 l-8 10 l-8 -9" fill="#fff" stroke="${INK}" stroke-width="2"/><path d="M60 26 l-8 -9 l-8 8 l-8 -9 l-8 8" fill="#fff" stroke="${INK}" stroke-width="2"/>`
+    : `<path d="M-70 0 Q-30 -46 30 -26 Q60 -16 70 0 Q60 16 30 26 Q-30 46 -70 0 Z" fill="#6a3a22" stroke="${INK}" stroke-width="4"/><path d="M48 8 Q56 14 62 8" stroke="${INK}" stroke-width="3" fill="none"/>`;
+  return `<g transform="scale(${flip ? -s : s} ${s})">${body}<path d="M-66 0 L-110 -30 L-100 0 L-110 30 Z" fill="#6a3a22" stroke="${INK}" stroke-width="4"/>`
+    + `<path d="M-20 -34 Q0 -60 20 -30" fill="#8a5634" stroke="${INK}" stroke-width="3"/><circle cx="${open ? 14 : 34}" cy="-12" r="8" fill="#fff" stroke="${INK}" stroke-width="2"/><circle cx="${open ? 16 : 36}" cy="-12" r="4" fill="${INK}"/>`
+    + `<path d="M-40 -10 q10 10 0 20 M-20 -14 q12 14 0 28" stroke="#8a5634" stroke-width="4" fill="none"/></g>`;
+}
+
 export function river(): SetDef {
   const W = 3400;
   const E = elements();
-  const defs = SKY('rv-sky') + JELLY('rv-jelly') + lin('rv-choc', [[0, '#8a5634'], [1, '#5a3420']]) + lin('rv-wafer', [[0, '#f2c98a'], [1, '#d8a060']]) + lin('rv-cliff', [[0, '#7a4a2c'], [1, '#4a2a18']]);
+  const defs = SKY('rv-sky') + JELLY('rv-jelly') + lin('rv-choc', [[0, '#8a5634'], [1, '#5a3420']]) + lin('rv-wafer', [[0, '#f2c98a'], [1, '#d8a060']]) + lin('rv-cliff', [[0, '#7a4a2c'], [1, '#4a2a18']])
+    + rad('rv-whirl', [[0, '#3a1e0e'], [0.6, '#5a3420'], [1, '#8a5634', 0]]);
   const far = `<rect x="-600" y="-300" width="${W + 1200}" height="1400" fill="url(#rv-sky)"/>` + cloud(100, 220, 1.2, '#fff0f8', 'drift slow') + cloud(1200, 180, 1.4, '#ffe6f3', 'drift') + cloud(2400, 240, 1.1, '#fff0f8', 'drift slow')
     + `<path d="M-500 560 Q500 460 1300 530 T2600 500 T${W + 500} 520 L${W + 500} 620 L-500 620 Z" fill="#ffd1e8" stroke="#e8a8cc" stroke-width="4"/>`;
   let mid = `<path d="M-500 600 Q800 560 1700 590 T${W + 500} 580 L${W + 500} 660 L-500 660 Z" fill="url(#rv-jelly)" stroke="${INK}" stroke-width="3"/>`;
@@ -166,44 +177,99 @@ export function river(): SetDef {
   main += `<rect x="-600" y="700" width="1060" height="44" fill="url(#rv-wafer)" stroke="${INK}" stroke-width="4"/>${[-500, -380, -260, -140, -20, 100, 220, 340].map((x) => `<path d="M${x} 700 V744" stroke="#a8724a" stroke-width="2"/>`).join('')}`
     + `<rect x="380" y="744" width="22" height="120" fill="#a8724a"/><rect x="-100" y="744" width="22" height="120" fill="#a8724a"/>`;
   const wafer = (w: number) => `<rect x="${-w / 2}" y="-12" width="${w}" height="40" rx="6" fill="url(#rv-wafer)" stroke="${INK}" stroke-width="4"/>${Array.from({ length: Math.floor(w / 30) }, (_, i) => `<path d="M${-w / 2 + 15 + i * 30} -12 V28" stroke="#a8724a" stroke-width="2"/>`).join('')}<path d="M${-w / 2} 8 H${w / 2}" stroke="#a8724a" stroke-width="2"/><path d="M${-w / 2 - 10} 30 Q0 50 ${w / 2 + 10} 30" stroke="#b07a52" stroke-width="5" fill="none"/>`;
-  main += E.el('raft', 760, 712, wafer(380));
-  main += E.el('raftro', 560, 712, wafer(170));
-  main += E.el('pieces', 760, 730, `<g>${[-150, -60, 40, 130].map((x, i) => `<rect x="${x}" y="${(i % 2) * 10}" width="60" height="22" rx="4" fill="#f2c98a" stroke="${INK}" stroke-width="3" transform="rotate(${(i - 1.5) * 14} ${x + 30} 10)"/>`).join('')}</g>`, { opacity: 0 });
-  main += E.el('fish', 1900, 820, `<path d="M-70 0 Q-30 -46 30 -26 Q60 -16 70 0 Q60 16 30 26 Q-30 46 -70 0 Z" fill="#6a3a22" stroke="${INK}" stroke-width="4"/><path d="M-66 0 L-110 -30 L-100 0 L-110 30 Z" fill="#6a3a22" stroke="${INK}" stroke-width="4"/><circle cx="34" cy="-8" r="7" fill="#fff"/><circle cx="36" cy="-8" r="3.5" fill="${INK}"/><path d="M48 8 Q56 14 62 8" stroke="${INK}" stroke-width="3" fill="none"/><ellipse cx="20" cy="10" rx="8" ry="4" fill="#ff9fcf" opacity=".6"/>`, { opacity: 0 });
+  const goo = (h = 1) => `<g fill="none" stroke="#ffcf5c" stroke-linecap="round"><path d="M-6 -14 q-6 ${18 * h} 2 ${36 * h}" stroke-width="8"/><path d="M6 -12 q6 ${16 * h} -2 ${32 * h}" stroke-width="6"/></g><ellipse cx="0" cy="-12" rx="14" ry="6" fill="#ffcf5c"/><ellipse cx="-4" cy="-14" rx="5" ry="2" fill="#fff" opacity=".8"/>`;
+  const raftW = PLANK_DX.length * 104;
+  // The crew's big raft (five planks), Ro's little raft in the near lane, and the glued raft after the repair.
+  main += E.el('raft', RIVER.raft, 712, wafer(raftW));
+  main += E.el('raftro', RIVER.roRaft, RIVER.lane, wafer(170));
+  main += E.el('raft2', RIVER.split, 712, wafer(raftW) + PLANK_DX.slice(1).map((dx) => `<g transform="translate(${dx - 52} 0)">${goo(0.7)}</g>`).join(''), { opacity: 0 });
+  // Where the raft splits: the same raft as five loose planks, the goo that glues each crack, and crumbs.
+  PLANK_DX.forEach((dx, i) => { main += E.el(`p${i + 1}`, RIVER.split + dx, 712, wafer(100), { opacity: 0 }); });
+  PLANK_DX.slice(1).forEach((dx, i) => { main += E.el(`g${i + 1}`, RIVER.split + dx - 52, 712, goo(1), { opacity: 0, scale: 0.3 }); });
+  main += E.el('crumbs', RIVER.split, 724, `<g>${[-170, -90, 10, 120, 190].map((x, i) => `<rect x="${x}" y="${(i % 2) * 8}" width="${16 + (i % 3) * 6}" height="10" rx="3" fill="#f2c98a" stroke="${INK}" stroke-width="2" transform="rotate(${(i - 2) * 22} ${x} 0)"/>`).join('')}</g>`, { opacity: 0 });
+  // Hungry chocolate fish: two that attack the crew's raft, one that eats Ro's raft, and the curious one.
+  main += E.el('fish', 1900, 820, chocFish(false), { opacity: 0 });
+  main += E.el('fishL', RIVER.split - 235, 880, chocFish(true), { opacity: 0 });
+  main += E.el('fishR', RIVER.split + 265, 880, chocFish(true, true), { opacity: 0 });
+  main += E.el('fishro', RIVER.whirl + 120, 900, chocFish(true, true, 1.5), { opacity: 0 });
+  main += E.el('gball', RIVER.split, 560, `<circle r="16" fill="#ff7ab8" stroke="${INK}" stroke-width="3"/><circle cx="-5" cy="-6" r="5" fill="#fff" opacity=".7"/>`, { opacity: 0 });
+  // The whirlpool Ro falls into: swirling rings (the near half is drawn in front of him, below).
+  const rings = (rx: number, ry: number, n: number) => Array.from({ length: n }, (_, i) => `<ellipse cx="0" cy="0" rx="${rx - i * (rx / n)}" ry="${ry - i * (ry / n)}" fill="none" stroke="${i % 2 ? '#b07a52' : '#d9a273'}" stroke-width="${6 - i}" stroke-dasharray="${40 - i * 6} ${18 + i * 4}"/>`).join('');
+  main += E.el('whirl', RIVER.whirl, 820, `<ellipse rx="170" ry="52" fill="url(#rv-whirl)"/><g class="spin-6">${rings(160, 48, 4)}</g>`, { opacity: 0 });
   // The waterfall cave and the finish ledge
-  main += `<path d="M2840 700 L${W + 600} 700 L${W + 600} 1100 L2840 1100 Z" fill="url(#rv-jelly)" stroke="${INK}" stroke-width="4"/>`;
-  main += E.el('cave', 3180, 700, `<path d="M-260 0 L-260 -380 Q-200 -470 0 -480 Q200 -470 260 -380 L260 0 Z" fill="url(#rv-cliff)" stroke="${INK}" stroke-width="5"/><path d="M-140 0 L-140 -230 Q0 -320 140 -230 L140 0 Z" fill="#2a1408"/>`
+  main += `<path d="M${RIVER.ledge} 700 L${W + 600} 700 L${W + 600} 1100 L${RIVER.ledge} 1100 Z" fill="url(#rv-jelly)" stroke="${INK}" stroke-width="4"/>`;
+  main += E.el('cave', RIVER.cave, 700, `<path d="M-260 0 L-260 -380 Q-200 -470 0 -480 Q200 -470 260 -380 L260 0 Z" fill="url(#rv-cliff)" stroke="${INK}" stroke-width="5"/><path d="M-140 0 L-140 -230 Q0 -320 140 -230 L140 0 Z" fill="#2a1408"/>`
     + `<g class="flowdown">${[-110, -60, 0, 60, 110].map((x) => `<path d="M${x} -470 V-380" stroke="#8a5634" stroke-width="18" stroke-linecap="round"/>`).join('')}</g>`
     + `<rect x="-130" y="-300" width="260" height="56" rx="12" fill="#ffd36e" stroke="${INK}" stroke-width="4"/><text x="0" y="-262" text-anchor="middle" font-size="34" fill="#1d1745" style="${FONT}">FINISH</text>`);
   const front = `<path d="M-500 940 Q${W / 2} 900 ${W + 500} 940 L${W + 500} 1100 L-500 1100 Z" fill="url(#rv-jelly)" stroke="${INK}" stroke-width="4"/>`;
+  // In front of Ro when he is in the whirlpool: the near side of the swirl and the chocolate around his middle.
+  const whirlFront = E.el('whirlfront', RIVER.whirl, 820, `<path d="M-175 0 Q-170 -70 -60 -80 Q0 -66 60 -80 Q170 -70 175 0 Q170 64 0 68 Q-170 64 -175 0 Z" fill="#5a3420"/>`
+    + `<g class="spin-6" style="animation-direction:reverse">${rings(150, 40, 3)}</g><path d="M-120 -50 q30 -14 60 0 M40 -54 q30 -12 60 0" stroke="#d9a273" stroke-width="5" fill="none" stroke-linecap="round"/>`, { opacity: 0 });
   return {
     id: 'river', w: W, h: 1000, ground: 700, top: -280, bottom: 1080, bg: '#ffd1e8', defs,
-    layers: [{ p: 0.1, svg: far }, { p: 0.55, svg: mid }, { p: 1, svg: main }, { p: 1.3, svg: front, front: true }],
+    layers: [{ p: 0.1, svg: far }, { p: 0.55, svg: mid }, { p: 1, svg: main }, { p: 1, svg: whirlFront, front: true }, { p: 1.3, svg: front, front: true }],
     els: E.anchors,
   };
 }
 
 /* ---------------- Mini-game three: the lollipop garden ---------------- */
+/**
+ * A giant lollipop melting in the warm sun: glossy drips run down from the candy, and now and then a
+ * drop falls (slowly; calm mode stops it). Planted at (x, y); `stem` is the stick above the ground.
+ */
+function meltyLollipop(x: number, y: number, r: number, stem: number, a: string, b: string, seed: number, cls = '') {
+  const cy = -stem - r * 0.2;
+  const rr = rng(seed);
+  let drips = '';
+  for (let i = 0; i < 4; i++) {
+    const t = ((38 + i * 34 + rr() * 12) * Math.PI) / 180;
+    const px = Math.cos(t) * r * 0.94, py = cy + Math.sin(t) * r * 0.94;
+    const w = Math.max(6, r * (0.14 + rr() * 0.06)), len = r * (0.22 + rr() * 0.3);
+    drips += `<path d="M${n2(px - w / 2)} ${n2(py - w)} L${n2(px - w / 2)} ${n2(py + len)} A${n2(w / 2)} ${n2(w / 2)} 0 0 0 ${n2(px + w / 2)} ${n2(py + len)} L${n2(px + w / 2)} ${n2(py - w)} Z" fill="${a}" stroke="${INK}" stroke-width="2.5"/>`
+      + `<path d="M${n2(px - w * 0.15)} ${n2(py)} V${n2(py + len * 0.8)}" stroke="#fff" stroke-width="${n2(w * 0.25)}" opacity=".55" stroke-linecap="round"/>`
+      + `<circle class="drip" style="animation-delay:${n2(rr() * 3)}s" cx="${n2(px)}" cy="${n2(py + len + w * 0.9)}" r="${n2(w * 0.42)}" fill="${a}" stroke="${INK}" stroke-width="2"/>`;
+  }
+  // A glossy glaze on top, so the candy looks wet and sweet.
+  const glaze = `<path d="M${n2(-r * 0.7)} ${n2(cy - r * 0.15)} Q${n2(-r * 0.2)} ${n2(cy - r * 0.95)} ${n2(r * 0.6)} ${n2(cy - r * 0.55)}" stroke="#fff" stroke-width="${n2(Math.max(3, r * 0.08))}" fill="none" opacity=".6" stroke-linecap="round"/>`;
+  return `<g transform="translate(${x} ${y})"><g${cls ? ` class="${cls}"` : ''}>${lollipop(0, 0, r, stem, a, b)}${drips}${glaze}</g></g>`;
+}
+const n2 = (v: number) => Math.round(v * 10) / 10;
+
 export function garden(): SetDef {
-  const W = 2460;
+  const W = GARDEN.w;
   const E = elements();
-  const defs = SKY('gd-sky') + JELLY('gd-jelly') + rad('gd-sun', [[0, '#fff8d8'], [1, '#ffd36e', 0]]);
-  const far = `<rect x="-600" y="-300" width="${W + 1200}" height="1400" fill="url(#gd-sky)"/><circle cx="1800" cy="230" r="140" fill="url(#gd-sun)"/>` + cloud(300, 220, 1.2, '#fff0f8', 'drift slow') + cloud(1300, 170, 1.3, '#ffe6f3', 'drift');
-  let mid = `<path d="M-500 590 Q500 520 1300 570 T${W + 500} 560 L${W + 500} 700 L-500 700 Z" fill="#b8f5dd" stroke="${INK}" stroke-width="3"/>`;
-  for (let i = 0; i < 14; i++) mid += lollipop(i * 190 - 100, 590, 34, 90, ['#ff9fcf', '#ffd36e', '#8fc8ff', '#c9b6ff'][i % 4], '#fff', 'sway slow');
-  mid += birds(7, 74, -300, W, 160, 400, 1800);
+  const defs = SKY('gd-sky') + JELLY('gd-jelly') + rad('gd-sun', [[0, '#fff8d8'], [1, '#ffd36e', 0]]) + rad('gd-glow', [[0, '#fff8d8', 0.8], [1, '#fff8d8', 0]]);
+  const far = `<rect x="-600" y="-300" width="${W + 1200}" height="1400" fill="url(#gd-sky)"/><circle cx="1800" cy="230" r="140" fill="url(#gd-sun)"/>`
+    + [300, 1300, 2300, 3300].map((x, i) => cloud(x, 170 + (i % 2) * 50, 1.2 + (i % 2) * 0.1, i % 2 ? '#ffe6f3' : '#fff0f8', i % 2 ? 'drift' : 'drift slow')).join('');
+  let mid = `<path d="M-500 590 Q500 520 1300 570 T2600 560 T${W + 500} 570 L${W + 500} 700 L-500 700 Z" fill="#b8f5dd" stroke="${INK}" stroke-width="3"/>`;
+  const bg: [string, string][] = [['#ff9fcf', '#fff'], ['#ffd36e', '#ff9fcf'], ['#8fc8ff', '#fff'], ['#c9b6ff', '#ffd36e'], ['#7fe6c9', '#fff']];
+  for (let i = 0; i < 22; i++) mid += meltyLollipop(i * 190 - 100, 600, 30 + (i % 3) * 6, 80 + (i % 4) * 14, bg[i % 5][0], bg[i % 5][1], 200 + i, 'sway slow');
+  mid += birds(10, 74, -300, W, 160, 400, 2000);
   let main = jellyGround(W, 640, 'gd-jelly');
-  const cols: [string, string][] = [['#ff9fcf', '#fff'], ['#ffd36e', '#ff9fcf'], ['#7fe6c9', '#fff'], ['#c9b6ff', '#ffd36e'], ['#8fc8ff', '#fff']];
-  LOLLI_X.forEach((x, i) => {
-    main += E.el(`lp${i + 1}`, x, 650, lollipop(0, 0, 66, 400, cols[i][0], cols[i][1]));
-    main += E.el(`st${i + 1}`, x + (i % 2 ? 70 : -70), 690, star5(0, -24, 24, '#ffd36e', '#c99a2e', 3), { opacity: 0, scale: 0.4 });
+  // The big garden: lollipop trees, gumdrop bushes, candy flowers and mushrooms to hide Stars behind.
+  const trees: [number, number, number, number, string, string][] = [[160, 700, 72, 330, '#ff9fcf', '#ffd36e'], [560, 690, 60, 260, '#8fc8ff', '#fff'], [1720, 690, 70, 320, '#c9b6ff', '#fff'], [2010, 700, 84, 340, '#ffd36e', '#ff9fcf'], [2380, 690, 62, 280, '#7fe6c9', '#fff'], [2900, 700, 76, 330, '#ff9fcf', '#fff'], [3380, 690, 66, 300, '#8fc8ff', '#ffd36e']];
+  trees.forEach(([x, y, r, st, a, b], i) => { main += meltyLollipop(x, y, r, st, a, b, 300 + i); });
+  [[300, 712, 70, '#7fe6c9'], [880, 716, 44, '#ff9fcf'], [1600, 712, 52, '#ffd36e'], [2240, 716, 46, '#c9b6ff'], [3060, 714, 58, '#8fc8ff']]
+    .forEach(([x, y, r, c]) => { main += gumdrop(x as number, y as number, r as number, c as string); });
+  // Candy flowers (one is a hiding place), and a candy mushroom.
+  const flower = (x: number, y: number, s: number, c: string) => `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 0 Q-6 -60 0 -110" stroke="#5ccfae" stroke-width="8" fill="none"/>${[0, 72, 144, 216, 288].map((d) => `<ellipse cx="0" cy="-138" rx="16" ry="28" fill="${c}" stroke="${INK}" stroke-width="3" transform="rotate(${d} 0 -112)"/>`).join('')}<circle cy="-112" r="14" fill="#ffd36e" stroke="${INK}" stroke-width="3"/></g>`;
+  main += flower(700, 712, 1.3, '#ff9fcf') + flower(1530, 712, 0.9, '#8fc8ff') + flower(2520, 712, 1.0, '#ffd36e') + flower(3260, 712, 1.1, '#c9b6ff');
+  main += `<g transform="translate(2640 716)"><rect x="-20" y="-70" width="40" height="70" rx="12" fill="#fff6ea" stroke="${INK}" stroke-width="4"/><path d="M-110 -60 Q-100 -170 0 -176 Q100 -170 110 -60 Z" fill="#ff7ab8" stroke="${INK}" stroke-width="5"/>${[-60, -10, 45].map((x, i) => `<circle cx="${x}" cy="${-110 - (i % 2) * 30}" r="${12 + i * 3}" fill="#fff"/>`).join('')}</g>`;
+  main += E.el('flossbush', 3160, 600, cloud(-90, -40, 0.9, '#fff0f8', 'bob'));
+  main += butterflies(10, 37, 300, W - 300, 560, 700);
+  for (let i = 0; i < 26; i++) main += `<circle cx="${i * 140 + 40}" cy="${740 + (i % 3) * 70}" r="${8 + (i % 3) * 3}" fill="${['#ff9fcf', '#ffd36e', '#fff'][i % 3]}" opacity=".8"/>`;
+  // The five game lollipops, one per child, candy at mouth height (they lean towards the children in the wind).
+  const stripes = ['#fff', '#ff9fcf', '#fff', '#ffd36e', '#fff4c7'];
+  GARDEN.spots.forEach((sp, i) => {
+    main += E.el(`lp${i + 1}`, sp.x, sp.y, meltyLollipop(0, 0, sp.r, Math.round(sp.mouth - sp.r * 0.2), GARDEN.candy[i], stripes[i], 500 + i));
   });
-  main += butterflies(8, 37, 300, W - 300, 560, 700);
-  for (let i = 0; i < 18; i++) main += `<circle cx="${i * 140 + 40}" cy="${740 + (i % 3) * 70}" r="${8 + (i % 3) * 3}" fill="${['#ff9fcf', '#ffd36e', '#fff'][i % 3]}" opacity=".8"/>`;
+  // Fizz's five Stars in their hiding places (hidden until found).
+  GARDEN.stars.forEach(([x, y], i) => { main += E.el(`st${i + 1}`, x, y, `<circle r="40" fill="url(#gd-glow)"/>${star5(0, 0, 26, '#ffd36e', '#c99a2e', 3)}`, { opacity: 0, scale: 0.4 }); });
   return {
     id: 'garden', w: W, h: 1000, ground: 715, top: -280, bottom: 1080, bg: '#ffd1e8', defs,
     layers: [{ p: 0.1, svg: far }, { p: 0.5, svg: mid }, { p: 1, svg: main }],
     els: E.anchors,
+    scale: gardenScale,
   };
 }
 
@@ -211,29 +277,59 @@ export function garden(): SetDef {
 export function mountain(): SetDef {
   const W = 1600, H = 2600;
   const E = elements();
-  const defs = lin('mt-sky', [[0, '#7b5fd6'], [0.5, '#c9a6f0'], [1, '#ffd1e8']]) + lin('mt-ice', [[0, '#ffffff'], [1, '#f2e6ff']], 1, 0) + rad('mt-glow', [[0, '#fff4c7', 0.95], [1, '#fff4c7', 0]]);
+  const defs = lin('mt-sky', [[0, '#7b5fd6'], [0.5, '#c9a6f0'], [1, '#ffd1e8']]) + lin('mt-ice', [[0, '#ffffff'], [1, '#efe2ff']], 1, 0)
+    + rad('mt-glow', [[0, '#fff4c7', 0.95], [1, '#fff4c7', 0]]) + lin('mt-glaze', [[0, '#f2fbff', 0.95], [1, '#9fd8ff', 0.9]]) + lin('mt-shelf', [[0, '#f7d08a'], [1, '#d8a060']]);
   const far = `<rect x="-600" y="-400" width="${W + 1200}" height="${H + 800}" fill="url(#mt-sky)"/>` + stars(80, 21, -400, W + 400, -300, 900)
     + planet(1300, 300, 90, '#ffe3f1', '#ff9fcf', true, 'mt-pl') + birds(10, 85, -400, W, 500, 2200, 1800) + cloud(-100, 1100, 1.6, '#fff0f8', 'drift slow') + cloud(1100, 1500, 1.4, '#ffe6f3', 'drift') + cloud(200, 1900, 1.5, '#fff0f8', 'drift slow');
-  // The mountain body
-  let main = `<path d="M-400 ${H + 100} L-100 1300 Q200 700 560 520 Q800 420 1040 520 Q1400 700 1700 1300 L${W + 400} ${H + 100} Z" fill="url(#mt-ice)" stroke="#d8b8e8" stroke-width="8"/>`;
-  main += `<path d="M300 900 Q420 980 520 900 T740 920 T980 880 T1240 940" stroke="#ffb7dc" stroke-width="22" fill="none" stroke-linecap="round" opacity=".7"/>`
-    + `<path d="M120 1500 Q300 1580 460 1500 T800 1520 T1140 1490 T1460 1540" stroke="#8fc8ff" stroke-width="22" fill="none" stroke-linecap="round" opacity=".6"/>`
-    + `<path d="M40 2100 Q260 2180 480 2100 T900 2120 T1300 2090 T1600 2140" stroke="#ffd36e" stroke-width="22" fill="none" stroke-linecap="round" opacity=".6"/>`;
-  // Ledges along the climbing path
-  for (let i = 0; i < PATH.length; i++) {
-    const [x, y] = PATH[i];
-    main += `<path d="M${x - 170} ${y + 4} Q${x} ${y - 10} ${x + 170} ${y + 4} L${x + 150} ${y + 40} Q${x} ${y + 52} ${x - 150} ${y + 40} Z" fill="#ffd1e8" stroke="${INK}" stroke-width="4"/>`;
-    if (i < PATH.length - 1) {
-      const [nx, ny] = PATH[i + 1];
-      main += `<path d="M${x} ${y} L${nx} ${ny}" stroke="#ffe8f4" stroke-width="64" stroke-linecap="round" opacity=".9"/><path d="M${x} ${y} L${nx} ${ny}" stroke="#ffb7dc" stroke-width="6" stroke-dasharray="14 18" opacity=".8"/>`;
+  // The mountain: a broad sugar peak with a flat summit, wide enough for every ledge of the road.
+  let main = `<path d="M-400 ${H + 100} L-220 1800 Q20 1100 230 700 Q320 520 450 496 L820 496 Q1020 560 1260 760 Q1460 1000 1560 1500 Q1660 2000 ${W + 400} ${H + 100} Z" fill="url(#mt-ice)" stroke="#d8b8e8" stroke-width="8"/>`;
+  // Coloured icing bands across the slopes.
+  [[1000, '#ffb7dc', 0.6], [1650, '#8fc8ff', 0.5], [2250, '#ffd36e', 0.5]].forEach(([y, c, o]) => {
+    main += `<path d="M-200 ${y} Q200 ${(y as number) + 70} 500 ${y} T1100 ${(y as number) - 10} T1700 ${y}" stroke="${c}" stroke-width="24" fill="none" stroke-linecap="round" opacity="${o}"/>`;
+  });
+  // The frosting cap on the summit, dripping down the slopes.
+  let cap = `<path d="M210 760 Q300 540 450 488 L820 488 Q1050 560 1230 740`;
+  const drips = [[250, 700, 70], [330, 590, 110], [430, 520, 80], [560, 500, 130], [700, 500, 90], [860, 520, 120], [980, 590, 80], [1110, 660, 100], [1200, 720, 60]];
+  cap += drips.reverse().map(([x, y, d]) => ` L${x + 26} ${y} Q${x + 26} ${y + d} ${x} ${y + d} Q${x - 26} ${y + d} ${x - 26} ${y}`).join('') + ' Z" fill="#fff" stroke="#e6d6f5" stroke-width="5"/>';
+  main += cap;
+  // The zig-zag icing road: a pink frosting ramp with a dashed middle and candy-cane railings.
+  for (let i = 0; i < PATH.length - 1; i++) {
+    const [x, y] = PATH[i], [nx, ny] = PATH[i + 1];
+    const icy = i === ICY_RAMP;
+    main += `<path d="M${x} ${y} L${nx} ${ny}" stroke="#cfa8e0" stroke-width="86" stroke-linecap="round"/>`
+      + `<path d="M${x} ${y} L${nx} ${ny}" stroke="${icy ? 'url(#mt-glaze)' : '#ffe0ef'}" stroke-width="74" stroke-linecap="round"/>`
+      + `<path d="M${x} ${y} L${nx} ${ny}" stroke="${icy ? '#fff' : '#ff9fcf'}" stroke-width="5" stroke-dasharray="${icy ? '60 30' : '16 18'}" opacity=".85"/>`;
+    // Railings on the downhill side of each ramp.
+    const n = Math.floor(Math.hypot(nx - x, ny - y) / 110);
+    for (let k = 1; k < n; k++) {
+      const t = k / n, px = x + (nx - x) * t, py = y + (ny - y) * t;
+      main += candyCane(Math.round(px), Math.round(py + 44), 34, k % 2 === 0);
+    }
+    if (icy) {
+      for (let k = 0; k < 6; k++) main += sparkleStar(Math.round(x + (nx - x) * (k + 0.5) / 6), Math.round(y + (ny - y) * (k + 0.5) / 6) - 20, 9, '#fff', 'tw');
+      main += `<g transform="translate(${Math.round(x + (nx - x) * 0.55)} ${Math.round(y + (ny - y) * 0.55) + 40})"><path d="M0 0 V-120" stroke="#fff" stroke-width="8" stroke-linecap="round"/><rect x="-74" y="-170" width="148" height="56" rx="12" fill="#8fc8ff" stroke="${INK}" stroke-width="4"/><text x="0" y="-132" text-anchor="middle" font-size="24" fill="#1d1745" style="${FONT}">SLIPPERY!</text></g>`;
     }
   }
+  // Landings at every corner: a wafer shelf topped with icing.
+  for (let i = 0; i < PATH.length; i++) {
+    const [x, y] = PATH[i];
+    if (i === 0) continue;
+    const w = i === PATH.length - 1 ? 260 : 170;
+    main += `<path d="M${x - w} ${y + 4} Q${x} ${y - 12} ${x + w} ${y + 4} L${x + w - 20} ${y + 46} Q${x} ${y + 58} ${x - w + 20} ${y + 46} Z" fill="url(#mt-shelf)" stroke="${INK}" stroke-width="4"/>`
+      + `<path d="M${x - w} ${y + 4} Q${x} ${y - 12} ${x + w} ${y + 4}" stroke="#fff" stroke-width="16" fill="none" stroke-linecap="round"/>`;
+  }
+  // Candy-cane posts Ro's toffee arm grabs to pull himself up.
+  GRIPS.forEach(([x, gy], i) => { main += E.el(`post${i + 1}`, x, gy + 50, candyCane(0, 0, 100, true)); });
+  // Sprinkles everywhere.
   const r = rng(41);
-  for (let i = 0; i < 70; i++) main += `<rect x="${Math.round(100 + r() * 1400)}" y="${Math.round(700 + r() * 1800)}" width="5" height="15" rx="2" fill="${['#ff9fcf', '#7fe6c9', '#ffd36e', '#8fc8ff'][i % 4]}" transform="rotate(${Math.round(r() * 180)} ${Math.round(100 + r() * 1400)} ${Math.round(700 + r() * 1800)})" opacity=".8"/>`;
-  main += candyCane(220, 2300, 120) + candyCane(1300, 1980, 110, true) + candyCane(300, 1300, 100);
+  for (let i = 0; i < 70; i++) {
+    const sx = Math.round(100 + r() * 1400), sy = Math.round(700 + r() * 1700), rot = Math.round(r() * 180);
+    main += `<rect x="${sx}" y="${sy}" width="5" height="15" rx="2" fill="${['#ff9fcf', '#7fe6c9', '#ffd36e', '#8fc8ff'][i % 4]}" transform="rotate(${rot} ${sx} ${sy})" opacity=".8"/>`;
+  }
   main += `<rect x="-400" y="2440" width="${W + 800}" height="400" fill="#ffd1e8" stroke="${INK}" stroke-width="5"/>`;
-  main += `<circle cx="800" cy="280" r="160" fill="url(#mt-glow)" class="pulse"/>`;
-  main += E.el('giant', 800, 520, lollipop(0, 0, 110, 230, '#ff9fcf', '#ffd36e'));
+  // The Giant Lollipop, glowing on the summit.
+  main += `<circle cx="${SUMMIT.giant}" cy="260" r="190" fill="url(#mt-glow)" class="pulse"/>`;
+  main += E.el('giant', SUMMIT.giant, 520, lollipop(0, 0, 110, 230, '#ff9fcf', '#ffd36e'));
   return {
     id: 'mountain', w: W, h: H, ground: 2440, top: -350, bottom: 2700, bg: '#7b5fd6', defs,
     layers: [{ p: 0.2, svg: far }, { p: 1, svg: main }],
@@ -252,8 +348,13 @@ export function summit(): SetDef {
     + `<path d="M300 700 Q500 740 700 700 T1100 710 T1300 700" stroke="#ffb7dc" stroke-width="16" fill="none" stroke-linecap="round" opacity=".7"/>`;
   main += `<circle cx="800" cy="360" r="300" fill="url(#sm-glow)" class="pulse"/>`;
   main += E.el('giant', 800, 704, lollipop(0, 0, 160, 210, '#ff9fcf', '#ffd36e'));
-  const pieces = [-220, -110, 0, 110, 220].map((x, i) => `<g transform="translate(${x} 0) rotate(${(i - 2) * 8})">${lollipop(0, 0, 32, 70, ['#ff9fcf', '#ffd36e', '#7fe6c9', '#c9b6ff', '#8fc8ff'][i], '#fff')}</g>`).join('');
-  main += E.el('pieces', 800, 640, pieces, { opacity: 0 });
+  // What is left after the crack: the stick (the crew's treasure).
+  main += E.el('stub', 800, 704, `<rect x="-14" y="-210" width="28" height="210" rx="14" fill="#fff8ee" stroke="#d8cfc0" stroke-width="3"/><path d="M-14 -210 l8 -16 l8 12 l8 -14 l8 18" fill="#ff9fcf" stroke="${INK}" stroke-width="3"/>`, { opacity: 0 });
+  // The five pieces of the Giant Lollipop (each flies to one of the crew); Ro's is the smallest.
+  SHARE.forEach(([, , r], i) => {
+    const wedge = `<path d="M0 0 L${-r} ${-r * 0.5} A${r * 1.1} ${r * 1.1} 0 0 1 ${r} ${-r * 0.5} Z" fill="${['#ff9fcf', '#ffd36e', '#ff9fcf', '#ffd36e', '#ff9fcf'][i]}" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/><path d="M${-r * 0.5} ${-r * 0.55} Q0 ${-r * 0.8} ${r * 0.5} ${-r * 0.55}" stroke="#fff" stroke-width="5" fill="none" opacity=".7"/>`;
+    main += E.el(`pc${i + 1}`, 800, 462, wedge, { opacity: 0, scale: 0.6 });
+  });
   for (let i = 0; i < 10; i++) main += sparkleStar(560 + (i % 5) * 120, 200 + Math.floor(i / 5) * 220, 12, '#fff', 'tw');
   main += birds(6, 96, -300, W, 380, 620, 1800);
   return {

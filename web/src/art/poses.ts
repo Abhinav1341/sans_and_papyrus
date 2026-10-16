@@ -72,6 +72,15 @@ export const POSES = {
   pocket: { j: P({ a1s: -6, a1e: 12, a2s: 14, a2e: 42, tilt: 16, lean: 6 }) },
   holdUp: { j: P({ a1s: -10, a1e: 15, a2s: 135, a2e: 35, tilt: -8 }) },
   brace: { j: P({ a1s: -62, a1e: 22, a2s: 62, a2e: 22, lean: -16, l1h: -22, l1k: 12, l2h: 28, l2k: 22, tilt: -6 }) },
+  // Reaching straight up (Ro's toffee arm grabbing a ledge above), and hanging from that arm.
+  reachUp: { j: P({ a1s: -20, a1e: 10, a2s: 180, a2e: 0, tilt: -12, l1h: -6, l2h: 6 }) },
+  hang: { j: P({ a1s: 172, a1e: 0, a2s: 180, a2e: 0, tilt: -10, l1h: 8, l1k: 22, l2h: -6, l2k: 14, ground: 0 }) },
+  // A piggyback: the carrier leans forward with both hands back holding the rider's legs; the rider sits
+  // astride the carrier's back with arms over the carrier's shoulders. (Leaning forward turns the arms too.)
+  piggy: { j: P({ a1s: -10, a1e: 60, a2s: -4, a2e: 64, lean: 14, tilt: -6 }) },
+  piggyRide: { j: P({ a1s: 70, a1e: 50, a2s: 84, a2e: 46, l1h: 74, l1k: 70, l2h: 82, l2k: 74, lean: 10, ground: 0 }) },
+  // Kneeling at an edge, leaning over it, one arm hanging straight down (Ro's arm-ladder).
+  kneelDown: { j: P({ a1s: 40, a1e: 20, a2s: 32, a2e: 0, lean: 32, tilt: 14, l1h: -5, l1k: 95, l2h: 75, l2k: 75 }) },
 } satisfies Record<string, PoseDef>;
 
 export type PoseName = keyof typeof POSES;
@@ -79,7 +88,7 @@ export type PoseName = keyof typeof POSES;
 /** How tall a character is in a pose compared with standing (for camera framing and emotes). */
 export const POSE_HEIGHT: Partial<Record<PoseName | CycleKey, number>> = {
   sit: 0.66, hugKnees: 0.6, kneel: 0.8, crouch: 0.82, land: 0.9, lie: 0.3, splat: 0.3, scared: 0.96, bow: 0.9, slump: 0.97,
-  stuck: 0.62, stuckPull: 0.7,
+  stuck: 0.62, stuckPull: 0.7, kneelDown: 0.74, piggyRide: 0.8,
   paddle: 0.8, tremble: 0.96,
 };
 type CycleKey = 'paddle' | 'tremble';

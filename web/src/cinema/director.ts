@@ -6,7 +6,7 @@ import { KidActor } from './actor';
 import type { Action, CastId, Ease, Fx, LineShot, Scene } from './types';
 import { sfx } from '@/lib/sfx';
 import { POSE_HEIGHT, type PoseName } from '@/art/poses';
-import { widthFor } from './actor';
+import { widthFor, lyingSide } from './actor';
 
 const EASE: Record<Ease, string> = { linear: 'none', in: 'power2.in', out: 'power2.out', inOut: 'sine.inOut', back: 'back.out(1.6)', bounce: 'bounce.out', elastic: 'elastic.out(1, 0.5)' };
 const SPEED = { run: 430, walk: 170, tiptoe: 110, fly: 320, fall: 300, climb: 120 } as const;
@@ -36,8 +36,8 @@ export function simulate(start: Sim, acts: Action[] = [], viewHalfW = 260, viewX
       case 'hide': s.visible = false; break;
       case 'face': s.face = a.dir; break;
       case 'scale': s.s = a.s; break;
-      case 'pose': s.height = s.full * (POSE_HEIGHT[a.pose] ?? 1); s.hw = widthFor(s.widths, a.pose); break;
-      case 'cycle': s.height = s.full * ((a.cycle && POSE_HEIGHT[a.cycle as 'paddle']) || 1); s.hw = widthFor(s.widths, a.cycle ?? 'stand'); break;
+      case 'pose': s.height = s.full * (POSE_HEIGHT[a.pose] ?? 1); s.hw = widthFor(s.widths, a.pose); s.lying = lyingSide(a.pose); break;
+      case 'cycle': s.height = s.full * ((a.cycle && POSE_HEIGHT[a.cycle as 'paddle']) || 1); s.hw = widthFor(s.widths, a.cycle ?? 'stand'); s.lying = 0; break;
       default: break;
     }
   }
@@ -240,7 +240,7 @@ export class Director {
         call(() => {
           if (!on) { actor.ride = null; return; }
           const isActor = eng.actors.has(on as CastId);
-          actor.ride = { kind: isActor ? 'actor' : 'el', name: on, dx: a.dx ?? 0, dy: a.dy ?? 0 };
+          actor.ride = { kind: isActor ? 'actor' : 'el', name: on, dx: a.dx ?? 0, dy: a.dy ?? 0, behind: a.behind };
         });
         return;
       }

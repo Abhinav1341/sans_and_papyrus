@@ -2507,11 +2507,19 @@
   },
   {
    "voice": "narrator",
-   "text": "Ro paddles off alone. Everyone else squeezes onto one big raft.",
-   "say": "Roh paddles off alone. Everyone else squeezes onto one big raft.",
-   "tone": "story",
-   "key": "narrator|ad29ab2a",
+   "text": "Ro jumps onto his little raft and paddles off first. Zoom!",
+   "say": "Roh jumps onto his little raft and paddles off first. Zoom!",
+   "tone": "storyUp",
+   "key": "narrator|05bbc75b",
    "where": "c-3#9"
+  },
+  {
+   "voice": "narrator",
+   "text": "Then the others hop onto the big raft, one by one.",
+   "say": "Then the others hop onto the big raft, one by one.",
+   "tone": "story",
+   "key": "narrator|556015c7",
+   "where": "c-3#10"
   },
   {
    "voice": "meera",
@@ -2519,15 +2527,15 @@
    "say": "Is it just me, or is the raft getting... smaller?",
    "tone": "worried",
    "key": "meera|4dac2675",
-   "where": "c-3#10"
+   "where": "c-3#11"
   },
   {
    "voice": "narrator",
-   "text": "Kiki is eating the raft.",
-   "say": "Kee-kee is eating the raft.",
-   "tone": "story",
-   "key": "narrator|4fc562b1",
-   "where": "c-3#11"
+   "text": "Crunch... crunch... CRUNCH! Kiki is eating the raft!",
+   "say": "Crunch... crunch... Crunch! Kee-kee is eating the raft!",
+   "tone": "storyUp",
+   "key": "narrator|7cc9d07d",
+   "where": "c-3#12"
   },
   {
    "voice": "kiki",
@@ -2535,7 +2543,7 @@
    "say": "I’m Sorry! It’s Really good wafer!",
    "tone": "shout",
    "key": "kiki|e18b4b2e",
-   "where": "c-3#12"
+   "where": "c-3#13"
   },
   {
    "voice": "meera",
@@ -2543,7 +2551,7 @@
    "say": "It’s falling apart! We’re going to sink into the chocolate!",
    "tone": "surprised",
    "key": "meera|490ccb74",
-   "where": "c-3#13"
+   "where": "c-3#14"
   },
   {
    "voice": "bunty",
@@ -2551,7 +2559,7 @@
    "say": "Wait! My sticky fingers! I can glue the raft back together!",
    "tone": "bold",
    "key": "bunty|c5b05f2d",
-   "where": "c-3#14"
+   "where": "c-3#15"
   },
   {
    "voice": "fizz",
@@ -2559,15 +2567,15 @@
    "say": "Bonus round! The raft is falling apart! Help Bunty stick every piece back.",
    "tone": "happy",
    "key": "fizz|aaa42b21",
-   "where": "c-3#15"
+   "where": "c-3#16"
   },
   {
    "voice": "narrator",
-   "text": "Bunty’s sticky hands hold every piece in place. The raft is saved!",
-   "say": "Bunty’s sticky hands hold every piece in place. The raft is saved!",
+   "text": "Bunty presses his sticky hands on every crack. Squish! Squish! SQUISH!",
+   "say": "Bunty presses his sticky hands on every crack. Squish! Squish! Squish!",
    "tone": "storyUp",
-   "key": "narrator|4f901ac2",
-   "where": "c-3#16"
+   "key": "narrator|3a693595",
+   "where": "c-3#17"
   },
   {
    "voice": "bunty",
@@ -2575,71 +2583,143 @@
    "say": "Sticky Fingers For The Win!",
    "tone": "shout",
    "key": "bunty|5d9ee121",
-   "where": "c-3#17"
-  },
-  {
-   "voice": "narrator",
-   "text": "The crew cheers so loudly, a chocolate fish jumps up to see!",
-   "say": "The crew cheers so loudly, a chocolate fish jumps up to see!",
-   "tone": "storyUp",
-   "key": "narrator|5ce162c0",
    "where": "c-3#18"
   },
   {
    "voice": "narrator",
-   "text": "At the cave, Ro is waiting. A chocolate fish ate his raft!",
-   "say": "At the cave, Roh is waiting. A chocolate fish ate his raft!",
+   "text": "But the river is full of hungry chocolate fish. CHOMP, CHOMP!",
+   "say": "But the river is full of hungry chocolate fish. Chomp, Chomp!",
    "tone": "storyUp",
-   "key": "narrator|9e03c415",
+   "key": "narrator|9300775d",
    "where": "c-3#19"
   },
   {
-   "voice": "ro",
-   "text": "...It ate my paddle too.",
-   "say": "...It ate my paddle too.",
-   "tone": "sad",
-   "key": "ro|5211445f",
+   "voice": "meera",
+   "text": "Not our raft! CANDY SHIELD!",
+   "say": "Not our raft! Candy Shield!",
+   "tone": "bold",
+   "key": "meera|278aab03",
    "where": "c-3#20"
   },
   {
-   "voice": "fizz",
-   "text": "Bunty’s raft wins three Stars! Teamwork wins!",
-   "say": "Bunty’s raft wins three Stars! Teamwork wins!",
+   "voice": "kiki",
+   "text": "Hungry? Have a gumball instead!",
+   "say": "Hungry? Have a gumball instead!",
    "tone": "excited",
-   "key": "fizz|71769bf2",
+   "key": "kiki|aeab10c7",
    "where": "c-3#21"
   },
   {
-   "voice": "you-a",
-   "text": "Ro, hop on. There’s room.",
-   "say": "Roh, hop on. There’s room.",
-   "tone": "happy",
-   "key": "you-a|c09ef626",
+   "voice": "narrator",
+   "text": "Up ahead, Ro paddles alone. Then... CHOMP! A fish eats his raft!",
+   "say": "Up ahead, Roh paddles alone. Then... Chomp! A fish eats his raft!",
+   "tone": "storyUp",
+   "key": "narrator|8ab34e43",
    "where": "c-3#22"
+  },
+  {
+   "voice": "ro",
+   "text": "HELP! A fish ate my raft! I can’t swim in chocolate!",
+   "say": "Help! A fish ate my raft! I can’t swim in chocolate!",
+   "tone": "worried",
+   "key": "ro|757070d7",
+   "where": "c-3#23"
+  },
+  {
+   "voice": "you-a",
+   "text": "Ro is in the river! Paddle, crew, PADDLE!",
+   "say": "Roh is in the river! Paddle, crew, Paddle!",
+   "tone": "bold",
+   "key": "you-a|c99fcf5d",
+   "where": "c-3#24"
   },
   {
    "voice": "you-b",
-   "text": "Ro, hop on. There’s room.",
-   "say": "Roh, hop on. There’s room.",
-   "tone": "happy",
-   "key": "you-b|9dbc7a16",
-   "where": "c-3#22"
+   "text": "Ro is in the river! Paddle, crew, PADDLE!",
+   "say": "Roh is in the river! Paddle, crew, Paddle!",
+   "tone": "bold",
+   "key": "you-b|8cdd7f6d",
+   "where": "c-3#24"
   },
   {
    "voice": "you-c",
-   "text": "Ro, hop on. There’s room.",
-   "say": "Roh, hop on. There’s room.",
+   "text": "Ro is in the river! Paddle, crew, PADDLE!",
+   "say": "Roh is in the river! Paddle, crew, Paddle!",
+   "tone": "bold",
+   "key": "you-c|515b68fe",
+   "where": "c-3#24"
+  },
+  {
+   "voice": "fizz",
+   "text": "Bonus round! Ro is stuck in a chocolate whirlpool! Solve the riddle to find a way to save him.",
+   "say": "Bonus round! Roh is stuck in a chocolate whirlpool! Solve the riddle to find a way to save him.",
    "tone": "happy",
-   "key": "you-c|b850b76b",
-   "where": "c-3#22"
+   "key": "fizz|26c5cf60",
+   "where": "c-3#25"
+  },
+  {
+   "voice": "you-a",
+   "text": "Ro, stretch your arm to us! Bunty, grab it and hold tight!",
+   "say": "Roh, stretch your arm to us! Bunty, grab it and hold tight!",
+   "tone": "bold",
+   "key": "you-a|cf1abe5c",
+   "where": "c-3#26"
+  },
+  {
+   "voice": "you-b",
+   "text": "Ro, stretch your arm to us! Bunty, grab it and hold tight!",
+   "say": "Roh, stretch your arm to us! Bunty, grab it and hold tight!",
+   "tone": "bold",
+   "key": "you-b|09e820ec",
+   "where": "c-3#26"
+  },
+  {
+   "voice": "you-c",
+   "text": "Ro, stretch your arm to us! Bunty, grab it and hold tight!",
+   "say": "Roh, stretch your arm to us! Bunty, grab it and hold tight!",
+   "tone": "bold",
+   "key": "you-c|778aac49",
+   "where": "c-3#26"
   },
   {
    "voice": "narrator",
-   "text": "Ro climbs on. He says nothing. But he holds Bunty’s sticky hand.",
-   "say": "Roh climbs on. He says nothing. But he holds Bunty’s sticky hand.",
-   "tone": "story",
-   "key": "narrator|fc1ce04a",
-   "where": "c-3#23"
+   "text": "Stretch, stick, sprinkle... BOING! Ro bounces free, dripping chocolate!",
+   "say": "Stretch, stick, sprinkle... Boing! Roh bounces free, dripping chocolate!",
+   "tone": "storyUp",
+   "key": "narrator|83559f98",
+   "where": "c-3#27"
+  },
+  {
+   "voice": "ro",
+   "text": "You... came back for me?",
+   "say": "You... came back for me?",
+   "tone": "hesitant",
+   "key": "ro|42f33a5c",
+   "where": "c-3#28"
+  },
+  {
+   "voice": "bunty",
+   "text": "Nobody gets left behind!",
+   "say": "Nobody gets left behind!",
+   "tone": "excited",
+   "key": "bunty|9dc24cae",
+   "where": "c-3#29"
+  },
+  {
+   "voice": "narrator",
+   "text": "They paddle to the cave... and jump over the finish line together!",
+   "say": "They paddle to the cave... and jump over the finish line together!",
+   "tone": "storyUp",
+   "key": "narrator|6a55f29e",
+   "where": "c-3#30"
+  },
+  {
+   "voice": "fizz",
+   "text": "Everyone crosses together! Three Stars for the whole team!",
+   "say": "Everyone crosses together! Three Stars for the whole team!",
+   "tone": "excited",
+   "key": "fizz|4457364c",
+   "where": "c-3#31"
   },
   {
    "voice": "fizz",
@@ -2647,14 +2727,14 @@
    "say": "New treasure! Wafer Paddle!",
    "tone": "excited",
    "key": "fizz|af63937a",
-   "where": "c-3#24"
+   "where": "c-3#32"
   },
   {
    "voice": "narrator",
-   "text": "Chapter complete! Bunty’s Sticky Fingers held the raft together, and the team won together.",
-   "say": "Chapter complete! Bunty’s Sticky Fingers held the raft together, and the team won together.",
+   "text": "Chapter complete! A fish ate Ro’s raft. The crew pulled him out, and everyone finished together.",
+   "say": "Chapter complete! A fish ate Roh’s raft. The crew pulled him out, and everyone finished together.",
    "tone": "story",
-   "key": "narrator|2d76faee",
+   "key": "narrator|3d3646b8",
    "where": "c-3#end"
   },
   {
@@ -2682,12 +2762,20 @@
    "where": "c-4#2"
   },
   {
+   "voice": "narrator",
+   "text": "Five giant lollipops, melting under the warm sun. Drip... drip... drip...",
+   "say": "Five giant lollipops, melting under the warm sun. Drip... drip... drip...",
+   "tone": "story",
+   "key": "narrator|70839146",
+   "where": "c-4#3"
+  },
+  {
    "voice": "fizz",
    "text": "Stand next to a giant lollipop. Whoever lasts longest without licking wins!",
    "say": "Stand next to a giant lollipop. Whoever lasts longest without licking wins!",
    "tone": "smug",
    "key": "fizz|9716c171",
-   "where": "c-4#3"
+   "where": "c-4#4"
   },
   {
    "voice": "kiki",
@@ -2695,7 +2783,7 @@
    "say": "This is a trap! It’s the Hardest game in the whole galaxy.",
    "tone": "worried",
    "key": "kiki|76ea860e",
-   "where": "c-4#4"
+   "where": "c-4#5"
   },
   {
    "voice": "narrator",
@@ -2703,7 +2791,7 @@
    "say": "Ten seconds. The lollipops smell of mango and strawberry.",
    "tone": "story",
    "key": "narrator|5e4cc419",
-   "where": "c-4#5"
+   "where": "c-4#6"
   },
   {
    "voice": "bunty",
@@ -2711,7 +2799,7 @@
    "say": "I am fine. I am totally fine.",
    "tone": "sleepy",
    "key": "bunty|b5f0bc1f",
-   "where": "c-4#6"
+   "where": "c-4#7"
   },
   {
    "voice": "narrator",
@@ -2719,7 +2807,7 @@
    "say": "Thirty seconds. Kee-kee is sweating.",
    "tone": "story",
    "key": "narrator|ec8e37c8",
-   "where": "c-4#7"
+   "where": "c-4#8"
   },
   {
    "voice": "kiki",
@@ -2727,7 +2815,7 @@
    "say": "My tongue is moving on its Own!",
    "tone": "excited",
    "key": "kiki|a4762feb",
-   "where": "c-4#8"
+   "where": "c-4#9"
   },
   {
    "voice": "narrator",
@@ -2735,15 +2823,15 @@
    "say": "Sixty seconds. Roh has not moved at all.",
    "tone": "story",
    "key": "narrator|8413d78d",
-   "where": "c-4#9"
+   "where": "c-4#10"
   },
   {
    "voice": "ro",
-   "text": "I can win this. I just have to want it more.",
-   "say": "I can win this. I just have to want it more.",
-   "tone": "plain",
-   "key": "ro|85dead51",
-   "where": "c-4#10"
+   "text": "Easy. I just won’t look at it.",
+   "say": "Easy. I just won’t look at it.",
+   "tone": "smug",
+   "key": "ro|45027a95",
+   "where": "c-4#11"
   },
   {
    "voice": "narrator",
@@ -2751,15 +2839,31 @@
    "say": "Then the wind blows. The lollipops sway closer... closer... Closer...",
    "tone": "story",
    "key": "narrator|41244e4e",
-   "where": "c-4#11"
+   "where": "c-4#12"
   },
   {
    "voice": "narrator",
-   "text": "Everybody licks at exactly the same time!",
-   "say": "Everybody licks at exactly the same time!",
+   "text": "Kiki’s tongue sneaks out... just a tiny bit...",
+   "say": "Kee-kee’s tongue sneaks out... just a tiny bit...",
+   "tone": "story",
+   "key": "narrator|23c2efa2",
+   "where": "c-4#13"
+  },
+  {
+   "voice": "narrator",
+   "text": "SLURP! Everybody licks at exactly the same time!",
+   "say": "Slurp! Everybody licks at exactly the same time!",
    "tone": "storyUp",
-   "key": "narrator|0f574f6a",
-   "where": "c-4#12"
+   "key": "narrator|81b702e3",
+   "where": "c-4#14"
+  },
+  {
+   "voice": "narrator",
+   "text": "Everyone freezes. Uh-oh.",
+   "say": "Everyone freezes. Uh-oh.",
+   "tone": "story",
+   "key": "narrator|564d4772",
+   "where": "c-4#15"
   },
   {
    "voice": "kiki",
@@ -2767,7 +2871,7 @@
    "say": "We All Lost!",
    "tone": "shout",
    "key": "kiki|d84be504",
-   "where": "c-4#13"
+   "where": "c-4#16"
   },
   {
    "voice": "meera",
@@ -2775,7 +2879,7 @@
    "say": "Best. Game. Ever.",
    "tone": "plain",
    "key": "meera|2a1aceea",
-   "where": "c-4#14"
+   "where": "c-4#17"
   },
   {
    "voice": "narrator",
@@ -2783,7 +2887,7 @@
    "say": "Even Roh laughs so hard that he falls over.",
    "tone": "story",
    "key": "narrator|9c27b0ce",
-   "where": "c-4#15"
+   "where": "c-4#18"
   },
   {
    "voice": "fizz",
@@ -2791,7 +2895,7 @@
    "say": "Nobody wins? That has Never happened before!",
    "tone": "surprised",
    "key": "fizz|3bb54cde",
-   "where": "c-4#16"
+   "where": "c-4#19"
   },
   {
    "voice": "fizz",
@@ -2799,15 +2903,23 @@
    "say": "Fine! I hid one Star for each of you in this garden.",
    "tone": "happy",
    "key": "fizz|143eee7f",
-   "where": "c-4#17"
+   "where": "c-4#20"
+  },
+  {
+   "voice": "narrator",
+   "text": "The garden is HUGE. The Stars could be hiding anywhere!",
+   "say": "The garden is Huge. The Stars could be hiding anywhere!",
+   "tone": "storyUp",
+   "key": "narrator|952e075f",
+   "where": "c-4#21"
   },
   {
    "voice": "fizz",
-   "text": "Bonus round! Help the crew find their hidden Stars among the giant lollipops!",
-   "say": "Bonus round! Help the crew find their hidden Stars among the giant lollipops!",
+   "text": "Bonus round! Help the crew find their hidden Stars all over the giant garden!",
+   "say": "Bonus round! Help the crew find their hidden Stars all over the giant garden!",
    "tone": "excited",
-   "key": "fizz|cfd84c2e",
-   "where": "c-4#18"
+   "key": "fizz|aaa3c77a",
+   "where": "c-4#22"
   },
   {
    "voice": "narrator",
@@ -2815,15 +2927,23 @@
    "say": "One Star each. Five Stars, five smiles.",
    "tone": "story",
    "key": "narrator|e0415335",
-   "where": "c-4#19"
+   "where": "c-4#23"
   },
   {
    "voice": "narrator",
-   "text": "That night they sleep under the lollipops. Tomorrow is the Big Prize!",
-   "say": "That night they sleep under the lollipops. Tomorrow is the Big Prize!",
+   "text": "That night, the crew curls up together under the lollipops.",
+   "say": "That night, the crew curls up together under the lollipops.",
+   "tone": "story",
+   "key": "narrator|88cbfde0",
+   "where": "c-4#24"
+  },
+  {
+   "voice": "narrator",
+   "text": "Tomorrow is the Big Prize!",
+   "say": "Tomorrow is the Big Prize!",
    "tone": "storyUp",
-   "key": "narrator|51bc3ad7",
-   "where": "c-4#20"
+   "key": "narrator|59b2973e",
+   "where": "c-4#25"
   },
   {
    "voice": "narrator",
@@ -2867,10 +2987,10 @@
   },
   {
    "voice": "narrator",
-   "text": "Ro has the most Stars. He starts climbing before Fizz even finishes!",
-   "say": "Roh has the most Stars. He starts climbing before Fizz even finishes!",
+   "text": "Ro has the most Stars. He starts running before Fizz even finishes!",
+   "say": "Roh has the most Stars. He starts running before Fizz even finishes!",
    "tone": "storyUp",
-   "key": "narrator|4844b4ae",
+   "key": "narrator|c868e0e4",
    "where": "c-5#4"
   },
   {
@@ -2882,12 +3002,20 @@
    "where": "c-5#5"
   },
   {
+   "voice": "narrator",
+   "text": "Then Ro stretches his toffee arm straight up... and ZOOMS!",
+   "say": "Then Roh stretches his toffee arm straight up... and Zooms!",
+   "tone": "storyUp",
+   "key": "narrator|dff2e216",
+   "where": "c-5#6"
+  },
+  {
    "voice": "meera",
    "text": "He didn’t even look back.",
    "say": "He didn’t even look back.",
    "tone": "sad",
    "key": "meera|2da8a883",
-   "where": "c-5#6"
+   "where": "c-5#7"
   },
   {
    "voice": "kiki",
@@ -2895,7 +3023,7 @@
    "say": "Then let’s catch up!",
    "tone": "bold",
    "key": "kiki|9d57fdc1",
-   "where": "c-5#7"
+   "where": "c-5#8"
   },
   {
    "voice": "you-a",
@@ -2903,7 +3031,7 @@
    "say": "Together! Hold hands, crew. Nobody gets left behind.",
    "tone": "bold",
    "key": "you-a|65005367",
-   "where": "c-5#8"
+   "where": "c-5#9"
   },
   {
    "voice": "you-b",
@@ -2911,7 +3039,7 @@
    "say": "Together! Hold hands, crew. Nobody gets left behind.",
    "tone": "bold",
    "key": "you-b|f84d66b7",
-   "where": "c-5#8"
+   "where": "c-5#9"
   },
   {
    "voice": "you-c",
@@ -2919,15 +3047,15 @@
    "say": "Together! Hold hands, crew. Nobody gets left behind.",
    "tone": "bold",
    "key": "you-c|96c41c14",
-   "where": "c-5#8"
+   "where": "c-5#9"
   },
   {
    "voice": "narrator",
-   "text": "The mountain is steep and slippery. Icing everywhere!",
-   "say": "The mountain is steep and slippery. Icing everywhere!",
+   "text": "The road is steep and slippery. Icing everywhere!",
+   "say": "The road is steep and slippery. Icing everywhere!",
    "tone": "storyUp",
-   "key": "narrator|92c24070",
-   "where": "c-5#9"
+   "key": "narrator|b1ae947f",
+   "where": "c-5#10"
   },
   {
    "voice": "meera",
@@ -2935,7 +3063,7 @@
    "say": "I’ve got you, Bunty. Climb on my back!",
    "tone": "bold",
    "key": "meera|938f1713",
-   "where": "c-5#10"
+   "where": "c-5#11"
   },
   {
    "voice": "fizz",
@@ -2943,7 +3071,23 @@
    "say": "Bonus round! Help the crew climb Sugar Mountain together, one icy step at a time!",
    "tone": "excited",
    "key": "fizz|0e6530ac",
-   "where": "c-5#11"
+   "where": "c-5#12"
+  },
+  {
+   "voice": "narrator",
+   "text": "Step by step, the crew climbs up together. Higher... and higher...",
+   "say": "Step by step, the crew climbs up together. Higher... and higher...",
+   "tone": "story",
+   "key": "narrator|4504187f",
+   "where": "c-5#13"
+  },
+  {
+   "voice": "kiki",
+   "text": "It’s too slippery! We can’t get any higher!",
+   "say": "It’s too slippery! We can’t get any higher!",
+   "tone": "surprised",
+   "key": "kiki|cae2b2c5",
+   "where": "c-5#14"
   },
   {
    "voice": "narrator",
@@ -2951,7 +3095,7 @@
    "say": "At the very top, Roh reaches out... and touches the Giant Lollipop.",
    "tone": "story",
    "key": "narrator|af01febc",
-   "where": "c-5#12"
+   "where": "c-5#15"
   },
   {
    "voice": "fizz",
@@ -2959,7 +3103,7 @@
    "say": "Roh Wins The Candy Nebula!",
    "tone": "shout",
    "key": "fizz|ea191b83",
-   "where": "c-5#13"
+   "where": "c-5#16"
   },
   {
    "voice": "ro",
@@ -2967,7 +3111,7 @@
    "say": "Yes! I won! I won, I won, I...",
    "tone": "excited",
    "key": "ro|98ae79c7",
-   "where": "c-5#14"
+   "where": "c-5#17"
   },
   {
    "voice": "narrator",
@@ -2975,7 +3119,7 @@
    "say": "Roh turns around. Nobody is cheering. His friends are far below.",
    "tone": "story",
    "key": "narrator|b4a1042f",
-   "where": "c-5#15"
+   "where": "c-5#18"
   },
   {
    "voice": "ro",
@@ -2983,7 +3127,7 @@
    "say": "...Guys?",
    "tone": "sad",
    "key": "ro|7fa426cf",
-   "where": "c-5#16"
+   "where": "c-5#19"
   },
   {
    "voice": "narrator",
@@ -2991,7 +3135,7 @@
    "say": "The biggest lollipop in the galaxy. And nobody to share it with.",
    "tone": "story",
    "key": "narrator|43f92eb8",
-   "where": "c-5#17"
+   "where": "c-5#20"
   },
   {
    "voice": "ro",
@@ -2999,15 +3143,15 @@
    "say": "Hold on. I’m coming!",
    "tone": "bold",
    "key": "ro|c5c2bb2c",
-   "where": "c-5#18"
+   "where": "c-5#21"
   },
   {
    "voice": "narrator",
-   "text": "Ro stretches his toffee arm all the way down Sugar Mountain.",
-   "say": "Roh stretches his toffee arm all the way down Sugar Mountain.",
+   "text": "Ro kneels at the edge and stretches his arm way down.",
+   "say": "Roh kneels at the edge and stretches his arm way down.",
    "tone": "story",
-   "key": "narrator|96a6d91d",
-   "where": "c-5#19"
+   "key": "narrator|8cfb9dfb",
+   "where": "c-5#22"
   },
   {
    "voice": "bunty",
@@ -3015,15 +3159,23 @@
    "say": "Roh’s arm is a Ladder!",
    "tone": "excited",
    "key": "bunty|4518588f",
-   "where": "c-5#20"
+   "where": "c-5#23"
+  },
+  {
+   "voice": "fizz",
+   "text": "Bonus round! Ro’s arm is a long, wobbly ladder! Solve the riddle so everyone climbs up safely.",
+   "say": "Bonus round! Roh’s arm is a long, wobbly ladder! Solve the riddle so everyone climbs up safely.",
+   "tone": "happy",
+   "key": "fizz|4a2cac7e",
+   "where": "c-5#24"
   },
   {
    "voice": "narrator",
-   "text": "One by one, the crew climbs up Ro’s arm to the top.",
-   "say": "One by one, the crew climbs up Roh’s arm to the top.",
+   "text": "One by one, they climb up Ro’s toffee arm to the top.",
+   "say": "One by one, they climb up Roh’s toffee arm to the top.",
    "tone": "story",
-   "key": "narrator|6ff20850",
-   "where": "c-5#21"
+   "key": "narrator|b4db73f6",
+   "where": "c-5#25"
   },
   {
    "voice": "kiki",
@@ -3031,7 +3183,7 @@
    "say": "This is the weirdest ladder in the whole universe!",
    "tone": "excited",
    "key": "kiki|77449318",
-   "where": "c-5#22"
+   "where": "c-5#26"
   },
   {
    "voice": "ro",
@@ -3039,7 +3191,7 @@
    "say": "I won. But it wasn’t much fun up here by myself.",
    "tone": "worried",
    "key": "ro|b03216cd",
-   "where": "c-5#23"
+   "where": "c-5#27"
   },
   {
    "voice": "you-a",
@@ -3047,7 +3199,7 @@
    "say": "Well, now we’re all here.",
    "tone": "happy",
    "key": "you-a|010e4347",
-   "where": "c-5#24"
+   "where": "c-5#28"
   },
   {
    "voice": "you-b",
@@ -3055,7 +3207,7 @@
    "say": "Well, now we’re all here.",
    "tone": "happy",
    "key": "you-b|959e3137",
-   "where": "c-5#24"
+   "where": "c-5#28"
   },
   {
    "voice": "you-c",
@@ -3063,7 +3215,7 @@
    "say": "Well, now we’re all here.",
    "tone": "happy",
    "key": "you-c|7a987608",
-   "where": "c-5#24"
+   "where": "c-5#28"
   },
   {
    "voice": "ro",
@@ -3071,15 +3223,15 @@
    "say": "So... who wants some lollipop?",
    "tone": "question",
    "key": "ro|d5abca99",
-   "where": "c-5#25"
+   "where": "c-5#29"
   },
   {
    "voice": "narrator",
-   "text": "Ro breaks the lollipop into five pieces. He keeps the smallest one.",
-   "say": "Roh breaks the lollipop into five pieces. He keeps the smallest one.",
+   "text": "Ro cracks the lollipop into five pieces. He keeps the smallest one.",
+   "say": "Roh cracks the lollipop into five pieces. He keeps the smallest one.",
    "tone": "story",
-   "key": "narrator|9cf755db",
-   "where": "c-5#26"
+   "key": "narrator|bb0de8c8",
+   "where": "c-5#30"
   },
   {
    "voice": "kiki",
@@ -3087,7 +3239,7 @@
    "say": "Roh! You have lollipop in your Eyebrows!",
    "tone": "excited",
    "key": "kiki|a1182028",
-   "where": "c-5#27"
+   "where": "c-5#31"
   },
   {
    "voice": "narrator",
@@ -3095,7 +3247,7 @@
    "say": "Everybody laughs. Roh laughs the loudest.",
    "tone": "story",
    "key": "narrator|62ec9c05",
-   "where": "c-5#28"
+   "where": "c-5#32"
   },
   {
    "voice": "fizz",
@@ -3103,7 +3255,7 @@
    "say": "Stage Clear! The whole crew goes on to World Two!",
    "tone": "excited",
    "key": "fizz|355c5190",
-   "where": "c-5#29"
+   "where": "c-5#33"
   },
   {
    "voice": "fizz",
@@ -3111,7 +3263,7 @@
    "say": "New treasure! Lollipop Stick!",
    "tone": "excited",
    "key": "fizz|653e77de",
-   "where": "c-5#30"
+   "where": "c-5#34"
   },
   {
    "voice": "narrator",
@@ -3119,7 +3271,7 @@
    "say": "From the top, they can see the whole Candy Nebula.",
    "tone": "story",
    "key": "narrator|47814bdb",
-   "where": "c-5#31"
+   "where": "c-5#35"
   },
   {
    "voice": "narrator",
@@ -3127,7 +3279,7 @@
    "say": "That night, under candy stars, the crew sits close together.",
    "tone": "story",
    "key": "narrator|eca1abc6",
-   "where": "c-5#32"
+   "where": "c-5#36"
   },
   {
    "voice": "bunty",
@@ -3135,7 +3287,7 @@
    "say": "I miss home a little.",
    "tone": "sad",
    "key": "bunty|007b48eb",
-   "where": "c-5#33"
+   "where": "c-5#37"
   },
   {
    "voice": "meera",
@@ -3143,7 +3295,7 @@
    "say": "Me too. But this is a good kind of far away.",
    "tone": "happy",
    "key": "meera|33b416ab",
-   "where": "c-5#34"
+   "where": "c-5#38"
   },
   {
    "voice": "you-a",
@@ -3151,7 +3303,7 @@
    "say": "Rest up, crew. Next stop: Wizzlewick, the magic kingdom!",
    "tone": "excited",
    "key": "you-a|f661cc38",
-   "where": "c-5#35"
+   "where": "c-5#39"
   },
   {
    "voice": "you-b",
@@ -3159,7 +3311,7 @@
    "say": "Rest up, crew. Next stop: Wizzlewick, the magic kingdom!",
    "tone": "excited",
    "key": "you-b|f7359f68",
-   "where": "c-5#35"
+   "where": "c-5#39"
   },
   {
    "voice": "you-c",
@@ -3167,7 +3319,7 @@
    "say": "Rest up, crew. Next stop: Wizzlewick, the magic kingdom!",
    "tone": "excited",
    "key": "you-c|fc758c11",
-   "where": "c-5#35"
+   "where": "c-5#39"
   },
   {
    "voice": "narrator",
@@ -3175,7 +3327,7 @@
    "say": "High above them, the next world is already twinkling.",
    "tone": "story",
    "key": "narrator|ea65ab20",
-   "where": "c-5#36"
+   "where": "c-5#40"
   },
   {
    "voice": "fizz",
@@ -3183,7 +3335,7 @@
    "say": "Magic and fun, coming up soon!",
    "tone": "sing",
    "key": "fizz|3b3ad922",
-   "where": "c-5#37"
+   "where": "c-5#41"
   },
   {
    "voice": "meera",
@@ -3191,7 +3343,7 @@
    "say": "Still doesn’t rhyme.",
    "tone": "smug",
    "key": "meera|dcf128b3",
-   "where": "c-5#38"
+   "where": "c-5#42"
   },
   {
    "voice": "narrator",

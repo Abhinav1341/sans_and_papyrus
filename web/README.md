@@ -74,6 +74,10 @@ npm run build
     `fx: { kind: 'power', name, color, icon }` (an anime banner, art in `src/cinema/powers.ts`).
   - Inserts are full-screen close-ups (`src/cinema/inserts.tsx`), for example `hands` (the crew's
     hands stacking, seen from above) and `knot` (Ro's arm tying itself in a bow).
+    `wafer1`–`wafer3` show Kiki's bites out of the raft, switched on each spoken "crunch".
+  - Manga panels (`panels`) take up to five faces; `lolli` puts a lollipop at a face's mouth (chapter 4
+    shows all five children licking at once this way, since five side by side don't fit a phone screen).
+  - `ride` with `behind: true` is a piggyback (the rider is drawn behind the carrier).
   - Lines are written for children aged 6–10: 15 words at most (most are 12 or fewer), everyday
     words, present tense, sound words, and one refrain ("Nobody gets left behind"). `npm test`
     fails a line over 15 words and warns about long lines and hard words.
@@ -113,6 +117,8 @@ can cache clips forever and never play an old recording.
 
 - **Capitals are for captions only.** The voice engine spells all-caps words out ("IT" became
   "I-T", "OWN" became "O-W-N"), so the voices read them as normal words; captions keep the capitals.
+- **The crew's laugh** (sound `laugh`) is a recording of the crew's own voices laughing together, made by
+  `tools/voices/laugh.py` into `public/sfx/crew-laugh.mp3`. Run it again after changing a crew voice.
 - **Fizz's songs are sung.** Lines listed in `tools/voices/songs.json` (with a melody: one note per
   word, chords and tempo) are made by `tools/voices/sing.py`: a robot vocoder sings the spoken lyric
   on the melody over a small disco band, and the caption words light up on the beat. After changing

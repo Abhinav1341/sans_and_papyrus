@@ -71,6 +71,32 @@ function noise(start: number, dur: number, { vol = 0.5, from = 800, to = 3000, q
   src.stop(t0 + dur + 0.02);
 }
 
+/* ---------- recorded samples (a few sounds that synthesis can't make, like the crew laughing) ---------- */
+const samples = new Map<string, Promise<AudioBuffer | null>>();
+function loadSample(url: string) {
+  const o = out(); if (!o) return null;
+  let p = samples.get(url);
+  if (!p) {
+    p = fetch(url).then((r) => (r.ok ? r.arrayBuffer() : null)).then((b) => (b ? o.ctx.decodeAudioData(b) : null)).catch(() => null);
+    samples.set(url, p);
+  }
+  return p;
+}
+function sample(url: string, vol = 0.9) {
+  const o = out(); if (!o) return;
+  void loadSample(url)?.then((buf) => {
+    if (!buf) return;
+    const src = o.ctx.createBufferSource();
+    const g = o.ctx.createGain();
+    src.buffer = buf; g.gain.value = vol;
+    src.connect(g); g.connect(o.dest);
+    src.start();
+  });
+}
+/** Starts downloading a sample ahead of time (call when a scene that uses it is coming up). */
+export function warmSample(name: 'laugh') { loadSample(SAMPLES[name]); }
+const SAMPLES = { laugh: '/sfx/crew-laugh.mp3' } as const;
+
 const SFX = {
   tap: () => tone(660, 0, 0.08, { type: 'triangle', vol: 0.4 }),
   blip: () => tone(880, 0, 0.05, { type: 'square', vol: 0.06 }),
@@ -113,6 +139,10 @@ const SFX = {
   beep: () => { tone(1046, 0, 0.12, { type: 'square', vol: 0.08 }); tone(1568, 0.14, 0.18, { type: 'square', vol: 0.08 }); },
   creak: () => tone(140, 0, 0.6, { type: 'sawtooth', vol: 0.06, slideTo: 95, vibrato: 12 }),
   swirl: () => { [523, 659, 784, 988].forEach((f, i) => tone(f, i * 0.05, 0.3, { type: 'sine', vol: 0.2, slideTo: f * 1.5 })); noise(0, 0.6, { vol: 0.2, from: 600, to: 3000, fadeIn: 0.15 }); },
+  crunch: () => { noise(0, 0.12, { vol: 0.5, from: 2600, to: 1200, q: 1.2 }); noise(0.07, 0.1, { vol: 0.4, from: 2000, to: 900, q: 1.5 }); },
+  chomp: () => { tone(200, 0, 0.12, { type: 'square', vol: 0.12, slideTo: 90 }); noise(0, 0.14, { vol: 0.45, from: 900, to: 300, q: 1 }); },
+  /** The whole crew laughing together (recorded from the crew's own voices: tools/voices/laugh.py). */
+  laugh: () => sample(SAMPLES.laugh, 0.95),
 } as const;
 
 export type SoundId = keyof typeof SFX;

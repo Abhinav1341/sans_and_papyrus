@@ -7,7 +7,7 @@
 // always know where they are. Task gates are side quests: the story only opens the gate, then carries on.
 // Language for ages 6-10: short lines read aloud, everyday words, present tense, sound words.
 import type { World, Action, CastId } from '@/cinema/types';
-import { BEAN_X, SINK_X, POLE_X, COURSE, BEAN_TOP, GUMBALL_TOP, SHIELD, LOLLI_X, PATH, SEATS } from '@/cinema/sets/candy-layout';
+import { BEAN_X, SINK_X, POLE_X, COURSE, BEAN_TOP, GUMBALL_TOP, SHIELD, RIVER, PLANK_DX, GARDEN, PATH, GRIPS, ICY_RAMP, SUMMIT, SHARE, SEATS } from '@/cinema/sets/candy-layout';
 
 const EVENING = { color: '#5a3fa0', opacity: 0.32 };
 const all = (ids: CastId[], fn: (id: CastId, i: number) => Action[]): Action[] => ids.flatMap(fn);
@@ -24,6 +24,162 @@ const flossLand = (who: CastId, at: number): Action[] => [
   { do: 'fx', fx: { kind: 'splash', who, color: '#ffd1e8' }, at }, { do: 'sfx', snd: 'squish', at },
   { do: 'lift', who, to: -38, dur: 0.16, ease: 'out', at: at + 0.02 }, { do: 'lift', who, to: 0, dur: 0.7, ease: 'elastic', at: at + 0.18 },
 ];
+
+/* ---------- Sugar Mountain (chapter 5) ---------- */
+/** A point part-way (t from 0 to 1) up road ramp `seg` (from corner seg to corner seg + 1). */
+const rampX = (seg: number, t: number) => Math.round(PATH[seg][0] + (PATH[seg + 1][0] - PATH[seg][0]) * t);
+const rampY = (seg: number, t: number) => Math.round(PATH[seg][1] + (PATH[seg + 1][1] - PATH[seg][1]) * t);
+/** Ro's arm straight up from his shoulder (168 above his feet) to the post above: 660 up, gripping 50 above the landing. */
+const UP_REACH = Math.round(((PATH[1][1] - 168 - GRIPS[0][1] - 40) / 36) * 10) / 10;
+/** Where the crew stands on corner 4, stuck below the icy ramp (the ladder comes down between the Captain and Meera). */
+const TOP_CREW = { meera: 300, you: 410, kiki: 590 } as const;
+/** Where each climber steps onto the summit, either side of Ro. */
+const TOP_SPOT = { kiki: 730, you: 590, meera: 290 } as const;
+/** Ro kneels at the summit edge: his arm hangs straight down from his shoulder (59 ahead of him, 106 up) to the crew's raised hands. */
+const LADDER_X = SUMMIT.ro + 59;
+const LADDER_LEN = Math.round(((PATH[4][1] - 150 - (PATH[6][1] - 106) - 40) / 36) * 10) / 10;
+
+/**
+ * Ro's toffee shortcut, number `i` (0: corner 1 to 3, 1: corner 3 to 5), timed from spoken word `word`
+ * (+ `off` seconds): his hand is on the post, he zooms up as the arm shrinks, hangs, and hops onto the landing.
+ */
+function pullUp(i: number, word: number, off: number): Action[] {
+  const [, gy] = GRIPS[i], land = PATH[3 + 2 * i], hangY = gy + 244;
+  const t = (dt: number) => ({ atWord: word, at: off + dt });
+  const before: Action[] = i === 0 ? [] : [
+    { do: 'stretch', who: 'ro', len: UP_REACH, dur: 0.4, ...t(-0.45) }, { do: 'sfx', snd: 'stretch', ...t(-0.45) },
+    { do: 'el', el: `post${i + 1}`, to: { rot: 6 }, dur: 0.12, yoyo: 2, ...t(-0.05) }, { do: 'sfx', snd: 'clink', ...t(-0.05) },
+  ];
+  return [
+    ...before,
+    { do: 'track', who: 'ro', lead: 0, ...t(0) }, { do: 'fx', fx: { kind: 'word', text: 'ZOOM!', color: '#ff9b85' }, ...t(0) }, { do: 'sfx', snd: 'whoosh', ...t(0) },
+    { do: 'pose', who: 'ro', pose: 'hang', ...t(0.02) },
+    { do: 'move', who: 'ro', to: land[0], y: hangY, gait: 'fly', ease: 'linear', dur: 0.45, then: 'hang', ...t(0.02) },
+    { do: 'stretch', who: 'ro', len: 1, dur: 0.45, ease: 'linear', ...t(0.02) },
+    { do: 'jump', who: 'ro', to: land[0], y: land[1], h: 70, dur: 0.35, then: i === 0 ? 'reachUp' : 'stand', ...t(0.5) },
+  ];
+}
+
+/** Walking up the first ramp in single file: to the foot of the road, then `t` of the way up it. */
+function upRamp(who: CastId, t: number, at: number): Action[] {
+  const x0 = { kiki: 420, you: 320, meera: 220, bunty: 120 }[who as 'kiki'] ?? 300;
+  const d1 = Math.max(0.5, (PATH[0][0] - x0) / 170), d2 = Math.max(0.5, (t * Math.hypot(PATH[1][0] - PATH[0][0], PATH[1][1] - PATH[0][1])) / 170);
+  return [
+    { do: 'face', who, dir: 1, at }, { do: 'move', who, to: PATH[0][0], y: PATH[0][1], gait: 'walk', dur: d1, at },
+    { do: 'move', who, to: rampX(0, t), y: rampY(0, t), gait: 'walk', dur: d2, at: at + d1 + 0.02 },
+  ];
+}
+
+/** One climber goes up Ro's arm: steps under it, climbs hand over hand, and hops up onto the summit. */
+function climbArm(who: CastId, at: number, topX: number): Action[] {
+  const top = PATH[6][1];
+  return [
+    { do: 'face', who, dir: LADDER_X > TOP_CREW[who as 'kiki'] ? 1 : -1, at }, { do: 'move', who, to: LADDER_X, y: PATH[4][1], gait: 'walk', dur: 0.5, at },
+    { do: 'move', who, to: LADDER_X, y: top + 80, gait: 'climb', dur: 2.6, at: at + 0.55 },
+    { do: 'face', who, dir: topX > LADDER_X ? 1 : -1, at: at + 3.15 },
+    { do: 'jump', who, to: topX, y: top, h: 80, dur: 0.45, then: who === 'meera' ? 'piggy' : 'stand', at: at + 3.2 },
+    { do: 'face', who, dir: topX < SUMMIT.ro ? 1 : -1, at: at + 4.0 }, { do: 'expr', who, expr: 'laugh', at: at + 3.9 },
+  ];
+}
+
+/** One piece of the Giant Lollipop arcs from the candy into a child's hands (summit set: candy centre at 800, 462). */
+function pieceTo(who: CastId, i: number, x: number, at: number): Action[] {
+  const el = `pc${i + 1}`;
+  return [
+    { do: 'el', el, to: { opacity: 1, scale: 1 }, dur: 0.2, ease: 'back', at },
+    { do: 'el', el, to: { x: x - 800, rot: (x - 800) / 3 }, dur: 0.8, ease: 'linear', at: at + 0.15 },
+    { do: 'el', el, to: { y: -110 }, dur: 0.4, ease: 'out', at: at + 0.15 }, { do: 'el', el, to: { y: 53 }, dur: 0.4, ease: 'in', at: at + 0.55 },
+    { do: 'el', el, to: { opacity: 0 }, dur: 0.06, at: at + 0.95 },
+    { do: 'prop', who, prop: 'lollipiece', at: at + 0.95 }, { do: 'pose', who, pose: 'holdFront', at: at + 0.95 }, { do: 'expr', who, expr: 'happy', at: at + 0.95 },
+    { do: 'sfx', snd: 'pop', at: at + 0.95 },
+  ];
+}
+
+/* ---------- The lollipop garden (chapter 4) ---------- */
+/** Where child i (in LINE order) stands: just right of their lollipop, facing it. */
+const KX = (i: number) => GARDEN.spots[i].x + GARDEN.kidDx;
+/** Each child's lollipop candy colour (the same as in the garden), for the licking panels. */
+const LOLLI_COLORS = [...GARDEN.candy];
+const LAUGH_BG = ['#ffd36e', '#ffb7dc', '#8fc8ff', '#ffb38a', '#7fe6c9'];
+/** How tall each child stands (for catching a Star above their head). */
+const HEIGHT: Record<string, number> = { kiki: 318, meera: 343, you: 318, bunty: 254, ro: 318 };
+/** Bedtime places at the night camp, left to right. */
+const NIGHT: [CastId, number][] = [['ro', 640], ['kiki', 770], ['you', 900], ['meera', 1030], ['bunty', 1160]];
+
+/** Child i's Star leaves its hiding place, arcs across the garden and lands in their raised hands. */
+function starTo(who: CastId, i: number, at: number): Action[] {
+  const [sx, sy] = GARDEN.stars[i];
+  const el = `st${i + 1}`, hx = KX(i), hy = 715 - HEIGHT[who] - 30;
+  return [
+    { do: 'el', el, to: { opacity: 1, scale: 1 }, dur: 0.3, ease: 'back', at }, { do: 'sfx', snd: 'sparkle', at },
+    { do: 'el', el, to: { x: hx - sx }, dur: 1.1, ease: 'inOut', at: at + 0.3 },
+    { do: 'el', el, to: { y: hy - sy - 160 }, dur: 0.55, ease: 'out', at: at + 0.3 }, { do: 'el', el, to: { y: hy - sy }, dur: 0.55, ease: 'in', at: at + 0.85 },
+    { do: 'face', who, dir: -1, at }, { do: 'pose', who, pose: 'hold', at: at + 1.0 },
+    { do: 'el', el, to: { opacity: 0 }, dur: 0.1, at: at + 1.4 },
+    { do: 'prop', who, prop: 'star', at: at + 1.4 }, { do: 'expr', who, expr: 'happy', at: at + 1.4 }, { do: 'sfx', snd: 'chime', at: at + 1.4 },
+  ];
+}
+
+/* ---------- The Chocolate River (chapter 3) ---------- */
+/** Who sits on which plank of the big raft, left to right (the fifth is Ro's, after the rescue). */
+const SEAT: Record<string, number> = { meera: 0, you: 1, kiki: 2, bunty: 3, ro: 4 };
+/** Where each child waits on the jetty before boarding. */
+const JETTY: Record<string, number> = { meera: 40, you: 140, kiki: 240, bunty: 340 };
+/** Where the crew lands on the finish ledge in front of the cave, left to right (Meera first, Ro last). */
+const FINISH_RIVER = [2930, 3030, 3130, 3230, 3330];
+/** Ro's arm from the whirlpool to Bunty's hand on the raft (see `reach` below, from his shoulder, facing left). */
+const RESCUE_REACH = 11;
+/** Where Kiki's gumball goes into the attacking fish's open mouth (from the gumball's spot above the raft's middle). */
+const GBALL_TO = [139, 68];
+
+/** One child boards the big raft: runs to the end of the jetty, jumps to their plank and rides it. */
+function board(who: CastId, at: number): Action[] {
+  const run = Math.max(0.4, (430 - JETTY[who]) / 430), jumpAt = at + run + 0.05, dur = 0.7;
+  return [
+    { do: 'face', who, dir: 1, at }, { do: 'move', who, to: 430, gait: 'run', dur: run, then: 'crouch', at },
+    { do: 'jump', who, to: RIVER.raft + PLANK_DX[SEAT[who]], y: 700, h: 160, dur, at: jumpAt },
+    { do: 'ride', who, on: 'raft', dx: PLANK_DX[SEAT[who]], dy: -12, at: jumpAt + 0.14 + dur },
+    { do: 'el', el: 'raft', to: { y: 9 }, dur: 0.14, yoyo: 1, at: jumpAt + 0.14 + dur }, { do: 'sfx', snd: 'squish', at: jumpAt + 0.14 + dur },
+  ];
+}
+
+/** Each child moves from one raft element to another without a jump (the pieces are in the same place). */
+const rideAll = (on: (i: number) => string, dx: (i: number) => number, at = 0): Action[] =>
+  (['meera', 'you', 'kiki', 'bunty'] as CastId[]).map((who) => ({ do: 'ride', who, on: on(SEAT[who]), dx: dx(SEAT[who]), dy: -12, at }) as Action);
+
+/** CRACK: the raft becomes five loose planks that drift apart, each carrying its rider; crumbs fall in. */
+function splitRaft(at: number): Action[] {
+  const drift: [number, number][] = [[-70, -7], [-28, 5], [4, -4], [40, 6], [96, -10]];
+  return [
+    { do: 'el', el: 'raft', to: { opacity: 0 }, dur: 0.01 }, ...PLANK_DX.map((_, i) => ({ do: 'el', el: `p${i + 1}`, to: { opacity: 1 }, dur: 0.01 }) as Action),
+    ...rideAll((i) => `p${i + 1}`, () => 0),
+    { do: 'sfx', snd: 'snap', at }, { do: 'fx', fx: { kind: 'word', text: 'CRACK!', color: '#f2c98a' }, at },
+    ...drift.map(([x, rot], i) => ({ do: 'el', el: `p${i + 1}`, to: { x, rot }, dur: 1.6, ease: 'out', at }) as Action),
+    ...PLANK_DX.map((_, i) => ({ do: 'el', el: `p${i + 1}`, to: { y: 10 }, dur: 0.5, yoyo: 3, at: at + 1.0 + i * 0.07 }) as Action),
+    { do: 'el', el: 'crumbs', to: { opacity: 1 }, dur: 0.05, at }, { do: 'el', el: 'crumbs', to: { y: 50, opacity: 0 }, dur: 1.2, ease: 'in', at: at + 0.1 },
+    { do: 'fx', fx: { kind: 'splash', el: 'crumbs', color: '#8a5634' }, at: at + 0.6 }, { do: 'sfx', snd: 'splash', at: at + 0.6 },
+  ];
+}
+
+/** Bunty's squishes (words 8, 9 and 10 of the line): the planks pull back together and each crack fills with goo. */
+function glueRaft(): Action[] {
+  const join = (word: number, planks: number[], seams: number[]): Action[] => [
+    ...planks.map((n) => ({ do: 'el', el: `p${n}`, to: { x: 0, rot: 0 }, dur: 0.35, ease: 'back', atWord: word }) as Action),
+    ...seams.map((n) => ({ do: 'el', el: `g${n}`, to: { opacity: 1, scale: 1 }, dur: 0.25, ease: 'back', atWord: word, at: 0.15 }) as Action),
+    { do: 'sfx', snd: 'squish', atWord: word, at: 0.15 },
+  ];
+  return [
+    ...join(8, [1, 2], [1]), ...join(9, [3, 4], [2, 3]), ...join(10, [5], [4]),
+    // The glued raft takes over from the loose planks (same place), and everyone rides it again.
+    { do: 'el', el: 'raft2', to: { opacity: 1 }, dur: 0.01, atWord: 10, at: 0.5 },
+    ...PLANK_DX.map((_, i) => ({ do: 'el', el: `p${i + 1}`, to: { opacity: 0 }, dur: 0.01, atWord: 10, at: 0.5 }) as Action),
+    ...PLANK_DX.slice(1).map((_, i) => ({ do: 'el', el: `g${i + 1}`, to: { opacity: 0 }, dur: 0.01, atWord: 10, at: 0.5 }) as Action),
+    ...rideAll(() => 'raft2', (i) => PLANK_DX[i]).map((a) => ({ ...a, atWord: 10, at: 0.5 }) as Action),
+    { do: 'fx', fx: { kind: 'sparkle', el: 'raft2', n: 14 }, atWord: 10, at: 0.5 }, { do: 'fx', fx: { kind: 'word', text: 'STICK!', color: '#ffb38a' }, atWord: 10, at: 0.4 },
+    { do: 'fx', fx: { kind: 'glow', color: '#ffcf5c' }, atWord: 10, at: 0.5 },
+    ...(['meera', 'you', 'kiki'] as CastId[]).flatMap((who) => [{ do: 'pose', who, pose: 'stand', atWord: 10, at: 0.7 } as Action, { do: 'expr', who, expr: 'happy', atWord: 10, at: 0.7 } as Action]),
+  ];
+}
 
 /* ---------- The Jelly Bean Bounce (chapter 2) ---------- */
 const B = BEAN_X;
@@ -608,11 +764,15 @@ export const candy: World = {
     },
 
     /* ======================= Chapter 3: The Chocolate River ======================= */
+    // Ro races off first on his own little raft; the crew boards the big raft one by one. Kiki nibbles
+    // the raft until it splits into planks, and Bunty glues it back. Hungry fish attack: Meera's shield
+    // and Kiki's gumballs save the crew's raft, but a fish eats Ro's, and he lands in a whirlpool. Three
+    // powers together (toffee arm, sticky hand, sprinkles) pull him out, and all five finish together.
     {
       id: 'c-3',
       title: 'The Chocolate River',
-      teaser: 'Wafer rafts, a hungry fish, and Bunty’s big moment.',
-      recap: 'Bunty’s Sticky Fingers held the raft together, and the team won together.',
+      teaser: 'Wafer rafts, hungry fish, and a rescue in the chocolate river.',
+      recap: 'A fish ate Ro’s raft. The crew pulled him out, and everyone finished together.',
       scenes: [
         {
           id: 'c3-view', set: 'vista', mood: 'wonder', cam: { at: [1420, 1550, 1.0] },
@@ -625,8 +785,8 @@ export const candy: World = {
         {
           id: 'c3-river', set: 'river', mood: 'playful', trans: 'fade', cam: { wide: 900, zoom: 0.75 },
           cast: [
-            { id: 'meera', x: 170, y: 700 }, { id: 'you', x: 250, y: 700 }, { id: 'kiki', x: 330, y: 700 }, { id: 'bunty', x: 410, y: 700 },
-            { id: 'ro', x: 470, y: 700, face: -1 },
+            { id: 'meera', x: 40, y: 700 }, { id: 'you', x: 140, y: 700 }, { id: 'kiki', x: 240, y: 700 }, { id: 'bunty', x: 340, y: 700 },
+            { id: 'ro', x: 440, y: 700, face: -1 },
             { id: 'fizz', x: 980, y: 640, lift: 140 },
           ],
           shots: [
@@ -637,76 +797,162 @@ export const candy: World = {
             { cam: { medium: 'meera' }, act: [{ do: 'pose', who: 'meera', pose: 'present' }, { do: 'face', who: 'meera', dir: 1 }, { do: 'expr', who: 'meera', expr: 'worried' }], who: 'meera', t: 'Ro, the rafts are for teams.' },
             { cam: { close: 'ro' }, act: [{ do: 'expr', who: 'ro', expr: 'smug' }, { do: 'face', who: 'ro', dir: 1 }], who: 'ro', t: 'Then I’m a team of one.' },
             { cam: { close: 'bunty' }, act: [{ do: 'expr', who: 'bunty', expr: 'smug' }, { do: 'emote', who: 'bunty', emote: 'dots' }, { do: 'look', who: 'bunty', gaze: 'cam' }], who: 'bunty', t: 'That’s not how teams work, Ro.' },
+            // Ro goes first, alone, down the near lane...
             {
-              cam: { wide: 650, zoom: 0.72 }, act: [
-                { do: 'look', who: 'bunty', gaze: 'fwd' },
-                { do: 'jump', who: 'ro', to: 560, h: 90, dur: 0.6 }, { do: 'ride', who: 'ro', on: 'raftro', dx: 0, dy: -12, at: 0.8 }, { do: 'prop', who: 'ro', prop: 'paddle', at: 0.8 },
-                { do: 'cycle', who: 'ro', cycle: 'paddle', at: 0.9 }, { do: 'el', el: 'raftro', to: { x: 2580 }, dur: 6, ease: 'in', at: 1.0 }, { do: 'fx', fx: { kind: 'splash', el: 'raftro' }, at: 1.0 }, { do: 'sfx', snd: 'splash', at: 1.0 },
-                { do: 'jump', who: 'bunty', to: 850, h: 120, dur: 0.7, at: 1.4 }, { do: 'jump', who: 'kiki', to: 780, h: 120, dur: 0.7, at: 1.6 },
-                { do: 'jump', who: 'you', to: 710, h: 120, dur: 0.7, at: 1.8 }, { do: 'jump', who: 'meera', to: 640, h: 110, dur: 0.75, at: 2.0 },
-                { do: 'ride', who: 'bunty', on: 'raft', dx: 90, dy: -12, at: 2.2 }, { do: 'ride', who: 'kiki', on: 'raft', dx: 20, dy: -12, at: 2.4 },
-                { do: 'ride', who: 'you', on: 'raft', dx: -50, dy: -12, at: 2.6 }, { do: 'ride', who: 'meera', on: 'raft', dx: -120, dy: -12, at: 2.85 },
-                { do: 'el', el: 'raft', to: { y: 10 }, dur: 0.3, yoyo: 1, at: 2.85 }, { do: 'sfx', snd: 'squish', at: 2.85 },
-              ], n: 'Ro paddles off alone. Everyone else squeezes onto one big raft.', lineAt: 1.2,
+              cam: { at: [520, 520, 0.72] }, act: [
+                { do: 'look', who: 'bunty', gaze: 'fwd' }, { do: 'pose', who: 'ro', pose: 'stand' }, { do: 'pose', who: 'meera', pose: 'stand' }, { do: 'face', who: 'ro', dir: 1 },
+                { do: 'jump', who: 'ro', to: RIVER.roRaft, y: RIVER.lane - 12, h: 110, dur: 0.6, at: 0.2 }, { do: 'ride', who: 'ro', on: 'raftro', dx: 0, dy: -12, at: 0.95 },
+                { do: 'el', el: 'raftro', to: { y: 8 }, dur: 0.15, yoyo: 1, at: 0.95 }, { do: 'sfx', snd: 'splash', at: 0.95 },
+                { do: 'prop', who: 'ro', prop: 'paddle', at: 1.0 }, { do: 'cycle', who: 'ro', cycle: 'paddle', at: 1.1 }, { do: 'expr', who: 'ro', expr: 'grin', at: 1.0 },
+                { do: 'el', el: 'raftro', to: { x: 1700 }, dur: 5, ease: 'in', at: 1.3 }, { do: 'fx', fx: { kind: 'splash', el: 'raftro' }, at: 1.4 },
+              ], n: 'Ro jumps onto his little raft and paddles off first. Zoom!', lineAt: 0.6,
+            },
+            // ...then the others hop onto the big raft, one at a time, each to their own plank.
+            {
+              cam: { at: [800, 520, 0.72] }, act: [
+                ...board('bunty', 0), ...board('kiki', 0.6), ...board('you', 1.3), ...board('meera', 2.0),
+              ], n: 'Then the others hop onto the big raft, one by one.', lineAt: 0.5,
             },
             {
-              cam: { wide: 900, zoom: 0.8 }, act: [
-                { do: 'prop', who: 'you', prop: 'paddle' }, { do: 'prop', who: 'meera', prop: 'paddle' }, { do: 'cycle', who: 'you', cycle: 'paddle' }, { do: 'cycle', who: 'meera', cycle: 'paddle' },
-                { do: 'el', el: 'raft', to: { x: 900 }, dur: 7, ease: 'linear' }, { do: 'track', who: 'you', lead: 0 }, { do: 'expr', who: 'meera', expr: 'worried', at: 1 },
+              cam: { full: ['you', 'kiki'] }, act: [
+                { do: 'track', who: 'kiki', lead: 0 }, { do: 'prop', who: 'you', prop: 'paddle' }, { do: 'prop', who: 'meera', prop: 'paddle' }, { do: 'cycle', who: 'you', cycle: 'paddle' }, { do: 'cycle', who: 'meera', cycle: 'paddle' },
+                { do: 'el', el: 'raft', to: { x: RIVER.split - RIVER.raft }, dur: 6, ease: 'linear' }, { do: 'expr', who: 'meera', expr: 'worried', at: 1 },
+                { do: 'prop', who: 'kiki', prop: 'wafer', at: 3.2 }, { do: 'cycle', who: 'kiki', cycle: 'munch', at: 3.2 }, { do: 'expr', who: 'kiki', expr: 'munch', at: 3.2 },
               ], who: 'meera', t: 'Is it just me, or is the raft getting... smaller?', lineAt: 1.4,
             },
-            { cam: { close: 'kiki' }, act: [{ do: 'prop', who: 'kiki', prop: 'wafer' }, { do: 'cycle', who: 'kiki', cycle: 'munch' }, { do: 'expr', who: 'kiki', expr: 'munch' }, { do: 'sfx', snd: 'munch' }, { do: 'emote', who: 'kiki', emote: 'sweat', at: 1.2 }], n: 'Kiki is eating the raft.' },
-            { cam: { close: 'kiki' }, act: [{ do: 'cycle', who: 'kiki', cycle: null }, { do: 'pose', who: 'kiki', pose: 'scared' }, { do: 'expr', who: 'kiki', expr: 'yell' }, { do: 'fx', fx: { kind: 'backdrop', style: 'speed', color: '#ffe066' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 2.4 }], who: 'kiki', t: 'I’m SORRY! It’s REALLY good wafer!' },
+            // Kiki's bites, in close-up: one per "crunch".
             {
-              cam: { wide: 1660, zoom: 0.78 }, act: [
-                { do: 'track', who: null }, { do: 'el', el: 'raft', to: { rot: 3 }, dur: 0.18, yoyo: 4 }, { do: 'el', el: 'pieces', to: { x: 900, opacity: 1 }, dur: 0.01 },
-                { do: 'el', el: 'pieces', to: { x: 960, y: 20 }, dur: 2.5, ease: 'out', at: 0.1 }, { do: 'fx', fx: { kind: 'splash', el: 'raft' } }, { do: 'sfx', snd: 'splash' },
-                { do: 'cycle', who: 'you', cycle: null }, { do: 'cycle', who: 'meera', cycle: null }, { do: 'pose', who: 'meera', pose: 'scared' }, { do: 'pose', who: 'you', pose: 'scared' },
-                { do: 'expr', who: 'meera', expr: 'shock' }, { do: 'expr', who: 'you', expr: 'shock' }, { do: 'expr', who: 'bunty', expr: 'shock' }, { do: 'emote', who: 'meera', emote: '!' },
-              ], who: 'meera', t: 'It’s falling apart! We’re going to sink into the chocolate!', lineAt: 0.6,
+              insert: 'wafer1', act: [
+                { do: 'sfx', snd: 'crunch', atWord: 0 }, { do: 'insert', id: 'wafer2', atWord: 1 }, { do: 'sfx', snd: 'crunch', atWord: 1 },
+                { do: 'insert', id: 'wafer3', atWord: 2 }, { do: 'sfx', snd: 'crunch', atWord: 2 }, { do: 'sfx', snd: 'munch', atWord: 3 },
+              ], n: 'Crunch... crunch... CRUNCH! Kiki is eating the raft!', lineAt: 0.3, hold: 0.4,
             },
-            { cam: { close: 'bunty' }, act: [{ do: 'expr', who: 'bunty', expr: 'determined' }, { do: 'emote', who: 'bunty', emote: 'idea' }, { do: 'sfx', snd: 'ding' }, { do: 'fx', fx: { kind: 'backdrop', style: 'rays', color: '#ffb38a' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 3.4 }], who: 'bunty', t: 'Wait! My sticky fingers! I can glue the raft back together!' },
+            { cam: { close: 'kiki' }, act: [{ do: 'cycle', who: 'kiki', cycle: null }, { do: 'prop', who: 'kiki', prop: 'wafer' }, { do: 'pose', who: 'kiki', pose: 'scared' }, { do: 'expr', who: 'kiki', expr: 'yell' }, { do: 'fx', fx: { kind: 'backdrop', style: 'speed', color: '#ffe066' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 2.4 }], who: 'kiki', t: 'I’m SORRY! It’s REALLY good wafer!' },
+            // CRACK: the raft comes apart into its five planks, each drifting off with whoever is on it.
+            {
+              cam: { at: [RIVER.split, 500, 0.72] }, act: [
+                { do: 'prop', who: 'kiki', prop: null }, ...all(['you', 'meera'], (id) => [{ do: 'cycle', who: id, cycle: null } as Action, { do: 'prop', who: id, prop: null } as Action]),
+                ...splitRaft(0.25),
+                ...all(['meera', 'you', 'kiki', 'bunty'], (id, i) => [{ do: 'pose', who: id, pose: 'scared', at: 0.35 + i * 0.05 } as Action, { do: 'expr', who: id, expr: 'shock', at: 0.35 } as Action]),
+                { do: 'emote', who: 'meera', emote: '!', at: 0.5 },
+              ], who: 'meera', t: 'It’s falling apart! We’re going to sink into the chocolate!', lineAt: 1.0,
+            },
+            { cam: { close: 'bunty' }, act: [{ do: 'pose', who: 'bunty', pose: 'stand' }, { do: 'expr', who: 'bunty', expr: 'determined' }, { do: 'emote', who: 'bunty', emote: 'idea' }, { do: 'sfx', snd: 'ding' }, { do: 'fx', fx: { kind: 'backdrop', style: 'rays', color: '#ffb38a' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 3.4 }], who: 'bunty', t: 'Wait! My sticky fingers! I can glue the raft back together!' },
             { gate: { id: 'g-c3-raft', title: 'Fix the Raft', ask: 'The raft is falling apart! Help Bunty stick every piece back.', by: 'bunty' } },
+            // Bunty's power: one squish per crack, and the planks pull back together.
             {
-              cam: { wide: 1660, zoom: 0.8 }, act: [
-                { do: 'pose', who: 'bunty', pose: 'crouch' }, { do: 'el', el: 'pieces', to: { opacity: 0 }, dur: 0.6, at: 0.4 }, { do: 'el', el: 'raft', to: { rot: 0, y: 0 }, dur: 0.4 },
-                { do: 'fx', fx: { kind: 'glow' }, at: 0.5 }, { do: 'fx', fx: { kind: 'sparkle', el: 'raft', n: 12 }, at: 0.6 }, { do: 'sfx', snd: 'squish', at: 0.5 },
-                { do: 'fx', fx: { kind: 'word', text: 'STICK!', color: '#ffb38a' }, at: 0.6 }, { do: 'pose', who: 'meera', pose: 'stand' }, { do: 'pose', who: 'you', pose: 'stand' },
-                { do: 'expr', who: 'meera', expr: 'happy', at: 1 }, { do: 'expr', who: 'you', expr: 'happy', at: 1 }, { do: 'expr', who: 'kiki', expr: 'happy', at: 1 },
-              ], n: 'Bunty’s sticky hands hold every piece in place. The raft is saved!',
+              cam: { at: [RIVER.split, 500, 0.72] }, act: [
+                { do: 'fx', fx: { kind: 'aura', who: 'bunty', color: '#ffb38a', on: true } }, { do: 'sfx', snd: 'magic' }, { do: 'fx', fx: { kind: 'power', name: 'Sticky Fingers', color: '#ff9b6a', icon: 'sticky' }, at: 0.2 },
+                { do: 'pose', who: 'bunty', pose: 'reachDown', at: 0.4 }, { do: 'expr', who: 'bunty', expr: 'determined', at: 0.4 },
+                ...glueRaft(),
+              ], n: 'Bunty presses his sticky hands on every crack. Squish! Squish! SQUISH!', lineAt: 0.5,
             },
-            { cam: { close: 'bunty' }, act: [{ do: 'pose', who: 'bunty', pose: 'cheer' }, { do: 'expr', who: 'bunty', expr: 'laugh' }, { do: 'hop', who: 'bunty', n: 2 }], who: 'bunty', t: 'STICKY FINGERS FOR THE WIN!' },
+            { cam: { close: 'bunty' }, act: [{ do: 'fx', fx: { kind: 'aura', who: 'bunty', color: '#ffb38a', on: false } }, { do: 'pose', who: 'bunty', pose: 'cheer' }, { do: 'expr', who: 'bunty', expr: 'laugh' }, { do: 'hop', who: 'bunty', n: 2 }], who: 'bunty', t: 'STICKY FINGERS FOR THE WIN!' },
+            // Hungry fish: Meera's shield and Kiki's gumballs keep them off the raft.
             {
-              cam: { wide: 1720, zoom: 0.75 }, mood: 'triumph', act: [
-                ...all(['you', 'meera', 'kiki', 'bunty'], (id, i) => [{ do: 'cycle', who: id, cycle: 'cheer', at: i * 0.08 } as Action, { do: 'expr', who: id, expr: 'laugh', at: i * 0.08 } as Action]),
-                { do: 'sfx', snd: 'cheer' }, { do: 'el', el: 'fish', to: { opacity: 1 }, dur: 0.1, at: 0.8 }, { do: 'el', el: 'fish', to: { y: -300, rot: -40 }, dur: 0.6, ease: 'out', at: 0.8 },
-                { do: 'el', el: 'fish', to: { y: 0, rot: 30 }, dur: 0.6, ease: 'in', at: 1.4 }, { do: 'fx', fx: { kind: 'splash', el: 'fish' }, at: 2.0 }, { do: 'sfx', snd: 'splash', at: 2.0 }, { do: 'el', el: 'fish', to: { opacity: 0 }, dur: 0.2, at: 2.0 },
-              ], n: 'The crew cheers so loudly, a chocolate fish jumps up to see!',
+              cam: { at: [RIVER.split + 20, 480, 0.72] }, act: [
+                { do: 'pose', who: 'bunty', pose: 'stand' }, ...all(['meera', 'you', 'kiki', 'bunty'], (id) => [{ do: 'expr', who: id, expr: 'shock', at: 1.2 } as Action]),
+                { do: 'el', el: 'fishL', to: { opacity: 1 }, dur: 0.2, at: 0.3 }, { do: 'el', el: 'fishL', to: { y: -200, rot: -12 }, dur: 0.7, ease: 'out', at: 0.3 },
+                { do: 'el', el: 'fishR', to: { opacity: 1 }, dur: 0.2, at: 0.7 }, { do: 'el', el: 'fishR', to: { y: -200, rot: 12 }, dur: 0.7, ease: 'out', at: 0.7 },
+                { do: 'sfx', snd: 'splash', at: 0.3 }, { do: 'sfx', snd: 'splash', at: 0.7 }, { do: 'sfx', snd: 'chomp', atWord: 7 }, { do: 'sfx', snd: 'chomp', atWord: 8 },
+                { do: 'el', el: 'fishL', to: { y: -186 }, dur: 0.4, yoyo: 3, at: 1.1 }, { do: 'el', el: 'fishR', to: { y: -186 }, dur: 0.4, yoyo: 3, at: 1.4 },
+              ], n: 'But the river is full of hungry chocolate fish. CHOMP, CHOMP!', lineAt: 0.4,
             },
             {
-              cam: { wide: 3050, zoom: 0.8 }, trans: 'fade', mood: 'sad', act: [
-                ...all(['you', 'meera', 'kiki', 'bunty'], (id) => [{ do: 'cycle', who: id, cycle: null } as Action]),
-                { do: 'ride', who: 'ro', on: null }, { do: 'cycle', who: 'ro', cycle: null }, { do: 'prop', who: 'ro', prop: null }, { do: 'place', who: 'ro', x: 3010, y: 700 },
-                { do: 'pose', who: 'ro', pose: 'hugKnees' }, { do: 'face', who: 'ro', dir: -1 }, { do: 'expr', who: 'ro', expr: 'sad' }, { do: 'el', el: 'raftro', to: { opacity: 0 }, dur: 0.01 },
-              ], n: 'At the cave, Ro is waiting. A chocolate fish ate his raft!',
+              cam: { at: [RIVER.split - 280, 480, 0.72] }, act: [
+                { do: 'face', who: 'meera', dir: -1 }, { do: 'prop', who: 'meera', prop: 'shield' }, { do: 'pose', who: 'meera', pose: 'push', at: 0.2 }, { do: 'expr', who: 'meera', expr: 'determined' },
+                { do: 'fx', fx: { kind: 'aura', who: 'meera', color: '#7fe6c9', on: true }, atWord: 3 },
+                { do: 'el', el: 'fishL', to: { x: -60 }, ease: 'linear', atWord: 3, toWord: 4 }, { do: 'el', el: 'fishL', to: { y: -320, rot: 20 }, ease: 'out', atWord: 3, toWord: 4 },
+                { do: 'sfx', snd: 'bonk', atWord: 4 }, { do: 'fx', fx: { kind: 'word', text: 'BONK!', color: '#7fe6c9' }, atWord: 4 }, { do: 'squash', who: 'meera', amt: 0.12, atWord: 4 },
+                { do: 'el', el: 'fishL', to: { x: -120, rot: -160 }, dur: 0.8, ease: 'linear', atWord: 4, at: 0.02 }, { do: 'el', el: 'fishL', to: { y: -360 }, dur: 0.35, ease: 'out', atWord: 4, at: 0.02 },
+                { do: 'el', el: 'fishL', to: { y: 40 }, dur: 0.45, ease: 'in', atWord: 4, at: 0.37 }, { do: 'fx', fx: { kind: 'splash', el: 'fishL', color: '#8a5634' }, atWord: 4, at: 0.8 },
+                { do: 'el', el: 'fishL', to: { opacity: 0 }, dur: 0.2, atWord: 4, at: 0.8 }, { do: 'sfx', snd: 'splash', atWord: 4, at: 0.8 },
+                { do: 'fx', fx: { kind: 'aura', who: 'meera', color: '#7fe6c9', on: false }, atWord: 4, at: 1.2 },
+              ], who: 'meera', t: 'Not our raft! CANDY SHIELD!', lineAt: 0.3,
             },
-            { cam: { close: 'ro' }, act: [{ do: 'expr', who: 'ro', expr: 'cry' }, { do: 'emote', who: 'ro', emote: 'gloom' }, { do: 'sfx', snd: 'sad' }], who: 'ro', t: '...It ate my paddle too.' },
             {
-              cam: { wide: 2900, zoom: 0.75 }, mood: 'playful', act: [
-                { do: 'el', el: 'raft', to: { x: 2050 }, dur: 2.2, ease: 'out' }, { do: 'cycle', who: 'you', cycle: 'paddle' }, { do: 'cycle', who: 'meera', cycle: 'paddle' },
-                { do: 'cycle', who: 'you', cycle: null, at: 2.2 }, { do: 'cycle', who: 'meera', cycle: null, at: 2.2 },
-                { do: 'place', who: 'fizz', x: 3150, y: 700, lift: 260, at: 0.1 }, { do: 'expr', who: 'fizz', expr: 'excited', at: 0.1 },
-                { do: 'fx', fx: { kind: 'confetti' }, at: 2.3 }, { do: 'sfx', snd: 'fanfare', at: 2.3 },
-              ], who: 'fizz', t: 'Bunty’s raft wins three Stars! Teamwork wins!', lineAt: 2.3,
+              cam: { at: [RIVER.split + 170, 480, 0.72] }, act: [
+                { do: 'pose', who: 'meera', pose: 'stand' }, { do: 'face', who: 'kiki', dir: 1 }, { do: 'prop', who: 'kiki', prop: 'gumball' }, { do: 'pose', who: 'kiki', pose: 'point' }, { do: 'expr', who: 'kiki', expr: 'grin' },
+                { do: 'el', el: 'fishR', to: { x: -80, y: -250, rot: -10 }, ease: 'out', atWord: 0, toWord: 2 },
+                { do: 'el', el: 'gball', to: { x: 100, y: -28, opacity: 1 }, dur: 0.01, atWord: 2 }, { do: 'sfx', snd: 'pop', atWord: 2 },
+                { do: 'el', el: 'gball', to: { x: GBALL_TO[0] }, ease: 'linear', atWord: 2, toWord: 4 },
+                { do: 'el', el: 'gball', to: { y: -200 }, ease: 'out', atWord: 2, toWord: 3 }, { do: 'el', el: 'gball', to: { y: GBALL_TO[1] }, ease: 'in', atWord: 3, toWord: 4 },
+                { do: 'el', el: 'gball', to: { opacity: 0 }, dur: 0.05, atWord: 4 }, { do: 'sfx', snd: 'gulp', atWord: 4 }, { do: 'fx', fx: { kind: 'sparkle', el: 'fishR', n: 10 }, atWord: 4 },
+                { do: 'el', el: 'fishR', to: { x: 140, y: 60, rot: 30 }, dur: 0.9, ease: 'in', atWord: 4, at: 0.5 }, { do: 'el', el: 'fishR', to: { opacity: 0 }, dur: 0.3, atWord: 4, at: 1.1 },
+                { do: 'sfx', snd: 'splash', atWord: 4, at: 1.2 }, { do: 'expr', who: 'kiki', expr: 'laugh', atWord: 4, at: 0.3 },
+              ], who: 'kiki', t: 'Hungry? Have a gumball instead!', lineAt: 0.3,
             },
-            { cam: { medium: ['you', 'ro'] }, act: [{ do: 'face', who: 'you', dir: 1 }, { do: 'pose', who: 'you', pose: 'present' }, { do: 'expr', who: 'you', expr: 'happy' }, { do: 'expr', who: 'ro', expr: 'sad' }], who: 'you', t: 'Ro, hop on. There’s room.' },
+            // Up ahead, nobody is there to help Ro.
             {
-              cam: { wide: 2880, zoom: 0.78 }, mood: 'night', act: [
-                { do: 'pose', who: 'ro', pose: 'stand' }, { do: 'expr', who: 'ro', expr: 'normal' }, { do: 'jump', who: 'ro', to: 2050 + 760 + 160, h: 80, dur: 0.7, at: 0.4 },
-                { do: 'ride', who: 'ro', on: 'raft', dx: 160, dy: -12, at: 1.2 }, { do: 'face', who: 'ro', dir: -1, at: 1.3 }, { do: 'pose', who: 'ro', pose: 'reach', at: 1.6 },
-                { do: 'face', who: 'bunty', dir: 1, at: 1.4 }, { do: 'pose', who: 'bunty', pose: 'reach', at: 1.7 }, { do: 'expr', who: 'bunty', expr: 'happy', at: 1.7 }, { do: 'expr', who: 'ro', expr: 'closed', at: 2.2 },
-                { do: 'el', el: 'raft', to: { x: 1700 }, dur: 6, ease: 'inOut', at: 2.6 },
-              ], n: 'Ro climbs on. He says nothing. But he holds Bunty’s sticky hand.', lineAt: 0.8,
+              cam: { at: [RIVER.whirl - 140, 520, 0.72] }, mood: 'sad', act: [
+                { do: 'prop', who: 'kiki', prop: null }, { do: 'pose', who: 'kiki', pose: 'stand' },
+                { do: 'el', el: 'raftro', to: { x: RIVER.whirl - RIVER.roRaft }, dur: 2.0, ease: 'out' },
+                { do: 'el', el: 'fishro', to: { opacity: 1 }, dur: 0.05, atWord: 6, at: -0.35 }, { do: 'el', el: 'fishro', to: { x: -90, y: -230, rot: -15 }, dur: 0.35, ease: 'out', atWord: 6, at: -0.35 },
+                { do: 'sfx', snd: 'chomp', atWord: 6 }, { do: 'fx', fx: { kind: 'word', text: 'CHOMP!', color: '#c48a64' }, atWord: 6 },
+                { do: 'el', el: 'raftro', to: { opacity: 0 }, dur: 0.06, atWord: 6 }, { do: 'prop', who: 'ro', prop: null, atWord: 6 },
+                { do: 'ride', who: 'ro', on: null, atWord: 6 }, { do: 'cycle', who: 'ro', cycle: 'flail', atWord: 6 }, { do: 'expr', who: 'ro', expr: 'shock', atWord: 6 },
+                { do: 'move', who: 'ro', to: RIVER.whirl, y: 820, gait: 'fly', dur: 0.4, atWord: 6, at: 0.05 },
+                { do: 'el', el: 'whirl', to: { opacity: 1 }, dur: 0.4, atWord: 6, at: 0.1 }, { do: 'el', el: 'whirlfront', to: { opacity: 1 }, dur: 0.3, atWord: 6, at: 0.15 },
+                { do: 'fx', fx: { kind: 'splash', who: 'ro', color: '#8a5634' }, atWord: 6, at: 0.4 }, { do: 'sfx', snd: 'splash', atWord: 6, at: 0.4 },
+                { do: 'el', el: 'fishro', to: { x: 40, y: 80, rot: 50 }, dur: 0.6, ease: 'in', atWord: 6, at: 0.1 }, { do: 'el', el: 'fishro', to: { opacity: 0 }, dur: 0.2, atWord: 6, at: 0.6 },
+                { do: 'cycle', who: 'ro', cycle: 'flail', atWord: 6, at: 0.5 },
+              ], n: 'Up ahead, Ro paddles alone. Then... CHOMP! A fish eats his raft!', lineAt: 0.4,
+            },
+            { cam: { close: 'ro' }, act: [{ do: 'expr', who: 'ro', expr: 'scared' }, { do: 'emote', who: 'ro', emote: 'sweat', at: 0.4 }], who: 'ro', t: 'HELP! A fish ate my raft! I can’t swim in chocolate!' },
+            {
+              cam: { full: ['you', 'bunty'] }, mood: 'race', act: [
+                { do: 'track', who: 'kiki', lead: 40 },
+                { do: 'face', who: 'meera', dir: 1 }, ...all(['you', 'meera'], (id) => [{ do: 'prop', who: id, prop: 'paddle' } as Action, { do: 'cycle', who: id, cycle: 'paddle' } as Action]),
+                { do: 'el', el: 'raft2', to: { x: RIVER.rescue - RIVER.split }, dur: 3, ease: 'inOut' }, { do: 'expr', who: 'you', expr: 'determined' }, { do: 'expr', who: 'bunty', expr: 'worried' },
+                ...all(['you', 'meera'], (id) => [{ do: 'cycle', who: id, cycle: null, at: 3.0 } as Action, { do: 'prop', who: id, prop: null, at: 3.0 } as Action]),
+              ], who: 'you', t: 'Ro is in the river! Paddle, crew, PADDLE!',
+            },
+            { gate: { id: 'g-c3-rescue', title: 'Save Ro', ask: 'Ro is stuck in a chocolate whirlpool! Solve the riddle to find a way to save him.', by: 'you' } },
+            { cam: { medium: ['you', 'kiki'] }, act: [{ do: 'pose', who: 'you', pose: 'point' }, { do: 'face', who: 'you', dir: 1 }, { do: 'expr', who: 'you', expr: 'determined' }, { do: 'emote', who: 'you', emote: 'idea' }], who: 'you', t: 'Ro, stretch your arm to us! Bunty, grab it and hold tight!' },
+            // Three powers at once: Ro's toffee arm, Bunty's sticky hand, and the Captain's sprinkles.
+            {
+              cam: { at: [2300, 500, 0.72] }, mood: 'triumph', act: [
+                { do: 'pose', who: 'you', pose: 'stand' }, { do: 'cycle', who: 'ro', cycle: null }, { do: 'face', who: 'ro', dir: -1 }, { do: 'pose', who: 'ro', pose: 'stretchArm' }, { do: 'expr', who: 'ro', expr: 'determined' },
+                { do: 'face', who: 'bunty', dir: 1 }, { do: 'pose', who: 'bunty', pose: 'reachDown' }, { do: 'expr', who: 'bunty', expr: 'determined' },
+                { do: 'fx', fx: { kind: 'aura', who: 'ro', color: '#ff9b85', on: true }, atWord: 0 }, { do: 'sfx', snd: 'stretch', atWord: 0 },
+                { do: 'stretch', who: 'ro', len: RESCUE_REACH, atWord: 0, toWord: 1 },
+                { do: 'fx', fx: { kind: 'aura', who: 'bunty', color: '#ffb38a', on: true }, atWord: 1 }, { do: 'sfx', snd: 'squish', atWord: 1 }, { do: 'fx', fx: { kind: 'word', text: 'STICK!', color: '#ffb38a' }, atWord: 1 },
+                { do: 'fx', fx: { kind: 'sprinkles', dur: 2.2 }, atWord: 2 }, { do: 'sfx', snd: 'sparkle', atWord: 2 }, { do: 'el', el: 'whirl', to: { scale: 1.15 }, dur: 0.2, yoyo: 2, atWord: 2, at: 0.4 },
+                ...all(['meera', 'you', 'kiki'], (id) => [{ do: 'face', who: id, dir: -1, atWord: 3 } as Action, { do: 'pose', who: id, pose: 'brace', atWord: 3 } as Action]),
+                { do: 'sfx', snd: 'boing', atWord: 3 }, { do: 'stretch', who: 'ro', len: 1, dur: 0.5, ease: 'linear', atWord: 3 },
+                { do: 'move', who: 'ro', to: RIVER.rescue + PLANK_DX[4], y: 700, gait: 'fly', ease: 'linear', dur: 0.5, then: 'stand', atWord: 3 },
+                { do: 'lift', who: 'ro', to: 170, dur: 0.25, ease: 'out', atWord: 3 }, { do: 'lift', who: 'ro', to: 0, dur: 0.25, ease: 'in', atWord: 3, at: 0.25 },
+                { do: 'el', el: 'whirlfront', to: { opacity: 0 }, dur: 0.3, atWord: 3, at: 0.1 },
+                { do: 'ride', who: 'ro', on: 'raft2', dx: PLANK_DX[4], dy: -12, atWord: 3, at: 0.55 }, { do: 'el', el: 'raft2', to: { y: 10 }, dur: 0.15, yoyo: 1, atWord: 3, at: 0.55 },
+                { do: 'mess', who: 'ro', color: '#6a3a22', atWord: 3, at: 0.55 }, { do: 'expr', who: 'ro', expr: 'dizzy', atWord: 3, at: 0.55 },
+                { do: 'fx', fx: { kind: 'aura', who: 'ro', color: '#ff9b85', on: false }, atWord: 3, at: 0.8 }, { do: 'fx', fx: { kind: 'aura', who: 'bunty', color: '#ffb38a', on: false }, atWord: 3, at: 0.8 },
+                ...all(['meera', 'you', 'kiki', 'bunty'], (id) => [{ do: 'pose', who: id, pose: 'stand', atWord: 3, at: 0.9 } as Action, { do: 'expr', who: id, expr: 'laugh', atWord: 3, at: 0.9 } as Action]),
+                { do: 'el', el: 'whirl', to: { opacity: 0 }, dur: 1.2, atWord: 3, at: 1.0 },
+              ], n: 'Stretch, stick, sprinkle... BOING! Ro bounces free, dripping chocolate!', lineAt: 0.5,
+            },
+            { cam: { close: 'ro' }, mood: 'playful', tone: 'hesitant', act: [{ do: 'face', who: 'ro', dir: -1 }, { do: 'expr', who: 'ro', expr: 'worried' }, { do: 'emote', who: 'ro', emote: 'blush', at: 0.6 }], who: 'ro', t: 'You... came back for me?' },
+            { cam: { medium: ['bunty', 'ro'] }, act: [{ do: 'face', who: 'bunty', dir: 1 }, { do: 'expr', who: 'bunty', expr: 'laugh' }, { do: 'hop', who: 'bunty', n: 2 }, { do: 'expr', who: 'ro', expr: 'happy', at: 0.8 }], who: 'bunty', t: 'Nobody gets left behind!' },
+            // To the cave, and over the finish line together (nobody goes back).
+            {
+              cam: { full: ['you', 'kiki'] }, act: [
+                ...all(['you', 'meera'], (id) => [{ do: 'prop', who: id, prop: 'paddle' } as Action, { do: 'cycle', who: id, cycle: 'paddle' } as Action, { do: 'face', who: id, dir: 1 } as Action]),
+                { do: 'face', who: 'kiki', dir: 1 }, { do: 'face', who: 'bunty', dir: 1 }, { do: 'face', who: 'ro', dir: 1 }, { do: 'pose', who: 'ro', pose: 'point' },
+                { do: 'el', el: 'raft2', to: { x: RIVER.dock - RIVER.split }, dur: 3, ease: 'inOut' }, { do: 'cam', to: { at: [RIVER.dock + 260, 480, 0.72] }, dur: 3.2 },
+                ...all(['you', 'meera'], (id) => [{ do: 'cycle', who: id, cycle: null, at: 3.0 } as Action, { do: 'prop', who: id, prop: null, at: 3.0 } as Action]),
+                ...(['meera', 'you', 'kiki', 'bunty', 'ro'] as CastId[]).flatMap((id, i) => [
+                  { do: 'ride', who: id, on: null, at: 3.1 + i * 0.06 } as Action,
+                  { do: 'jump', who: id, to: FINISH_RIVER[i], y: 700, h: 170, dur: 0.85, at: 3.1 + i * 0.06 } as Action,
+                ]),
+                { do: 'cam', to: { at: [FINISH_RIVER[2], 480, 0.72] }, dur: 1.0, at: 3.2 },
+                { do: 'fx', fx: { kind: 'confetti' }, at: 3.9 }, { do: 'sfx', snd: 'fanfare', at: 4.1 },
+              ], n: 'They paddle to the cave... and jump over the finish line together!', lineAt: 0.4,
+            },
+            {
+              cam: { at: [FINISH_RIVER[2], 480, 0.72] }, mood: 'triumph', act: [
+                { do: 'place', who: 'fizz', x: FINISH_RIVER[2] + 40, y: 700, lift: 330 }, { do: 'expr', who: 'fizz', expr: 'excited' }, { do: 'fx', fx: { kind: 'sparkle', who: 'fizz', n: 10 } },
+                ...(['meera', 'you', 'kiki', 'bunty', 'ro'] as CastId[]).flatMap((id, i) => [{ do: 'cycle', who: id, cycle: 'cheer', at: i * 0.07 } as Action, { do: 'expr', who: id, expr: 'laugh', at: i * 0.07 } as Action]),
+                { do: 'sfx', snd: 'cheer', at: 0.2 },
+              ], who: 'fizz', t: 'Everyone crosses together! Three Stars for the whole team!',
             },
             { reward: 'wafer-paddle' },
           ],
@@ -715,6 +961,9 @@ export const candy: World = {
     },
 
     /* ======================= Chapter 4: Don't Lick the Lollipop ======================= */
+    // Five giant lollipops, melting in the sun, each at a child's mouth height. The wind pushes them
+    // closer until everybody licks at once (shown in five panels, all in one frame), and the whole crew
+    // bursts out laughing. Then Fizz's Stars are hidden all over the big garden.
     {
       id: 'c-4',
       title: 'Don’t Lick the Lollipop',
@@ -730,90 +979,124 @@ export const candy: World = {
           ],
         },
         {
-          id: 'c4-garden', set: 'garden', mood: 'sneaky', trans: 'fade', cam: { wide: 1230, zoom: 0.75 },
+          id: 'c4-garden', set: 'garden', mood: 'sneaky', trans: 'fade', cam: { at: [GARDEN.cx, 480, 0.72] },
           cast: [
-            { id: 'kiki', x: 1070 }, { id: 'meera', x: 1150 }, { id: 'you', x: 1230, y: 730 },
-            { id: 'bunty', x: 1310, face: -1 }, { id: 'ro', x: 1390, face: -1 },
-            { id: 'fizz', x: 1230, y: 650, lift: 260 },
+            { id: 'kiki', x: 1700, y: 730, face: -1 }, { id: 'meera', x: 1800, y: 730, face: -1 }, { id: 'you', x: 1900, y: 730, face: -1 },
+            { id: 'bunty', x: 2000, y: 730, face: -1 }, { id: 'ro', x: 2100, y: 730, face: -1 },
+            { id: 'fizz', x: GARDEN.cx, y: 650, lift: 330 },
           ],
           shots: [
             { act: [{ do: 'expr', who: 'fizz', expr: 'excited' }, { do: 'sfx', snd: 'drum' }, { do: 'fx', fx: { kind: 'speedlines', on: true } }, { do: 'fx', fx: { kind: 'speedlines', on: false }, at: 2.8 }], who: 'fizz', t: 'GAME THREE! Don’t. Lick. The. Lollipop!' },
+            // The lollipops, up close: glossy, sticky, melting.
+            {
+              cam: { el: 'lp3', zoom: 1.5, dy: -190 }, move: { el: 'lp3', zoom: 1.75, dy: -200 }, moveDur: 5, act: [
+                { do: 'fx', fx: { kind: 'sparkle', el: 'lp3', n: 8 }, at: 0.6 }, { do: 'sfx', snd: 'sparkle', at: 0.6 },
+                ...[0, 1, 2].map((w) => ({ do: 'sfx' as const, snd: 'blip' as const, atWord: 8 + w })),
+              ], n: 'Five giant lollipops, melting under the warm sun. Drip... drip... drip...', lineAt: 0.5,
+            },
             { cam: { close: 'fizz' }, act: [{ do: 'expr', who: 'fizz', expr: 'smug' }], who: 'fizz', t: 'Stand next to a giant lollipop. Whoever lasts longest without licking wins!' },
             { cam: { close: 'kiki' }, act: [{ do: 'expr', who: 'kiki', expr: 'scared' }, { do: 'emote', who: 'kiki', emote: 'sweat' }, { do: 'fx', fx: { kind: 'backdrop', style: 'gloom', color: '#3b3f8a' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 3.6 }], who: 'kiki', t: 'This is a trap! It’s the HARDEST game in the whole galaxy.' },
+            // Everyone takes a place beside their own lollipop.
             {
-              cam: { wide: 1260, zoom: 0.7 }, act: [
-                ...LINE.map((id, i) => ({ do: 'move' as const, who: id, to: LOLLI_X[i] + 55, gait: 'walk' as const, at: i * 0.08 })),
-                ...LINE.map((id) => ({ do: 'face' as const, who: id, dir: -1 as const, at: 3.0 })),
-                ...LINE.map((id) => ({ do: 'pose' as const, who: id, pose: 'armsCrossed' as const, at: 3.2 })),
-                { do: 'lift', who: 'fizz', to: 420, dur: 1.5 },
+              cam: { at: [GARDEN.cx + 200, 480, 0.72] }, move: { at: [GARDEN.cx, 480, 0.72] }, moveDur: 4, act: [
+                { do: 'lift', who: 'fizz', to: 460, dur: 1.5 },
+                ...LINE.map((id, i) => ({ do: 'move' as const, who: id, to: KX(i), y: 715, gait: 'walk' as const, dur: 3.2, at: i * 0.12 })),
+                ...LINE.map((id, i) => ({ do: 'face' as const, who: id, dir: -1 as const, at: 3.4 + i * 0.12 })),
+                ...LINE.map((id, i) => ({ do: 'pose' as const, who: id, pose: 'armsCrossed' as const, at: 3.6 + i * 0.12 })),
               ], n: 'Ten seconds. The lollipops smell of mango and strawberry.', lineAt: 1.6,
             },
             { cam: { medium: 'bunty' }, act: [{ do: 'expr', who: 'bunty', expr: 'sleepy' }, { do: 'emote', who: 'bunty', emote: 'sweat', at: 0.6 }], who: 'bunty', t: 'I am fine. I am totally fine.' },
             { cam: { xclose: 'kiki' }, act: [{ do: 'expr', who: 'kiki', expr: 'worried' }, { do: 'emote', who: 'kiki', emote: 'sweat', at: 0.3 }], n: 'Thirty seconds. Kiki is sweating.' },
             { cam: { close: 'kiki' }, act: [{ do: 'expr', who: 'kiki', expr: 'tongue' }, { do: 'cycle', who: 'kiki', cycle: 'tremble' }, { do: 'fx', fx: { kind: 'backdrop', style: 'shock', color: '#ffe066' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 2.6 }], who: 'kiki', t: 'My tongue is moving on its OWN!' },
-            { cam: { low: 'ro' }, act: [{ do: 'cycle', who: 'kiki', cycle: null }, { do: 'expr', who: 'ro', expr: 'determined' }, { do: 'fx', fx: { kind: 'vignette', on: true } }], n: 'Sixty seconds. Ro has not moved at all.' },
-            { cam: { close: 'ro' }, act: [{ do: 'fx', fx: { kind: 'backdrop', style: 'speed', color: '#ff9b85' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 3.2 }], who: 'ro', t: 'I can win this. I just have to want it more.' },
+            { cam: { low: 'ro' }, act: [{ do: 'cycle', who: 'kiki', cycle: null }, { do: 'pose', who: 'kiki', pose: 'armsCrossed' }, { do: 'expr', who: 'ro', expr: 'determined' }, { do: 'fx', fx: { kind: 'vignette', on: true } }], n: 'Sixty seconds. Ro has not moved at all.' },
+            // Ro's plan: don't even look at it.
+            { cam: { close: 'ro' }, act: [{ do: 'fx', fx: { kind: 'vignette', on: false } }, { do: 'face', who: 'ro', dir: 1, at: 0.3 }, { do: 'expr', who: 'ro', expr: 'smug', at: 0.3 }, { do: 'look', who: 'ro', gaze: 'cam', at: 0.3 }], who: 'ro', t: 'Easy. I just won’t look at it.', lineAt: 0.6 },
+            // The wind: the lollipops lean closer on each "closer".
             {
-              cam: { wide: 1260, zoom: 0.7 }, act: [
-                { do: 'fx', fx: { kind: 'vignette', on: false } }, { do: 'sfx', snd: 'wind' },
-                ...[1, 2, 3, 4, 5].map((n, i) => ({ do: 'el' as const, el: `lp${n}`, to: { rot: 9 }, dur: 1.4, ease: 'inOut' as const, at: 0.4 + i * 0.06 })),
-                ...LINE.map((id) => ({ do: 'expr' as const, who: id, expr: 'shock' as const, at: 1.6 })),
-              ], n: 'Then the wind blows. The lollipops sway closer... closer... CLOSER...',
+              cam: { at: [GARDEN.cx, 480, 0.72] }, move: { at: [GARDEN.cx + 200, 480, 0.72] }, moveDur: 5, act: [
+                { do: 'look', who: 'ro', gaze: 'fwd' }, { do: 'sfx', snd: 'wind' },
+                ...[3, 6, 10].flatMap((rot, w) => [1, 2, 3, 4, 5].map((n) => ({ do: 'el' as const, el: `lp${n}`, to: { rot }, dur: 0.6, ease: 'out' as const, atWord: 7 + w }))),
+                ...LINE.map((id) => ({ do: 'expr' as const, who: id, expr: 'shock' as const, atWord: 9 })),
+                { do: 'face', who: 'ro', dir: -1, atWord: 8 }, { do: 'emote', who: 'ro', emote: '!', atWord: 9 },
+              ], n: 'Then the wind blows. The lollipops sway closer... closer... CLOSER...', lineAt: 0.4,
             },
+            // Slow motion: one tongue, then every tongue.
+            { cam: { close: 'kiki', dx: -60 }, act: [{ do: 'pose', who: 'kiki', pose: 'lick', at: 1.2 }, { do: 'expr', who: 'kiki', expr: 'tongue', at: 0.6 }, { do: 'fx', fx: { kind: 'vignette', on: true } }, { do: 'fx', fx: { kind: 'vignette', on: false }, at: 2.8 }], n: 'Kiki’s tongue sneaks out... just a tiny bit...', lineAt: 0.3 },
             {
-              panels: [{ who: 'kiki', expr: 'tongue', bg: 'hearts' }, { who: 'ro', expr: 'tongue', bg: 'hearts' }, { who: 'meera', expr: 'tongue', bg: 'hearts' }],
+              panels: LINE.map((who, i) => ({ who, expr: 'tongue', bg: 'hearts', lolli: LOLLI_COLORS[i] })),
               act: [
-                { do: 'sfx', snd: 'slurp', at: 0.5 }, { do: 'fx', fx: { kind: 'word', text: 'SLURP!', color: '#ff9fcf' }, at: 0.5 },
-                ...LINE.map((id) => ({ do: 'pose' as const, who: id, pose: 'lick' as const })),
-                ...LINE.map((id) => ({ do: 'expr' as const, who: id, expr: 'tongue' as const })),
-              ], n: 'Everybody licks at exactly the same time!',
+                ...LINE.map((id) => ({ do: 'pose' as const, who: id, pose: 'lick' as const })), ...LINE.map((id) => ({ do: 'expr' as const, who: id, expr: 'tongue' as const })),
+                { do: 'sfx', snd: 'slurp', atWord: 0 }, { do: 'fx', fx: { kind: 'word', text: 'SLURP!', color: '#ff9fcf' }, atWord: 0 },
+              ], n: 'SLURP! Everybody licks at exactly the same time!', lineAt: 0.5,
             },
             {
-              cam: { wide: 1260, zoom: 0.7 }, mood: 'playful', act: [
-                ...[1, 2, 3, 4, 5].map((n) => ({ do: 'el' as const, el: `lp${n}`, to: { rot: 0 }, dur: 1.2 })),
-                ...(['kiki', 'meera', 'you', 'bunty'] as CastId[]).map((id, i) => ({ do: 'cycle' as const, who: id, cycle: 'laugh' as const, at: i * 0.1 })),
-                ...(['kiki', 'meera', 'you', 'bunty'] as CastId[]).map((id, i) => ({ do: 'expr' as const, who: id, expr: 'laugh' as const, at: i * 0.1 })),
-                { do: 'pose', who: 'ro', pose: 'stand' }, { do: 'expr', who: 'ro', expr: 'shock' },
-              ], who: 'kiki', t: 'WE ALL LOST!', lineAt: 0.6,
+              cam: { at: [GARDEN.cx, 480, 0.72] }, act: [
+                ...[1, 2, 3, 4, 5].map((n) => ({ do: 'el' as const, el: `lp${n}`, to: { rot: 0 }, dur: 1.2, ease: 'elastic' as const, at: 0.6 })),
+                ...LINE.map((id, i) => ({ do: 'expr' as const, who: id, expr: 'shock' as const, at: 0.3 + i * 0.05 })),
+                ...LINE.map((id) => ({ do: 'pose' as const, who: id, pose: 'stand' as const, at: 0.6 })),
+                { do: 'look', who: 'you', gaze: 'cam', at: 1.0 },
+              ], n: 'Everyone freezes. Uh-oh.', lineAt: 0.8,
+            },
+            // And the whole crew bursts out laughing, together.
+            {
+              panels: LINE.map((who, i) => ({ who, expr: 'laugh', bg: 'rays', color: LAUGH_BG[i] })),
+              mood: 'playful', act: [
+                { do: 'look', who: 'you', gaze: 'fwd' }, { do: 'sfx', snd: 'laugh', at: 0.1 },
+                ...LINE.map((id, i) => ({ do: 'cycle' as const, who: id, cycle: 'laugh' as const, at: i * 0.08 })), ...LINE.map((id) => ({ do: 'expr' as const, who: id, expr: 'laugh' as const })),
+              ], who: 'kiki', t: 'WE ALL LOST!', lineAt: 1.4,
             },
             { cam: { medium: 'meera' }, act: [{ do: 'emote', who: 'meera', emote: 'heart' }], who: 'meera', t: 'Best. Game. Ever.' },
             {
               cam: { full: 'ro' }, act: [
                 { do: 'expr', who: 'ro', expr: 'laugh' }, { do: 'cycle', who: 'ro', cycle: 'laugh' }, { do: 'cycle', who: 'ro', cycle: null, at: 1.4 },
                 { do: 'pose', who: 'ro', pose: 'lie', at: 1.4 }, { do: 'sfx', snd: 'thud', at: 1.5 }, { do: 'fx', fx: { kind: 'dust', who: 'ro' }, at: 1.5 },
-                { do: 'cam', to: { at: [LOLLI_X[4] + 170, 600, 1] }, dur: 0.8, at: 1.4 },
+                { do: 'cam', to: { at: [KX(4) + 170, 610, 1.2] }, dur: 0.8, at: 1.4 },
               ], n: 'Even Ro laughs so hard that he falls over.',
             },
             { cam: { close: 'fizz' }, act: [{ do: 'expr', who: 'fizz', expr: 'shock' }, { do: 'emote', who: 'fizz', emote: '!' }], who: 'fizz', t: 'Nobody wins? That has NEVER happened before!' },
             { cam: { close: 'fizz' }, act: [{ do: 'expr', who: 'fizz', expr: 'wink' }], who: 'fizz', t: 'Fine! I hid one Star for each of you in this garden.' },
-            { gate: { id: 'g-c4-garden', title: 'Lollipop Garden', ask: 'Help the crew find their hidden Stars among the giant lollipops!', by: 'fizz' } },
+            // The big garden, from one end to the other: Stars twinkle in five hiding places.
             {
-              cam: { wide: 1260, zoom: 0.7 }, mood: 'triumph', act: [
-                ...LINE.map((id) => ({ do: 'cycle' as const, who: id, cycle: null })),
-                ...[1, 2, 3, 4, 5].map((n, i) => ({ do: 'el' as const, el: `st${n}`, to: { opacity: 1, scale: 1 }, dur: 0.4, ease: 'back' as const, at: 0.2 + i * 0.15 })),
-                ...LINE.map((id, i) => ({ do: 'prop' as const, who: id, prop: 'star' as const, at: 1.6 + i * 0.1 })),
-                ...LINE.map((id, i) => ({ do: 'pose' as const, who: id, pose: 'hold' as const, at: 1.6 + i * 0.1 })),
-                ...LINE.map((id, i) => ({ do: 'expr' as const, who: id, expr: 'happy' as const, at: 1.6 + i * 0.1 })),
-                ...[1, 2, 3, 4, 5].map((n, i) => ({ do: 'el' as const, el: `st${n}`, to: { opacity: 0 }, dur: 0.2, at: 1.6 + i * 0.1 })),
-                { do: 'sfx', snd: 'sparkle', at: 0.3 }, { do: 'sfx', snd: 'chime', at: 1.6 },
-              ], n: 'One Star each. Five Stars, five smiles.',
+              cam: { at: [300, 470, 0.72] }, move: { at: [3300, 470, 0.72] }, moveDur: 9, act: [
+                ...LINE.map((id) => ({ do: 'cycle' as const, who: id, cycle: null })), ...LINE.map((id) => ({ do: 'pose' as const, who: id, pose: 'stand' as const })),
+                ...GARDEN.stars.flatMap(([x], i) => [{ do: 'fx', fx: { kind: 'sparkle', el: `st${i + 1}`, n: 8 }, at: Math.max(0.2, ((x - 300) / 3000) * 9) } as Action, { do: 'sfx', snd: 'sparkle', at: Math.max(0.2, ((x - 300) / 3000) * 9) } as Action]),
+              ], n: 'The garden is HUGE. The Stars could be hiding anywhere!', lineAt: 0.8,
+            },
+            { gate: { id: 'g-c4-garden', title: 'Lollipop Garden', ask: 'Help the crew find their hidden Stars all over the giant garden!', by: 'fizz' } },
+            // Found! Each Star flies from its hiding place into its finder's hands.
+            {
+              cam: { at: [GARDEN.cx - 200, 480, 0.72] }, move: { at: [GARDEN.cx + 200, 480, 0.72] }, moveDur: 4.4, mood: 'triumph', act: [
+                ...LINE.flatMap((id, i) => starTo(id, i, 0.3 + i * 0.6)),
+              ], n: 'One Star each. Five Stars, five smiles.', lineAt: 1.0,
             },
           ],
         },
         {
+          // Bedtime: everyone settles down one by one, curled up together, all in the picture.
           id: 'c4-night', set: 'camp', mood: 'night', trans: 'fade', cam: { at: [900, 230, 1] },
-          cast: [
-            { id: 'ro', x: 560, pose: 'lie', expr: 'sleepy' }, { id: 'kiki', x: 720, pose: 'lie', expr: 'sleepy', face: -1 }, { id: 'you', x: 880, pose: 'lie', expr: 'closed' },
-            { id: 'meera', x: 1040, pose: 'lie', expr: 'sleepy', face: -1 }, { id: 'bunty', x: 1200, pose: 'lie', expr: 'sleepy', face: -1 },
-          ],
+          cast: NIGHT.map(([id, x]) => ({ id, x, expr: 'sleepy' as const, face: x > 900 ? (-1 as const) : (1 as const) })),
           shots: [
-            { cam: { at: [900, 230, 1] }, move: { wide: 900, zoom: 0.75 }, moveDur: 6, act: [{ do: 'emote', who: 'bunty', emote: 'zzz', at: 2.6 }, { do: 'emote', who: 'ro', emote: 'zzz', at: 3.6 }, { do: 'emote', who: 'kiki', emote: 'zzz', at: 4.6 }], n: 'That night they sleep under the lollipops. Tomorrow is the Big Prize!', lineAt: 1.2 },
+            {
+              cam: { at: [900, 230, 1] }, move: { at: [900, 520, 0.72] }, moveDur: 4, act: [
+                ...NIGHT.flatMap(([id], i) => [
+                  { do: 'emote', who: id, emote: 'zzz', at: 1.0 + i * 0.5 } as Action,
+                  { do: 'pose', who: id, pose: 'sit', at: 1.2 + i * 0.5 } as Action,
+                  { do: 'pose', who: id, pose: 'hugKnees', at: 2.0 + i * 0.5 } as Action,
+                  { do: 'expr', who: id, expr: 'closed', at: 2.2 + i * 0.5 } as Action,
+                ]),
+              ], n: 'That night, the crew curls up together under the lollipops.', lineAt: 1.4,
+            },
+            { cam: { at: [900, 520, 0.72] }, move: { at: [900, 540, 0.78] }, moveDur: 4, act: NIGHT.map(([id], i) => ({ do: 'emote', who: id, emote: 'zzz', at: 0.4 + i * 0.6 }) as Action), n: 'Tomorrow is the Big Prize!', lineAt: 0.8 },
           ],
         },
       ],
     },
 
     /* ======================= Chapter 5: The Giant Lollipop ======================= */
+    // The race up Sugar Mountain. Ro wins because of his toffee arm (it pulls him up the ledges two at a
+    // time), while the crew walks the long icing road together, Meera carrying Bunty piggyback, until a
+    // slippery ice ramp stops them. At the top, Ro has nobody to share with, so he turns his arm into a
+    // ladder, they climb up one by one, and he shares the Giant Lollipop with everyone.
     {
       id: 'c-5',
       title: 'The Giant Lollipop',
@@ -831,64 +1114,105 @@ export const candy: World = {
         {
           id: 'c5-base', set: 'mountain', mood: 'triumph', trans: 'fade', cam: { at: [700, 2200, 0.75] },
           cast: [
-            { id: 'meera', x: 240, y: 2440 }, { id: 'you', x: 310, y: 2440 }, { id: 'kiki', x: 380, y: 2440 }, { id: 'bunty', x: 450, y: 2440 }, { id: 'ro', x: 520, y: 2440 },
-            { id: 'fizz', x: 760, y: 2440, lift: 260 },
+            { id: 'bunty', x: 120, y: 2440 }, { id: 'meera', x: 220, y: 2440 }, { id: 'you', x: 320, y: 2440 }, { id: 'kiki', x: 420, y: 2440 }, { id: 'ro', x: 520, y: 2440 },
+            { id: 'fizz', x: 700, y: 2440, lift: 300 },
           ],
           shots: [
-            { cam: { at: [700, 2200, 0.75] }, move: { at: [800, 480, 0.75] }, moveDur: 6, act: [{ do: 'expr', who: 'fizz', expr: 'excited' }, { do: 'sfx', snd: 'fanfare', at: 5 }], who: 'fizz', t: 'The BIG PRIZE! The Giant Lollipop at the top of Sugar Mountain!' },
-            { cam: { wide: 450, y: 2150, zoom: 0.8 }, act: [{ do: 'expr', who: 'fizz', expr: 'happy' }, ...all(['meera', 'you', 'kiki', 'bunty', 'ro'], (id) => [{ do: 'face', who: id, dir: 1 } as Action, { do: 'expr', who: id, expr: 'determined' } as Action])], who: 'fizz', t: 'The first one to touch the Lollipop wins the Candy Nebula!' },
+            // The whole mountain: the icing road zig-zags all the way up to the Giant Lollipop.
+            { cam: { at: [700, 2200, 0.75] }, move: { at: [SUMMIT.giant, 420, 0.75] }, moveDur: 7, act: [{ do: 'expr', who: 'fizz', expr: 'excited' }, { do: 'sfx', snd: 'fanfare', at: 6 }, { do: 'fx', fx: { kind: 'sparkle', el: 'giant', n: 10 }, at: 6.2 }], who: 'fizz', t: 'The BIG PRIZE! The Giant Lollipop at the top of Sugar Mountain!', lineAt: 0.8 },
+            { cam: { at: [380, 2230, 0.72] }, act: [{ do: 'expr', who: 'fizz', expr: 'happy' }, ...all(['meera', 'you', 'kiki', 'bunty', 'ro'], (id) => [{ do: 'face', who: id, dir: 1 } as Action, { do: 'expr', who: id, expr: 'determined' } as Action])], who: 'fizz', t: 'The first one to touch the Lollipop wins the Candy Nebula!' },
             {
-              cam: { wide: 700, y: 2200, zoom: 0.8 }, mood: 'race', act: [
-                { do: 'move', who: 'ro', to: PATH[1][0], y: PATH[1][1], gait: 'climb', dur: 3.6 }, { do: 'track', who: 'ro', lead: 0 }, { do: 'fx', fx: { kind: 'speedlines', on: true } },
-                { do: 'fx', fx: { kind: 'speedlines', on: false }, at: 1.4 }, { do: 'sfx', snd: 'whoosh' },
+              cam: { at: [380, 2230, 0.72] }, mood: 'race', act: [
+                { do: 'move', who: 'ro', to: PATH[0][0], y: PATH[0][1], gait: 'run', dur: 0.2 }, { do: 'move', who: 'ro', to: PATH[1][0], y: PATH[1][1], gait: 'run', dur: 1.8, at: 0.25 },
+                { do: 'track', who: 'ro', lead: 0, at: 0.4 }, { do: 'fx', fx: { kind: 'speedlines', on: true } }, { do: 'fx', fx: { kind: 'speedlines', on: false }, at: 1.4 }, { do: 'sfx', snd: 'whoosh' },
                 ...all(['meera', 'you', 'kiki', 'bunty'], (id) => [{ do: 'expr', who: id, expr: 'shock', at: 0.4 } as Action]),
-              ], n: 'Ro has the most Stars. He starts climbing before Fizz even finishes!', lineAt: 0.4,
+              ], n: 'Ro has the most Stars. He starts running before Fizz even finishes!', lineAt: 0.4,
             },
             { cam: { close: 'ro' }, act: [{ do: 'face', who: 'ro', dir: -1 }, { do: 'pose', who: 'ro', pose: 'wave' }, { do: 'expr', who: 'ro', expr: 'grin' }], who: 'ro', t: 'Sorry! It’s a race!' },
-            { cam: { medium: ['meera', 'you', 'kiki'] }, act: [{ do: 'expr', who: 'meera', expr: 'sad' }, { do: 'pose', who: 'meera', pose: 'slump' }], who: 'meera', t: 'He didn’t even look back.' },
+            // Ro's shortcut: arm straight up to the post on the ledge above, pull, hop on. Twice.
+            {
+              cam: { at: [PATH[1][0], 1900, 0.72] }, act: [
+                { do: 'face', who: 'ro', dir: 1 }, { do: 'pose', who: 'ro', pose: 'reachUp' }, { do: 'expr', who: 'ro', expr: 'determined' },
+                { do: 'fx', fx: { kind: 'aura', who: 'ro', color: '#ff9b85', on: true } },
+                { do: 'stretch', who: 'ro', len: UP_REACH, atWord: 2, toWord: 7 }, { do: 'sfx', snd: 'stretch', atWord: 2 },
+                { do: 'el', el: 'post1', to: { rot: 6 }, dur: 0.12, yoyo: 2, atWord: 7 }, { do: 'sfx', snd: 'clink', atWord: 7 },
+                ...pullUp(0, 9, 0), ...pullUp(1, 9, 1.7),
+                { do: 'face', who: 'ro', dir: -1, atWord: 9, at: 3.1 }, { do: 'move', who: 'ro', to: PATH[6][0], y: PATH[6][1], gait: 'run', dur: 1.8, atWord: 9, at: 3.15 },
+                { do: 'fx', fx: { kind: 'aura', who: 'ro', color: '#ff9b85', on: false }, atWord: 9, at: 4.8 },
+              ], n: 'Then Ro stretches his toffee arm straight up... and ZOOMS!', lineAt: 0.4,
+            },
+            { cam: { medium: ['meera', 'you', 'kiki'] }, act: [{ do: 'track', who: null }, { do: 'expr', who: 'meera', expr: 'sad' }, { do: 'pose', who: 'meera', pose: 'slump' }], who: 'meera', t: 'He didn’t even look back.' },
             { cam: { medium: ['meera', 'you', 'kiki'] }, act: [{ do: 'expr', who: 'kiki', expr: 'determined' }, { do: 'pose', who: 'kiki', pose: 'yay' }, { do: 'pose', who: 'meera', pose: 'stand' }], who: 'kiki', t: 'Then let’s catch up!' },
             { cam: { low: 'you' }, act: [{ do: 'pose', who: 'you', pose: 'pointUp' }, { do: 'expr', who: 'you', expr: 'determined' }, { do: 'look', who: 'you', gaze: 'cam' }, { do: 'pose', who: 'kiki', pose: 'stand' }], who: 'you', t: 'Together! Hold hands, crew. Nobody gets left behind.' },
+            // Up the first ramp in single file... and Bunty slides back down.
             {
-              cam: { wide: 650, y: 2200, zoom: 0.78 }, act: [
-                { do: 'look', who: 'you', gaze: 'fwd' },
-                { do: 'move', who: 'you', to: 700, y: 2290, gait: 'climb', dur: 3 }, { do: 'move', who: 'kiki', to: 640, y: 2312, gait: 'climb', dur: 3 }, { do: 'move', who: 'meera', to: 580, y: 2334, gait: 'climb', dur: 3 },
-                { do: 'move', who: 'bunty', to: 520, y: 2356, gait: 'climb', dur: 2.8 },
-                { do: 'move', who: 'bunty', to: 400, y: 2440, gait: 'walk', dur: 0.6, at: 3.0 }, { do: 'expr', who: 'bunty', expr: 'dizzy', at: 3.1 }, { do: 'squash', who: 'bunty', amt: 0.2, at: 3.5 },
-                { do: 'sfx', snd: 'boing', at: 3.1 }, { do: 'fx', fx: { kind: 'word', text: 'SLIP!', color: '#8fc8ff' }, at: 3.1 },
-              ], n: 'The mountain is steep and slippery. Icing everywhere!', lineAt: 0.8,
+              cam: { at: [760, 2250, 0.72] }, act: [
+                { do: 'look', who: 'you', gaze: 'fwd' }, { do: 'pose', who: 'you', pose: 'stand' },
+                ...upRamp('kiki', 0.72, 0), ...upRamp('you', 0.52, 0.5), ...upRamp('meera', 0.32, 1.0), ...upRamp('bunty', 0.16, 1.5),
+                { do: 'cycle', who: 'bunty', cycle: 'flail', at: 5.0 }, { do: 'expr', who: 'bunty', expr: 'shock', at: 5.0 },
+                { do: 'move', who: 'bunty', to: 470, y: 2440, gait: 'fly', ease: 'in', dur: 0.7, then: 'sit', at: 5.05 },
+                { do: 'sfx', snd: 'wobble', at: 5.0 }, { do: 'fx', fx: { kind: 'word', text: 'SLIP!', color: '#8fc8ff' }, at: 5.1 },
+                { do: 'squash', who: 'bunty', amt: 0.2, at: 5.75 }, { do: 'sfx', snd: 'thud', at: 5.75 }, { do: 'expr', who: 'bunty', expr: 'dizzy', at: 5.75 },
+                ...all(['kiki', 'you', 'meera'], (id) => [{ do: 'face', who: id, dir: -1, at: 5.8 } as Action, { do: 'expr', who: id, expr: 'worried', at: 5.8 } as Action]),
+              ], n: 'The road is steep and slippery. Icing everywhere!', lineAt: 0.8,
             },
+            // A real piggyback: Meera comes back down, crouches, and Bunty climbs onto her back.
             {
-              cam: { medium: ['meera', 'bunty'] }, act: [
-                { do: 'move', who: 'meera', to: 440, y: 2410, gait: 'walk', dur: 0.8 }, { do: 'pose', who: 'meera', pose: 'carry', at: 0.9 }, { do: 'expr', who: 'meera', expr: 'determined', at: 0.9 },
-                { do: 'ride', who: 'bunty', on: 'meera', dx: 0, dy: 245, at: 1.0 }, { do: 'pose', who: 'bunty', pose: 'ride', at: 1.0 }, { do: 'expr', who: 'bunty', expr: 'love', at: 1.0 },
-                { do: 'fx', fx: { kind: 'backdrop', style: 'rays', color: '#9fe08a' }, at: 1.0 }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 3.6 },
-              ], who: 'meera', t: 'I’ve got you, Bunty. Climb on my back!', lineAt: 1.1,
+              cam: { full: ['meera', 'bunty'] }, act: [
+                { do: 'move', who: 'meera', to: 560, y: 2440, gait: 'walk', dur: 1.0 }, { do: 'face', who: 'meera', dir: 1, at: 1.05 }, { do: 'pose', who: 'meera', pose: 'crouch', at: 1.1 },
+                { do: 'expr', who: 'meera', expr: 'determined', at: 1.1 }, { do: 'pose', who: 'bunty', pose: 'stand', at: 1.0 }, { do: 'face', who: 'bunty', dir: 1, at: 1.0 },
+                { do: 'jump', who: 'bunty', to: 534, y: 2440, h: 70, dur: 0.4, then: 'piggyRide', at: 1.4 },
+                { do: 'ride', who: 'bunty', on: 'meera', dx: -26, dy: 102, behind: true, at: 1.95 }, { do: 'pose', who: 'bunty', pose: 'piggyRide', at: 1.95 },
+                { do: 'pose', who: 'meera', pose: 'piggy', at: 2.0 }, { do: 'expr', who: 'bunty', expr: 'love', at: 2.0 }, { do: 'sfx', snd: 'boing', at: 1.95 },
+                { do: 'fx', fx: { kind: 'backdrop', style: 'rays', color: '#9fe08a' }, at: 2.0 }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 4.2 },
+              ], who: 'meera', t: 'I’ve got you, Bunty. Climb on my back!', lineAt: 0.6,
             },
             { gate: { id: 'g-c5-climb', title: 'Sugar Mountain Climb', ask: 'Help the crew climb Sugar Mountain together, one icy step at a time!', by: 'meera' } },
+            // Step by step up the road, until the last ramp: it's glazed with ice.
+            {
+              cam: { at: [860, 1330, 0.72] }, move: { at: [470, 1080, 0.72] }, moveDur: 4, trans: 'wipe', act: [
+                { do: 'place', who: 'meera', x: rampX(3, 0.32), y: rampY(3, 0.32) }, { do: 'place', who: 'you', x: rampX(3, 0.15), y: rampY(3, 0.15) }, { do: 'place', who: 'kiki', x: rampX(3, 0.0), y: rampY(3, 0.0) },
+                ...all(['kiki', 'you', 'meera'], (id) => [{ do: 'face', who: id, dir: -1 } as Action, { do: 'expr', who: id, expr: 'happy' } as Action]), { do: 'pose', who: 'kiki', pose: 'stand' },
+                { do: 'move', who: 'meera', to: PATH[4][0], y: PATH[4][1], gait: 'walk', dur: 2.6 }, { do: 'move', who: 'meera', to: TOP_CREW.meera, y: PATH[4][1], gait: 'walk', dur: 0.7, then: 'piggy', at: 2.65 },
+                { do: 'move', who: 'you', to: PATH[4][0], y: PATH[4][1], gait: 'walk', dur: 3.2, at: 0.2 }, { do: 'move', who: 'you', to: TOP_CREW.you, y: PATH[4][1], gait: 'walk', dur: 0.3, at: 3.45 },
+                { do: 'move', who: 'kiki', to: rampX(3, 0.757), y: rampY(3, 0.757), gait: 'walk', dur: 3.0, at: 0.4 },
+                { do: 'jump', who: 'kiki', to: TOP_CREW.kiki, y: PATH[4][1], h: 40, dur: 0.4, at: 3.45 },
+                { do: 'face', who: 'meera', dir: 1, at: 3.5 }, { do: 'face', who: 'you', dir: 1, at: 3.8 },
+              ], n: 'Step by step, the crew climbs up together. Higher... and higher...', lineAt: 0.6,
+            },
+            {
+              cam: { at: [520, 1080, 0.72] }, act: [
+                { do: 'face', who: 'kiki', dir: 1 }, { do: 'jump', who: 'kiki', to: rampX(ICY_RAMP, 0.3), y: rampY(ICY_RAMP, 0.3), h: 40, dur: 0.45, then: 'brace', at: 0.3 },
+                { do: 'cycle', who: 'kiki', cycle: 'flail', at: 1.35 }, { do: 'expr', who: 'kiki', expr: 'shock', at: 1.3 }, { do: 'sfx', snd: 'wobble', at: 1.3 },
+                { do: 'move', who: 'kiki', to: TOP_CREW.kiki, y: PATH[4][1], gait: 'fly', ease: 'in', dur: 0.6, then: 'sit', at: 1.4 }, { do: 'fx', fx: { kind: 'word', text: 'WHOOSH!', color: '#8fc8ff' }, at: 1.4 },
+                { do: 'squash', who: 'kiki', amt: 0.2, at: 1.95 }, { do: 'sfx', snd: 'thud', at: 1.95 }, { do: 'expr', who: 'kiki', expr: 'grumpy', at: 2.1 },
+                { do: 'expr', who: 'you', expr: 'worried', at: 1.5 }, { do: 'expr', who: 'meera', expr: 'worried', at: 1.5 },
+              ], who: 'kiki', t: 'It’s too slippery! We can’t get any higher!', lineAt: 2.2,
+            },
           ],
         },
         {
-          id: 'c5-summit', set: 'summit', mood: 'triumph', trans: 'fade', cam: { wide: 800, zoom: 0.8 },
-          cast: [{ id: 'ro', x: 520, face: 1, expr: 'determined', cycle: 'climb' }, { id: 'fizz', x: 1180, lift: 240, hidden: true }],
+          id: 'c5-summit', set: 'summit', mood: 'triumph', trans: 'fade', cam: { at: [720, 480, 0.72] },
+          cast: [{ id: 'ro', x: 300, face: 1, expr: 'determined' }, { id: 'fizz', x: 1180, lift: 260, hidden: true }],
           shots: [
             {
-              cam: { medium: 'ro', dx: 120 }, act: [
-                { do: 'cycle', who: 'ro', cycle: null }, { do: 'move', who: 'ro', to: 660, gait: 'walk', dur: 1.2, then: 'reach' }, { do: 'fx', fx: { kind: 'glow' }, at: 1.5 },
-                { do: 'fx', fx: { kind: 'confetti' }, at: 1.6 }, { do: 'fx', fx: { kind: 'word', text: 'WINNER!', color: '#ffd36e' }, at: 1.6 }, { do: 'sfx', snd: 'tada', at: 1.6 },
-                { do: 'el', el: 'giant', to: { scale: 1.04 }, dur: 0.25, yoyo: 2, at: 1.6 },
-              ], n: 'At the very top, Ro reaches out... and touches the Giant Lollipop.',
+              cam: { at: [720, 480, 0.72] }, act: [
+                { do: 'move', who: 'ro', to: 640, gait: 'run', dur: 0.8, then: 'reach' }, { do: 'fx', fx: { kind: 'glow' }, at: 1.4 },
+                { do: 'fx', fx: { kind: 'confetti' }, at: 1.5 }, { do: 'fx', fx: { kind: 'word', text: 'WINNER!', color: '#ffd36e' }, at: 1.5 }, { do: 'sfx', snd: 'tada', at: 1.5 },
+                { do: 'el', el: 'giant', to: { scale: 1.04 }, dur: 0.25, yoyo: 2, at: 1.5 },
+              ], n: 'At the very top, Ro reaches out... and touches the Giant Lollipop.', lineAt: 0.4,
             },
-            { cam: { wide: 900, zoom: 0.8 }, act: [{ do: 'show', who: 'fizz' }, { do: 'enter', who: 'fizz', from: 'right', to: 1100, gait: 'fly', dur: 0.8 }, { do: 'expr', who: 'fizz', expr: 'excited' }, { do: 'fx', fx: { kind: 'sparkle', who: 'fizz', n: 10 }, at: 0.8 }], who: 'fizz', t: 'RO WINS THE CANDY NEBULA!', lineAt: 0.8 },
+            { cam: { at: [880, 480, 0.72] }, act: [{ do: 'show', who: 'fizz' }, { do: 'enter', who: 'fizz', from: 'right', to: 1080, gait: 'fly', dur: 0.8 }, { do: 'expr', who: 'fizz', expr: 'excited' }, { do: 'fx', fx: { kind: 'sparkle', who: 'fizz', n: 10 }, at: 0.8 }], who: 'fizz', t: 'RO WINS THE CANDY NEBULA!', lineAt: 0.8 },
             { cam: { low: 'ro' }, act: [{ do: 'pose', who: 'ro', pose: 'cheer' }, { do: 'cycle', who: 'ro', cycle: 'cheer' }, { do: 'expr', who: 'ro', expr: 'laugh' }, { do: 'fx', fx: { kind: 'backdrop', style: 'rays' } }], who: 'ro', t: 'YES! I won! I won, I won, I...' },
             {
-              cam: { wide: 800, zoom: 0.75 }, mood: 'sad', act: [
+              cam: { at: [720, 480, 0.72] }, mood: 'sad', act: [
                 { do: 'fx', fx: { kind: 'backdrop', style: null } }, { do: 'cycle', who: 'ro', cycle: null }, { do: 'pose', who: 'ro', pose: 'stand' },
                 { do: 'face', who: 'ro', dir: -1, at: 0.6 }, { do: 'expr', who: 'ro', expr: 'normal', at: 0.6 }, { do: 'fx', fx: { kind: 'vignette', on: true }, at: 0.8 },
                 { do: 'hide', who: 'fizz' }, { do: 'fx', fx: { kind: 'tint', color: '#3b2f86', opacity: 0.25 }, at: 0.8 },
               ], n: 'Ro turns around. Nobody is cheering. His friends are far below.', lineAt: 0.9,
             },
             { cam: { close: 'ro' }, act: [{ do: 'expr', who: 'ro', expr: 'sad' }, { do: 'pose', who: 'ro', pose: 'slump' }], who: 'ro', t: '...Guys?' },
-            { cam: { wide: 800, zoom: 0.7 }, act: [{ do: 'emote', who: 'ro', emote: 'gloom', at: 0.5 }], n: 'The biggest lollipop in the galaxy. And nobody to share it with.' },
+            { cam: { at: [720, 480, 0.72] }, act: [{ do: 'emote', who: 'ro', emote: 'gloom', at: 0.5 }], n: 'The biggest lollipop in the galaxy. And nobody to share it with.' },
             {
               cam: { close: 'ro' }, mood: 'triumph', act: [
                 { do: 'fx', fx: { kind: 'vignette', on: false } }, { do: 'fx', fx: { kind: 'tint', color: null } }, { do: 'pose', who: 'ro', pose: 'stand' },
@@ -898,61 +1222,68 @@ export const candy: World = {
           ],
         },
         {
-          id: 'c5-ladder', set: 'mountain', mood: 'triumph', trans: 'wipe', cam: { at: [700, 600, 0.8] },
+          // Ro's arm becomes a ladder, straight down from the summit to the crew stuck below.
+          id: 'c5-ladder', set: 'mountain', mood: 'triumph', trans: 'wipe', cam: { at: [460, 820, 0.72] },
           cast: [
-            { id: 'ro', x: 690, y: 520, face: -1, expr: 'determined' },
-            { id: 'you', x: 600, y: 1150, expr: 'shock' }, { id: 'kiki', x: 520, y: 1160, expr: 'shock' },
-            { id: 'meera', x: 760, y: 1140, face: -1, pose: 'carry', expr: 'determined' }, { id: 'bunty', x: 760, y: 1140.5, pose: 'ride', expr: 'shock' },
+            { id: 'ro', x: SUMMIT.ro, y: PATH[6][1], face: 1, expr: 'determined' },
+            { id: 'kiki', x: TOP_CREW.kiki, y: PATH[4][1], face: -1, expr: 'worried' }, { id: 'you', x: TOP_CREW.you, y: PATH[4][1], face: 1, expr: 'worried' },
+            { id: 'meera', x: TOP_CREW.meera, y: PATH[4][1], face: 1, pose: 'piggy', expr: 'worried' }, { id: 'bunty', x: TOP_CREW.meera - 26, y: PATH[4][1] - 0.5, face: 1, pose: 'piggyRide', expr: 'worried' },
           ],
           shots: [
             {
-              move: { at: [640, 1000, 0.72] }, moveDur: 2.6, act: [
-                { do: 'ride', who: 'bunty', on: 'meera', dx: 0, dy: 245 }, { do: 'pose', who: 'ro', pose: 'reachDown' }, { do: 'stretch', who: 'ro', len: 17, dur: 2.4, at: 0.3 },
-                { do: 'sfx', snd: 'stretch', at: 0.3 }, { do: 'sfx', snd: 'stretch', at: 1.3 }, { do: 'fx', fx: { kind: 'word', text: 'STREEETCH!', color: '#ff9b85' }, at: 1.0 },
-              ], n: 'Ro stretches his toffee arm all the way down Sugar Mountain.', lineAt: 0.4,
+              cam: { at: [460, 820, 0.72] }, act: [
+                { do: 'ride', who: 'bunty', on: 'meera', dx: -26, dy: 102, behind: true },
+                { do: 'pose', who: 'ro', pose: 'kneelDown' }, { do: 'fx', fx: { kind: 'aura', who: 'ro', color: '#ff9b85', on: true } },
+                { do: 'stretch', who: 'ro', len: LADDER_LEN, dur: 2.4, at: 0.4 }, { do: 'sfx', snd: 'stretch', at: 0.4 }, { do: 'sfx', snd: 'stretch', at: 1.4 },
+                { do: 'fx', fx: { kind: 'word', text: 'STREEETCH!', color: '#ff9b85' }, at: 1.0 },
+                ...all(['kiki', 'you', 'meera', 'bunty'], (id) => [{ do: 'expr', who: id, expr: 'shock', at: 2.6 } as Action]),
+              ], n: 'Ro kneels at the edge and stretches his arm way down.', lineAt: 0.4,
             },
-            { cam: { medium: ['bunty', 'you'] }, act: [{ do: 'pose', who: 'you', pose: 'pointUp' }, { do: 'emote', who: 'bunty', emote: '!' }], who: 'bunty', t: 'Ro’s arm is a LADDER!' },
+            { cam: { medium: 'meera', dx: -20 }, act: [{ do: 'emote', who: 'bunty', emote: '!' }, { do: 'expr', who: 'bunty', expr: 'laugh' }], who: 'bunty', t: 'Ro’s arm is a LADDER!' },
+            { gate: { id: 'g-c5-ladder', title: 'Ro’s Ladder', ask: 'Ro’s arm is a long, wobbly ladder! Solve the riddle so everyone climbs up safely.', by: 'ro' } },
+            // One at a time, far enough apart that nobody bumps into anyone: Kiki, the Captain, then Meera with Bunty.
             {
-              cam: { at: [620, 1000, 0.72] }, move: { at: [680, 640, 0.8] }, moveDur: 4.5, act: [
-                { do: 'move', who: 'you', to: 610, y: 600, gait: 'climb', dur: 4 }, { do: 'move', who: 'kiki', to: 540, y: 612, gait: 'climb', dur: 4.2, at: 0.2 },
-                { do: 'move', who: 'meera', to: 800, y: 585, gait: 'climb', dur: 4.6, at: 0.4 }, { do: 'expr', who: 'kiki', expr: 'laugh', at: 1 },
-                ...all(['you', 'kiki', 'meera'], (id) => [{ do: 'pose', who: id, pose: 'stand', at: 4.8 } as Action]),
-              ], n: 'One by one, the crew climbs up Ro’s arm to the top.',
+              cam: { at: [460, 1010, 0.72] }, move: { at: [460, 660, 0.72] }, moveDur: 8, act: [
+                { do: 'pose', who: 'you', pose: 'stand' }, { do: 'pose', who: 'kiki', pose: 'stand' },
+                ...climbArm('kiki', 0, TOP_SPOT.kiki), ...climbArm('you', 1.8, TOP_SPOT.you), ...climbArm('meera', 3.6, TOP_SPOT.meera),
+                { do: 'emote', who: 'ro', emote: 'sweat', at: 4.3 }, { do: 'squash', who: 'ro', amt: 0.08, at: 4.3 },
+                { do: 'stretch', who: 'ro', len: 1, dur: 0.45, at: 6.9 }, { do: 'sfx', snd: 'snap', at: 7.2 }, { do: 'fx', fx: { kind: 'aura', who: 'ro', color: '#ff9b85', on: false }, at: 7.2 }, { do: 'pose', who: 'ro', pose: 'stand', at: 7.45 },
+              ], n: 'One by one, they climb up Ro’s toffee arm to the top.', lineAt: 0.6,
             },
             { cam: { close: 'kiki' }, act: [{ do: 'expr', who: 'kiki', expr: 'laugh' }, { do: 'look', who: 'kiki', gaze: 'cam' }], who: 'kiki', t: 'This is the weirdest ladder in the whole universe!' },
           ],
         },
         {
-          id: 'c5-share', set: 'summit', mood: 'playful', trans: 'fade', cam: { wide: 800, zoom: 0.75 },
+          id: 'c5-share', set: 'summit', mood: 'playful', trans: 'fade', cam: { at: [800, 470, 0.72] },
           cast: [
-            { id: 'you', x: 500, expr: 'happy' }, { id: 'ro', x: 620, face: -1, expr: 'normal' },
-            { id: 'kiki', x: 980, face: -1, expr: 'happy' }, { id: 'bunty', x: 1070, face: -1, expr: 'happy' }, { id: 'meera', x: 1160, face: -1, expr: 'happy' },
-            { id: 'fizz', x: 1300, lift: 260, hidden: true },
+            ...SHARE.map(([id, x]) => ({ id: id as CastId, x, face: (x < 800 ? 1 : x > 800 ? -1 : 1) as 1 | -1, expr: 'happy' as const })),
+            { id: 'fizz', x: 1300, lift: 300, hidden: true },
           ],
           shots: [
-            { cam: { medium: ['you', 'ro'] }, act: [{ do: 'pose', who: 'ro', pose: 'slump' }, { do: 'expr', who: 'ro', expr: 'worried' }], who: 'ro', t: 'I won. But it wasn’t much fun up here by myself.' },
+            { cam: { medium: ['you', 'ro'] }, act: [{ do: 'face', who: 'ro', dir: -1 }, { do: 'pose', who: 'ro', pose: 'slump' }, { do: 'expr', who: 'ro', expr: 'worried' }], who: 'ro', t: 'I won. But it wasn’t much fun up here by myself.' },
             { cam: { medium: ['you', 'ro'] }, act: [{ do: 'expr', who: 'you', expr: 'happy' }, { do: 'pose', who: 'you', pose: 'present' }], who: 'you', t: 'Well, now we’re all here.' },
             { cam: { close: 'ro' }, act: [{ do: 'pose', who: 'you', pose: 'stand' }, { do: 'pose', who: 'ro', pose: 'stand' }, { do: 'expr', who: 'ro', expr: 'grin' }, { do: 'look', who: 'ro', gaze: 'cam' }], who: 'ro', t: 'So... who wants some lollipop?' },
+            // CRACK: five pieces pop out of the Giant Lollipop and fly, one by one, into everyone's hands.
             {
-              cam: { wide: 800, zoom: 0.75 }, act: [
-                { do: 'look', who: 'ro', gaze: 'fwd' },
-                { do: 'el', el: 'giant', to: { scale: 1.1 }, dur: 0.2, yoyo: 1 }, { do: 'el', el: 'giant', to: { opacity: 0 }, dur: 0.2, at: 0.5 }, { do: 'el', el: 'pieces', to: { opacity: 1 }, dur: 0.3, at: 0.5 },
-                { do: 'fx', fx: { kind: 'sparkle', el: 'pieces', n: 12 }, at: 0.5 }, { do: 'sfx', snd: 'chime', at: 0.5 }, { do: 'fx', fx: { kind: 'word', text: 'CRACK!', color: '#ff9fcf' }, at: 0.4 },
-                { do: 'el', el: 'pieces', to: { opacity: 0 }, dur: 0.3, at: 2.0 },
-                ...all(['you', 'kiki', 'bunty', 'meera', 'ro'], (id, i) => [{ do: 'prop', who: id, prop: 'lollipiece', at: 2.0 + i * 0.1 } as Action, { do: 'pose', who: id, pose: 'holdFront', at: 2.0 + i * 0.1 } as Action, { do: 'expr', who: id, expr: 'happy', at: 2.0 + i * 0.1 } as Action]),
-              ], n: 'Ro breaks the lollipop into five pieces. He keeps the smallest one.',
+              cam: { at: [800, 470, 0.72] }, act: [
+                { do: 'look', who: 'ro', gaze: 'fwd' }, { do: 'face', who: 'ro', dir: 1 }, { do: 'pose', who: 'ro', pose: 'holdUp', at: 0.2 }, { do: 'hop', who: 'ro', n: 1, h: 60, at: 0.25 },
+                { do: 'fx', fx: { kind: 'word', text: 'CRACK!', color: '#ff9fcf' }, at: 0.55 }, { do: 'sfx', snd: 'snap', at: 0.55 },
+                { do: 'el', el: 'giant', to: { opacity: 0 }, dur: 0.08, at: 0.6 }, { do: 'el', el: 'stub', to: { opacity: 1 }, dur: 0.08, at: 0.6 },
+                { do: 'fx', fx: { kind: 'sparkle', el: 'giant', n: 14 }, at: 0.6 }, { do: 'sfx', snd: 'chime', at: 0.65 },
+                ...SHARE.flatMap(([id, x], i) => pieceTo(id as CastId, i, x, 0.6 + i * 0.35)),
+              ], n: 'Ro cracks the lollipop into five pieces. He keeps the smallest one.', lineAt: 0.4,
             },
-            { cam: { close: 'ro' }, act: [{ do: 'mess', who: 'ro', color: '#ff9fcf' }, { do: 'expr', who: 'ro', expr: 'munch' }], who: 'kiki', t: 'Ro! You have lollipop in your EYEBROWS!' },
+            { cam: { close: 'ro' }, act: [{ do: 'mess', who: 'ro', color: '#ff9fcf' }, { do: 'expr', who: 'ro', expr: 'munch' }, { do: 'pose', who: 'ro', pose: 'holdFront' }], who: 'kiki', t: 'Ro! You have lollipop in your EYEBROWS!' },
             {
-              cam: { wide: 800, zoom: 0.75 }, act: [
-                ...all(['you', 'kiki', 'bunty', 'meera', 'ro'], (id, i) => [{ do: 'cycle', who: id, cycle: 'laugh', at: i * 0.07 } as Action, { do: 'expr', who: id, expr: 'laugh', at: i * 0.07 } as Action]),
-                { do: 'sfx', snd: 'cheer' },
-              ], n: 'Everybody laughs. Ro laughs the loudest.',
+              cam: { at: [800, 470, 0.72] }, act: [
+                { do: 'sfx', snd: 'laugh', at: 0.1 },
+                ...SHARE.flatMap(([id], i) => [{ do: 'cycle', who: id as CastId, cycle: 'laugh', at: i * 0.07 } as Action, { do: 'expr', who: id as CastId, expr: 'laugh', at: i * 0.07 } as Action]),
+              ], n: 'Everybody laughs. Ro laughs the loudest.', lineAt: 0.8,
             },
             {
-              cam: { wide: 900, zoom: 0.78 }, mood: 'triumph', act: [
-                ...all(['you', 'kiki', 'bunty', 'meera', 'ro'], (id) => [{ do: 'cycle', who: id, cycle: 'cheer' } as Action]),
-                { do: 'show', who: 'fizz' }, { do: 'enter', who: 'fizz', from: 'right', to: 1180, gait: 'fly', dur: 0.8 }, { do: 'expr', who: 'fizz', expr: 'excited' },
+              cam: { at: [800, 470, 0.72] }, mood: 'triumph', act: [
+                ...SHARE.map(([id]) => ({ do: 'cycle', who: id as CastId, cycle: 'cheer' }) as Action),
+                { do: 'show', who: 'fizz' }, { do: 'enter', who: 'fizz', from: 'right', to: 990, gait: 'fly', dur: 0.8 }, { do: 'lift', who: 'fizz', to: 430, dur: 0.6, at: 0.05 }, { do: 'expr', who: 'fizz', expr: 'excited' },
                 { do: 'fx', fx: { kind: 'confetti' }, at: 0.8 }, { do: 'sfx', snd: 'fanfare', at: 0.8 }, { do: 'fx', fx: { kind: 'word', text: 'STAGE CLEAR!', color: '#7fe6c9' }, at: 0.9 },
               ], who: 'fizz', t: 'STAGE CLEAR! The whole crew goes on to WORLD TWO!', lineAt: 0.9,
             },
@@ -972,11 +1303,11 @@ export const candy: World = {
           cast: [
             { id: 'meera', x: SEATS[1], y: 741, pose: 'perch', expr: 'happy' },
             { id: 'ro', x: SEATS[2], y: 741, pose: 'perch', face: -1, expr: 'happy', prop: 'lollipiece' },
-            { id: 'you', x: 910, pose: 'sit', expr: 'happy' }, { id: 'kiki', x: 650, pose: 'sit', expr: 'sleepy' }, { id: 'bunty', x: 1170, pose: 'sit', face: -1, expr: 'sleepy' },
+            { id: 'you', x: 910, pose: 'sit', expr: 'happy' }, { id: 'kiki', x: 672, pose: 'sit', expr: 'sleepy' }, { id: 'bunty', x: 1148, pose: 'sit', face: -1, expr: 'sleepy' },
             { id: 'fizz', x: 1500, lift: 120 },
           ],
           shots: [
-            { cam: { at: [900, 230, 1] }, move: { wide: 900, zoom: 0.75 }, moveDur: 5, act: [{ do: 'emote', who: 'bunty', emote: 'zzz', at: 3 }], n: 'That night, under candy stars, the crew sits close together.', lineAt: 1.2 },
+            { cam: { at: [900, 230, 1] }, move: { at: [910, 520, 0.72] }, moveDur: 5, act: [{ do: 'emote', who: 'bunty', emote: 'zzz', at: 3 }], n: 'That night, under candy stars, the crew sits close together.', lineAt: 1.2 },
             { cam: { medium: 'bunty' }, act: [{ do: 'expr', who: 'bunty', expr: 'sad' }], who: 'bunty', t: 'I miss home a little.' },
             { cam: { medium: 'meera' }, act: [{ do: 'expr', who: 'meera', expr: 'happy' }, { do: 'face', who: 'meera', dir: 1 }], who: 'meera', t: 'Me too. But this is a good kind of far away.' },
             { cam: { close: 'you' }, act: [{ do: 'expr', who: 'you', expr: 'happy' }, { do: 'look', who: 'you', gaze: 'cam' }, { do: 'expr', who: 'bunty', expr: 'happy' }], who: 'you', t: 'Rest up, crew. Next stop: Wizzlewick, the magic kingdom!' },

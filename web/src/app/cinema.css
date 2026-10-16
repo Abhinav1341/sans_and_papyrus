@@ -112,6 +112,14 @@
 .panel.bg-shock .pattern { background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(255, 255, 255, .5) 0 10deg, transparent 10deg 30deg); }
 .panel .pface { position: absolute; left: 50%; top: 52%; width: min(62%, 220px); aspect-ratio: 140 / 150; translate: -50% -50%; }
 .panel .pface > svg { width: 100%; height: 100%; }
+/* Four or five panels: thinner strips, faces sized by the strip's height; a face with a lollipop is wider */
+.panels.n4, .panels.n5 { gap: 7px; padding-bottom: 27%; }
+.panels .panel.p3 { clip-path: polygon(0 14%, 100% 0, 100% 100%, 0 86%); animation-name: panel-in-r; }
+.panels .panel.p4 { clip-path: polygon(0 0, 100% 14%, 100% 100%, 0 100%); }
+.panels.n4 .panel.p2, .panels.n5 .panel.p2 { clip-path: polygon(0 0, 100% 14%, 100% 86%, 0 100%); }
+.panels.n4 .panel.p3 { clip-path: polygon(0 14%, 100% 0, 100% 100%, 0 100%); }
+.panels.n4 .pface, .panels.n5 .pface { width: auto; height: 112%; top: 54%; }
+.panel .pface.lolli { aspect-ratio: 190 / 170; left: 46%; }
 
 /* ============ Story cards ============ */
 .title-card { position: absolute; inset: 0; z-index: 30; display: grid; place-items: center; text-align: center; padding: 24px; cursor: pointer; overflow: hidden;
@@ -257,3 +265,10 @@ svg .aura-ring { animation: pulse 1.6s ease-in-out infinite; }
 @keyframes ins-bow { from { transform: scale(0) rotate(-40deg); } to { transform: scale(1) rotate(0); } }
 .insert .ins-wiggle { animation: ins-wiggle .5s ease-in-out 1.3s 3 alternate; transform-box: fill-box; transform-origin: 20% 50%; }
 @keyframes ins-wiggle { to { transform: scaleY(1.08) rotate(-2deg); } }
+/* Kiki's wafer bites: crumbs tumble down into the river */
+.insert .ins-crumb { animation: ins-crumb 1.2s ease-in both; transform-box: fill-box; }
+@keyframes ins-crumb { from { transform: translate(0, 0) rotate(0); opacity: 1; } to { transform: translate(var(--dx, 0px), 330px) rotate(200deg); opacity: 0; } }
+.calm .insert .ins-crumb { animation: none; opacity: 0; }
+/* Melting lollipops: a drop gathers under a drip, then falls slowly and fades */
+svg .drip { animation: drip 3.2s ease-in infinite; transform-box: fill-box; transform-origin: 50% 0; }
+@keyframes drip { 0%, 55% { transform: translateY(0) scale(.3); opacity: 0; } 65% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(70px) scale(.8); opacity: 0; } }
