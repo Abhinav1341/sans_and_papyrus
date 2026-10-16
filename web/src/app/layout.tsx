@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: 'Party Galaxy',
   description: 'Party Galaxy: an anime adventure where you lead a crew through a galaxy of silly game worlds.',
   applicationName: 'Party Galaxy',
+  // iPhone and iPad: "Add to Home Screen" opens the game full screen, without Safari's bars.
+  appleWebApp: { capable: true, title: 'Party Galaxy', statusBarStyle: 'black-translucent' },
+  formatDetection: { telephone: false, email: false, address: false },
 };
 
 export const viewport: Viewport = {

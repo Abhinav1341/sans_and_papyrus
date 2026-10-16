@@ -35,6 +35,8 @@ export const ICON = {
   book: wrap(`<path d="M4 5.5c2.5-1 5.5-1 8 .8 2.5-1.8 5.5-1.8 8-.8v13c-2.5-1-5.5-1-8 .8-2.5-1.8-5.5-1.8-8-.8z" ${st}/><path d="M12 6.3v13" ${st}/>`),
   speed: wrap(`<path d="M4 16a8 8 0 1 1 16 0" ${st}/><path d="M12 16l4-5" ${st}/>`),
   sliders: wrap(`<path d="M6 4v16M12 4v16M18 4v16" ${st}/><circle cx="6" cy="14" r="2.2" fill="currentColor"/><circle cx="12" cy="8" r="2.2" fill="currentColor"/><circle cx="18" cy="15" r="2.2" fill="currentColor"/>`),
+  download: wrap(`<path d="M12 4v11M7.5 10.5 12 15l4.5-4.5" ${st}/><path d="M5 19h14" ${st}/>`),
+  phone: wrap(`<rect x="7" y="2.5" width="10" height="19" rx="2.5" ${st}/><path d="M11 18.5h2" ${st}/>`),
 };
 
 export type IconName = keyof typeof ICON;

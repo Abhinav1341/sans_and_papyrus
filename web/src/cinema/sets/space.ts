@@ -1,7 +1,8 @@
 // The way into the Party Galaxy: the vortex inside the screen, the sky full of planets, and
 // Fizz's floating game-board station.
 import type { SetDef } from './types';
-import { INK, FONT, lin, rad, stars, planet, rng, star5, sparkleStar, cloud, elements, comets, balloons, birds } from './kit';
+import { INK, FONT, lin, rad, stars, planet, rng, star5, sparkleStar, cloud, elements, comets, balloons } from './kit';
+import { orb } from './world';
 
 /* ---------------- Inside the screen: a candy-coloured vortex ---------------- */
 export function vortex(): SetDef {
@@ -33,7 +34,7 @@ export function sky(): SetDef {
   const W = 1200, H = 3000;
   const defs = lin('sky-grad', [[0, '#0b0a2e'], [0.35, '#2a1f6e'], [0.7, '#6b4fbf'], [0.92, '#ff9fcf'], [1, '#ffd1e8']])
     + rad('sky-neb1', [[0, '#ff9fcf', 0.45], [1, '#ff9fcf', 0]]) + rad('sky-neb2', [[0, '#8fc8ff', 0.4], [1, '#8fc8ff', 0]])
-    + rad('sky-candy', [[0, '#ffe3f1'], [0.6, '#ff9fcf'], [1, '#e0679f']], 0.4, 0.3, 0.7);
+    + rad('sky-cglow', [[0, '#ffd1e8', 0.75], [0.55, '#ff9fcf', 0.3], [1, '#ff9fcf', 0]]);
   const far = `<rect x="-400" y="-400" width="${W + 800}" height="${H + 800}" fill="url(#sky-grad)"/>` + stars(220, 5, -300, W + 300, -300, 2300)
     + comets(6, 14, -300, W + 300, -200, 2000) + `<ellipse cx="300" cy="700" rx="420" ry="200" fill="url(#sky-neb1)"/><ellipse cx="900" cy="1500" rx="460" ry="220" fill="url(#sky-neb2)"/><ellipse cx="400" cy="2100" rx="500" ry="240" fill="url(#sky-neb1)"/>`;
   const mid = planet(230, 380, 70, '#cfe8ff', '#3f6fb0', true, 'sky-p1') + planet(980, 820, 110, '#c8f0a8', '#4f9a3c', false, 'sky-p2')
@@ -46,10 +47,9 @@ export function sky(): SetDef {
     near += sparkleStar(Math.round(x), Math.round(y), 10 + r() * 14, i % 2 ? '#fff' : '#ffd36e', 'tw');
   }
   // The candy planet's surface at the bottom
-  near += `<circle cx="${W / 2}" cy="${H + 1500}" r="1820" fill="url(#sky-candy)" stroke="#fff" stroke-opacity=".5" stroke-width="10"/>`;
-  for (let i = 0; i < 9; i++) near += cloud(40 + i * 140, 2780 + (i % 3) * 30, 0.9, '#fff0f8', 'drift slow');
-  near += birds(6, 33, -200, W, 2500, 2760, 1400);
-  near += `<g opacity=".8">${[200, 520, 860].map((x, i) => `<circle cx="${x}" cy="${2860 + i * 10}" r="34" fill="#ffd36e" stroke="${INK}" stroke-width="4"/><rect x="${x - 4}" y="${2890 + i * 10}" width="8" height="80" fill="#fff8ee"/>`).join('')}</g>`;
+  // The Candy Nebula far below: a whole planet with its glow and clouds, so it can be seen properly.
+  near += `<circle cx="600" cy="2560" r="440" fill="url(#sky-cglow)"/>` + `<g transform="translate(600 2560)">${orb('candy', 230, '#ffe3f1', '#ff7ab8', 'sky-cn')}</g>`;
+  near += cloud(150, 2700, 1.3, '#fff0f8', 'drift slow') + cloud(860, 2470, 1.1, '#ffe6f3', 'drift') + cloud(40, 2380, 0.9, '#fff0f8', 'drift') + cloud(940, 2760, 1.2, '#ffe6f3', 'drift slow');
   return {
     id: 'sky', w: W, h: H, ground: 2900, top: -300, bottom: 3200, bg: '#0b0a2e', defs,
     layers: [{ p: 0.15, svg: far }, { p: 0.45, svg: mid }, { p: 1, svg: near }],

@@ -63,21 +63,82 @@ export function audio(): Graph | null {
 }
 
 export function isUnlocked() { return unlocked; }
+/** 'running' when sound can be heard (used by automated phone checks). */
+export function audioState(): string { return graph?.ctx.state ?? 'none'; }
 export function onUnlock(fn: () => void) { unlockListeners.add(fn); return () => { unlockListeners.delete(fn); }; }
 
-/** Call once on the client: unlocks audio on the first tap or key press. */
+/*
+ * Phones only let sound start inside a real tap. On a touch screen that is the END of the touch
+ * (touchend / pointerup / click), not pointerdown, so all of them are listened to. The listeners stay
+ * on: iOS and Android suspend audio after a phone call, the lock screen or switching apps, and the
+ * next tap must wake it again. A one-sample silent buffer played inside the tap completes the unlock
+ * on older iOS.
+ */
+const GESTURES = ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown'] as const;
+let installed = false;
+
+function wake() {
+  const g = graph;
+  if (!g || paused) return;
+  if (g.ctx.state !== 'running') {
+    g.ctx.resume().catch(() => {});
+    try {
+      const src = g.ctx.createBufferSource();
+      src.buffer = g.ctx.createBuffer(1, 1, 22050);
+      src.connect(g.ctx.destination);
+      src.start(0);
+    } catch { /* not ready yet */ }
+  }
+}
+
+/*
+ * iPhone mutes web-page sound when the ringer switch is on silent, unless the page asks for the
+ * "playback" audio session (as a video player does). Newer iOS has an API for that; older iOS
+ * switches session when a media element plays, so a silent looping clip is started inside the tap.
+ */
+let silentEl: HTMLAudioElement | null = null;
+const isIOS = () => /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+function silentWavUrl() {
+  const n = 2205, buf = new ArrayBuffer(44 + n), v = new DataView(buf);
+  const w = (o: number, s: string) => { for (let i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
+  w(0, 'RIFF'); v.setUint32(4, 36 + n, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, 22050, true); v.setUint32(28, 22050, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); w(36, 'data'); v.setUint32(40, n, true);
+  for (let i = 0; i < n; i++) v.setUint8(44 + i, 128);
+  return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+}
+function playbackSession() {
+  const nav = navigator as Navigator & { audioSession?: { type: string } };
+  if (nav.audioSession) { try { if (nav.audioSession.type !== 'playback') nav.audioSession.type = 'playback'; } catch { /* unsupported */ } return; }
+  if (!isIOS()) return;
+  if (!silentEl) {
+    silentEl = new Audio(silentWavUrl());
+    silentEl.loop = true;
+    silentEl.setAttribute('playsinline', '');
+  }
+  if (silentEl.paused && !paused) silentEl.play().catch(() => {});
+}
+
+/** Call once on the client: unlocks audio on the first tap or key press, and wakes it after interruptions. */
 export function installAudioUnlock() {
-  if (typeof window === 'undefined' || unlocked) return;
-  const unlock = () => {
-    if (unlocked) return;
-    unlocked = true;
-    audio();
-    window.removeEventListener('pointerdown', unlock, true);
-    window.removeEventListener('keydown', unlock, true);
-    unlockListeners.forEach((l) => l());
+  if (typeof window === 'undefined' || installed) return;
+  installed = true;
+  const onGesture = (e: Event) => {
+    // pointerdown only counts as a gesture for a mouse; touches unlock on touchend / pointerup / click.
+    if (e.type === 'pointerdown' && (e as PointerEvent).pointerType !== 'mouse') return;
+    playbackSession();
+    if (!unlocked) {
+      unlocked = true;
+      audio();
+      wake();
+      unlockListeners.forEach((l) => l());
+      return;
+    }
+    wake();
   };
-  window.addEventListener('pointerdown', unlock, true);
-  window.addEventListener('keydown', unlock, true);
+  for (const ev of GESTURES) window.addEventListener(ev, onGesture, { capture: true, passive: true });
+  const back = () => { if (document.visibilityState === 'visible') wake(); };
+  document.addEventListener('visibilitychange', back);
+  window.addEventListener('pageshow', back);
 }
 
 /** Bus volumes follow the settings (sliders and on/off switches). */
@@ -102,6 +163,7 @@ let paused = false;
 /** Pause menu: freezes every sound (voices, music, effects) and resumes them in place. */
 export function setAudioPaused(p: boolean) {
   paused = p;
+  if (silentEl) { if (p) silentEl.pause(); else silentEl.play().catch(() => {}); }
   if (!graph) return;
   if (p) graph.ctx.suspend().catch(() => {});
   else graph.ctx.resume().catch(() => {});

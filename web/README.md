@@ -35,6 +35,21 @@ Handy links for testing:
 - `?demo=all` also unlocks every chapter.
 - `?movie=0` waits for a tap after each line.
 - `/story/c-3?shot=12` jumps to a shot.
+- `?debug=1` exposes the story player and the sound state to automated checks.
+
+## Play it on a phone
+
+- **Sound:** phones only allow sound after a real tap, so the first tap anywhere starts the sound
+  (and wakes it again after a phone call or switching apps). On iPhone the game asks for "playback"
+  sound, so it can be heard even when the ringer switch is on silent.
+- **Install the app:** the home screen and Settings have **Install the app**. On Android (Chrome,
+  Edge, Samsung Internet) it opens the browser's install prompt. On iPhone and iPad it shows the two
+  taps in Safari (Share, then Add to Home Screen). Once installed, the game opens full screen.
+- Installing needs the game's **https** address (for example the Cloud Run link). To test on a phone
+  over Wi-Fi, run `npm run dev` and open `http://<this computer's IP>:3000` on the phone: the game and
+  its sound work there, but browsers only offer installing on https.
+- The service worker (`public/sw.js`, production builds only) caches the game and the voice clips
+  that have been heard, so the game reopens quickly and keeps playing offline.
 
 ## Check it
 
@@ -77,8 +92,15 @@ Every line has a recorded clip in `public/voices/v1/`.
 - Captions highlight each word as it is spoken.
 
 After changing a line or a voice setting, record again. Only new or changed clips are recorded.
-A clip's file name comes from its voice, that voice's settings and the text, so browsers can cache
-clips forever and never play an old recording.
+A clip's file name comes from its voice, that voice's settings and the words it speaks, so browsers
+can cache clips forever and never play an old recording.
+
+- **Capitals are for captions only.** The voice engine spells all-caps words out ("IT" became
+  "I-T", "OWN" became "O-W-N"), so the voices read them as normal words; captions keep the capitals.
+- **Fizz's songs are sung.** Lines listed in `tools/voices/songs.json` (with a melody: one note per
+  word, chords and tempo) are made by `tools/voices/sing.py`: a robot vocoder sings the spoken lyric
+  on the melody over a small disco band, and the caption words light up on the beat. After changing
+  a melody, run `generate.py --songs --force`.
 
 ```
 npm run voices:export

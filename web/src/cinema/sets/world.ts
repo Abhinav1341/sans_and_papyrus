@@ -23,7 +23,7 @@ export const ORBS: { kind: OrbKind; name: string; a: string; b: string }[] = [
 /** On the planet's surface at angle `deg` (0 = top), standing upright out of it. */
 const onTop = (r: number, deg: number, inner: string) => `<g transform="rotate(${deg}) translate(0 ${-r + 6})">${inner}</g>`;
 
-function orb(kind: OrbKind, r: number, a: string, b: string, uid: string): string {
+export function orb(kind: OrbKind, r: number, a: string, b: string, uid: string): string {
   const clip = `${uid}-c`;
   let defs = rad(`${uid}-g`, [[0, a], [1, b]], 0.35, 0.3, 0.85) + `<clipPath id="${clip}"><circle r="${r}"/></clipPath>`;
   let back = '', bands = '', top = '', front = '';

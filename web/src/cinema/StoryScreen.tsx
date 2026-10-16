@@ -58,6 +58,8 @@ function Player({ chapter }: { chapter: ChapterRef }) {
     if (!host) return;
     const c = new Controller(host, chapter, flat, store.get().hero!, { setCaption, setOverlay, setInsert, setPanels, setWaiting });
     ctl.current = c;
+    // Test hook (?debug=1): lets automated checks read the camera and actors.
+    if (new URLSearchParams(window.location.search).get('debug') === '1') (window as unknown as { __pg?: Controller }).__pg = c;
     c.start(startIndex(chapter.id));
     return () => { c.destroy(); ctl.current = null; };
   }, [chapter, flat]);

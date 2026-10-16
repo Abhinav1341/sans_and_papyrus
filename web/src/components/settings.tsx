@@ -6,6 +6,7 @@ import { applyVolumes } from '@/lib/audio';
 import { stopVoice } from '@/lib/voice';
 import { sfx } from '@/lib/sfx';
 import { Icon, Switch, Sheet } from './ui';
+import { InstallButton } from './install';
 import type { IconName } from '@/art/icons';
 import type { ReactNode } from 'react';
 
@@ -63,6 +64,7 @@ export function SettingsContent({ extra }: { extra?: ReactNode }) {
         <Slider label="Music" k="music" />
         <Slider label="Sounds" k="sfx" />
       </div>
+      <div className="stack" style={{ marginTop: 20 }}><InstallButton /></div>
       {extra ? <div className="stack" style={{ marginTop: 20 }}>{extra}</div> : null}
     </div>
   );

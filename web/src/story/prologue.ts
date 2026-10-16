@@ -8,6 +8,7 @@
 // Every shot is one beat: the camera frames it, characters act, then someone speaks.
 import type { World, Action } from '@/cinema/types';
 import { GALAXY_X } from '@/cinema/sets/galaxy-layout';
+import { HALL, MACHINE } from '@/cinema/sets/school-layout';
 
 /** Fizz flies past four worlds while the camera glides along; each world glows as Fizz passes. */
 function songTour(worlds: number[]): Action[] {
@@ -37,44 +38,67 @@ export const prologue: World = {
         {
           id: 'p1-hall', set: 'hall', mood: 'playful', cam: { wide: 300, zoom: 0.75 },
           cast: [
-            { id: 'meera', x: 290, pose: 'present', expr: 'happy' },
-            { id: 'ro', x: 900, face: -1, hidden: true },
-            { id: 'kiki', x: 170, hidden: true },
-            { id: 'you', x: 770, face: -1, expr: 'happy' },
+            { id: 'meera', x: 260, pose: 'present', expr: 'happy' },
+            { id: 'ro', x: 1000, face: -1, hidden: true },
+            { id: 'kiki', x: 150, hidden: true },
+            { id: 'you', x: 790, face: -1, expr: 'happy' },
             { id: 'bunty', x: 1520, face: -1, hidden: true },
           ],
           shots: [
             { title: { ep: 'PROLOGUE', name: 'Press Start', sub: 'Chapter 1 · The Mystery Machine' } },
             { cam: { wide: 300, zoom: 0.75 }, move: { wide: 1260, zoom: 0.75 }, moveDur: 7, n: 'Science fair day! The hall smells of glue and paint.' },
-            { cam: { full: 'meera', dx: 40 }, act: [{ do: 'fx', fx: { kind: 'sparkle', el: 'volcano' }, at: 0.3 }, { do: 'sfx', snd: 'sparkle', at: 0.3 }, { do: 'emote', who: 'meera', emote: 'sparkle', at: 0.5 }], who: 'meera', t: 'Ta-da! The calmest volcano in the whole world.' },
-            { cam: { medium: 'meera', dx: 150 }, act: [{ do: 'enter', who: 'ro', from: 'right', to: 530, gait: 'walk', then: 'hips' }, { do: 'expr', who: 'ro', expr: 'smug' }], who: 'ro', t: 'Calm? Meera, it’s just a cup of baking soda.', lineAt: 1.1 },
+            // Meera and her volcano, both whole in the frame.
+            { cam: { at: [345, 520, 1.25] }, act: [{ do: 'fx', fx: { kind: 'sparkle', el: 'volcano' }, at: 0.3 }, { do: 'sfx', snd: 'sparkle', at: 0.3 }, { do: 'emote', who: 'meera', emote: 'sparkle', at: 0.5 }], who: 'meera', t: 'Ta-da! The calmest volcano in the whole world.' },
+            { cam: { at: [430, 520, 0.9] }, act: [{ do: 'enter', who: 'ro', from: 'right', to: HALL.roSpot, gait: 'walk', then: 'hips' }, { do: 'expr', who: 'ro', expr: 'smug' }, { do: 'pose', who: 'meera', pose: 'stand', at: 0.4 }], who: 'ro', t: 'Calm? Meera, it’s just a cup of baking soda.', lineAt: 1.4 },
             { cam: { close: 'meera' }, act: [{ do: 'pose', who: 'meera', pose: 'armsCrossed' }, { do: 'expr', who: 'meera', expr: 'smug' }], who: 'meera', t: 'Just watch. Three... two... one...' },
-            { cam: { el: 'volcano', zoom: 2.4, dy: -70 }, act: [{ do: 'el', el: 'volcano', to: { rot: 3 }, dur: 0.12, yoyo: 4 }, { do: 'sfx', snd: 'wobble' }], n: 'The volcano gives a tiny gurgle.' },
             {
-              cam: { medium: ['meera', 'ro'] }, act: [
-                { do: 'el', el: 'foam', to: { scale: 1.6, y: -30 }, dur: 0.35, ease: 'back' }, { do: 'sfx', snd: 'whoosh' },
-                { do: 'fx', fx: { kind: 'word', text: 'FWOOSH!', color: '#ff9fcf' } }, { do: 'fx', fx: { kind: 'speedlines', on: true } },
-                { do: 'fx', fx: { kind: 'splash', who: 'ro', color: '#ff9fcf' }, at: 0.3 }, { do: 'expr', who: 'ro', expr: 'shock' }, { do: 'expr', who: 'meera', expr: 'shock' },
-                { do: 'jump', who: 'ro', h: 70, dur: 0.45 }, { do: 'mess', who: 'ro', color: '#ff9fcf', at: 0.35 }, { do: 'fx', fx: { kind: 'speedlines', on: false }, at: 1.4 },
-              ], n: 'Then... it is not calm at all!', lineAt: 0.9,
+              cam: { el: 'volcano', zoom: 2.2, dy: -50 }, act: [
+                { do: 'el', el: 'volcano', to: { rot: 3 }, dur: 0.12, yoyo: 4 }, { do: 'sfx', snd: 'wobble' },
+                { do: 'el', el: 'foam', to: { scale: 0.35 }, dur: 0.3, ease: 'back', at: 0.6 }, { do: 'sfx', snd: 'bubble', at: 0.6 }, { do: 'el', el: 'foam', to: { scale: 0 }, dur: 0.4, at: 1.4 },
+              ], n: 'The volcano gives a tiny gurgle.',
             },
-            { cam: { close: 'ro' }, act: [{ do: 'expr', who: 'ro', expr: 'dizzy' }, { do: 'emote', who: 'ro', emote: 'sweat', at: 0.3 }], who: 'ro', t: 'I’m pink. Why am I PINK?' },
+            // The eruption, in one take: the geyser shoots up, a blob of foam flies over and lands on Ro.
+            {
+              cam: { at: [470, 420, 0.95] }, act: [
+                { do: 'el', el: 'volcano', to: { rot: 5 }, dur: 0.08, yoyo: 6 }, { do: 'sfx', snd: 'wobble' },
+                { do: 'expr', who: 'meera', expr: 'shock', at: 0.3 }, { do: 'pose', who: 'meera', pose: 'scared', at: 0.4 },
+                { do: 'pose', who: 'ro', pose: 'lookUp', at: 0.3 }, { do: 'expr', who: 'ro', expr: 'shock', at: 0.3 },
+                { do: 'el', el: 'geyser', to: { scale: 1 }, dur: 0.45, ease: 'out', at: 0.5 }, { do: 'el', el: 'foam', to: { scale: 1.4 }, dur: 0.3, ease: 'back', at: 0.5 },
+                { do: 'sfx', snd: 'whoosh', at: 0.5 }, { do: 'fx', fx: { kind: 'word', text: 'FWOOSH!', color: '#ff9fcf', x: 22, y: 22 }, at: 0.55 }, { do: 'fx', fx: { kind: 'speedlines', on: true }, at: 0.5 },
+                { do: 'el', el: 'blob', to: { x: HALL.volcano - HALL.roSpot, y: -230, opacity: 1 }, dur: 0.01, at: 0.95 },
+                { do: 'el', el: 'blob', to: { x: 0 }, dur: 0.76, ease: 'linear', at: 0.96 },
+                { do: 'el', el: 'blob', to: { y: -330 }, dur: 0.3, ease: 'out', at: 0.96 }, { do: 'el', el: 'blob', to: { y: 0 }, dur: 0.45, ease: 'in', at: 1.27 },
+                { do: 'el', el: 'blob', to: { opacity: 0 }, dur: 0.05, at: 1.72 }, { do: 'mess', who: 'ro', color: '#ff9fcf', at: 1.72 },
+                { do: 'fx', fx: { kind: 'splash', who: 'ro', color: '#ff9fcf' }, at: 1.72 }, { do: 'squash', who: 'ro', amt: 0.28, at: 1.72 }, { do: 'sfx', snd: 'splat', at: 1.72 },
+                { do: 'fx', fx: { kind: 'word', text: 'SPLAT!', color: '#ff7ab8', x: 60, y: 30 }, at: 1.75 }, { do: 'pose', who: 'ro', pose: 'stand', at: 1.9 },
+                { do: 'el', el: 'geyser', to: { scale: 0 }, dur: 0.5, at: 1.8 }, { do: 'el', el: 'foam', to: { scale: 0.7 }, dur: 0.4, at: 1.8 }, { do: 'fx', fx: { kind: 'speedlines', on: false }, at: 1.9 },
+              ], n: 'Then... it is not calm at all!', lineAt: 2.2,
+            },
+            { cam: { close: 'ro' }, act: [{ do: 'pose', who: 'meera', pose: 'stand' }, { do: 'expr', who: 'ro', expr: 'dizzy' }, { do: 'emote', who: 'ro', emote: 'sweat', at: 0.3 }], who: 'ro', t: 'I’m pink. Why am I PINK?' },
             { cam: { close: 'meera' }, act: [{ do: 'expr', who: 'meera', expr: 'grin' }, { do: 'pose', who: 'meera', pose: 'present' }], who: 'meera', t: 'Food colouring. For science!' },
-            { cam: { full: ['meera', 'ro'], dx: -110 }, act: [{ do: 'enter', who: 'kiki', from: 'left', to: 170, gait: 'run' }, { do: 'expr', who: 'kiki', expr: 'love', at: 0.6 }, { do: 'hop', who: 'kiki', n: 2, at: 1.0 }], who: 'kiki', t: 'Ro looks like a strawberry! Can I press the volcano too?', lineAt: 0.9 },
+            { cam: { at: [330, 520, 0.9] }, act: [{ do: 'enter', who: 'kiki', from: 'left', to: 150, gait: 'run' }, { do: 'expr', who: 'kiki', expr: 'love', at: 0.6 }, { do: 'hop', who: 'kiki', n: 2, at: 1.0 }], who: 'kiki', t: 'Ro looks like a strawberry! Can I press the volcano too?', lineAt: 0.9 },
             { panels: [{ who: 'meera', expr: 'grumpy', bg: 'gloom' }, { who: 'kiki', expr: 'grin', bg: 'sparkle' }], who: 'meera', t: 'Nobody presses ANYTHING! Kiki, you pressed the fire alarm last week.' },
             { cam: { close: 'kiki' }, act: [{ do: 'expr', who: 'kiki', expr: 'grin' }, { do: 'emote', who: 'kiki', emote: 'note', at: 0.2 }], who: 'kiki', t: 'It had a little red lid! I just HAD to.' },
             {
               cam: { wide: 640, zoom: 0.75 }, act: [
-                { do: 'move', who: 'kiki', to: 1050, gait: 'tiptoe', dur: 2.6 }, { do: 'track', who: 'kiki', lead: 40 }, { do: 'expr', who: 'kiki', expr: 'grin' },
+                { do: 'move', who: 'kiki', to: 1080, gait: 'tiptoe', dur: 3.0 }, { do: 'track', who: 'kiki', lead: 40 }, { do: 'expr', who: 'kiki', expr: 'grin' },
                 { do: 'sfx', snd: 'patter' }, { do: 'expr', who: 'meera', expr: 'normal' },
               ], n: 'When nobody is looking, Kiki tiptoes over to a robot.', lineAt: 0.4,
             },
+            // The robot sneezes like a cartoon: a boop on the nose, a lean back ("ah... ah..."), then ACHOO.
             {
-              cam: { at: [1120, 540, 1.5] }, act: [
+              cam: { at: [1110, 470, 1.35] }, act: [
                 { do: 'track', who: null }, { do: 'face', who: 'kiki', dir: 1 }, { do: 'pose', who: 'kiki', pose: 'point', at: 0.3 },
-                { do: 'el', el: 'robot', to: { scale: 1.15, rot: -8 }, dur: 0.14, yoyo: 1, at: 1.7 }, { do: 'sfx', snd: 'pop', at: 1.7 }, { do: 'fx', fx: { kind: 'word', text: 'ACHOO!', color: '#8fc8ff' }, at: 1.7 },
-                { do: 'fx', fx: { kind: 'burst', el: 'robot' }, at: 1.7 }, { do: 'expr', who: 'kiki', expr: 'shock', at: 1.7 }, { do: 'squash', who: 'kiki', amt: 0.2, at: 1.75 },
-              ], n: 'She presses its nose...', lineAt: 0.2, hold: 0.6,
+                { do: 'el', el: 'robotnose', to: { scale: 0.6 }, dur: 0.08, yoyo: 1, at: 0.8 }, { do: 'sfx', snd: 'pop', at: 0.8 },
+                { do: 'fx', fx: { kind: 'word', text: 'BOOP!', color: '#ff5f6d', x: 62, y: 36 }, at: 0.82 },
+                { do: 'el', el: 'robothead', to: { rot: -16, y: -6 }, dur: 0.8, ease: 'out', at: 1.1 }, { do: 'sfx', snd: 'creak', at: 1.1 }, { do: 'pose', who: 'kiki', pose: 'stand', at: 1.2 },
+                { do: 'expr', who: 'kiki', expr: 'shock', at: 1.5 },
+                { do: 'el', el: 'robothead', to: { rot: 18, y: 0 }, dur: 0.12, ease: 'out', at: 2.0 }, { do: 'el', el: 'robot', to: { rot: -4 }, dur: 0.1, yoyo: 1, at: 2.0 },
+                { do: 'el', el: 'sneeze', to: { opacity: 1, scale: 1.25, x: -40 }, dur: 0.35, ease: 'out', at: 2.02 }, { do: 'el', el: 'sneeze', to: { opacity: 0 }, dur: 0.5, at: 2.6 },
+                { do: 'sfx', snd: 'whoosh', at: 2.0 }, { do: 'sfx', snd: 'pop', at: 2.0 }, { do: 'fx', fx: { kind: 'word', text: 'ACHOO!', color: '#8fc8ff', x: 24, y: 24 }, at: 2.02 },
+                { do: 'jump', who: 'kiki', to: 1010, h: 30, dur: 0.35, at: 2.05, then: 'scared' }, { do: 'squash', who: 'kiki', amt: 0.2, at: 2.05 },
+                { do: 'el', el: 'robothead', to: { rot: 0 }, dur: 0.6, ease: 'back', at: 2.6 },
+              ], n: 'She presses its nose...', lineAt: 0.15, hold: 0.4,
             },
             { cam: { close: 'kiki' }, act: [{ do: 'pose', who: 'kiki', pose: 'stand' }, { do: 'expr', who: 'kiki', expr: 'laugh' }, { do: 'look', who: 'kiki', gaze: 'cam' }], who: 'kiki', t: 'Bless you, robot!' },
             { cam: { wide: 1380, zoom: 0.8 }, act: [{ do: 'enter', who: 'bunty', from: 'right', to: 1520, gait: 'run' }, { do: 'squash', who: 'bunty', amt: 0.22, at: 0.75 }, { do: 'emote', who: 'bunty', emote: '!', at: 0.8 }, { do: 'expr', who: 'bunty', expr: 'yell', at: 0.8 }, { do: 'pose', who: 'bunty', pose: 'cheer', at: 0.8 }, { do: 'look', who: 'kiki', gaze: 'fwd' }], who: 'bunty', t: 'EVERYONE! There’s a mystery machine in the store room!', lineAt: 0.9 },
@@ -87,9 +111,17 @@ export const prologue: World = {
             },
             { cam: { medium: ['ro', 'bunty'] }, act: [{ do: 'face', who: 'ro', dir: 1 }, { do: 'pose', who: 'ro', pose: 'hips' }], who: 'ro', t: 'Bunty! You’re supposed to be in Class 4.' },
             { cam: { close: 'bunty' }, act: [{ do: 'expr', who: 'bunty', expr: 'love' }, { do: 'look', who: 'bunty', gaze: 'cam' }], who: 'bunty', t: 'Class 4 is boring. This is a MYSTERY!' },
-            { cam: { low: 'you' }, act: [{ do: 'face', who: 'you', dir: 1 }, { do: 'expr', who: 'you', expr: 'determined' }, { do: 'sfx', snd: 'hum', at: 0.3 }], n: '{name} looks at the store-room door. Something behind it is humming.' },
+            { cam: { low: 'you' }, act: [{ do: 'face', who: 'you', dir: 1 }, { do: 'expr', who: 'you', expr: 'determined' }, { do: 'look', who: 'bunty', gaze: 'fwd' }], n: '{name} looks at the store-room door.' },
+            // The door itself: light leaks round its edges, it rattles, and it hums.
             {
-              cam: { wide: 1700, zoom: 0.75 }, act: [
+              cam: { el: 'door', zoom: 1.2, dy: -200 }, move: { el: 'door', zoom: 1.6, dy: -190 }, moveDur: 5, mood: 'mystery', act: [
+                { do: 'el', el: 'doorglow', to: { opacity: 1 }, dur: 1.2, at: 0.2 }, { do: 'sfx', snd: 'hum', at: 0.3 }, { do: 'sfx', snd: 'hum', at: 2.4 },
+                { do: 'el', el: 'door', to: { rot: 0.8 }, dur: 0.09, yoyo: 6, at: 1.0 }, { do: 'el', el: 'door', to: { rot: -0.8 }, dur: 0.09, yoyo: 4, at: 2.6 },
+                { do: 'fx', fx: { kind: 'sparkle', el: 'door', n: 6 }, at: 1.6 },
+              ], n: 'Something behind it is humming.', lineAt: 1.2,
+            },
+            {
+              cam: { wide: 1500, zoom: 0.75 }, act: [
                 { do: 'exit', who: 'bunty', to: 'right' }, { do: 'exit', who: 'you', to: 'right', at: 0.15 }, { do: 'exit', who: 'ro', to: 'right', at: 0.2 },
                 { do: 'exit', who: 'kiki', to: 'right', at: 0.3 }, { do: 'exit', who: 'meera', to: 'right', at: 0.45 }, { do: 'sfx', snd: 'patter' },
               ], n: 'Five pairs of feet race across the hall.',
@@ -97,32 +129,36 @@ export const prologue: World = {
           ],
         },
         {
-          id: 'p1-store', set: 'storeroom', mood: 'mystery', trans: 'iris', cam: { wide: 620, zoom: 0.75 },
+          id: 'p1-store', set: 'storeroom', mood: 'mystery', trans: 'iris', cam: { wide: 560, zoom: 0.75 },
           cast: [
-            { id: 'meera', x: 400, hidden: true }, { id: 'you', x: 510, hidden: true }, { id: 'bunty', x: 620, hidden: true },
-            { id: 'kiki', x: 730, hidden: true }, { id: 'ro', x: 840, hidden: true },
+            { id: 'meera', x: 340, hidden: true }, { id: 'you', x: 450, hidden: true }, { id: 'bunty', x: 560, hidden: true },
+            { id: 'kiki', x: 670, hidden: true }, { id: 'ro', x: 770, hidden: true },
           ],
           shots: [
             {
               act: [
-                { do: 'enter', who: 'ro', from: 'left', to: 840, gait: 'tiptoe' }, { do: 'enter', who: 'kiki', from: 'left', to: 730, gait: 'tiptoe', at: 0.3 },
-                { do: 'enter', who: 'bunty', from: 'left', to: 620, gait: 'tiptoe', at: 0.6 }, { do: 'enter', who: 'you', from: 'left', to: 510, gait: 'tiptoe', at: 0.9 },
-                { do: 'enter', who: 'meera', from: 'left', to: 400, gait: 'tiptoe', at: 1.2 },
+                { do: 'enter', who: 'ro', from: 'left', to: 770, gait: 'tiptoe' }, { do: 'enter', who: 'kiki', from: 'left', to: 670, gait: 'tiptoe', at: 0.3 },
+                { do: 'enter', who: 'bunty', from: 'left', to: 560, gait: 'tiptoe', at: 0.6 }, { do: 'enter', who: 'you', from: 'left', to: 450, gait: 'tiptoe', at: 0.9 },
+                { do: 'enter', who: 'meera', from: 'left', to: 340, gait: 'tiptoe', at: 1.2 },
               ], n: 'The store room is dark and dusty. Sunlight falls on something big.', lineAt: 0.6,
             },
-            { cam: { el: 'machine', zoom: 1.35, dy: -260 }, move: { el: 'machine', zoom: 1.7, dy: -280 }, moveDur: 4, act: [{ do: 'sfx', snd: 'hum' }], n: 'An old arcade machine. It hums. It glows.' },
+            { cam: { el: 'machine', zoom: 1.0, dy: -300 }, move: { el: 'machine', zoom: 1.4, dy: -310 }, moveDur: 5, act: [{ do: 'sfx', snd: 'hum' }, { do: 'fx', fx: { kind: 'sparkle', el: 'machine', n: 8 }, at: 1.5 }], n: 'An old arcade machine. It hums. It glows.' },
             { cam: { medium: 'kiki' }, act: [{ do: 'expr', who: 'kiki', expr: 'love' }, { do: 'emote', who: 'kiki', emote: 'heart', at: 0.3 }], who: 'kiki', t: 'Party... Galaxy? It looks SO fun.' },
             { cam: { medium: 'meera' }, act: [{ do: 'pose', who: 'meera', pose: 'point' }, { do: 'expr', who: 'meera', expr: 'determined' }], who: 'meera', t: 'But it’s not even plugged in. Look at the wire!' },
-            { cam: { close: 'you' }, act: [{ do: 'expr', who: 'you', expr: 'shock' }, { do: 'sfx', snd: 'clink', at: 0.4 }, { do: 'fx', fx: { kind: 'sparkle', who: 'you' }, at: 0.4 }, { do: 'emote', who: 'you', emote: '?', at: 0.6 }], n: 'Clink! A golden token appears in {name}’s pocket. Nobody put it there.' },
+            { cam: { at: [MACHINE.x + 236, MACHINE.y - 20, 2.4] }, act: [{ do: 'sfx', snd: 'hum', at: 0.2 }], hold: 1.1 },
+            // The token: a clink, a hand into the pocket, and out it comes.
+            { cam: { medium: 'you' }, act: [{ do: 'pose', who: 'meera', pose: 'stand' }, { do: 'sfx', snd: 'clink', at: 0.2 }, { do: 'expr', who: 'you', expr: 'shock', at: 0.25 }, { do: 'emote', who: 'you', emote: '?', at: 0.4 }, { do: 'pose', who: 'you', pose: 'pocket', at: 1.0 }], n: 'Clink! Something is in {name}’s pocket.', lineAt: 0.5 },
+            { cam: { medium: 'you' }, act: [{ do: 'prop', who: 'you', prop: 'token', at: 0.45 }, { do: 'pose', who: 'you', pose: 'holdUp', at: 0.5 }, { do: 'fx', fx: { kind: 'sparkle', who: 'you', n: 10 }, at: 0.7 }, { do: 'sfx', snd: 'magic', at: 0.6 }, { do: 'expr', who: 'you', expr: 'love', at: 0.7 }], n: 'A golden token! Nobody put it there.', lineAt: 1.0 },
             { insert: 'token', act: [{ do: 'sfx', snd: 'magic', at: 0.3 }], hold: 1.8 },
             { reward: 'golden-token' },
-            { cam: { el: 'machine', zoom: 3, dy: -110 }, act: [{ do: 'el', el: 'machine', to: { scale: 1.02 }, dur: 0.5, yoyo: 2 }], who: 'ro', t: 'Whoa. {name}, the coin slot is glowing. It’s glowing for YOU.' },
-            { cam: { full: 'you' }, act: [{ do: 'pose', who: 'you', pose: 'holdFront' }, { do: 'prop', who: 'you', prop: 'token' }, { do: 'expr', who: 'you', expr: 'worried' }, { do: 'face', who: 'you', dir: 1 }], n: '{name} holds up the token. It pulls, like a magnet.' },
+            { cam: { el: 'machine', zoom: 3, dy: -114 }, act: [{ do: 'el', el: 'machine', to: { scale: 1.02 }, dur: 0.5, yoyo: 2 }], who: 'ro', t: 'Whoa. {name}, the coin slot is glowing. It’s glowing for YOU.' },
+            { cam: { full: 'you' }, act: [{ do: 'pose', who: 'you', pose: 'reach' }, { do: 'expr', who: 'you', expr: 'worried' }, { do: 'face', who: 'you', dir: 1 }, { do: 'move', who: 'you', to: 490, gait: 'fly', dur: 1.2, ease: 'in', at: 0.6 }], n: '{name} holds out the token. It pulls, like a magnet.' },
             {
               cam: { wide: 760, zoom: 0.8 }, act: [
-                { do: 'prop', who: 'you', prop: null }, { do: 'el', el: 'token', to: { x: -480, y: -40, opacity: 1 }, dur: 0.01 },
-                { do: 'el', el: 'token', to: { x: 0, y: 20 }, dur: 1.0, ease: 'inOut', at: 0.1 }, { do: 'el', el: 'token', to: { opacity: 0 }, dur: 0.1, at: 1.1 },
-                { do: 'sfx', snd: 'swoosh' }, { do: 'sfx', snd: 'coin', at: 1.1 }, { do: 'fx', fx: { kind: 'glow' }, at: 1.1 }, { do: 'expr', who: 'you', expr: 'shock' },
+                { do: 'prop', who: 'you', prop: null }, { do: 'el', el: 'token', to: { x: 535 - MACHINE.x, y: -20, opacity: 1 }, dur: 0.01 },
+                { do: 'el', el: 'token', to: { x: 0 }, dur: 1.0, ease: 'inOut', at: 0.1 }, { do: 'el', el: 'token', to: { y: -90 }, dur: 0.5, ease: 'out', at: 0.1 }, { do: 'el', el: 'token', to: { y: 0 }, dur: 0.5, ease: 'in', at: 0.6 },
+                { do: 'el', el: 'token', to: { opacity: 0 }, dur: 0.1, at: 1.1 },
+                { do: 'sfx', snd: 'swoosh' }, { do: 'sfx', snd: 'coin', at: 1.1 }, { do: 'fx', fx: { kind: 'glow' }, at: 1.1 }, { do: 'expr', who: 'you', expr: 'shock' }, { do: 'pose', who: 'you', pose: 'stand', at: 0.3 },
                 { do: 'el', el: 'machine', to: { scale: 1.04 }, dur: 0.2, yoyo: 1, at: 1.15 },
               ], n: 'The token jumps out of {name}’s hand... and into the slot. CLINK!', lineAt: 0.4,
             },
@@ -138,50 +174,90 @@ export const prologue: World = {
             { cam: { medium: 'meera' }, act: [{ do: 'cycle', who: 'meera', cycle: 'tremble' }, { do: 'expr', who: 'meera', expr: 'worried' }], who: 'meera', t: 'Wait! Is it safe? What if it’s NOT safe?' },
             { cam: { close: 'you' }, act: [{ do: 'cycle', who: 'meera', cycle: null }, { do: 'pose', who: 'meera', pose: 'stand' }, { do: 'expr', who: 'you', expr: 'determined' }, { do: 'look', who: 'you', gaze: 'cam' }], who: 'you', t: 'We stick together, whatever happens. Okay, crew?' },
             {
-              cam: { wide: 620, zoom: 0.75 }, act: [
-                { do: 'expr', who: 'kiki', expr: 'grin' }, { do: 'expr', who: 'ro', expr: 'grin' }, { do: 'expr', who: 'bunty', expr: 'happy' },
+              cam: { wide: 560, zoom: 0.75 }, act: [
+                { do: 'look', who: 'you', gaze: 'fwd' }, { do: 'expr', who: 'kiki', expr: 'grin' }, { do: 'expr', who: 'ro', expr: 'grin' }, { do: 'expr', who: 'bunty', expr: 'happy' },
                 { do: 'hop', who: 'bunty', n: 1, at: 0.4 }, { do: 'hop', who: 'kiki', n: 1, at: 0.6 }, { do: 'expr', who: 'meera', expr: 'happy', at: 2.2 }, { do: 'hop', who: 'meera', n: 1, h: 18, at: 2.3 },
               ], n: 'Everyone nods. Even Meera. Slowly.',
             },
-            { insert: 'button', who: 'you', t: 'On three. One... two...' },
-            { cam: { el: 'machine', zoom: 1.6, dy: -260 }, act: [{ do: 'fx', fx: { kind: 'whiteout', dur: 2.2 } }, { do: 'sfx', snd: 'vortex' }, { do: 'fx', fx: { kind: 'speedlines', on: true } }], n: 'Three!', hold: 0.6 },
+            // The whole count, by the Captain; the finger presses START exactly on "THREE!".
+            { insert: 'button', act: [{ do: 'insert', id: 'press', atWord: 4 }, { do: 'sfx', snd: 'beep', atWord: 4 }], who: 'you', t: 'On three. One... two... THREE!', hold: 0.5 },
+            // The screen starts to pull: light pours out, everyone leans back and slides towards it.
+            {
+              cam: { at: [760, 470, 0.8] }, mood: 'wonder', act: [
+                { do: 'el', el: 'pull', to: { opacity: 1, scale: 1 }, dur: 1.4, ease: 'out' }, { do: 'sfx', snd: 'vortex' }, { do: 'sfx', snd: 'wind', at: 0.8 },
+                { do: 'fx', fx: { kind: 'motion', on: true, dir: 'right' }, at: 0.6 },
+                ...(['ro', 'kiki', 'bunty', 'you', 'meera'] as const).flatMap((id, i) => [
+                  { do: 'pose' as const, who: id, pose: 'brace' as const, at: 0.3 + i * 0.1 }, { do: 'expr' as const, who: id, expr: 'shock' as const, at: 0.3 + i * 0.1 },
+                  { do: 'face' as const, who: id, dir: 1 as const, at: 0.2 },
+                  { do: 'move' as const, who: id, to: [840, 750, 650, 550, 450][i], gait: 'fly' as const, ease: 'in' as const, dur: 3.2, at: 0.6, then: 'brace' as const },
+                ]),
+              ], n: 'The screen starts to pull, like a giant vacuum!', lineAt: 1.0,
+            },
+            // One by one they fly into the screen, shrinking and spinning.
+            {
+              cam: { at: [760, 470, 0.8] }, move: { el: 'machine', zoom: 1.4, dy: -330 }, moveDur: 3.4, act: [
+                ...(['ro', 'kiki', 'bunty', 'you', 'meera'] as const).flatMap((id, i) => {
+                  const t = 0.3 + i * 0.45;
+                  return [
+                    { do: 'pose' as const, who: id, pose: 'flail' as const, at: t }, { do: 'expr' as const, who: id, expr: (['shock', 'laugh', 'love', 'shock', 'scared'] as const)[i], at: t },
+                    { do: 'move' as const, who: id, to: MACHINE.x, gait: 'fly' as const, ease: 'in' as const, dur: 0.75, at: t },
+                    { do: 'lift' as const, who: id, to: MACHINE.y + 40 - MACHINE.screen, dur: 0.75, ease: 'in' as const, at: t },
+                    { do: 'scale' as const, who: id, s: 0.06, dur: 0.75, at: t }, { do: 'spin' as const, who: id, turns: 2, dur: 0.75, at: t },
+                    { do: 'hide' as const, who: id, at: t + 0.78 }, { do: 'sfx' as const, snd: 'whoosh' as const, at: t },
+                  ];
+                }),
+                { do: 'fx', fx: { kind: 'motion', on: false }, at: 2.8 },
+              ], n: 'WHOOSH! One by one, the crew flies into the screen!', lineAt: 0.5,
+            },
+            // The camera dives into the screen after them.
+            { cam: { el: 'machine', zoom: 1.4, dy: -330 }, move: { el: 'machine', zoom: 5.5, dy: -330 }, moveDur: 1.8, act: [{ do: 'sfx', snd: 'vortex' }, { do: 'fx', fx: { kind: 'whiteout', dur: 2.0 }, at: 1.0 }], hold: 0.6 },
           ],
         },
         {
+          // Down the tunnel inside the screen: each child tumbles out of the far distance towards us.
           id: 'p1-vortex', set: 'vortex', mood: 'wonder', trans: 'white', cam: { wide: 500 },
           cast: [
-            { id: 'you', x: 470, y: 700, lift: 260, cycle: 'flail', expr: 'shock' }, { id: 'kiki', x: 330, y: 680, lift: 380, cycle: 'flail', expr: 'laugh' },
-            { id: 'ro', x: 690, y: 690, lift: 420, cycle: 'flail', expr: 'shock' }, { id: 'meera', x: 610, y: 710, lift: 160, cycle: 'flail', expr: 'shock' },
-            { id: 'bunty', x: 540, y: 700, lift: 600, cycle: 'flail', expr: 'love' },
+            { id: 'you', x: 500, y: 560, s: 0.06, cycle: 'flail', expr: 'shock' }, { id: 'kiki', x: 500, y: 560, s: 0.06, cycle: 'flail', expr: 'laugh' },
+            { id: 'ro', x: 500, y: 560, s: 0.06, cycle: 'flail', expr: 'shock' }, { id: 'meera', x: 500, y: 560, s: 0.06, cycle: 'flail', expr: 'shock' },
+            { id: 'bunty', x: 500, y: 560, s: 0.06, cycle: 'flail', expr: 'love' },
           ],
           shots: [
             {
-              act: [{ do: 'fx', fx: { kind: 'fall', on: true } }, { do: 'spin', who: 'bunty', turns: 2, dur: 2 }, { do: 'spin', who: 'kiki', turns: 1, dur: 1.6, at: 0.4 }, { do: 'sfx', snd: 'swirl' }],
-              n: 'The floor disappears. The whole crew falls into the screen!',
+              act: [
+                { do: 'fx', fx: { kind: 'fall', on: true } }, { do: 'sfx', snd: 'swirl' },
+                ...([['kiki', 330, 690, 380], ['ro', 690, 700, 420], ['you', 470, 720, 260], ['meera', 620, 730, 160], ['bunty', 540, 700, 560]] as const).flatMap(([id, x, y, lift], i) => [
+                  { do: 'scale' as const, who: id, s: 0.95, dur: 1.8, at: i * 0.35 },
+                  { do: 'move' as const, who: id, to: x, y, gait: 'fly' as const, dur: 1.8, at: i * 0.35 },
+                  { do: 'lift' as const, who: id, to: lift, dur: 1.8, at: i * 0.35 },
+                  { do: 'spin' as const, who: id, turns: i % 2 ? 2 : 1, dur: 1.8, at: i * 0.35 },
+                ]),
+              ],
+              n: 'Down the twisty tunnel they tumble, round and round!', lineAt: 1.2,
             },
             { cam: { medium: 'kiki' }, who: 'kiki', t: 'WHEEEE! I didn’t even press it this time!' },
             { cam: { medium: 'meera' }, who: 'meera', t: 'I would like a seatbelt, please!' },
           ],
         },
         {
-          id: 'p1-sky', set: 'sky', mood: 'wonder', trans: 'fade', cam: { at: [600, 760, 0.85] },
+          // A wide, slow fall: small figures drifting through a big sky of planets.
+          id: 'p1-sky', set: 'sky', mood: 'wonder', trans: 'fade', cam: { at: [600, 900, 0.7] },
           cast: [
-            { id: 'kiki', x: 330, y: 760, cycle: 'float', expr: 'happy' }, { id: 'ro', x: 520, y: 700, cycle: 'float', expr: 'grin' },
-            { id: 'you', x: 640, y: 820, cycle: 'float', expr: 'happy' }, { id: 'meera', x: 800, y: 740, cycle: 'float', expr: 'shock' },
-            { id: 'bunty', x: 460, y: 960, cycle: 'float', expr: 'love' },
+            { id: 'kiki', x: 380, y: 820, s: 0.55, cycle: 'float', expr: 'happy' }, { id: 'ro', x: 540, y: 760, s: 0.55, cycle: 'float', expr: 'grin' },
+            { id: 'you', x: 650, y: 860, s: 0.55, cycle: 'float', expr: 'happy' }, { id: 'meera', x: 790, y: 800, s: 0.55, cycle: 'float', expr: 'shock' },
+            { id: 'bunty', x: 470, y: 940, s: 0.5, cycle: 'float', expr: 'love' },
           ],
           shots: [
             {
-              move: { at: [600, 900, 0.85] }, moveDur: 6,
+              cam: { at: [600, 900, 0.7] }, move: { at: [600, 1150, 0.7] }, moveDur: 8,
               act: [
-                { do: 'move', who: 'kiki', to: 330, y: 900, gait: 'fly', dur: 6 }, { do: 'move', who: 'ro', to: 520, y: 840, gait: 'fly', dur: 6 }, { do: 'move', who: 'you', to: 640, y: 960, gait: 'fly', dur: 6 },
-                { do: 'move', who: 'meera', to: 800, y: 880, gait: 'fly', dur: 6 }, { do: 'move', who: 'bunty', to: 460, y: 1100, gait: 'fly', dur: 6 },
+                { do: 'move', who: 'kiki', to: 360, y: 1080, gait: 'fly', dur: 8 }, { do: 'move', who: 'ro', to: 560, y: 1010, gait: 'fly', dur: 8 }, { do: 'move', who: 'you', to: 640, y: 1110, gait: 'fly', dur: 8 },
+                { do: 'move', who: 'meera', to: 810, y: 1060, gait: 'fly', dur: 8 }, { do: 'move', who: 'bunty', to: 480, y: 1200, gait: 'fly', dur: 8 }, { do: 'spin', who: 'bunty', turns: 1, dur: 3, at: 2 },
               ],
-              n: 'Then everything slows down. They float through a sky full of planets.',
+              n: 'Then everything slows down. They float through a sky full of planets.', lineAt: 1.0,
             },
             { cam: { medium: 'bunty' }, act: [{ do: 'expr', who: 'bunty', expr: 'happy' }, { do: 'look', who: 'bunty', gaze: 'cam' }], who: 'bunty', t: 'We’re falling slowly. Like feathers!' },
             { cam: { close: 'meera' }, act: [{ do: 'expr', who: 'meera', expr: 'love' }, { do: 'fx', fx: { kind: 'sparkle', who: 'meera' } }], who: 'meera', t: 'Look! That planet down there is made of CANDY.' },
-            { cam: { at: [600, 1300, 0.8] }, move: { at: [600, 2600, 0.8] }, moveDur: 7, act: [{ do: 'sfx', snd: 'chime', at: 4 }], n: 'Far below, a pink planet sparkles. And somewhere, somebody is singing.' },
+            { cam: { at: [600, 1300, 0.7] }, move: { at: [600, 2470, 0.7] }, moveDur: 7, act: [{ do: 'look', who: 'bunty', gaze: 'fwd' }, { do: 'sfx', snd: 'chime', at: 4.5 }], n: 'Far below, a pink planet sparkles. And somewhere, somebody is singing.', lineAt: 1.0 },
           ],
         },
       ],
@@ -209,21 +285,21 @@ export const prologue: World = {
         {
           id: 'p2-station', set: 'station', mood: 'space', trans: 'fade', cam: { wide: 1200, zoom: 0.75 },
           cast: [
-            { id: 'meera', x: 870, hidden: true }, { id: 'kiki', x: 980, hidden: true }, { id: 'you', x: 1200, y: 760, hidden: true },
-            { id: 'ro', x: 1420, face: -1, hidden: true }, { id: 'bunty', x: 1530, face: -1, hidden: true },
+            { id: 'meera', x: 960, hidden: true }, { id: 'kiki', x: 1070, hidden: true }, { id: 'you', x: 1200, y: 760, hidden: true },
+            { id: 'bunty', x: 1310, face: -1, hidden: true }, { id: 'ro', x: 1430, face: -1, hidden: true },
             { id: 'fizz', x: 1200, y: 640, lift: 900, hidden: true },
           ],
           shots: [
             {
               act: [
-                { do: 'enter', who: 'ro', from: 'top', to: 1420, dur: 0.9 }, { do: 'enter', who: 'kiki', from: 'top', to: 980, dur: 0.9, at: 0.2 },
-                { do: 'enter', who: 'you', from: 'top', to: 1200, dur: 0.9, at: 0.35 }, { do: 'enter', who: 'meera', from: 'top', to: 870, dur: 0.9, at: 0.5 },
+                { do: 'enter', who: 'ro', from: 'top', to: 1430, dur: 0.9 }, { do: 'enter', who: 'kiki', from: 'top', to: 1070, dur: 0.9, at: 0.2 },
+                { do: 'enter', who: 'you', from: 'top', to: 1200, dur: 0.9, at: 0.35 }, { do: 'enter', who: 'meera', from: 'top', to: 960, dur: 0.9, at: 0.5 },
                 { do: 'fall', who: 'bunty', from: 900, dur: 1.0, land: 'splat', at: 0.8 },
                 { do: 'sfx', snd: 'boing', at: 0.8 }, { do: 'fx', fx: { kind: 'word', text: 'BOING!', color: '#7fe6c9' }, at: 0.9 },
               ],
               n: 'BOING! Five kids bounce onto the giant game board.', lineAt: 1.2,
             },
-            { cam: { close: 'bunty' }, act: [{ do: 'pose', who: 'bunty', pose: 'stand', at: 0.3 }, { do: 'expr', who: 'bunty', expr: 'dizzy' }, { do: 'look', who: 'bunty', gaze: 'cam' }], who: 'bunty', t: 'I bounced on my face. It was GREAT!' },
+            { cam: { close: 'bunty' }, act: [{ do: 'pose', who: 'bunty', pose: 'stand' }, { do: 'expr', who: 'bunty', expr: 'dizzy' }, { do: 'look', who: 'bunty', gaze: 'cam' }, { do: 'emote', who: 'bunty', emote: 'sparkle', at: 0.4 }, { do: 'hop', who: 'bunty', n: 1, at: 1.2 }], who: 'bunty', t: 'I bounced on my face. It was GREAT!' },
             {
               cam: { wide: 1200, zoom: 0.8 }, mood: 'playful', act: [
                 { do: 'el', el: 'spotL', to: { rot: 6 }, dur: 0.7, yoyo: 2 }, { do: 'el', el: 'spotR', to: { rot: -6 }, dur: 0.7, yoyo: 2 },
@@ -246,7 +322,7 @@ export const prologue: World = {
         },
         {
           // Fizz's song is a tour of the eight worlds the crew will visit.
-          id: 'p2-song', set: 'galaxy', mood: 'triumph', trans: 'fade', cam: { at: [560, 440, 0.85] },
+          id: 'p2-song', set: 'galaxy', mood: 'none', trans: 'fade', cam: { at: [560, 440, 0.85] },
           cast: [{ id: 'fizz', x: GALAXY_X[0] - 60, y: 560, s: 0.6, expr: 'sing' }],
           shots: [
             { cam: { at: [560, 440, 0.85] }, move: { at: [1660, 440, 0.85] }, moveDur: 6.4, act: songTour([0, 1, 2, 3]), who: 'fizz', t: '♪ Eight big worlds, in a great big ring! ♪', lineAt: 0.6 },
@@ -256,8 +332,8 @@ export const prologue: World = {
         {
           id: 'p2-stage', set: 'station', mood: 'playful', trans: 'fade', cam: { close: 'meera' },
           cast: [
-            { id: 'meera', x: 870, expr: 'smug' }, { id: 'kiki', x: 980, expr: 'grin' }, { id: 'you', x: 1200, y: 760, expr: 'happy' },
-            { id: 'ro', x: 1420, face: -1, expr: 'grumpy' }, { id: 'bunty', x: 1530, face: -1, expr: 'happy' },
+            { id: 'meera', x: 960, expr: 'smug' }, { id: 'kiki', x: 1070, expr: 'grin' }, { id: 'you', x: 1200, y: 760, expr: 'happy' },
+            { id: 'bunty', x: 1310, face: -1, expr: 'happy' }, { id: 'ro', x: 1430, face: -1, expr: 'grumpy' },
             { id: 'fizz', x: 1200, y: 640, lift: 150, expr: 'happy' },
           ],
           shots: [
@@ -293,8 +369,8 @@ export const prologue: World = {
             { cam: { low: 'you' }, act: [{ do: 'pose', who: 'you', pose: 'hips' }, { do: 'expr', who: 'you', expr: 'determined' }, { do: 'look', who: 'you', gaze: 'cam' }], who: 'you', t: 'We stick together. Nobody gets left behind. Deal?' },
             {
               cam: { full: ['meera', 'ro'], dx: 0 }, act: [
-                { do: 'move', who: 'meera', to: 1090, gait: 'walk' }, { do: 'move', who: 'kiki', to: 1140, gait: 'walk' },
-                { do: 'move', who: 'ro', to: 1280, gait: 'walk' }, { do: 'move', who: 'bunty', to: 1320, gait: 'walk' },
+                { do: 'move', who: 'meera', to: 1095, gait: 'walk' }, { do: 'move', who: 'kiki', to: 1145, gait: 'walk' },
+                { do: 'move', who: 'bunty', to: 1255, gait: 'walk' }, { do: 'move', who: 'ro', to: 1305, gait: 'walk' },
                 { do: 'pose', who: 'meera', pose: 'reach', at: 2.6 }, { do: 'pose', who: 'kiki', pose: 'reach', at: 2.7 },
                 { do: 'pose', who: 'ro', pose: 'reach', at: 2.8 }, { do: 'pose', who: 'bunty', pose: 'reach', at: 2.9 }, { do: 'pose', who: 'you', pose: 'reach', at: 2.6 },
                 { do: 'sfx', snd: 'chime', at: 3.0 }, { do: 'fx', fx: { kind: 'sparkle', who: 'you', n: 10 }, at: 3.0 },

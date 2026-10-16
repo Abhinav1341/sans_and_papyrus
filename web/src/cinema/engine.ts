@@ -10,7 +10,7 @@ import type { PoseName } from '@/art/poses';
 
 export interface CamState { x: number; y: number; zoom: number }
 export interface ElState { node: SVGGElement; ax: number; ay: number; x: number; y: number; rot: number; scale: number; opacity: number; last: string }
-export interface ActorSnap { x: number; y: number; lift: number; s: number; height: number; full: number; face: 1 | -1; visible: boolean }
+export interface ActorSnap { x: number; y: number; lift: number; s: number; height: number; full: number; face: 1 | -1; visible: boolean; hw: number; widths: { narrow: number; wide: number; lie: number } }
 
 const f1 = (n: number) => Math.round(n * 10) / 10;
 const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
@@ -232,11 +232,89 @@ export class Engine {
   /* ---------- camera ---------- */
   snapshot(): Map<CastId, ActorSnap> {
     const m = new Map<CastId, ActorSnap>();
-    for (const [id, a] of this.actors) m.set(id, { x: a.x, y: a.y, lift: a.lift, s: a.s, height: a.heightNow(), full: a.height, face: a.face, visible: a.visible });
+    for (const [id, a] of this.actors) m.set(id, { x: a.x, y: a.y, lift: a.lift, s: a.s, height: a.heightNow(), full: a.height, face: a.face, visible: a.visible, hw: a.halfWidth(), widths: a.widths() });
     return m;
   }
 
+  /** The camera for a framing, adjusted so that nobody is cut in half by the edge of the screen. */
   frameFor(f: Frame, snap: Map<CastId, ActorSnap> = this.snapshot()): CamState {
+    return this.cleanEdges(this.rawFrame(f, snap), f, snap);
+  }
+
+  /**
+   * Film rule: the people a shot is about are fully on screen, and everyone else is either fully in
+   * or fully out, never sliced by the frame edge. The camera first slides sideways as little as
+   * possible; if that cannot work, group and wide shots pull back, close-ups tighten a little.
+   */
+  private cleanEdges(c: CamState, f: Frame, snap: Map<CastId, ActorSnap>): CamState {
+    const W = this.set?.w ?? this.VW;
+    const top = this.set?.top ?? 0, bottom = this.set?.bottom ?? (this.set?.h ?? 1000);
+    const zMin = Math.max(0.7, 1000 / (bottom - top), this.VW / W);
+    const listOf = (v: CastId | CastId[]) => (Array.isArray(v) ? v : [v]).filter((id) => snap.get(id)?.visible);
+    let subjects: CastId[] = [];
+    let req: [number, number][] = [];
+    let zooms: number[];
+    let maxShift = Infinity;
+    const body = (id: CastId): [number, number] => { const a = snap.get(id)!; return [a.x - a.hw, a.x + a.hw]; };
+    if ('full' in f || 'medium' in f) {
+      subjects = listOf('full' in f ? f.full : f.medium);
+      req = subjects.map(body);
+      zooms = [1, 0.9, 0.8, 0.7];
+    } else if ('close' in f || 'xclose' in f) {
+      subjects = listOf('close' in f ? f.close : f.xclose);
+      req = subjects.map((id) => { const a = snap.get(id)!; const h = Math.min(a.hw, 62 * a.s) * 0.92; return [a.x - h, a.x + h] as [number, number]; });
+      zooms = [1, 1.12, 1.25, 0.9];
+      maxShift = 0.3 * (this.VW / (2 * c.zoom));
+    } else if ('low' in f) {
+      subjects = listOf(f.low);
+      req = subjects.map(body);
+      zooms = [1, 0.9, 0.8];
+    } else if ('el' in f) {
+      const e = this.els.get(f.el);
+      if (e) {
+        let half = 70;
+        try { const b = e.node.getBBox(); half = Math.max(Math.abs(b.x), Math.abs(b.x + b.width)) * e.scale; } catch { /* not rendered yet */ }
+        half = Math.min(half, 0.85 * (this.VW / (2 * c.zoom)));
+        req = [[e.ax + e.x - half, e.ax + e.x + half]];
+      }
+      zooms = [1, 0.9, 0.8];
+    } else {
+      // Wide and exact shots: whoever is already in the picture stays in it (whole), pulling back if needed.
+      const hw0 = this.VW / (2 * Math.max(zMin, c.zoom));
+      for (const [id, a] of snap) if (a.visible && Math.abs(a.x - c.x) < hw0) subjects.push(id);
+      req = subjects.map(body);
+      zooms = [1, 0.92, 0.85, 0.78, 0.7];
+    }
+    const skip = new Set(subjects);
+    const others: [number, number][] = [];
+    for (const [id, a] of snap) if (a.visible && !skip.has(id)) others.push([a.x - a.hw, a.x + a.hw]);
+    if (!others.length && !req.length) return c;
+    const m = 14, mi = 12, mo = 6; // margins: subjects and people fully inside keep clear of the edge; people outside stay just off it
+    let fallback: { x: number; zoom: number; cuts: number } | null = null;
+    for (const zf of zooms) {
+      const zoom = Math.max(zMin, c.zoom * zf);
+      if (zf !== 1 && Math.abs(zoom - c.zoom) < 1e-3) continue;
+      const hw = this.VW / (2 * zoom);
+      if (W <= hw * 2) return { ...c, zoom };
+      let lo = hw, hi = W - hw;
+      for (const [l, r] of req) { lo = Math.max(lo, r - hw + m); hi = Math.min(hi, l + hw - m); }
+      if (maxShift < Infinity) { lo = Math.max(lo, c.x - maxShift); hi = Math.min(hi, c.x + maxShift); }
+      if (lo > hi) continue;
+      const cuts = (x: number) => others.filter(([l, r]) => !(r <= x - hw + mo || l >= x + hw - mo || (l >= x - hw + mi && r <= x + hw - mi))).length;
+      const cands = [Math.min(hi, Math.max(lo, c.x)), lo, hi];
+      for (const [l, r] of others) cands.push(l - hw + mo, r + hw - mo, r - hw + mi, l + hw - mi);
+      const valid = cands.filter((x) => x >= lo - 0.01 && x <= hi + 0.01);
+      const clean = valid.filter((x) => cuts(x) === 0).sort((a, b) => Math.abs(a - c.x) - Math.abs(b - c.x));
+      if (clean.length) return { x: clean[0], y: c.y, zoom };
+      if (zf === 1) {
+        const best = valid.map((x) => ({ x, zoom, cuts: cuts(x) })).sort((a, b) => a.cuts - b.cuts || Math.abs(a.x - c.x) - Math.abs(b.x - c.x))[0];
+        if (best) fallback = best;
+      }
+    }
+    return fallback ? { x: fallback.x, y: c.y, zoom: fallback.zoom } : c;
+  }
+
+  private rawFrame(f: Frame, snap: Map<CastId, ActorSnap>): CamState {
     const H = this.set?.h ?? 1000;
     const W = this.set?.w ?? 1000;
     const ids = (v: CastId | CastId[]) => (Array.isArray(v) ? v : [v]).filter((id) => snap.has(id));
@@ -246,7 +324,7 @@ export class Engine {
         const a = snap.get(id)!;
         const h = a.height * a.s;
         const feet = a.y - a.lift;
-        minX = Math.min(minX, a.x - 60 * a.s); maxX = Math.max(maxX, a.x + 60 * a.s);
+        minX = Math.min(minX, a.x - a.hw); maxX = Math.max(maxX, a.x + a.hw);
         top = Math.min(top, feet - h * topFrac); bot = Math.max(bot, feet - h * botFrac);
       }
       return { minX, maxX, top, bot };
@@ -287,6 +365,30 @@ export class Engine {
       return { x: a.x + 4 * a.face * a.s + (f.dx ?? 0), y: feet - h + hz * 0.32 + CAPTION_SHIFT / zoom, zoom };
     }
     return { ...this.cam };
+  }
+
+  /**
+   * People a character shot is not about who would still be sliced by the frame edge. Like an anime
+   * close-up, they step out of this one shot (and come back in the next).
+   */
+  intruders(f: Frame, c: CamState, snap: Map<CastId, ActorSnap>): CastId[] {
+    let subjects: CastId[] = [];
+    if ('full' in f) subjects = Array.isArray(f.full) ? f.full : [f.full];
+    else if ('medium' in f) subjects = Array.isArray(f.medium) ? f.medium : [f.medium];
+    else if ('close' in f) subjects = [f.close];
+    else if ('xclose' in f) subjects = [f.xclose];
+    else if ('low' in f) subjects = [f.low];
+    else if (!('el' in f)) return [];
+    const cc = this.clamped(c);
+    const hw = this.VW / (2 * cc.zoom);
+    const out: CastId[] = [];
+    for (const [id, a] of snap) {
+      if (!a.visible || subjects.includes(id)) continue;
+      const l = a.x - a.hw, r = a.x + a.hw;
+      const outside = r <= cc.x - hw + 6 || l >= cc.x + hw - 6, inside = l >= cc.x - hw + 12 && r <= cc.x + hw - 12;
+      if (!outside && !inside) out.push(id);
+    }
+    return out;
   }
 
   /** The camera as it will actually be drawn (kept inside the set). */

@@ -42,3 +42,6 @@ next-env.d.ts
 
 # voice recording environment
 .venv-voices/
+
+# Python caches from the voice tools
+__pycache__/

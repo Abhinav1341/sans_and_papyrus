@@ -125,6 +125,11 @@ for (const ch of CHAPTERS) {
       for (const a of acts) {
         actions++;
         const w = `${at} ${a.do}`;
+        if (a.atWord !== undefined) {
+          const n = (sh.t ?? sh.n ?? '').split(/\s+/).filter(Boolean).length;
+          if (!n) errors.push(`${w}: atWord on a shot without a line`);
+          else if (a.atWord < 0 || a.atWord >= n) errors.push(`${w}: atWord ${a.atWord} but the line has ${n} words`);
+        }
         if ('who' in a && a.do !== 'track') checkWho(w, a.who as string);
         switch (a.do) {
           case 'pose': if (!poses.has(a.pose)) errors.push(`${w}: unknown pose ${a.pose}`); if (a.who === 'fizz') warns.push(`${w}: Fizz has no poses`); break;
@@ -142,6 +147,7 @@ for (const ch of CHAPTERS) {
           case 'fx': checkFx(w, a.fx); break;
           case 'sfx': if (!sounds.has(a.snd)) errors.push(`${w}: unknown sound ${a.snd}`); break;
           case 'stretch': if (a.who !== 'ro') warns.push(`${w}: only Ro stretches`); break;
+          case 'insert': if (a.id && !inserts.has(a.id)) errors.push(`${w}: unknown insert ${a.id}`); break;
           default: break;
         }
       }

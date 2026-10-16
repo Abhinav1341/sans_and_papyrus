@@ -1,0 +1,20 @@
+{
+  "note": "Fizz's sung lines. Key = the caption text exactly. notes = one [MIDI note, beats] per sung word (words are the caption words that contain letters). chords = [beat, chord] changes. intro/outro in beats. style: disco or soft.",
+  "songs": {
+    "♪ Eight big worlds, in a great big ring! ♪": {
+      "tempo": 116, "intro": 2, "outro": 1,
+      "notes": [[67, 1], [69, 1], [72, 2], [69, 0.5], [67, 0.5], [64, 1], [67, 1], [72, 3]],
+      "chords": [[0, "C"], [4, "Am"], [6, "F"], [8, "G"], [10, "C"]]
+    },
+    "♪ Win the Big Prize, and then... go to the next world! ♪": {
+      "tempo": 116, "intro": 1, "outro": 1,
+      "notes": [[67, 1], [69, 0.5], [72, 0.5], [74, 2], [72, 0.5], [69, 1.5], [67, 0.5], [67, 0.5], [69, 0.5], [71, 0.5], [74, 3]],
+      "chords": [[0, "C"], [3, "G"], [5, "Am"], [7, "F"], [9, "G"]]
+    },
+    "♪ Magic and fun, coming up soon! ♪": {
+      "tempo": 92, "intro": 2, "outro": 1.5, "style": "soft",
+      "notes": [[64, 1], [67, 0.5], [69, 1.5], [67, 1], [64, 0.5], [60, 3]],
+      "chords": [[0, "C"], [2, "Am"], [4, "F"], [6, "G"], [8, "C"]]
+    }
+  }
+}

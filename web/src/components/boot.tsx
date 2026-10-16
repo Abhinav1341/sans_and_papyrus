@@ -3,10 +3,11 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { store, useHydrated, useSave } from '@/lib/store';
-import { applyVolumes, installAudioUnlock, onUnlock } from '@/lib/audio';
+import { applyVolumes, audioState, installAudioUnlock, onUnlock } from '@/lib/audio';
 import { loadManifest, stopVoice } from '@/lib/voice';
 import { playMusic, resumeWantedMusic, type Mood } from '@/lib/music';
 import { CHAPTER_IDS } from '@/story/ids';
+import { registerServiceWorker } from './install';
 
 let booted = false;
 /** Idempotent start-up. Pages call it too, because child effects run before the layout's. */
@@ -27,6 +28,7 @@ export function boot() {
   if (demo === 'all') store.update((s) => { CHAPTER_IDS.forEach((id) => { if (!s.done.includes(id)) s.done.push(id); }); });
   if (q.get('still') === '1') store.update((s) => { s.settings.calm = true; s.settings.sound = false; s.settings.music = false; });
   if (q.get('movie') === '0') store.update((s) => { s.settings.movie = false; });
+  if (q.get('debug') === '1') (window as unknown as { __pgAudio?: () => string }).__pgAudio = audioState;
 
   const apply = () => { document.documentElement.classList.toggle('calm', store.get().settings.calm); applyVolumes(); };
   apply();
@@ -34,6 +36,7 @@ export function boot() {
   installAudioUnlock();
   onUnlock(() => { applyVolumes(); resumeWantedMusic(); });
   loadManifest();
+  registerServiceWorker();
 }
 
 export function AppBoot() {

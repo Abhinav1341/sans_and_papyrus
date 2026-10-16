@@ -5,7 +5,8 @@ import type { Engine, ActorSnap } from './engine';
 import { KidActor } from './actor';
 import type { Action, CastId, Ease, Fx, LineShot, Scene } from './types';
 import { sfx } from '@/lib/sfx';
-import type { PoseName } from '@/art/poses';
+import { POSE_HEIGHT, type PoseName } from '@/art/poses';
+import { widthFor } from './actor';
 
 const EASE: Record<Ease, string> = { linear: 'none', in: 'power2.in', out: 'power2.out', inOut: 'sine.inOut', back: 'back.out(1.6)', bounce: 'bounce.out', elastic: 'elastic.out(1, 0.5)' };
 const SPEED = { run: 430, walk: 170, tiptoe: 110, fly: 320, fall: 300, climb: 120 } as const;
@@ -35,6 +36,8 @@ export function simulate(start: Sim, acts: Action[] = [], viewHalfW = 260, viewX
       case 'hide': s.visible = false; break;
       case 'face': s.face = a.dir; break;
       case 'scale': s.s = a.s; break;
+      case 'pose': s.height = s.full * (POSE_HEIGHT[a.pose] ?? 1); s.hw = widthFor(s.widths, a.pose); break;
+      case 'cycle': s.height = s.full * ((a.cycle && POSE_HEIGHT[a.cycle as 'paddle']) || 1); s.hw = widthFor(s.widths, a.cycle ?? 'stand'); break;
       default: break;
     }
   }
@@ -43,7 +46,7 @@ export function simulate(start: Sim, acts: Action[] = [], viewHalfW = 260, viewX
 
 export class Director {
   /** `quiet` is true while a shot is being skipped, so its sounds and particles do not all fire at once. */
-  constructor(private eng: Engine, private quiet: () => boolean = () => false) {}
+  constructor(private eng: Engine, private quiet: () => boolean = () => false, private hooks: { insert?: (id: string | null) => void } = {}) {}
 
   /** Loads a scene's set and cast and frames the opening shot. */
   setupScene(scene: Scene) {
@@ -70,14 +73,22 @@ export class Director {
     const start = eng.snapshot();
     // The opening framing sees instant changes made at the first moment (someone placed or
     // shown elsewhere), so the camera never frames where a character used to be.
-    const instant = (shot.act || []).filter((a) => (a.at ?? 0) === 0 && (a.do === 'place' || a.do === 'show' || a.do === 'face' || a.do === 'hide'));
+    const instant = (shot.act || []).filter((a) => (a.at ?? 0) === 0 && a.atWord === undefined && (a.do === 'place' || a.do === 'show' || a.do === 'face' || a.do === 'hide' || a.do === 'pose' || a.do === 'cycle'));
     const opening = instant.length ? simulate(start, instant).end : start;
     const startCam = shot.cam ? eng.clamped(eng.frameFor(shot.cam, opening)) : eng.clamped();
     const halfW = eng.VW / (2 * startCam.zoom);
     const { end, from } = simulate(start, shot.act, halfW, startCam.x);
+    // Everyone is back in the picture at the start of a shot...
+    tl.call(() => { for (const a of eng.actors.values()) a.alpha = 1; }, [], 0);
     if (shot.cam) {
       const c = eng.frameFor(shot.cam, opening);
       tl.call(() => { eng.track = null; eng.cam.x = c.x; eng.cam.y = c.y; eng.cam.zoom = c.zoom; }, [], 0);
+      // ...except someone a close shot is not about who would be sliced by the frame edge, unless
+      // they speak or act in this shot.
+      const busy = new Set<string>((shot.act || []).flatMap((a) => ('who' in a && a.who ? [a.who as string] : [])));
+      if (shot.who) busy.add(shot.who);
+      const out = eng.intruders(shot.cam, c, opening).filter((id) => !busy.has(id));
+      if (out.length) tl.call(() => { for (const id of out) { const a = eng.actors.get(id); if (a) a.alpha = 0; } }, [], 0);
     }
     if (shot.move) {
       const c = eng.frameFor(shot.move, end);
@@ -257,6 +268,7 @@ export class Director {
       case 'track': call(() => { eng.track = a.who ? { who: a.who, lead: a.lead ?? 60 } : null; }); return;
       case 'fx': call(() => this.fx(a.fx, silent)); return;
       case 'sfx': if (!silent) call(() => { if (!this.quiet()) sfx(a.snd); }); return;
+      case 'insert': call(() => this.hooks.insert?.(a.id)); return;
     }
   }
 

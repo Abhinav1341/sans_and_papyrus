@@ -117,6 +117,15 @@ let voicePaused = false;
 
 export function estimateDuration(text: string) { return 0.4 + captionWords(text).length * 0.36; }
 
+/** When each caption word starts (seconds from the start of the line): from the recording, or evenly spread. */
+export function wordStarts(voice: VoiceId, text: string): number[] {
+  const words = captionWords(text);
+  const e = manifest?.[clipKey(voice, text)];
+  if (e && e[1].length === words.length) return e[1];
+  const d = e ? e[0] : estimateDuration(text);
+  return words.map((_, i) => 0.06 + (i / Math.max(1, words.length)) * Math.max(0.2, d - 0.3));
+}
+
 class SpeechImpl implements Speech {
   text: string;
   words: string[];

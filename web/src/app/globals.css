@@ -15,7 +15,15 @@ body {
   -webkit-tap-highlight-color: transparent;
   overflow: hidden;
   touch-action: manipulation;
+  /* Phones: no pull-to-refresh or rubber-band scrolling, no long-press menus or text selection on the game. */
+  overscroll-behavior: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-text-size-adjust: 100%;
 }
+html { overscroll-behavior: none; background: var(--space-0); }
+input, textarea { -webkit-user-select: text; user-select: text; }
 button { font: inherit; color: inherit; }
 img, svg { display: block; }
 h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.1; }
@@ -392,3 +400,72 @@ svg .leap { animation: leap 7s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ============ Install the app ============ */
+.install-intro { margin: -4px 0 var(--sp-4); }
+.install-steps { list-style: none; margin: 0 0 var(--sp-5); padding: 0; display: grid; gap: var(--sp-3); }
+.install-step { display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: var(--sp-3); font-weight: 700; line-height: 1.35; }
+.install-step b { color: var(--sun); font-weight: 800; }
+.install-n { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--glass-strong); box-shadow: inset 0 0 0 2px var(--line); font-family: var(--font-display); font-size: var(--fs-lg); }
+.install-glyph { display: inline-block; width: 22px; height: 22px; vertical-align: -5px; color: var(--sun); }
+.install-note { margin: 0 0 var(--sp-4); padding: var(--sp-3) var(--sp-4); border-radius: 16px; background: rgba(255, 211, 110, .12); box-shadow: inset 0 0 0 2px rgba(255, 211, 110, .35); font-size: var(--fs-sm); font-weight: 700; }
+
+/* ============ Home: the episode poster ============ */
+.home2 { gap: 10px; }
+.home2 .install-btn { min-height: 60px; }
+.home-mark { font-family: var(--font-display); font-size: var(--fs-lg); letter-spacing: .3px; background: linear-gradient(90deg, var(--sun), var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.captain-strip {
+  display: flex; align-items: center; gap: var(--sp-3); width: 100%; min-height: 64px;
+  padding: 6px var(--sp-4) 6px 6px; border: 0; border-radius: 99px; cursor: pointer; color: inherit; font: inherit; text-align: left;
+  background: var(--glass); box-shadow: inset 0 0 0 2px var(--line);
+}
+.captain-strip:focus-visible, .home-tile:focus-visible, .parent-link:focus-visible { outline: 4px solid var(--sun); outline-offset: 3px; }
+.captain-face { width: 56px; height: 56px; border-radius: 50%; overflow: hidden; flex: 0 0 auto; background: radial-gradient(circle at 50% 35%, #3b2f86, #1d1745); box-shadow: 0 0 0 3px var(--sun); }
+.captain-face > span, .crew-face > span, .episode-fizz > span, .episode-art > span { display: block; width: 100%; height: 100%; }
+.captain-face svg, .crew-face svg, .episode-fizz svg, .episode-art svg { width: 100%; height: 100%; display: block; }
+.episode-art { overflow: hidden; }
+.captain-who { flex: 1; display: flex; flex-direction: column; line-height: 1.15; }
+.captain-who strong { font-family: var(--font-display); font-size: var(--fs-lg); }
+.captain-level { display: inline-flex; align-items: center; gap: 4px; font-weight: 800; font-size: var(--fs-sm); color: var(--sun); }
+.captain-level .ico { width: 16px; height: 16px; }
+.captain-strip > .ico { width: 26px; height: 26px; color: var(--text-muted); }
+
+/* The poster: a little cinema frame for the next chapter. The one bold element on this screen. */
+.episode {
+  position: relative; flex: 0 0 auto; border-radius: 28px; overflow: hidden;
+  background: linear-gradient(180deg, #2a2163, #1d1745);
+  box-shadow: 0 18px 40px rgba(5, 3, 20, .55), inset 0 0 0 3px rgba(255, 211, 110, .55);
+  animation: episode-in .6s var(--ease-out) .12s both;
+}
+@keyframes episode-in { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+.episode-art { height: 162px; position: relative; }
+.episode-art::after { content: ""; position: absolute; inset: auto 0 0 0; height: 70px; background: linear-gradient(180deg, transparent, #241c58); }
+.episode-fizz { position: absolute; left: 14px; top: 12px; width: 74px; height: 92px; animation: bob 4s ease-in-out infinite; }
+.episode-crew { position: absolute; top: 132px; left: 16px; right: 16px; display: flex; gap: 6px; }
+.crew-face { width: 46px; height: 46px; border-radius: 50%; overflow: hidden; background: radial-gradient(circle at 50% 35%, #4b3fb0, #1d1745); box-shadow: 0 0 0 3px #241c58, 0 4px 10px rgba(0, 0, 0, .35); }
+.crew-face.you { margin-left: auto; box-shadow: 0 0 0 3px var(--sun), 0 4px 10px rgba(0, 0, 0, .35); }
+.episode-body { padding: 30px var(--sp-4) var(--sp-4); display: flex; flex-direction: column; gap: 6px; }
+.episode-where { font-size: var(--fs-sm); font-weight: 800; color: var(--pink); }
+.episode-title { font-family: var(--font-display); font-size: var(--fs-2xl); line-height: 1.02; }
+.episode-teaser { font-size: var(--fs-base); line-height: 1.35; color: var(--text-soft); }
+.episode-dots { display: flex; align-items: center; gap: 6px; margin: 2px 0 var(--sp-2); }
+.episode-dots span { width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, .18); }
+.episode-dots span.done { background: var(--mint); }
+.episode-dots span.now { background: var(--sun); box-shadow: 0 0 0 4px rgba(255, 211, 110, .25); }
+.episode-dots small { margin-left: var(--sp-2); font-size: var(--fs-sm); font-weight: 800; color: var(--text-muted); }
+
+.home-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); }
+.home-tile {
+  min-height: 64px; display: flex; align-items: center; justify-content: center; gap: var(--sp-2);
+  border: 0; border-radius: var(--r-lg); cursor: pointer; color: inherit; font-family: var(--font-display); font-weight: 800; font-size: var(--fs-lg);
+  background: var(--glass); box-shadow: inset 0 0 0 2px var(--line);
+}
+.home-tile .ico { width: 28px; height: 28px; color: var(--mint); }
+.home-tile:active, .captain-strip:active { transform: translateY(2px); }
+.parent-link {
+  align-self: center; display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 52px; padding: 0 var(--sp-4);
+  border: 0; border-radius: 99px; background: none; color: var(--text-muted); cursor: pointer; font: inherit; font-weight: 800;
+}
+.parent-link .ico { width: 20px; height: 20px; }
+.parent-link small { font-weight: 700; opacity: .8; }
+@media (prefers-reduced-motion: reduce) { .episode, .episode-fizz { animation: none; } }

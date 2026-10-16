@@ -35,12 +35,21 @@ const INSERTS: Record<string, string> = {
     <g class="ins-rise"><circle cx="200" cy="420" r="92" fill="#ffd36e" stroke="#c99a2e" stroke-width="12"/><circle cx="200" cy="420" r="62" fill="none" stroke="#fff4c7" stroke-width="8"/><path d="${starPath(200, 420, 46)}" fill="#fff4c7"/></g>
     <path class="ins-pop" style="animation-delay:.6s" d="M300 300 l8 22 22 8 -22 8 -8 22 -8 -22 -22 -8 22 -8z" fill="#fff"/>
     <path class="ins-pop" style="animation-delay:.9s" d="M96 360 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6z" fill="#fff"/>`,
+  // The START button with the Captain's finger hovering over it ("One... two...")...
   button: `<defs><radialGradient id="ins-btn" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd1e8"/><stop offset="1" stop-color="#ff5fa2"/></radialGradient></defs>
     <rect width="400" height="800" fill="#2a1f50"/>
     <rect x="0" y="300" width="400" height="500" fill="#5a44d6"/><path d="M0 300 H400" stroke="#2a1838" stroke-width="8"/>
     <ellipse cx="200" cy="420" rx="150" ry="70" fill="#2a1838"/>
-    <g class="ins-press"><ellipse cx="200" cy="400" rx="140" ry="64" fill="url(#ins-btn)" stroke="#2a1838" stroke-width="8"/><text x="200" y="414" text-anchor="middle" font-size="40" fill="#fff" style="${F}">START</text></g>
-    <g class="ins-finger"><path d="M150 800 L160 520 Q164 470 200 470 Q236 470 240 520 L250 800 Z" fill="#c98e62" stroke="#2a1838" stroke-width="7"/><path d="M178 500 Q200 488 222 500" stroke="#f0c9a6" stroke-width="7" fill="none"/></g>`,
+    <g><ellipse cx="200" cy="400" rx="140" ry="64" fill="url(#ins-btn)" stroke="#2a1838" stroke-width="8"/><text x="200" y="414" text-anchor="middle" font-size="40" fill="#fff" style="${F}">START</text></g>
+    <g class="ins-hover"><path d="M150 800 L160 520 Q164 470 200 470 Q236 470 240 520 L250 800 Z" fill="#c98e62" stroke="#2a1838" stroke-width="7"/><path d="M178 500 Q200 488 222 500" stroke="#f0c9a6" stroke-width="7" fill="none"/></g>`,
+  // ...and the press, on "THREE!": the button goes down and light bursts out.
+  press: `<defs><radialGradient id="ins-btn2" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="#ffd1e8"/><stop offset="1" stop-color="#ff5fa2"/></radialGradient><radialGradient id="ins-burst" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff8d8"/><stop offset="1" stop-color="#fff8d8" stop-opacity="0"/></radialGradient></defs>
+    <rect width="400" height="800" fill="#2a1f50"/>
+    <rect x="0" y="300" width="400" height="500" fill="#5a44d6"/><path d="M0 300 H400" stroke="#2a1838" stroke-width="8"/>
+    <g class="ins-burst">${Array.from({ length: 14 }, (_, i) => { const a = (i / 14) * Math.PI * 2; return `<path d="M200 400 L${(200 + Math.cos(a - 0.09) * 520).toFixed(0)} ${(400 + Math.sin(a - 0.09) * 520).toFixed(0)} L${(200 + Math.cos(a + 0.09) * 520).toFixed(0)} ${(400 + Math.sin(a + 0.09) * 520).toFixed(0)} Z" fill="#fff4c7" opacity=".55"/>`; }).join('')}<circle cx="200" cy="400" r="190" fill="url(#ins-burst)"/></g>
+    <ellipse cx="200" cy="420" rx="150" ry="70" fill="#2a1838"/>
+    <g class="ins-down"><ellipse cx="200" cy="400" rx="140" ry="64" fill="url(#ins-btn2)" stroke="#2a1838" stroke-width="8"/><text x="200" y="414" text-anchor="middle" font-size="40" fill="#fff" style="${F}">START</text></g>
+    <g class="ins-push"><path d="M150 800 L160 520 Q164 470 200 470 Q236 470 240 520 L250 800 Z" fill="#c98e62" stroke="#2a1838" stroke-width="7"/><path d="M178 500 Q200 488 222 500" stroke="#f0c9a6" stroke-width="7" fill="none"/></g>`,
   rulecard: `<rect width="400" height="800" fill="#1d1745"/>
     <g class="ins-rise"><rect x="40" y="150" width="320" height="470" rx="26" fill="#fff" stroke="#7B61FF" stroke-width="10"/>
     <text x="200" y="222" text-anchor="middle" font-size="34" fill="#7B61FF" style="${F}">FIZZ'S RULES</text>

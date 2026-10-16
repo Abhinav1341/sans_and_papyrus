@@ -25,6 +25,8 @@ import numpy as np
 import soundfile as sf
 from scipy.signal import resample_poly
 
+from sing import sing  # Fizz's sung lines (vocoder + disco backing), see sing.py and songs.json
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 GAME = os.path.normpath(os.path.join(HERE, '..', '..'))
 SR = 24000
@@ -50,9 +52,10 @@ def voice_signature(cfg: dict) -> str:
     return f"{cfg['model']}:{js_num(cfg.get('semitones', 0))}:{js_num(cfg.get('speed', 1))}:{cfg.get('fx', '')}"
 
 
-def clip_name(voice: str, cfg: dict, text: str) -> str:
-    """Mirrors clipName() in src/lib/voice-text.ts, so a changed voice gets new file names."""
-    return fnv1a(f'{voice}|{voice_signature(cfg)}|{text}')
+def clip_name(voice: str, cfg: dict, say: str) -> str:
+    """Mirrors clipName() in src/lib/voice-text.ts: named after the voice settings and the spoken text,
+    so a changed voice or a changed reading gets new file names."""
+    return fnv1a(f'{voice}|{voice_signature(cfg)}|{say}')
 
 
 def caption_words(text: str):
@@ -129,6 +132,7 @@ def main():
     ap.add_argument('--force', action='store_true', help='record again even if the clip exists')
     ap.add_argument('--sample', type=int, default=0, help='record only the first N lines of each voice (for a quick check)')
     ap.add_argument('--migrate', action='store_true', help='rename clips recorded under the old naming (voice|text) to the current names, without recording')
+    ap.add_argument('--songs', action='store_true', help='record only the sung lines (songs.json)')
     args = ap.parse_args()
 
     from kokoro_onnx import Kokoro  # imported here so --help works without the engine
@@ -142,8 +146,11 @@ def main():
     man_path = os.path.join(out_dir, 'manifest.json')
     manifest = json.load(open(man_path, encoding='utf-8')) if os.path.exists(man_path) else {}
 
+    songs = json.load(open(os.path.join(HERE, 'songs.json'), encoding='utf-8'))['songs']
     only = set(v for v in args.only.split(',') if v)
     todo = [l for l in data['lines'] if (not only or l['voice'] in only)]
+    if args.songs:
+        todo = [l for l in todo if l['text'] in songs]
     if args.sample:
         seen = {}
         todo = [l for l in todo if seen.setdefault(l['voice'], []).append(l) or len(seen[l['voice']]) <= args.sample]
@@ -151,7 +158,7 @@ def main():
 
     # The game and this script must name clips the same way.
     for line in data['lines']:
-        if f"{line['voice']}|{clip_name(line['voice'], cast['voices'][line['voice']], line['text'])}" != line['key']:
+        if f"{line['voice']}|{clip_name(line['voice'], cast['voices'][line['voice']], line['say'])}" != line['key']:
             sys.exit('clip names in lines.json do not match: run npx tsx tools/voices/export-lines.ts')
 
     if args.migrate:
@@ -182,10 +189,20 @@ def main():
         if not args.force and os.path.exists(path) and key in manifest:
             continue
         os.makedirs(os.path.dirname(path), exist_ok=True)
+        lang = 'en-gb' if cfg['model'].startswith('b') else 'en-us'
+        if line['text'] in songs:
+            # A song: sung on its melody over a backing track, words on the beat.
+            sung, starts = sing(kokoro, line['say'], cfg, songs[line['text']], caption_words(line['text']), lang)
+            lead = 0.06
+            audio = normalise(np.concatenate([np.zeros(int(lead * SR), dtype=np.float32), sung]), -17.0)
+            sf.write(path, audio, SR, format='MP3', subtype='MPEG_LAYER_III')
+            manifest[key] = [round(len(audio) / SR, 3), [round(s + lead, 3) for s in starts]]
+            done += 1
+            print(f'sang: {line["text"]} ({manifest[key][0]}s)', flush=True)
+            continue
         semis = cfg.get('semitones', 0)
         ratio = 2 ** (semis / 12)
         speed = max(0.5, min(2.0, cfg.get('speed', 1.0) / ratio))
-        lang = 'en-gb' if cfg['model'].startswith('b') else 'en-us'
         audio, sr, timings = kokoro.create_timed(line['say'], voice=cfg['model'], speed=speed, lang=lang)
         audio = pitch_shift(np.asarray(audio, dtype=np.float32), semis)
         if cfg.get('fx') == 'robot':

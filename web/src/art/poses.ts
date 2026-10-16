@@ -63,6 +63,9 @@ export const POSES = {
   carry: { j: P({ a1s: -150, a1e: -30, a2s: 150, a2e: 30, tilt: -4 }) },
   stretchArm: { j: P({ a1s: -15, a1e: 10, a2s: 90, a2e: 0, lean: 6, l1h: -12, l2h: 12 }) },
   reachDown: { j: P({ a1s: -30, a1e: 20, a2s: 14, a2e: 0, lean: 12, tilt: 10, l1h: -14, l1k: 10, l2h: 16, l2k: 14 }) },
+  pocket: { j: P({ a1s: -6, a1e: 12, a2s: 14, a2e: 42, tilt: 16, lean: 6 }) },
+  holdUp: { j: P({ a1s: -10, a1e: 15, a2s: 135, a2e: 35, tilt: -8 }) },
+  brace: { j: P({ a1s: -62, a1e: 22, a2s: 62, a2e: 22, lean: -16, l1h: -22, l1k: 12, l2h: 28, l2k: 22, tilt: -6 }) },
 } satisfies Record<string, PoseDef>;
 
 export type PoseName = keyof typeof POSES;

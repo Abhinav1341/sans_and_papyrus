@@ -9,7 +9,7 @@ import { isGate, isLine, isReward, isTitle, type CastId, type LineShot, type Pan
 import type { ChapterRef, FlatShot } from '@/story';
 import { fill, titleSpeech, gateSpeech, rewardSpeech, endSpeech } from './lines';
 import { store, type Hero } from '@/lib/store';
-import { say, stopVoice, pauseVoice, preload, voiceOf, type Speech } from '@/lib/voice';
+import { say, stopVoice, pauseVoice, preload, voiceOf, wordStarts, type Speech } from '@/lib/voice';
 import { setAudioPaused } from '@/lib/audio';
 import { playMusic, type Mood } from '@/lib/music';
 import { sfx } from '@/lib/sfx';
@@ -56,7 +56,7 @@ export class Controller {
     const cape = store.get().items.includes('captain-badge') && chapter.world.id !== 'prologue';
     this.eng = new Engine(host, { look: hero.look, cape });
     this.eng.calm = store.get().settings.calm || matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this.dir = new Director(this.eng, () => this.skipping);
+    this.dir = new Director(this.eng, () => this.skipping, { insert: (id) => this.ui.setInsert(id) });
     this.cover = document.createElement('div');
     this.cover.className = 'trans-cover';
     this.cover.innerHTML = '<div class="iris-hole"></div>';
@@ -193,7 +193,7 @@ export class Controller {
     const linePromise = new Promise<void>((r) => { lineDone = r; });
     if (!text) lineDone();
 
-    const tl = this.dir.build(shot, false);
+    const tl = this.dir.build(this.cueWords(shot, speaker, text), false);
     this.tl = tl;
     if (text) tl.call(() => {
       if (my !== this.token) return;
@@ -208,6 +208,14 @@ export class Controller {
     await Promise.all([tlPromise, linePromise]);
     if (my !== this.token || this.destroyed) return;
     this.finishShot(shot, !!text);
+  }
+
+  /** Turns `atWord` cues into times, so an action lands exactly on a spoken word ("...THREE!"). */
+  private cueWords(shot: LineShot, speaker: Speaker, text: string): LineShot {
+    if (!text || !shot.act?.some((a) => a.atWord !== undefined)) return shot;
+    const starts = wordStarts(this.voice(speaker), text);
+    const lineAt = shot.lineAt ?? 0.25;
+    return { ...shot, act: shot.act.map((a) => (a.atWord === undefined ? a : { ...a, at: lineAt + (starts[Math.min(a.atWord, starts.length - 1)] ?? 0) + 0.04 })) };
   }
 
   private finishShot(shot: LineShot, hasText: boolean) {

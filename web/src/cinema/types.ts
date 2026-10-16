@@ -47,7 +47,8 @@ export type Frame =
 export type Ease = 'linear' | 'in' | 'out' | 'inOut' | 'back' | 'bounce' | 'elastic';
 export type Gait = 'run' | 'walk' | 'tiptoe' | 'fly' | 'climb';
 
-interface At { at?: number }
+/** When an action starts: `at` seconds into the shot, or `atWord`: the moment the Nth word (0-based) of the shot's line is spoken. */
+interface At { at?: number; atWord?: number }
 export type Action = At & (
   | { do: 'move'; who: CastId; to: number; y?: number; dur?: number; gait?: Gait; then?: PoseName; ease?: Ease }
   | { do: 'enter'; who: CastId; from: 'left' | 'right' | 'top'; to: number; y?: number; dur?: number; gait?: Gait | 'fall'; then?: PoseName }
@@ -78,6 +79,7 @@ export type Action = At & (
   | { do: 'track'; who: CastId | null; lead?: number }
   | { do: 'fx'; fx: Fx }
   | { do: 'sfx'; snd: SoundId }
+  | { do: 'insert'; id: string | null }                      // switch the close-up insert mid-shot
 );
 
 /** Tween of a named element in the set (x/y offsets in world units, rotation in degrees). */

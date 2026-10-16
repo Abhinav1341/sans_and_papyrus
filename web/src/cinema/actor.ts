@@ -13,6 +13,13 @@ import type { AnyExpr, CastId, EmoteKind, PropId } from './types';
 export const NS = 'http://www.w3.org/2000/svg';
 const f1 = (n: number) => Math.round(n * 10) / 10;
 const GESTURE_POSES = new Set<PoseName>(['stand', 'relaxed', 'hips', 'point', 'present']);
+/** Which of an actor's widths a pose or cycle uses. */
+export function widthFor(w: { narrow: number; wide: number; lie: number }, pose: string): number {
+  if (pose === 'lie' || pose === 'splat') return w.lie;
+  return WIDE_POSES.has(pose) ? w.wide : w.narrow;
+}
+/** Poses and cycles with arms held out to the side (the body is wider on screen). */
+const WIDE_POSES = new Set<string>(['cheer', 'hold', 'flail', 'float', 'carry', 'jump', 'present', 'point', 'reach', 'yay', 'wave', 'shrug', 'hips', 'ride', 'stretchArm', 'dance', 'paddle', 'brace', 'holdUp']);
 
 export interface RideTarget { kind: 'el' | 'actor'; name: string; dx: number; dy: number }
 
@@ -62,6 +69,13 @@ export abstract class Actor {
     return this.height * f;
   }
   /** Top of the head in world space (for emotes, framing and particles). */
+  /** Half the body's width in world units for a narrow pose, arms-out pose and lying down (for framing). */
+  widths(): { narrow: number; wide: number; lie: number } {
+    if (this.id === 'fizz') return { narrow: 104 * this.s, wide: 104 * this.s, lie: 104 * this.s };
+    return { narrow: 76 * this.s, wide: 100 * this.s, lie: 160 * this.s };
+  }
+  /** Half the body's width right now, arms included (for framing: nobody gets cut in half). */
+  halfWidth(): number { return widthFor(this.widths(), this.cycle ?? this.pose); }
   headTop() { return { x: this.x, y: this.y - this.lift - this.heightNow() * this.s }; }
   faceCenter() { return { x: this.x + 4 * this.face * this.s, y: this.y - this.lift - this.heightNow() * 0.72 * this.s }; }
 
@@ -167,6 +181,12 @@ export class KidActor extends Actor {
     this.blinking = false;
     setFace(this.rig, this.look, ex);
     this.mouthLvl = 0;
+  }
+
+  widths() {
+    // Bigger builds are wider, and a prop in hand (a shield, a paddle) reaches further out.
+    const k = this.dims.scale, extra = this.prop ? 30 * this.s : 0;
+    return { narrow: 76 * this.s * k + extra * 0.5, wide: 100 * this.s * k + extra, lie: 160 * this.s * k };
   }
 
   setProp(p: PropId | null) {
