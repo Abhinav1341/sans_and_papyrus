@@ -5,7 +5,7 @@
 import gsap from 'gsap';
 import { Engine } from './engine';
 import { Director } from './director';
-import { isGate, isLine, isReward, isTitle, type CastId, type LineShot, type Panel, type Scene, type Speaker, type TitleShot, type GateShot, type Transition } from './types';
+import { isGate, isLine, isReward, isTitle, type Action, type CastId, type LineShot, type Panel, type Scene, type Speaker, type TitleShot, type GateShot, type Transition } from './types';
 import type { ChapterRef, FlatShot } from '@/story';
 import { fill, titleSpeech, gateSpeech, rewardSpeech, endSpeech } from './lines';
 import { store, type Hero } from '@/lib/store';
@@ -14,6 +14,7 @@ import { setAudioPaused } from '@/lib/audio';
 import { playMusic, type Mood } from '@/lib/music';
 import { sfx } from '@/lib/sfx';
 import { COLLECTIBLES } from '@/story/collectibles';
+import { toneFor, speakerExpr, type Tone } from '@/lib/tone';
 
 export interface Caption { speaker: Speaker; text: string; words: string[]; idx: number }
 export type Overlay =
@@ -39,7 +40,7 @@ export class Controller {
   private sceneIdx = -1;
   private tl: gsap.core.Timeline | null = null;
   private speech: Speech | null = null;
-  private line: { speaker: Speaker; text: string } | null = null;
+  private line: { speaker: Speaker; text: string; tone?: Tone } | null = null;
   private phase: 'idle' | 'running' | 'done' | 'overlay' | 'end' = 'idle';
   private token = 0;
   private destroyed = false;
@@ -79,6 +80,8 @@ export class Controller {
   get heroName() { return this.hero.name; }
   private text(t: string) { return fill(t, this.hero.name); }
   private voice(sp: Speaker) { return voiceOf(sp, this.hero.voice); }
+  /** How a story line is spoken: the screenplay's tone, else the speaker's face in the shot, else the words. */
+  private tone(shot: LineShot, speaker: Speaker, text: string): Tone { return toneFor(this.voice(speaker), text, speakerExpr(shot.act, speaker), shot.tone); }
   private hold(extra = 0) { return (HOLD[store.get().settings.speed] + extra) * 1000; }
   private movie() { return store.get().settings.movie; }
 
@@ -117,12 +120,13 @@ export class Controller {
 
   /** Starts downloading the voices for the next few lines. */
   private preloadFrom(i: number) {
-    const lines: { voice: ReturnType<typeof voiceOf>; text: string }[] = [];
+    const lines: { voice: ReturnType<typeof voiceOf>; text: string; tone?: Tone }[] = [];
     for (let k = i; k < Math.min(this.flat.length, i + 8); k++) {
       const sh = this.flat[k].shot;
       if (isLine(sh)) {
         const t = sh.t ?? sh.n;
-        if (t) lines.push({ voice: this.voice(sh.t ? (sh.who ?? 'narrator') : 'narrator'), text: this.text(t) });
+        const speaker: Speaker = sh.t ? (sh.who ?? 'narrator') : 'narrator';
+        if (t) lines.push({ voice: this.voice(speaker), text: this.text(t), tone: this.tone(sh, speaker, this.text(t)) });
       } else if (isTitle(sh)) lines.push({ voice: 'narrator', text: titleSpeech(sh.title) });
       else if (isGate(sh)) lines.push({ voice: 'fizz', text: gateSpeech(sh.gate, this.hero.name) });
       else if (isReward(sh)) lines.push({ voice: 'fizz', text: rewardSpeech(sh.reward) });
@@ -186,19 +190,20 @@ export class Controller {
     const raw = shot.t ?? shot.n;
     const speaker: Speaker = shot.t ? (shot.who ?? 'narrator') : 'narrator';
     const text = raw ? this.text(raw) : '';
-    this.line = text ? { speaker, text } : null;
+    const tone = text ? this.tone(shot, speaker, text) : undefined;
+    this.line = text ? { speaker, text, tone } : null;
     if (!text) this.ui.setCaption(null);
 
     let lineDone: () => void = () => {};
     const linePromise = new Promise<void>((r) => { lineDone = r; });
     if (!text) lineDone();
 
-    const tl = this.dir.build(this.cueWords(shot, speaker, text), false);
+    const tl = this.dir.build(this.cueWords(shot, speaker, text, tone), false);
     this.tl = tl;
     if (text) tl.call(() => {
       if (my !== this.token) return;
       if (this.skipping) { this.showCaptionFull(); lineDone(); return; }
-      this.speak(speaker, text).then(() => lineDone());
+      this.speak(speaker, text, tone).then(() => lineDone());
     }, [], shot.lineAt ?? 0.25);
     const tlPromise = new Promise<void>((r) => tl.eventCallback('onComplete', () => r()));
     if (trans) this.reveal(trans);
@@ -211,11 +216,18 @@ export class Controller {
   }
 
   /** Turns `atWord` cues into times, so an action lands exactly on a spoken word ("...THREE!"). */
-  private cueWords(shot: LineShot, speaker: Speaker, text: string): LineShot {
+  private cueWords(shot: LineShot, speaker: Speaker, text: string, tone?: Tone): LineShot {
     if (!text || !shot.act?.some((a) => a.atWord !== undefined)) return shot;
-    const starts = wordStarts(this.voice(speaker), text);
+    const starts = wordStarts(this.voice(speaker), text, tone);
     const lineAt = shot.lineAt ?? 0.25;
-    return { ...shot, act: shot.act.map((a) => (a.atWord === undefined ? a : { ...a, at: lineAt + (starts[Math.min(a.atWord, starts.length - 1)] ?? 0) + 0.04 })) };
+    const word = (n: number) => lineAt + (starts[Math.min(n, starts.length - 1)] ?? 0) + 0.04;
+    return {
+      ...shot, act: shot.act.map((a) => {
+        if (a.atWord === undefined) return a;
+        const at = Math.max(0, word(a.atWord) + (a.at ?? 0));
+        return a.toWord === undefined ? { ...a, at } : { ...a, at, dur: Math.max(0.12, word(a.toWord) - at) } as Action;
+      }),
+    };
   }
 
   private finishShot(shot: LineShot, hasText: boolean) {
@@ -229,8 +241,8 @@ export class Controller {
     else this.ui.setWaiting(true);
   }
 
-  private speak(speaker: Speaker, text: string): Promise<void> {
-    const sp = say(this.voice(speaker), text);
+  private speak(speaker: Speaker, text: string, tone?: Tone): Promise<void> {
+    const sp = say(this.voice(speaker), text, { tone });
     this.speech = sp;
     const who = speaker !== 'narrator' && this.eng.actors.has(speaker as CastId) ? (speaker as CastId) : null;
     this.ui.setCaption({ speaker, text, words: sp.words, idx: -1 });
@@ -282,7 +294,7 @@ export class Controller {
     window.clearTimeout(this.autoTimer);
     this.ui.setWaiting(false);
     const line = this.line;
-    this.speak(line.speaker, line.text).then(() => {
+    this.speak(line.speaker, line.text, line.tone).then(() => {
       if (this.line !== line) return;
       this.showCaptionFull();
       if (this.phase === 'done' && !this.paused) {

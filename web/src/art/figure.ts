@@ -41,7 +41,7 @@ export function groundDrop(d: Dims, j: Joints): number {
   return Math.max(0, d.thigh + d.shin - Math.max(ext(j.l1h, j.l1k), ext(j.l2h, j.l2k)));
 }
 
-export type JointKey = 'body' | 'upper' | 'l1' | 'l1s' | 'l2' | 'l2s' | 'a1' | 'a1f' | 'a1h' | 'a2' | 'a2f' | 'a2fl' | 'a2h' | 'head' | 'hb' | 'feat' | 'cape';
+export type JointKey = 'body' | 'upper' | 'l1' | 'l1s' | 'l2' | 'l2s' | 'a1' | 'a1f' | 'a1h' | 'a2' | 'a2f' | 'a2fl' | 'a2h' | 'head' | 'hb' | 'feat' | 'cape' | 'capeup';
 type T = Record<JointKey, string>;
 
 /** The SVG transform of every joint for one pose. */
@@ -51,6 +51,8 @@ export function jointTransforms(d: Dims, j: Joints, x: RigExtras = NO_EXTRAS): T
   return {
     body: `translate(${f1(j.bx)} ${f1(j.by + drop)})`,
     upper: `rotate(${f1(j.lean)} 0 ${d.hipY})`,
+    // The cape hangs behind the whole body (legs too), so it leans with the upper body from its own layer.
+    capeup: `rotate(${f1(j.lean)} 0 ${d.hipY})`,
     l1: `translate(${-d.hipX} ${d.hipY}) rotate(${f1(-j.l1h)})`,
     l1s: `translate(0 ${d.thigh}) rotate(${f1(j.l1k)})`,
     l2: `translate(${d.hipX} ${d.hipY}) rotate(${f1(-j.l2h)})`,
@@ -140,11 +142,23 @@ function torsoMarkup(d: Dims, look: FullLook) {
   return neck + body + shadow + detail + belt + badge;
 }
 
+/** The Captain's cape, behind the whole body: it hangs from the shoulders to the knees and flares out,
+ *  so its edges and hem show around the body like a real cape. */
 function capeMarkup(d: Dims, transform: string) {
-  const w = d.torsoTop + 4;
-  return `<g data-j="cape" transform="${transform}"><path d="M${-w + 6} 0 L${w - 6} 0 L${w + 10} 118 Q0 132 ${-w - 10} 118 Z" fill="#5a44d6" stroke="#ffd36e" stroke-width="3" stroke-linejoin="round"/>`
-    + `<path d="M${-w + 12} 6 L${w - 12} 6 L${w} 110 Q0 120 ${-w} 110 Z" fill="#7B61FF"/>`
-    + `<path d="M0 44 l5 10 11 1.5 -8 7.5 2 11 -10 -5.5 -10 5.5 2 -11 -8 -7.5 11 -1.5z" fill="#ffd36e" opacity=".9"/></g>`;
+  const w = d.torsoTop + 6, len = -d.hipY + 40, flare = w + 30;
+  const hem = `L${flare} ${len} Q${f1(flare * 0.5)} ${len + 14} 0 ${len} Q${f1(-flare * 0.5)} ${len + 14} ${-flare} ${len}`;
+  return `<g data-j="cape" transform="${transform}">`
+    + `<path d="M${-w} 0 L${w} 0 ${hem} Z" fill="#4b36c4" stroke="#2a1838" stroke-width="3" stroke-linejoin="round"/>`
+    + `<path d="M${-w + 8} 6 L${w - 8} 6 L${flare - 10} ${len - 6} Q0 ${len + 4} ${-flare + 10} ${len - 6} Z" fill="#7B61FF"/>`
+    + `<path d="M${-w + 18} 14 L${-flare + 24} ${len - 12} M${w - 18} 14 L${flare - 24} ${len - 12}" stroke="#5a44d6" stroke-width="5" stroke-linecap="round" opacity=".7"/>`
+    + `<path d="M${-flare} ${len} Q${f1(-flare * 0.5)} ${len + 14} 0 ${len} Q${f1(flare * 0.5)} ${len + 14} ${flare} ${len}" stroke="#ffd36e" stroke-width="4" fill="none"/></g>`;
+}
+
+/** The front of the cape: ties over the shoulders and a gold star clasp at the collar. */
+function capeFrontMarkup(d: Dims) {
+  const w = d.torsoTop + 6, y = d.shY - 2;
+  return `<path d="M${-w} ${y} Q${-w + 8} ${y + 22} -6 ${y + 14} L-3 ${y + 4} Z M${w} ${y} Q${w - 8} ${y + 22} 6 ${y + 14} L3 ${y + 4} Z" fill="#5a44d6" stroke="#2a1838" stroke-width="2.5" stroke-linejoin="round"/>`
+    + `<circle cx="0" cy="${y + 13}" r="7" fill="#ffd36e" stroke="#c99a2e" stroke-width="2"/><path d="M0 ${y + 8.5} l1.4 3 3.2 .4 -2.4 2.2 .7 3.2 -2.9 -1.6 -2.9 1.6 .7 -3.2 -2.4 -2.2 3.2 -.4z" fill="#fff4c7"/>`;
 }
 
 /** Head in rig space: portrait space scaled so the chin sits on the neck. */
@@ -162,10 +176,11 @@ export function figureMarkup(look: FullLook, expr: Expr = 'normal', joints: Join
   const headBack = `<g data-j="hb" transform="${t.hb}"><g transform="${headTransform(d)}">${hairBack(look.hair, look.hairColor)}</g></g>`;
   const arm1 = armMarkup(d, look, 'a1', t);
   return `<g data-j="body" transform="${t.body}">`
+    + (look.cape ? `<g data-j="capeup" transform="${t.capeup}">${capeMarkup(d, t.cape)}</g>` : '')
     + `<g data-j="legs">${legMarkup(d, look, 'l1', t)}${legMarkup(d, look, 'l2', t)}</g>`
-    + `<g data-j="upper" transform="${t.upper}">${look.cape ? capeMarkup(d, t.cape) : ''}${headBack}`
+    + `<g data-j="upper" transform="${t.upper}">${headBack}`
     + `<g data-j="a1back">${a1front ? '' : arm1}</g>`
-    + `<g data-j="torso">${torsoMarkup(d, look)}</g>`
+    + `<g data-j="torso">${torsoMarkup(d, look)}${look.cape ? capeFrontMarkup(d) : ''}</g>`
     + `<g data-j="a1front">${a1front ? arm1 : ''}</g>`
     + `${head}${armMarkup(d, look, 'a2', t)}</g></g>`;
 }
@@ -178,6 +193,7 @@ export interface RigEls {
   a1back: SVGGElement; a1front: SVGGElement;
   head: SVGGElement; hb: SVGGElement; feat: SVGGElement; mouth: SVGGElement; mess: SVGGElement;
   cape: SVGGElement | null;
+  capeup: SVGGElement | null;
   last: Partial<Record<JointKey, string>>;
 }
 
@@ -194,18 +210,19 @@ export function rigEls(root: Element): RigEls {
     mouth: root.querySelector('[data-p="mouth"]') as SVGGElement,
     mess: root.querySelector('[data-p="mess"]') as SVGGElement,
     cape: root.querySelector('[data-j="cape"]') as SVGGElement | null,
+    capeup: root.querySelector('[data-j="capeup"]') as SVGGElement | null,
     last: {},
   };
 }
 
-const KEYS: JointKey[] = ['body', 'upper', 'l1', 'l1s', 'l2', 'l2s', 'a1', 'a1f', 'a1h', 'a2', 'a2f', 'a2fl', 'a2h', 'head', 'hb', 'feat', 'cape'];
+const KEYS: JointKey[] = ['body', 'upper', 'l1', 'l1s', 'l2', 'l2s', 'a1', 'a1f', 'a1h', 'a2', 'a2f', 'a2fl', 'a2h', 'head', 'hb', 'feat', 'cape', 'capeup'];
 
 /** Writes joint angles into the live SVG, touching only transforms that changed. */
 export function applyJoints(el: RigEls, d: Dims, j: Joints, x: RigExtras = NO_EXTRAS) {
   const t = jointTransforms(d, j, x);
   for (const k of KEYS) {
     if (el.last[k] === t[k]) continue;
-    const node = k === 'cape' ? el.cape : el[k];
+    const node = k === 'cape' ? el.cape : k === 'capeup' ? el.capeup : el[k];
     if (!node) continue;
     node.setAttribute('transform', t[k]);
     el.last[k] = t[k];

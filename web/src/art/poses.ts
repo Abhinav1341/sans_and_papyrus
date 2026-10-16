@@ -61,7 +61,13 @@ export const POSES = {
   perch: { j: P({ a1s: 10, a1e: 30, a2s: 20, a2e: 40, l1h: 84, l1k: 84, l2h: 90, l2k: 80, lean: 4, ground: 0 }) },
   hugKnees: { j: P({ a1s: 40, a1e: 60, a2s: 46, a2e: 60, l1h: 120, l1k: 150, l2h: 124, l2k: 150, lean: 16, tilt: 8, ground: 1 }), a1front: true },
   carry: { j: P({ a1s: -150, a1e: -30, a2s: 150, a2e: 30, tilt: -4 }) },
-  stretchArm: { j: P({ a1s: -15, a1e: 10, a2s: 90, a2e: 0, lean: 6, l1h: -12, l2h: 12 }) },
+  // Ro's toffee arm reaches straight out at shoulder height (level, so a long stretch never dips into the ground).
+  stretchArm: { j: P({ a1s: -15, a1e: 10, a2s: 90, a2e: 0, lean: 0, l1h: -12, l2h: 12 }) },
+  // Stuck by the hands: bent right over, knees bent, both palms flat on what they touched. (Leaning
+  // forward also turns the arms, so they swing forward by the lean plus a little, to point down and ahead.)
+  stuck: { j: P({ a1s: 74, a1e: 0, a2s: 80, a2e: 0, lean: 55, tilt: -24, l1h: 50, l1k: 95, l2h: 58, l2k: 100 }) },
+  // Pulling to get free: the body tugs back a little and the hands lift (the goo stretches).
+  stuckPull: { j: P({ a1s: 34, a1e: 0, a2s: 40, a2e: 0, lean: 40, tilt: -30, l1h: 46, l1k: 90, l2h: 54, l2k: 96, bx: -6 }) },
   reachDown: { j: P({ a1s: -30, a1e: 20, a2s: 14, a2e: 0, lean: 12, tilt: 10, l1h: -14, l1k: 10, l2h: 16, l2k: 14 }) },
   pocket: { j: P({ a1s: -6, a1e: 12, a2s: 14, a2e: 42, tilt: 16, lean: 6 }) },
   holdUp: { j: P({ a1s: -10, a1e: 15, a2s: 135, a2e: 35, tilt: -8 }) },
@@ -73,6 +79,7 @@ export type PoseName = keyof typeof POSES;
 /** How tall a character is in a pose compared with standing (for camera framing and emotes). */
 export const POSE_HEIGHT: Partial<Record<PoseName | CycleKey, number>> = {
   sit: 0.66, hugKnees: 0.6, kneel: 0.8, crouch: 0.82, land: 0.9, lie: 0.3, splat: 0.3, scared: 0.96, bow: 0.9, slump: 0.97,
+  stuck: 0.62, stuckPull: 0.7,
   paddle: 0.8, tremble: 0.96,
 };
 type CycleKey = 'paddle' | 'tremble';
@@ -148,7 +155,7 @@ export const CYCLES = {
   },
   stretchArm: (t) => {
     const s = Math.sin(t * 3 * TAU);
-    return { j: P({ a1s: -15, a1e: 10, a2s: 90 + 3 * s, a2e: 0, lean: 6, l1h: -12, l2h: 12 }) };
+    return { j: P({ a1s: -15, a1e: 10, a2s: 90 + 3 * s, a2e: 0, lean: 0, l1h: -12, l2h: 12 }) };
   },
 } satisfies Record<string, CycleFn>;
 

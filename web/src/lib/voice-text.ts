@@ -3,6 +3,7 @@
 // always agree. tools/voices/generate.py mirrors clipName exactly and checks it on every run.
 import cast from '@/data/voice-cast.json';
 import { fnv1a } from './hash';
+import { toneFor, type Tone } from './tone';
 
 const SAY = cast.say as Record<string, string>;
 const escape = (k: string) => k.replace(/[.*+?^${}()|[\]\\']/g, '\\$&');
@@ -24,15 +25,15 @@ export function spokenText(text: string): string {
 
 type VoiceCfg = { model: string; semitones?: number; speed?: number; fx?: string };
 
-/** Everything that changes how a voice sounds. A change gives every clip a new name. */
+/** Everything that changes how a voice sounds, including the tone settings' version. A change gives every clip a new name. */
 export function voiceSignature(voice: string): string {
   const v = (cast.voices as Record<string, VoiceCfg>)[voice];
   if (!v) return voice;
-  return `${v.model}:${String(v.semitones ?? 0)}:${String(v.speed ?? 1)}:${v.fx ?? ''}`;
+  return `${v.model}:${String(v.semitones ?? 0)}:${String(v.speed ?? 1)}:${v.fx ?? ''}:${cast.prosody}`;
 }
 
 /** File name (without .mp3) of the clip for one line in one voice. It comes from what is spoken, so
  *  any change to the words or to how they are read gets a fresh recording. */
-export function clipName(voice: string, text: string): string {
-  return fnv1a(`${voice}|${voiceSignature(voice)}|${spokenText(text)}`);
+export function clipName(voice: string, text: string, tone: Tone = toneFor(voice, text)): string {
+  return fnv1a(`${voice}|${voiceSignature(voice)}|${tone}|${spokenText(text)}`);
 }

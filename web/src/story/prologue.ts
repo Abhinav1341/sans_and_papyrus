@@ -6,7 +6,7 @@
 // Language for ages 6-10: short lines read aloud, everyday words, present tense, sound words,
 // and one refrain the Captain repeats ("Nobody gets left behind").
 // Every shot is one beat: the camera frames it, characters act, then someone speaks.
-import type { World, Action } from '@/cinema/types';
+import type { World, Action, CastId } from '@/cinema/types';
 import { GALAXY_X } from '@/cinema/sets/galaxy-layout';
 import { HALL, MACHINE } from '@/cinema/sets/school-layout';
 
@@ -22,6 +22,13 @@ function songTour(worlds: number[]): Action[] {
   });
   return acts;
 }
+
+/** How far the game board tips at the end of chapter 2 (degrees, right side down), round its middle (1200, 720). */
+const TIP = 16;
+/** Where a point on the tipped board ends up: `y` is the ground line someone stands on (720, or 760 for the Captain at the front). */
+const onTilt = (x: number, y: number) => Math.round(y + (x - 1200) * Math.tan((TIP * Math.PI) / 180));
+/** Who slides off the board, from their spot after the hands-in (x, ground line). */
+const SLIDERS: [CastId, number, number][] = [['ro', 1305, 720], ['bunty', 1255, 720], ['you', 1200, 760], ['kiki', 1145, 720], ['meera', 1095, 720]];
 
 export const prologue: World = {
   id: 'prologue',
@@ -367,28 +374,40 @@ export const prologue: World = {
             { cam: { medium: 'ro' }, mood: 'playful', act: [{ do: 'pose', who: 'ro', pose: 'armsCrossed' }, { do: 'expr', who: 'ro', expr: 'grumpy' }], who: 'ro', t: 'Captain? But I wanted to be captain.' },
             { cam: { medium: 'meera' }, act: [{ do: 'expr', who: 'meera', expr: 'smug' }, { do: 'pose', who: 'meera', pose: 'hips' }], who: 'meera', t: 'And I wanted a calm volcano. Things change!' },
             { cam: { low: 'you' }, act: [{ do: 'pose', who: 'you', pose: 'hips' }, { do: 'expr', who: 'you', expr: 'determined' }, { do: 'look', who: 'you', gaze: 'cam' }], who: 'you', t: 'We stick together. Nobody gets left behind. Deal?' },
+            // The hands-in, seen from straight above (a side view of hands stacking reads poorly in 2D).
             {
-              cam: { full: ['meera', 'ro'], dx: 0 }, act: [
+              insert: 'hands', act: [
                 { do: 'move', who: 'meera', to: 1095, gait: 'walk' }, { do: 'move', who: 'kiki', to: 1145, gait: 'walk' },
                 { do: 'move', who: 'bunty', to: 1255, gait: 'walk' }, { do: 'move', who: 'ro', to: 1305, gait: 'walk' },
-                { do: 'pose', who: 'meera', pose: 'reach', at: 2.6 }, { do: 'pose', who: 'kiki', pose: 'reach', at: 2.7 },
-                { do: 'pose', who: 'ro', pose: 'reach', at: 2.8 }, { do: 'pose', who: 'bunty', pose: 'reach', at: 2.9 }, { do: 'pose', who: 'you', pose: 'reach', at: 2.6 },
-                { do: 'sfx', snd: 'chime', at: 3.0 }, { do: 'fx', fx: { kind: 'sparkle', who: 'you', n: 10 }, at: 3.0 },
-              ], n: 'One by one, the crew puts their hands in.', lineAt: 1.5,
+                ...[0.62, 1.04, 1.46, 1.88, 2.3].map((at) => ({ do: 'sfx' as const, snd: 'tap' as const, at })),
+                { do: 'sfx', snd: 'chime', at: 2.45 }, { do: 'sfx', snd: 'sparkle', at: 2.6 },
+              ], n: 'One by one, the crew puts their hands in.', lineAt: 0.3, hold: 0.9,
             },
-            { cam: { close: 'bunty' }, act: [{ do: 'expr', who: 'bunty', expr: 'laugh' }, { do: 'pose', who: 'bunty', pose: 'cheer' }, { do: 'hop', who: 'bunty', n: 2 }], who: 'bunty', t: 'DEAL!' },
+            {
+              cam: { wide: 1200, zoom: 0.8 }, act: [
+                ...(['meera', 'kiki', 'you', 'bunty', 'ro'] as const).flatMap((id, i) => [{ do: 'pose', who: id, pose: 'cheer', at: i * 0.06 } as Action, { do: 'expr', who: id, expr: 'laugh' } as Action]),
+                { do: 'hop', who: 'bunty', n: 2 }, { do: 'expr', who: 'ro', expr: 'grin' }, { do: 'fx', fx: { kind: 'confetti' }, at: 0.2 }, { do: 'sfx', snd: 'cheer', at: 0.1 },
+              ], who: 'bunty', t: 'DEAL!',
+            },
             { reward: 'captains-call' },
-            { cam: { medium: 'fizz' }, act: [{ do: 'expr', who: 'fizz', expr: 'happy' }, { do: 'pose', who: 'bunty', pose: 'stand' }, { do: 'pose', who: 'you', pose: 'stand' }], who: 'fizz', t: 'Wonderful! First, a warm-up. Show me you’re ready, Captain!' },
+            { cam: { medium: 'fizz' }, act: [{ do: 'expr', who: 'fizz', expr: 'happy' }, ...(['meera', 'kiki', 'you', 'bunty', 'ro'] as const).map((id) => ({ do: 'pose', who: id, pose: 'stand' }) as Action)], who: 'fizz', t: 'Wonderful! First, a warm-up. Show me you’re ready, Captain!' },
             { gate: { id: 'g-p-warmup', title: 'Captain Warm-Up', ask: 'Fizz wants to see what the new Captain can do!', by: 'fizz' } },
             { cam: { medium: 'fizz' }, act: [{ do: 'expr', who: 'fizz', expr: 'excited' }, { do: 'fx', fx: { kind: 'sparkle', who: 'fizz' } }, { do: 'sfx', snd: 'sparkle' }], who: 'fizz', t: 'Super! Here is your Rule Card, Captain.' },
             { reward: 'rule-card' },
             { cam: { wide: 1200, zoom: 0.8 }, mood: 'triumph', act: [{ do: 'expr', who: 'fizz', expr: 'excited' }, { do: 'spin', who: 'fizz', turns: 2, dur: 1.2 }, { do: 'fx', fx: { kind: 'speedlines', on: true } }], who: 'fizz', t: 'Next stop... the CANDY NEBULA!' },
+            // The board really tips: it tilts round its middle, the crew plops down and slides off the low end.
             {
               cam: { wide: 1200, zoom: 0.75 }, act: [
-                { do: 'fx', fx: { kind: 'speedlines', on: false } }, { do: 'expr', who: 'kiki', expr: 'laugh' }, { do: 'expr', who: 'bunty', expr: 'love' }, { do: 'expr', who: 'meera', expr: 'shock' },
-                { do: 'exit', who: 'kiki', to: 'bottom', at: 0.4 }, { do: 'exit', who: 'bunty', to: 'bottom', at: 0.55 }, { do: 'exit', who: 'ro', to: 'bottom', at: 0.7 },
-                { do: 'exit', who: 'you', to: 'bottom', at: 0.85 }, { do: 'exit', who: 'meera', to: 'bottom', at: 1.0 }, { do: 'sfx', snd: 'whoosh', at: 0.4 },
-              ], n: 'The board tips like a slide. Wheee! Down to a pink planet!',
+                { do: 'fx', fx: { kind: 'speedlines', on: false } }, { do: 'sfx', snd: 'creak', at: 0.2 },
+                { do: 'el', el: 'board', to: { rot: TIP }, dur: 1.0, ease: 'inOut', at: 0.3 },
+                { do: 'expr', who: 'kiki', expr: 'laugh' }, { do: 'expr', who: 'bunty', expr: 'love' }, { do: 'expr', who: 'meera', expr: 'shock' }, { do: 'expr', who: 'ro', expr: 'shock' }, { do: 'expr', who: 'you', expr: 'laugh' },
+                ...SLIDERS.flatMap(([id, x, y], i) => [
+                  { do: 'move', who: id, to: x, y: onTilt(x, y), gait: 'fly', ease: 'inOut', dur: 1.0, then: 'sit', at: 0.3 } as Action,
+                  { do: 'pose', who: id, pose: 'sit', at: 0.5 + i * 0.08 } as Action,
+                  { do: 'move', who: id, to: 1960, y: onTilt(1960, y), gait: 'fly', ease: 'in', dur: 1.1, then: 'sit', at: 1.25 + i * 0.14 } as Action,
+                ]),
+                { do: 'sfx', snd: 'whoosh', at: 1.3 }, { do: 'sfx', snd: 'whoosh', at: 1.7 },
+              ], n: 'The board tips like a slide. Wheee! Down to a pink planet!', lineAt: 0.5,
             },
           ],
         },

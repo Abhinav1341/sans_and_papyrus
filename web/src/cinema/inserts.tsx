@@ -15,6 +15,23 @@ function starPath(cx: number, cy: number, r: number) {
   return d + 'Z';
 }
 
+/** A sleeve and hand reaching up the screen (the hand ends at the centre); rotated into place. */
+function handArm(sleeve: string, skin: string): string {
+  return `<rect x="-34" y="60" width="68" height="620" rx="24" fill="${sleeve}" stroke="#2a1838" stroke-width="6"/>`
+    + `<rect x="-36" y="56" width="72" height="22" rx="10" fill="#fff" opacity=".55"/>`
+    + `<path d="M-30 64 Q-34 20 -26 -6 Q0 -14 26 -6 Q34 20 30 64 Z" fill="${skin}" stroke="#2a1838" stroke-width="6" stroke-linejoin="round"/>`
+    + [-19, -6, 7, 20].map((x, i) => `<rect x="${x - 6}" y="${-34 + Math.abs(i - 1.5) * 6}" width="12" height="40" rx="6" fill="${skin}" stroke="#2a1838" stroke-width="5"/>`).join('')
+    + `<path d="M28 34 Q46 22 44 4" stroke="#2a1838" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M28 34 Q46 22 44 4" stroke="${skin}" stroke-width="7" fill="none" stroke-linecap="round"/>`;
+}
+/** Who reaches in from where (degrees from "below"), sleeve colour and skin. The Captain is first. */
+const HANDS: [number, string, string][] = [
+  [0, '#ffd36f', '#c98e62'],      // the Captain: outfit and skin come from the player's Captain
+  [72, '#5ccfae', '#e2b48a'],     // Meera
+  [144, '#ffd33d', '#f0c49c'],    // Kiki
+  [216, '#ff8f7e', '#c98e63'],    // Ro
+  [288, '#ffb38a', '#c98e63'],    // Bunty
+];
+
 const INSERTS: Record<string, string> = {
   screen: `<defs><radialGradient id="ins-scr" cx=".5" cy=".45" r=".7"><stop offset="0" stop-color="#3b6fe0"/><stop offset="1" stop-color="#101a5a"/></radialGradient></defs>
     <rect width="400" height="800" fill="#1a1238"/>
@@ -50,6 +67,28 @@ const INSERTS: Record<string, string> = {
     <ellipse cx="200" cy="420" rx="150" ry="70" fill="#2a1838"/>
     <g class="ins-down"><ellipse cx="200" cy="400" rx="140" ry="64" fill="url(#ins-btn2)" stroke="#2a1838" stroke-width="8"/><text x="200" y="414" text-anchor="middle" font-size="40" fill="#fff" style="${F}">START</text></g>
     <g class="ins-push"><path d="M150 800 L160 520 Q164 470 200 470 Q236 470 240 520 L250 800 Z" fill="#c98e62" stroke="#2a1838" stroke-width="7"/><path d="M178 500 Q200 488 222 500" stroke="#f0c9a6" stroke-width="7" fill="none"/></g>`,
+  // The hands-in, seen from above: five arms reach in from around the game board and stack up.
+  hands: `<defs><radialGradient id="ins-hb" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#5a44d6"/><stop offset="1" stop-color="#231a63"/></radialGradient><radialGradient id="ins-hg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff8d8" stop-opacity=".95"/><stop offset="1" stop-color="#ffd36e" stop-opacity="0"/></radialGradient></defs>
+    <rect width="400" height="800" fill="#120e2b"/>
+    <circle cx="200" cy="400" r="196" fill="url(#ins-hb)" stroke="#c9b6ff" stroke-width="6"/>
+    ${Array.from({ length: 18 }, (_, i) => { const a = (i / 18) * Math.PI * 2; return `<circle cx="${(200 + Math.cos(a) * 172).toFixed(0)}" cy="${(400 + Math.sin(a) * 172).toFixed(0)}" r="12" fill="${['#ff9fcf', '#7fe6c9', '#ffd36e', '#8fc8ff', '#c9b6ff'][i % 5]}" stroke="#2a1838" stroke-width="3"/>`; }).join('')}
+    ${HANDS.map(([deg, sleeve, skin], i) => `<g transform="translate(200 400) rotate(${deg})"><g class="ins-hand" style="animation-delay:${(0.2 + i * 0.42).toFixed(2)}s"><g transform="translate(0 ${i * -5})">${handArm(sleeve, skin)}</g></g></g>`).join('')}
+    <circle class="ins-hglow" cx="200" cy="400" r="150" fill="url(#ins-hg)"/>`,
+  // Ro's toffee arm springs back and ties itself into a bow.
+  knot: `<defs><linearGradient id="ins-ks" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9a6ff"/><stop offset="1" stop-color="#ffd1e8"/></linearGradient></defs>
+    <rect width="400" height="800" fill="url(#ins-ks)"/>
+    <path d="M-20 520 H420 V800 H-20 Z" fill="#9ff0d0"/>
+    <g class="ins-wiggle">
+      <path d="M40 430 C120 430 150 300 230 330 C310 360 300 480 220 470 C140 460 170 380 250 400 C300 412 330 420 368 440" fill="none" stroke="#2a1838" stroke-width="40" stroke-linecap="round" pathLength="1" class="ins-draw"/>
+      <path d="M40 430 C120 430 150 300 230 330 C310 360 300 480 220 470 C140 460 170 380 250 400 C300 412 330 420 368 440" fill="none" stroke="#c98e63" stroke-width="30" stroke-linecap="round" pathLength="1" class="ins-draw"/>
+      <circle class="ins-handpop" cx="372" cy="442" r="22" fill="#c98e63" stroke="#2a1838" stroke-width="5"/>
+    </g>
+    <g class="ins-bow" style="transform-origin:236px 404px">
+      <path d="M236 404 C200 360 160 372 168 404 C160 436 200 448 236 404 Z" fill="#c98e63" stroke="#2a1838" stroke-width="6" stroke-linejoin="round"/>
+      <path d="M236 404 C272 360 312 372 304 404 C312 436 272 448 236 404 Z" fill="#c98e63" stroke="#2a1838" stroke-width="6" stroke-linejoin="round"/>
+      <circle cx="236" cy="404" r="17" fill="#b9784c" stroke="#2a1838" stroke-width="6"/>
+    </g>
+    <path d="M-20 380 L60 380 L64 470 L-20 474 Z" fill="#ff8f7e" stroke="#2a1838" stroke-width="6"/><path d="M52 384 L60 470" stroke="#e06a5a" stroke-width="8"/>`,
   rulecard: `<rect width="400" height="800" fill="#1d1745"/>
     <g class="ins-rise"><rect x="40" y="150" width="320" height="470" rx="26" fill="#fff" stroke="#7B61FF" stroke-width="10"/>
     <text x="200" y="222" text-anchor="middle" font-size="34" fill="#7B61FF" style="${F}">FIZZ'S RULES</text>
@@ -70,10 +109,11 @@ const INSERTS: Record<string, string> = {
 
 export const INSERT_IDS = Object.keys(INSERTS);
 
-/** `skin` paints the Captain's own hand in close-ups (token, START button). */
-export function Insert({ id, skin }: { id: string; skin?: string }) {
+/** `skin` and `outfit` paint the Captain's own hand and sleeve in close-ups (token, START button, hands-in). */
+export function Insert({ id, skin, outfit }: { id: string; skin?: string; outfit?: string }) {
   let body = INSERTS[id];
   if (!body) return null;
   if (skin) body = body.replaceAll('#c98e62', skin);
+  if (outfit) body = body.replaceAll('#ffd36f', outfit);
   return <Svg className={`insert ins-${id}`} html={`<svg viewBox="0 0 400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${body}</svg>`} />;
 }

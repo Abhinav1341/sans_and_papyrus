@@ -22,6 +22,7 @@ import time
 from fractions import Fraction
 
 import numpy as np
+import pyworld as pw
 import soundfile as sf
 from scipy.signal import resample_poly
 
@@ -47,15 +48,45 @@ def js_num(x) -> str:
     return repr(x) if isinstance(x, float) else str(x)
 
 
+PROSODY = ''  # set from voice-cast.json in main()
+
+
 def voice_signature(cfg: dict) -> str:
     """Mirrors voiceSignature() in src/lib/voice-text.ts: everything that changes how a voice sounds."""
-    return f"{cfg['model']}:{js_num(cfg.get('semitones', 0))}:{js_num(cfg.get('speed', 1))}:{cfg.get('fx', '')}"
+    return f"{cfg['model']}:{js_num(cfg.get('semitones', 0))}:{js_num(cfg.get('speed', 1))}:{cfg.get('fx', '')}:{PROSODY}"
 
 
-def clip_name(voice: str, cfg: dict, say: str) -> str:
-    """Mirrors clipName() in src/lib/voice-text.ts: named after the voice settings and the spoken text,
-    so a changed voice or a changed reading gets new file names."""
-    return fnv1a(f'{voice}|{voice_signature(cfg)}|{say}')
+def clip_name(voice: str, cfg: dict, say: str, tone: str) -> str:
+    """Mirrors clipName() in src/lib/voice-text.ts: named after the voice settings, the tone and the
+    spoken text, so a changed voice, tone or reading gets new file names."""
+    return fnv1a(f'{voice}|{voice_signature(cfg)}|{tone}|{say}')
+
+
+def act(audio: np.ndarray, t: dict) -> np.ndarray:
+    """Performs a line in its tone with the WORLD vocoder: moves the voice's pitch up or down, widens
+    or narrows its melody (excited speech swings more, sad speech less), lifts the end of questions,
+    adds a little shake for worry, and makes it louder or softer. Timing is unchanged, so the caption
+    word times still fit."""
+    x = audio.astype(np.float64)
+    f0, tt = pw.harvest(x, SR, f0_floor=70.0, f0_ceil=900.0, frame_period=5.0)
+    sp = pw.cheaptrick(x, f0, tt, SR)
+    ap = pw.d4c(x, f0, tt, SR)
+    v = f0 > 0
+    if not v.any():
+        return audio
+    lf = np.log2(np.where(v, f0, 1.0))
+    m = float(np.median(lf[v]))
+    n = len(f0)
+    pos = np.arange(n) / max(1, n - 1)
+    shape = (lf - m) * t.get('range', 1.0) + t.get('shift', 0) / 12
+    shape += t.get('rise', 0) / 12 * np.clip((pos - 0.72) / 0.28, 0, 1) ** 1.5
+    wob = t.get('wobble', 0)
+    if wob:
+        shape += wob / 12 * np.sin(2 * np.pi * 6.0 * tt) * 0.5
+    f02 = np.where(v, 2 ** (m + shape), 0.0)
+    y = pw.synthesize(f02, sp, ap, SR, frame_period=5.0)
+    y = y[: len(x)] if len(y) >= len(x) else np.pad(y, (0, len(x) - len(y)))
+    return (y * 10 ** (t.get('gain', 0) / 20)).astype(np.float32)
 
 
 def caption_words(text: str):
@@ -138,6 +169,9 @@ def main():
     from kokoro_onnx import Kokoro  # imported here so --help works without the engine
 
     cast = json.load(open(os.path.join(GAME, 'src', 'data', 'voice-cast.json'), encoding='utf-8'))
+    global PROSODY
+    PROSODY = cast.get('prosody', '')
+    tones = cast['tones']
     data = json.load(open(os.path.join(HERE, 'lines.json'), encoding='utf-8'))
     if data['version'] != cast['version']:
         sys.exit('lines.json is out of date: run npx tsx tools/voices/export-lines.ts')
@@ -158,7 +192,7 @@ def main():
 
     # The game and this script must name clips the same way.
     for line in data['lines']:
-        if f"{line['voice']}|{clip_name(line['voice'], cast['voices'][line['voice']], line['say'])}" != line['key']:
+        if f"{line['voice']}|{clip_name(line['voice'], cast['voices'][line['voice']], line['say'], line['tone'])}" != line['key']:
             sys.exit('clip names in lines.json do not match: run npx tsx tools/voices/export-lines.ts')
 
     if args.migrate:
@@ -200,16 +234,18 @@ def main():
             done += 1
             print(f'sang: {line["text"]} ({manifest[key][0]}s)', flush=True)
             continue
+        tone = tones.get(line['tone'], tones['plain'])
         semis = cfg.get('semitones', 0)
         ratio = 2 ** (semis / 12)
-        speed = max(0.5, min(2.0, cfg.get('speed', 1.0) / ratio))
+        speed = max(0.5, min(2.0, cfg.get('speed', 1.0) * tone.get('speed', 1.0) / ratio))
         audio, sr, timings = kokoro.create_timed(line['say'], voice=cfg['model'], speed=speed, lang=lang)
         audio = pitch_shift(np.asarray(audio, dtype=np.float32), semis)
+        audio = act(audio, tone)
         if cfg.get('fx') == 'robot':
             audio = robot(audio)
         lead = 0.06
         audio = np.concatenate([np.zeros(int(lead * SR), dtype=np.float32), audio, np.zeros(int(0.12 * SR), dtype=np.float32)])
-        audio = normalise(audio)
+        audio = normalise(audio, -19.0 + tone.get('gain', 0))  # louder for excited lines, softer for sad ones
         sf.write(path, audio, SR, format='MP3', subtype='MPEG_LAYER_III')
         dur = round(len(audio) / SR, 3)
         starts = word_starts(timings, len(caption_words(line['text'])), ratio, lead)

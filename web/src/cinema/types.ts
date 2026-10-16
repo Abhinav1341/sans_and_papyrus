@@ -8,6 +8,8 @@ import type { PoseName, CycleName } from '@/art/poses';
 import type { SoundId } from '@/lib/sfx';
 import type { Mood } from '@/lib/music';
 import type { CrewId } from '@/art/looks';
+import type { Tone } from '@/lib/tone';
+import type { PowerIcon } from './powers';
 
 export type CastId = CrewId | 'you' | 'fizz';
 export type Speaker = CastId | 'narrator';
@@ -47,8 +49,13 @@ export type Frame =
 export type Ease = 'linear' | 'in' | 'out' | 'inOut' | 'back' | 'bounce' | 'elastic';
 export type Gait = 'run' | 'walk' | 'tiptoe' | 'fly' | 'climb';
 
-/** When an action starts: `at` seconds into the shot, or `atWord`: the moment the Nth word (0-based) of the shot's line is spoken. */
-interface At { at?: number; atWord?: number }
+/**
+ * When an action starts: `at` seconds into the shot, or `atWord`: the moment the Nth word (0-based)
+ * of the shot's line is spoken (then `at` is an offset from that word, and can be negative).
+ * `toWord` makes a timed action (a move, a jump, an element tween) last until that word is spoken,
+ * so something can leave on one word and arrive exactly on another.
+ */
+interface At { at?: number; atWord?: number; toWord?: number }
 export type Action = At & (
   | { do: 'move'; who: CastId; to: number; y?: number; dur?: number; gait?: Gait; then?: PoseName; ease?: Ease }
   | { do: 'enter'; who: CastId; from: 'left' | 'right' | 'top'; to: number; y?: number; dur?: number; gait?: Gait | 'fall'; then?: PoseName }
@@ -65,7 +72,7 @@ export type Action = At & (
   | { do: 'emote'; who: CastId; emote: EmoteKind }
   | { do: 'spin'; who: CastId; turns?: number; dur?: number }
   | { do: 'squash'; who: CastId; amt?: number }
-  | { do: 'stretch'; who: CastId; len: number; dur?: number }
+  | { do: 'stretch'; who: CastId; len: number; dur?: number; ease?: Ease }
   | { do: 'prop'; who: CastId; prop: PropId | null }
   | { do: 'show'; who: CastId }
   | { do: 'hide'; who: CastId }
@@ -103,7 +110,9 @@ export type Fx =
   | { kind: 'tint'; color: string | null; opacity?: number }     // lasting colour grade (evening, night)
   | { kind: 'vignette'; on: boolean }
   | { kind: 'backdrop'; style: Backdrop | null; color?: string } // anime reaction background
-  | { kind: 'letterbox'; on: boolean };
+  | { kind: 'letterbox'; on: boolean }
+  | { kind: 'aura'; who: CastId; color: string; on: boolean }         // a glowing power aura behind someone
+  | { kind: 'power'; name: string; color: string; icon: PowerIcon };   // an anime power banner
 
 export type Backdrop = 'rays' | 'sparkle' | 'gloom' | 'dots' | 'speed' | 'hearts' | 'shock' | 'flat';
 
@@ -123,6 +132,7 @@ export interface LineShot {
   mood?: Mood;              // change the music
   insert?: string | null;   // show an insert (object close-up) over the scene
   panels?: Panel[] | null;  // manga split panels over the scene
+  tone?: Tone;              // how the line is spoken, when the speaker's face and the words do not say it
 }
 
 export interface Panel { who: CastId; expr: AnyExpr; bg?: Backdrop; color?: string }

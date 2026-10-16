@@ -9,7 +9,6 @@ export const COLLECTIBLES: Record<string, Collectible> = {
   'captain-badge': { kind: 'item', world: 'prologue', name: 'Captain Badge', desc: 'You pressed START, so you lead the crew.' },
   'rule-card': { kind: 'item', world: 'prologue', name: "Fizz's Rule Card", desc: 'Eight worlds. Silly games. Win the Big Prize, and everyone goes on together.' },
   'candy-map': { kind: 'item', world: 'candy', name: 'Candy Nebula Map', desc: 'Jelly fields, a chocolate river, and Sugar Mountain.' },
-  'jelly-boots': { kind: 'item', world: 'candy', name: 'Jelly Boots', desc: 'Extra bounce for every step.' },
   'wafer-paddle': { kind: 'item', world: 'candy', name: 'Wafer Paddle', desc: 'From the raft Bunty stuck back together.' },
   'lollipop-stick': { kind: 'item', world: 'candy', name: 'Lollipop Stick', desc: 'All that is left of the Giant Lollipop. Ro shared it with everyone.' },
 };

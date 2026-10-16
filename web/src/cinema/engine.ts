@@ -7,6 +7,7 @@ import { Actor, FizzActor, KidActor, NS } from './actor';
 import type { Backdrop, CastId, Frame, Placement } from './types';
 import { CREW, captainLook, type CrewId, type Look } from '@/art/looks';
 import type { PoseName } from '@/art/poses';
+import { POWER_ICONS, auraMarkup, type PowerIcon } from './powers';
 
 export interface CamState { x: number; y: number; zoom: number }
 export interface ElState { node: SVGGElement; ax: number; ay: number; x: number; y: number; rot: number; scale: number; opacity: number; last: string }
@@ -191,6 +192,47 @@ export class Engine {
   private clearActors() {
     for (const a of this.actors.values()) { gsap.killTweensOf(a); a.clearEmote(); a.root.remove(); a.shadow.remove(); }
     this.actors.clear();
+    for (const g of this.auras.values()) { gsap.killTweensOf(g); g.remove(); }
+    this.auras.clear();
+  }
+
+  /* ---------- power-ups ---------- */
+  private auras = new Map<CastId, SVGGElement>();
+  private auraUid = 0;
+  /** A glowing aura behind a character in their colour, following them; fades in and out gently. */
+  setAura(who: CastId, color: string, on: boolean) {
+    const old = this.auras.get(who);
+    if (!on) {
+      if (old) { this.auras.delete(who); gsap.to(old, { attr: { opacity: 0 }, duration: 0.6, onComplete: () => old.remove() }); }
+      return;
+    }
+    if (old) old.remove();
+    const g = document.createElementNS(NS, 'g');
+    g.setAttribute('class', 'aura');
+    g.setAttribute('opacity', '0');
+    g.innerHTML = auraMarkup(`aura${++this.auraUid}`, color);
+    this.shadowsG.append(g);
+    this.auras.set(who, g);
+    this.placeAuras();
+    gsap.to(g, { attr: { opacity: this.calm ? 0.6 : 1 }, duration: 0.5, ease: 'sine.out' });
+  }
+  private placeAuras() {
+    for (const [who, g] of this.auras) {
+      const a = this.actors.get(who);
+      if (!a) continue;
+      g.setAttribute('transform', `translate(${f1(a.x)} ${f1(a.y - a.lift)}) scale(${Math.round(a.s * 100) / 100})`);
+      g.style.display = a.visible && a.alpha > 0.01 ? '' : 'none';
+    }
+  }
+  /** An anime power banner: the power's icon and name on a slanted ribbon in its colour. */
+  powerBanner(name: string, color: string, icon: PowerIcon) {
+    const d = document.createElement('div');
+    d.className = 'power-banner';
+    d.style.setProperty('--c', color);
+    d.innerHTML = `<div class="pb-ribbon"><span class="pb-icon">${POWER_ICONS[icon]}</span><span class="pb-name"></span></div>`;
+    (d.querySelector('.pb-name') as HTMLElement).textContent = name;
+    this.fx.append(d);
+    window.setTimeout(() => d.remove(), 3200);
   }
 
   defaultScale(y: number) {
@@ -445,6 +487,7 @@ export class Engine {
       a.update(this.clock, dt, instant);
     }
     this.sortDepth();
+    if (this.auras.size) this.placeAuras();
     this.render();
     this.animateScreenFx(dt);
   }

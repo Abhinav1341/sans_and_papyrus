@@ -15,7 +15,8 @@ const f1 = (n: number) => Math.round(n * 10) / 10;
 const GESTURE_POSES = new Set<PoseName>(['stand', 'relaxed', 'hips', 'point', 'present']);
 /** Which of an actor's widths a pose or cycle uses. */
 export function widthFor(w: { narrow: number; wide: number; lie: number }, pose: string): number {
-  if (pose === 'lie' || pose === 'splat') return w.lie;
+  // Lying flat, or bent right over (stuck by the hands), the body spreads out sideways.
+  if (pose === 'lie' || pose === 'splat' || pose === 'stuck' || pose === 'stuckPull') return w.lie;
   return WIDE_POSES.has(pose) ? w.wide : w.narrow;
 }
 /** Poses and cycles with arms held out to the side (the body is wider on screen). */
@@ -102,7 +103,9 @@ export abstract class Actor {
     const r = `translate(${f1(this.x)} ${f1(this.y - lift)})`;
     if (r !== this.lastRoot) { this.root.setAttribute('transform', r); this.lastRoot = r; }
     const sx = this.flip * this.s * (1 + sq * 0.6), sy = this.s * (1 - sq);
-    const fl = `scale(${Math.round(sx * 1000) / 1000} ${Math.round(sy * 1000) / 1000}) rotate(${f1(this.rot + poseRot)})`;
+    // A spin turns round the middle of the body (a flip, not a topple); a lying pose turns round the feet.
+    const spin = this.rot ? `rotate(${f1(this.rot)} 0 ${f1(-this.height * 0.5)}) ` : '';
+    const fl = `scale(${Math.round(sx * 1000) / 1000} ${Math.round(sy * 1000) / 1000}) ${spin}rotate(${f1(poseRot)})`;
     if (fl !== this.lastFlip) { this.flipG.setAttribute('transform', fl); this.lastFlip = fl; }
     // The emote floats above the head on the side the character faces, never mirrored.
     this.emoteG.setAttribute('transform', `translate(${f1(this.face * 20 * this.s)} ${f1(-this.heightNow() * this.s - 20)}) scale(${f1(this.s * 100) / 100})`);

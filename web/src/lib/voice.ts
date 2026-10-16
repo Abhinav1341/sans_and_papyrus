@@ -8,14 +8,15 @@ import { audio, duckMusic, isUnlocked, voiceLevel } from './audio';
 import { store } from './store';
 import { captionWords } from './hash';
 import { spokenText, clipName } from './voice-text';
+import type { Tone } from './tone';
 
 export type VoiceId = keyof typeof cast.voices;
 export const VOICE_IDS = Object.keys(cast.voices) as VoiceId[];
 type Entry = [number, number[]]; // [duration seconds, start time of each caption word]
 
 const BASE = `/voices/${cast.version}`;
-export const clipKey = (voice: VoiceId, text: string) => `${voice}|${clipName(voice, text)}`;
-const clipUrl = (voice: VoiceId, text: string) => `${BASE}/${voice}/${clipName(voice, text)}.mp3`;
+export const clipKey = (voice: VoiceId, text: string, tone?: Tone) => `${voice}|${clipName(voice, text, tone)}`;
+const clipUrl = (voice: VoiceId, text: string, tone?: Tone) => `${BASE}/${voice}/${clipName(voice, text, tone)}.mp3`;
 
 /* ---------- manifest ---------- */
 let manifest: Record<string, Entry> | null = null;
@@ -29,7 +30,7 @@ export function loadManifest(): Promise<void> {
   }
   return manifestP;
 }
-export function hasClip(voice: VoiceId, text: string) { return !!manifest?.[clipKey(voice, text)]; }
+export function hasClip(voice: VoiceId, text: string, tone?: Tone) { return !!manifest?.[clipKey(voice, text, tone)]; }
 
 /* ---------- clip cache (bytes are kept so they can be decoded again; decoded buffers are bounded) ---------- */
 const MAX = 60;
@@ -58,13 +59,13 @@ function getBuffer(key: string, url: string): Promise<AudioBuffer | null> {
 }
 
 /** Starts downloading the clips for upcoming lines so they play without a gap. */
-export async function preload(lines: { voice: VoiceId; text: string }[]) {
+export async function preload(lines: { voice: VoiceId; text: string; tone?: Tone }[]) {
   await loadManifest();
   for (const l of lines) {
-    const key = clipKey(l.voice, l.text);
+    const key = clipKey(l.voice, l.text, l.tone);
     if (!manifest?.[key]) continue;
-    if (isUnlocked()) getBuffer(key, clipUrl(l.voice, l.text));
-    else fetchBytes(key, clipUrl(l.voice, l.text));
+    if (isUnlocked()) getBuffer(key, clipUrl(l.voice, l.text, l.tone));
+    else fetchBytes(key, clipUrl(l.voice, l.text, l.tone));
   }
 }
 
@@ -118,9 +119,9 @@ let voicePaused = false;
 export function estimateDuration(text: string) { return 0.4 + captionWords(text).length * 0.36; }
 
 /** When each caption word starts (seconds from the start of the line): from the recording, or evenly spread. */
-export function wordStarts(voice: VoiceId, text: string): number[] {
+export function wordStarts(voice: VoiceId, text: string, tone?: Tone): number[] {
   const words = captionWords(text);
-  const e = manifest?.[clipKey(voice, text)];
+  const e = manifest?.[clipKey(voice, text, tone)];
   if (e && e[1].length === words.length) return e[1];
   const d = e ? e[0] : estimateDuration(text);
   return words.map((_, i) => 0.06 + (i / Math.max(1, words.length)) * Math.max(0.2, d - 0.3));
@@ -145,7 +146,7 @@ class SpeechImpl implements Speech {
   private finished = false;
   private silentTimer = 0;
 
-  constructor(public voice: VoiceId, text: string) {
+  constructor(public voice: VoiceId, text: string, public tone?: Tone) {
     this.text = text;
     this.words = captionWords(text);
     this.dur = estimateDuration(text);
@@ -218,10 +219,10 @@ class SpeechImpl implements Speech {
     const s = store.get().settings;
     await loadManifest();
     if (this.finished) return;
-    const entry = manifest?.[clipKey(this.voice, this.text)];
+    const entry = manifest?.[clipKey(this.voice, this.text, this.tone)];
     const g = audio();
     if (entry && g) {
-      const buf = await getBuffer(clipKey(this.voice, this.text), clipUrl(this.voice, this.text));
+      const buf = await getBuffer(clipKey(this.voice, this.text, this.tone), clipUrl(this.voice, this.text, this.tone));
       if (this.finished) return;
       if (buf) {
         const src = g.ctx.createBufferSource();
@@ -304,9 +305,9 @@ class SpeechImpl implements Speech {
  * Speaks a line in a character's voice. `force` speaks even when "Read to me" is off
  * (used when a child taps a "read this to me" button). Starting a line stops the previous one.
  */
-export function say(voice: VoiceId, text: string, { force = false } = {}): Speech {
+export function say(voice: VoiceId, text: string, { force = false, tone }: { force?: boolean; tone?: Tone } = {}): Speech {
   active?.stop();
-  const sp = new SpeechImpl(voice, text);
+  const sp = new SpeechImpl(voice, text, tone);
   active = sp;
   sp.start(force);
   return sp;

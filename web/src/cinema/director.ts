@@ -100,7 +100,7 @@ export class Director {
 
   private add(tl: gsap.core.Timeline, a: Action, fromState: ActorSnap | undefined, cam: { x: number; y: number; zoom: number }, halfW: number, end: Map<CastId, ActorSnap>, silent: boolean) {
     const eng = this.eng;
-    const at = a.at ?? 0;
+    const at = Math.max(0, a.at ?? 0);
     const actor = 'who' in a && a.who ? eng.actors.get(a.who as CastId) : undefined;
     const call = (fn: () => void, t = at) => { tl.call(fn, [], t); };
     const turn = (dir: 1 | -1, t: number) => {
@@ -228,7 +228,7 @@ export class Director {
         return;
       }
       case 'squash': if (actor) tl.to(actor, { sq: a.amt ?? 0.2, duration: 0.09, yoyo: true, repeat: 1, ease: 'power1.out' }, at); return;
-      case 'stretch': if (actor instanceof KidActor) tl.to(actor, { stretch: a.len, duration: a.dur ?? 0.8, ease: a.len > actor.stretch ? 'power2.out' : 'back.in(1.4)' }, at); return;
+      case 'stretch': if (actor instanceof KidActor) tl.to(actor, { stretch: a.len, duration: a.dur ?? 0.8, ease: a.ease ? EASE[a.ease] : a.len > actor.stretch ? 'power2.out' : 'back.in(1.4)' }, at); return;
       case 'prop': if (actor) call(() => actor.setProp(a.prop)); return;
       case 'show': if (actor) call(() => { actor.visible = true; }); return;
       case 'hide': if (actor) call(() => { actor.visible = false; }); return;
@@ -297,6 +297,7 @@ export class Director {
       case 'vignette': eng.setVignette(f.on); return;
       case 'backdrop': eng.setBackdrop(f.style, f.color); return;
       case 'letterbox': eng.host.classList.toggle('letterbox', f.on); return;
+      case 'aura': eng.setAura(f.who, f.color, f.on); return;
       default: break;
     }
     if (silent || this.quiet()) return;
@@ -312,6 +313,7 @@ export class Director {
       case 'notes': eng.floaters(f.who, 'notes'); return;
       case 'glow': eng.glow(); return;
       case 'whiteout': eng.whiteout(f.dur); return;
+      case 'power': eng.powerBanner(f.name, f.color, f.icon); return;
       default: return;
     }
   }

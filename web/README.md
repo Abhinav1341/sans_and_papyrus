@@ -66,6 +66,14 @@ npm run build
   - Each shot can set the camera (`wide`, `full`, `medium`, `close`, `xclose`, `low`, an element, or exact).
   - It can choreograph actions: `move`, `jump`, `fall`, `enter`, `exit`, `pose`, `cycle`, `expr`, `emote`, `stretch`, `ride`, set-element tweens, camera moves and effects.
   - It can have the storyteller (`n`) or a character (`who` + `t`) speak.
+  - Actions can be timed to the voice: `atWord: n` starts an action when the nth word of the line is
+    spoken (`at` is then an offset from that word), and `toWord: m` makes it last until word m. The
+    gumball in chapter 1 leaves Kiki's hand on "pops", hits the tree, rock and cloud as each is
+    named, and lands on her head on "head".
+  - Power moments use `fx: { kind: 'aura' }` (a glow round the character) and
+    `fx: { kind: 'power', name, color, icon }` (an anime banner, art in `src/cinema/powers.ts`).
+  - Inserts are full-screen close-ups (`src/cinema/inserts.tsx`), for example `hands` (the crew's
+    hands stacking, seen from above) and `knot` (Ro's arm tying itself in a bow).
   - Lines are written for children aged 6–10: 15 words at most (most are 12 or fewer), everyday
     words, present tense, sound words, and one refrain ("Nobody gets left behind"). `npm test`
     fails a line over 15 words and warns about long lines and hard words.
@@ -79,6 +87,10 @@ npm run build
     `kit.ts` has the ambient life (birds, butterflies, bubbles, shooting stars, balloons).
 - `src/art/` holds the characters (faces, bodies, poses) and the UI art.
 - Task gates are `{ gate: { id, title, ask, by } }` shots. The real tasks will plug in there.
+- Chapter 2, the Jelly Bean Bounce, is a long course over a pudding sea (positions in
+  `src/cinema/sets/candy-layout.ts`): 17 beans, the Big Gap, three sinking beans and candy-cane poles
+  Ro swings on. The crew meets two crises (the Big Gap, the sinking beans), each with its own bonus
+  round, and crosses them together.
 
 ## Voices
 
@@ -90,6 +102,10 @@ Every line has a recorded clip in `public/voices/v1/`.
   - Fizz has a light robot shimmer.
 - The Captain's voice is picked by the child (Bright, Bold or Soft).
 - Captions highlight each word as it is spoken.
+- **Lines are acted, not read.** Each line has a tone (excited, shout, question, worried, sad,
+  bold...), taken from the shot's `tone`, else the speaker's face in that shot, else the words
+  (`src/lib/tone.ts`). The recorder bends the line's pitch, melody, speed and loudness for its tone
+  with the WORLD vocoder (`tones` in `voice-cast.json`), keeping the word timings.
 
 After changing a line or a voice setting, record again. Only new or changed clips are recorded.
 A clip's file name comes from its voice, that voice's settings and the words it speaks, so browsers

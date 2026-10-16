@@ -7,13 +7,91 @@
 // always know where they are. Task gates are side quests: the story only opens the gate, then carries on.
 // Language for ages 6-10: short lines read aloud, everyday words, present tense, sound words.
 import type { World, Action, CastId } from '@/cinema/types';
-import { BEAN_X, LOLLI_X, PATH, SEATS } from '@/cinema/sets/candy-layout';
+import { BEAN_X, SINK_X, POLE_X, COURSE, BEAN_TOP, GUMBALL_TOP, SHIELD, LOLLI_X, PATH, SEATS } from '@/cinema/sets/candy-layout';
 
 const EVENING = { color: '#5a3fa0', opacity: 0.32 };
 const all = (ids: CastId[], fn: (id: CastId, i: number) => Action[]): Action[] => ids.flatMap(fn);
 const KIDS: CastId[] = ['you', 'ro', 'meera', 'kiki', 'bunty'];
 /** Who stands at which giant lollipop in chapter 4, left to right. */
 const LINE: CastId[] = ['kiki', 'meera', 'you', 'bunty', 'ro'];
+
+/** Where the gumball (radius 15) sits on Kiki's hair in chapter 1, from its spot at (1200, 560): her head top is 291 above her feet (715). */
+const KIKI_HEAD_HIT = 715 - 291 - 15 + 4 - 560;
+
+/** Landing in the candy-floss cloud: it squashes and puffs out, and the child sinks in, then bobs back up. */
+const flossLand = (who: CastId, at: number): Action[] => [
+  { do: 'el', el: 'floss', to: { scale: 0.92 }, dur: 0.1, yoyo: 1, at }, { do: 'el', el: 'flossfront', to: { scale: 0.9 }, dur: 0.1, yoyo: 1, at },
+  { do: 'fx', fx: { kind: 'splash', who, color: '#ffd1e8' }, at }, { do: 'sfx', snd: 'squish', at },
+  { do: 'lift', who, to: -38, dur: 0.16, ease: 'out', at: at + 0.02 }, { do: 'lift', who, to: 0, dur: 0.7, ease: 'elastic', at: at + 0.18 },
+];
+
+/* ---------- The Jelly Bean Bounce (chapter 2) ---------- */
+const B = BEAN_X;
+/** Where everyone stands past the finish line (Ro, who got there first, is under the arch). */
+const FINISH = { bunty: 6430, you: 6535, meera: 6645, kiki: 6755, ro: 6865 } as const;
+/** Where Kiki's hand is when she pops the gumballs (her spot at the edge of bean 15). */
+const KIKI_POP = B[14] + 100;
+const SHIELD_X = SHIELD.x, SHIELD_Y = SHIELD.top;
+/** The top of Meera's head above her feet (Kiki stands on it). */
+const MEERA_HEAD = 312;
+
+/** How far Ro's toffee arm must stretch for his hand to reach a point `dist` in front of him (shoulder 27 + upper arm 40 + 36 per stretch). */
+const reach = (dist: number) => Math.round(((dist - 67) / 36) * 10) / 10;
+
+/** A bounce from bean to bean: the jump, and the bean dipping under the landing. */
+function hop(who: CastId, to: number, at: number, bean?: string, o: { h?: number; dur?: number; y?: number } = {}): Action[] {
+  const dur = o.dur ?? 0.6;
+  const acts: Action[] = [{ do: 'jump', who, to, h: o.h ?? 140, dur, at, ...(o.y !== undefined ? { y: o.y } : {}) }];
+  if (bean) acts.push({ do: 'el', el: bean, to: { scale: 0.93 }, dur: 0.1, yoyo: 1, at: at + 0.14 + dur });
+  return acts;
+}
+
+/**
+ * Ro, his toffee arm already hooked round a pole: he pulls himself to it (the arm shrinks as he
+ * flies, so his hand stays on the pole), swings round it and flies on to `land`. Starts on the
+ * spoken word `atWord` when given, else at `at` seconds.
+ */
+function swing(who: CastId, poleX: number, land: number, atWord?: number, at = 0, h = 240, dur = 0.95): Action[] {
+  const t = (dt: number) => (atWord === undefined ? { at: at + dt } : { atWord, at: dt });
+  return [
+    { do: 'move', who, to: poleX - 103, gait: 'fly', ease: 'linear', dur: 0.3, then: 'stretchArm', ...t(0) },
+    { do: 'stretch', who, len: 1, dur: 0.3, ease: 'linear', ...t(0) }, { do: 'lift', who, to: 40, dur: 0.3, ...t(0) },
+    { do: 'fx', fx: { kind: 'word', text: 'ZOOM!', color: '#ff9b85' }, ...t(0) }, { do: 'sfx', snd: 'whoosh', ...t(0) },
+    { do: 'fx', fx: { kind: 'motion', on: true, dir: 'left' }, ...t(0) }, { do: 'track', who, lead: 60, ...t(0) },
+    { do: 'jump', who, to: land, h, dur, ...t(0.3) }, { do: 'spin', who, turns: 1, dur: 0.6, ...t(0.44) },
+    { do: 'fx', fx: { kind: 'motion', on: false }, ...t(1.5) },
+  ];
+}
+
+/** Someone lands on Meera's shield springboard. */
+const boing = (at: number): Action[] => [
+  { do: 'el', el: 'shieldboard', to: { scale: 0.85 }, dur: 0.08, yoyo: 1, at }, { do: 'sfx', snd: 'boing', at },
+  { do: 'fx', fx: { kind: 'word', text: 'BOING!', color: '#ff9fcf' }, at },
+];
+
+/**
+ * Kiki's gumball `i` arcs over from her hand and lands on sinking bean `i` exactly as the word is
+ * spoken; the bean sinks away under it and the gumball floats in its place.
+ */
+function gumballDrop(i: number, x: number, word: number): Action[] {
+  const el = `gs${i + 1}`;
+  return [
+    { do: 'el', el, to: { x: KIKI_POP - x, y: -420, scale: 0.45, opacity: 1 }, dur: 0.01, atWord: word, at: -0.52 },
+    { do: 'el', el, to: { x: 0 }, dur: 0.48, ease: 'linear', atWord: word, at: -0.5 },
+    { do: 'el', el, to: { y: 0, scale: 1 }, dur: 0.48, ease: 'in', atWord: word, at: -0.5 },
+    { do: 'sfx', snd: 'pop', atWord: word, at: -0.5 },
+    { do: 'sfx', snd: 'splash', atWord: word }, { do: 'fx', fx: { kind: 'splash', el, color: '#ff9fc8' }, atWord: word },
+    { do: 'el', el: `k${i + 1}`, to: { y: 150 }, dur: 0.9, ease: 'in', atWord: word, at: 0.05 },
+    { do: 'el', el, to: { scale: 1.08 }, dur: 0.12, yoyo: 1, atWord: word, at: 0.02 },
+  ];
+}
+
+/** Hopping across the three floating gumballs (feet on their tops), then on along `after`. */
+function stones(who: CastId, at: number, after: number[]): Action[] {
+  const acts = SINK_X.flatMap((x, i) => hop(who, x, at + i * 0.8, undefined, { y: GUMBALL_TOP, h: 120 }));
+  after.forEach((x, i) => acts.push(...hop(who, x, at + (SINK_X.length + i) * 0.8, undefined, { y: BEAN_TOP })));
+  return acts;
+}
 
 export const candy: World = {
   id: 'candy',
@@ -66,9 +144,9 @@ export const candy: World = {
               cam: { wide: 560, zoom: 0.8 }, act: [
                 { do: 'enter', who: 'ro', from: 'top', to: 470, dur: 0.9 }, { do: 'enter', who: 'kiki', from: 'top', to: 380, dur: 0.9, at: 0.15 },
                 { do: 'enter', who: 'you', from: 'top', to: 560, dur: 0.9, at: 0.3 }, { do: 'fall', who: 'bunty', from: 900, dur: 1.0, land: 'sit', at: 0.45 },
-                { do: 'el', el: 'floss', to: { scale: 0.88 }, dur: 0.12, yoyo: 3, at: 0.9 }, { do: 'sfx', snd: 'squish', at: 0.9 },
+                ...([['ro', 0.9], ['kiki', 1.05], ['you', 1.2], ['bunty', 1.45]] as [CastId, number][]).flatMap(([id, t]) => flossLand(id, t)),
                 { do: 'fx', fx: { kind: 'word', text: 'SPLOOSH!', color: '#ff9fcf' }, at: 1.0 },
-              ], n: 'SPLOOSH! The crew lands in a big pink cloud of candy floss.', lineAt: 1.5,
+              ], n: 'SPLOOSH! The crew lands in a big pink cloud of candy floss.', lineAt: 1.9,
             },
             { cam: { medium: 'kiki' }, act: [{ do: 'pose', who: 'kiki', pose: 'holdFront' }, { do: 'prop', who: 'kiki', prop: 'candyfloss' }, { do: 'expr', who: 'kiki', expr: 'love' }, { do: 'fx', fx: { kind: 'sparkle', who: 'kiki' } }], who: 'kiki', t: 'The grass is JELLY. The rocks are GUMDROPS. I live here now!' },
             {
@@ -94,62 +172,119 @@ export const candy: World = {
               ], who: 'fizz', t: 'Hello, crew! It’s time for your CANDY POWERS!', lineAt: 1.1,
             },
             { cam: { close: 'fizz' }, act: [{ do: 'expr', who: 'fizz', expr: 'happy' }], who: 'fizz', t: 'Ro! TOFFEE STRETCH! You can stretch like warm toffee!' },
-            { cam: { close: 'ro' }, act: [{ do: 'pose', who: 'ro', pose: 'yay' }, { do: 'expr', who: 'ro', expr: 'grin' }, { do: 'fx', fx: { kind: 'backdrop', style: 'rays', color: '#ff9b85' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 1.8 }], who: 'ro', t: 'Let’s GO!' },
+            {
+              cam: { close: 'ro' }, act: [
+                { do: 'pose', who: 'ro', pose: 'yay' }, { do: 'expr', who: 'ro', expr: 'grin' }, { do: 'sfx', snd: 'magic' },
+                { do: 'fx', fx: { kind: 'aura', who: 'ro', color: '#ff9b85', on: true } }, { do: 'fx', fx: { kind: 'backdrop', style: 'rays', color: '#ff9b85' } },
+                { do: 'fx', fx: { kind: 'power', name: 'Toffee Stretch', color: '#ff8f7e', icon: 'toffee' }, at: 0.2 }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 2.2 },
+              ], who: 'ro', t: 'Let’s GO!', lineAt: 0.9,
+            },
             {
               cam: { full: 'ro' }, act: [
                 { do: 'face', who: 'ro', dir: 1 }, { do: 'pose', who: 'ro', pose: 'stretchArm' }, { do: 'stretch', who: 'ro', len: 42, dur: 2.6, at: 0.3 },
                 { do: 'cam', to: { el: 'lolli', zoom: 0.9, dy: -240 }, dur: 2.6, at: 0.3 }, { do: 'sfx', snd: 'stretch', at: 0.3 }, { do: 'sfx', snd: 'stretch', at: 1.3 },
                 { do: 'fx', fx: { kind: 'word', text: 'BOINNNG!', color: '#ff9b85' }, at: 1.6 }, { do: 'fx', fx: { kind: 'motion', on: true, dir: 'left' }, at: 0.3 }, { do: 'fx', fx: { kind: 'motion', on: false }, at: 2.9 },
+                { do: 'sfx', snd: 'clink', at: 2.9 }, { do: 'el', el: 'lolli', to: { rot: 3 }, dur: 0.12, yoyo: 2, at: 2.9 }, { do: 'fx', fx: { kind: 'aura', who: 'ro', color: '#ff9b85', on: false }, at: 2.9 },
               ], n: 'Ro reaches out. His arm goes on... and on... and on.', lineAt: 0.5,
             },
             { cam: { close: 'ro' }, act: [{ do: 'expr', who: 'ro', expr: 'dizzy' }, { do: 'emote', who: 'ro', emote: 'sweat', at: 0.2 }], who: 'ro', t: 'HOW DO I GET IT BACK?' },
             {
               cam: { full: 'ro' }, act: [
-                { do: 'stretch', who: 'ro', len: 1, dur: 0.45 }, { do: 'sfx', snd: 'snap', at: 0.35 }, { do: 'fx', fx: { kind: 'word', text: 'SNAP!', color: '#ffd36e' }, at: 0.4 },
-                { do: 'spin', who: 'ro', turns: 1, dur: 0.5, at: 0.45 }, { do: 'pose', who: 'ro', pose: 'stand', at: 0.5 }, { do: 'prop', who: 'ro', prop: 'bow', at: 0.6 }, { do: 'pose', who: 'ro', pose: 'facepalm', at: 1.3 },
-              ], n: 'SNAP! It springs back... and ties itself in a little bow.', lineAt: 0.7,
+                { do: 'fx', fx: { kind: 'motion', on: true, dir: 'right' } }, { do: 'stretch', who: 'ro', len: 1, dur: 0.45 }, { do: 'sfx', snd: 'snap', at: 0.35 },
+                { do: 'fx', fx: { kind: 'word', text: 'SNAP!', color: '#ffd36e' }, at: 0.4 }, { do: 'fx', fx: { kind: 'motion', on: false }, at: 0.5 },
+                { do: 'spin', who: 'ro', turns: 1, dur: 0.5, at: 0.45 }, { do: 'pose', who: 'ro', pose: 'stand', at: 0.5 }, { do: 'expr', who: 'ro', expr: 'shock', at: 0.5 },
+              ], n: 'SNAP! The arm springs back like a rubber band...', lineAt: 0.7,
             },
+            { insert: 'knot', act: [{ do: 'sfx', snd: 'stretch', at: 0.2 }, { do: 'sfx', snd: 'pop', at: 1.15 }, { do: 'sfx', snd: 'boing', at: 1.4 }, { do: 'prop', who: 'ro', prop: 'bow', at: 1.2 }], n: '...and ties itself in a little bow.', lineAt: 0.2, hold: 0.6 },
+            { cam: { close: 'ro' }, act: [{ do: 'pose', who: 'ro', pose: 'facepalm' }, { do: 'expr', who: 'ro', expr: 'worried' }, { do: 'emote', who: 'ro', emote: 'blush', at: 0.3 }], who: 'ro', t: 'Nobody saw that. Okay?' },
             { cam: { close: 'fizz' }, act: [{ do: 'expr', who: 'fizz', expr: 'excited' }], who: 'fizz', t: 'Kiki! GUMBALL POPPER!' },
             {
-              cam: { wide: 520, zoom: 0.75 }, act: [
-                { do: 'prop', who: 'kiki', prop: 'gumball' }, { do: 'pose', who: 'kiki', pose: 'point' }, { do: 'face', who: 'kiki', dir: 1 }, { do: 'expr', who: 'kiki', expr: 'grin' },
-                { do: 'el', el: 'gumball', to: { x: -780, y: 0, opacity: 1 }, dur: 0.01, at: 0.3 }, { do: 'sfx', snd: 'pop', at: 0.3 },
-                { do: 'el', el: 'gumball', to: { x: 160, y: -190 }, dur: 0.8, ease: 'linear', at: 0.32 }, { do: 'cam', to: { wide: 1300, zoom: 0.75 }, dur: 0.8, at: 0.3 },
-                { do: 'sfx', snd: 'bonk', at: 1.12 }, { do: 'el', el: 'gumball', to: { x: 360, y: 80 }, dur: 0.45, ease: 'linear', at: 1.12 },
-                { do: 'sfx', snd: 'bonk', at: 1.57 }, { do: 'el', el: 'gumball', to: { x: 260, y: -230 }, dur: 0.5, ease: 'out', at: 1.57 },
-                { do: 'sfx', snd: 'boing', at: 2.07 }, { do: 'el', el: 'gumball', to: { x: -820, y: -170 }, dur: 1.1, ease: 'in', at: 2.07 }, { do: 'cam', to: { wide: 520, zoom: 0.8 }, dur: 1.1, at: 2.07 },
+              cam: { full: 'kiki' }, act: [
+                { do: 'face', who: 'kiki', dir: 1 }, { do: 'expr', who: 'kiki', expr: 'grin' }, { do: 'sfx', snd: 'magic' },
+                { do: 'fx', fx: { kind: 'aura', who: 'kiki', color: '#ff7ab8', on: true } }, { do: 'fx', fx: { kind: 'power', name: 'Gumball Popper', color: '#ff7ab8', icon: 'gumball' }, at: 0.2 },
+                { do: 'pose', who: 'kiki', pose: 'holdUp', at: 0.4 }, { do: 'prop', who: 'kiki', prop: 'gumball', at: 0.5 }, { do: 'fx', fx: { kind: 'sparkle', who: 'kiki', n: 10 }, at: 0.5 }, { do: 'sfx', snd: 'chime', at: 0.5 },
+              ], who: 'kiki', t: 'Ooh, a button! What does THIS do?', lineAt: 1.0,
+            },
+            // The gumball leaves her hand on "pops" and hits the tree, the rock and the cloud exactly as each is named.
+            {
+              cam: { at: [600, 470, 0.72] }, act: [
+                { do: 'fx', fx: { kind: 'aura', who: 'kiki', color: '#ff7ab8', on: false } }, { do: 'pose', who: 'kiki', pose: 'point' }, { do: 'pose', who: 'ro', pose: 'stand' },
+                { do: 'el', el: 'gumball', to: { x: -717, y: -13, opacity: 1, scale: 1 }, dur: 0.01, atWord: 1, at: -0.02 }, { do: 'sfx', snd: 'pop', atWord: 1 },
+                { do: 'cam', to: { at: [1300, 470, 0.72] }, atWord: 1, toWord: 7 },
+                { do: 'el', el: 'gumball', to: { x: 94 }, ease: 'linear', atWord: 1, toWord: 7 },
+                { do: 'el', el: 'gumball', to: { y: -260 }, ease: 'out', atWord: 1, toWord: 5 }, { do: 'el', el: 'gumball', to: { y: -108 }, ease: 'in', atWord: 5, toWord: 7 },
+                { do: 'sfx', snd: 'bonk', atWord: 7 }, { do: 'el', el: 'tree', to: { rot: 4 }, dur: 0.12, yoyo: 2, atWord: 7 },
+                { do: 'el', el: 'gumball', to: { x: 360 }, ease: 'linear', atWord: 7, toWord: 9 }, { do: 'el', el: 'gumball', to: { y: 70 }, ease: 'in', atWord: 7, toWord: 9 },
+                { do: 'sfx', snd: 'bonk', atWord: 9 }, { do: 'el', el: 'rock', to: { scale: 0.9 }, dur: 0.1, yoyo: 1, atWord: 9 },
+                { do: 'el', el: 'gumball', to: { x: 260 }, ease: 'linear', atWord: 9, toWord: 11 }, { do: 'el', el: 'gumball', to: { y: -230 }, ease: 'out', atWord: 9, toWord: 11 },
+                { do: 'sfx', snd: 'boing', atWord: 11 }, { do: 'el', el: 'skycloud', to: { scale: 1.1 }, dur: 0.15, yoyo: 1, atWord: 11 },
+                { do: 'el', el: 'gumball', to: { x: -400, y: -560 }, dur: 0.8, ease: 'out', atWord: 11, at: 0.05 },
               ], n: 'Kiki pops a gumball. It hits a tree, a rock, a cloud...', lineAt: 0.3,
             },
+            // ...then it drops out of the sky and lands right on her head, on the word "head".
             {
-              cam: { close: 'kiki' }, act: [
-                { do: 'el', el: 'gumball', to: { opacity: 0 }, dur: 0.05, at: 0.1 }, { do: 'fx', fx: { kind: 'burst', who: 'kiki' } }, { do: 'sfx', snd: 'bonk' },
-                { do: 'fx', fx: { kind: 'word', text: 'BONK!', color: '#ff9fcf' } }, { do: 'expr', who: 'kiki', expr: 'dizzy' }, { do: 'squash', who: 'kiki', amt: 0.18 },
-              ], n: '...and lands right on Kiki’s head.', lineAt: 0.4,
+              cam: { full: 'kiki' }, act: [
+                { do: 'el', el: 'gumball', to: { x: -820, y: -720 }, dur: 0.01 }, { do: 'look', who: 'kiki', gaze: 'cam' },
+                { do: 'el', el: 'gumball', to: { y: KIKI_HEAD_HIT }, ease: 'in', atWord: 2, toWord: 6 },
+                { do: 'sfx', snd: 'bonk', atWord: 6 }, { do: 'fx', fx: { kind: 'burst', who: 'kiki' }, atWord: 6 }, { do: 'squash', who: 'kiki', amt: 0.2, atWord: 6 },
+                { do: 'expr', who: 'kiki', expr: 'dizzy', atWord: 6 }, { do: 'pose', who: 'kiki', pose: 'stand', atWord: 6 },
+                { do: 'el', el: 'gumball', to: { x: -660 }, dur: 0.7, ease: 'linear', atWord: 6, at: 0.04 }, { do: 'el', el: 'gumball', to: { y: -330 }, dur: 0.3, ease: 'out', atWord: 6, at: 0.04 },
+                { do: 'el', el: 'gumball', to: { y: 150, opacity: 0 }, dur: 0.4, ease: 'in', atWord: 6, at: 0.34 },
+                { do: 'fx', fx: { kind: 'word', text: 'BONK!', color: '#ff9fcf' }, atWord: 7 },
+              ], n: '...and it drops right on Kiki’s head. BONK!', lineAt: 0.3,
             },
-            { cam: { close: 'kiki' }, act: [{ do: 'expr', who: 'kiki', expr: 'laugh' }, { do: 'pose', who: 'kiki', pose: 'cheer' }, { do: 'hop', who: 'kiki', n: 2 }], who: 'kiki', t: 'AGAIN!' },
+            { cam: { close: 'kiki' }, act: [{ do: 'look', who: 'kiki', gaze: 'fwd' }, { do: 'expr', who: 'kiki', expr: 'laugh' }, { do: 'pose', who: 'kiki', pose: 'cheer' }, { do: 'hop', who: 'kiki', n: 2 }], who: 'kiki', t: 'AGAIN!' },
             { cam: { close: 'fizz' }, act: [{ do: 'pose', who: 'kiki', pose: 'stand' }, { do: 'prop', who: 'kiki', prop: null }], who: 'fizz', t: 'Meera! CANDY SHIELD! Strong and shiny!' },
-            { cam: { full: 'meera' }, act: [{ do: 'prop', who: 'meera', prop: 'shield' }, { do: 'pose', who: 'meera', pose: 'present' }, { do: 'fx', fx: { kind: 'sparkle', who: 'meera' } }, { do: 'sfx', snd: 'chime' }, { do: 'expr', who: 'meera', expr: 'determined' }], who: 'meera', t: 'Finally! A power that makes sense.' },
+            {
+              cam: { full: 'meera' }, act: [
+                { do: 'expr', who: 'meera', expr: 'determined' }, { do: 'fx', fx: { kind: 'aura', who: 'meera', color: '#7fe6c9', on: true } }, { do: 'sfx', snd: 'magic' },
+                { do: 'fx', fx: { kind: 'power', name: 'Candy Shield', color: '#5ccfae', icon: 'shield' }, at: 0.2 },
+                { do: 'pose', who: 'meera', pose: 'holdUp', at: 0.5 }, { do: 'prop', who: 'meera', prop: 'shield', at: 0.6 }, { do: 'fx', fx: { kind: 'burst', who: 'meera' }, at: 0.6 }, { do: 'sfx', snd: 'chime', at: 0.6 },
+                { do: 'pose', who: 'meera', pose: 'present', at: 1.2 }, { do: 'fx', fx: { kind: 'sparkle', who: 'meera', n: 10 }, at: 1.2 },
+              ], who: 'meera', t: 'Finally! A power that makes sense.', lineAt: 1.3,
+            },
             {
               cam: { at: [760, 560, 1.5] }, act: [
-                { do: 'move', who: 'kiki', to: 660, gait: 'tiptoe', dur: 0.9 }, { do: 'move', who: 'bunty', to: 712, gait: 'tiptoe', dur: 0.6, at: 0.2 }, { do: 'face', who: 'bunty', dir: 1, at: 0.9 },
+                { do: 'fx', fx: { kind: 'aura', who: 'meera', color: '#7fe6c9', on: false } }, { do: 'move', who: 'kiki', to: 660, gait: 'tiptoe', dur: 0.9 }, { do: 'move', who: 'bunty', to: 712, gait: 'tiptoe', dur: 0.6, at: 0.2 }, { do: 'face', who: 'bunty', dir: 1, at: 0.9 },
                 { do: 'pose', who: 'kiki', pose: 'lick', at: 1.0 }, { do: 'pose', who: 'bunty', pose: 'lick', at: 1.1 }, { do: 'expr', who: 'kiki', expr: 'tongue', at: 1.0 }, { do: 'expr', who: 'bunty', expr: 'tongue', at: 1.1 },
               ], n: 'Her shield is round. It is shiny. It looks very, very lickable.', lineAt: 0.5,
             },
             { cam: { close: 'meera' }, act: [{ do: 'place', who: 'kiki', x: 380 }, { do: 'place', who: 'bunty', x: 660 }, { do: 'expr', who: 'meera', expr: 'grumpy' }, { do: 'emote', who: 'meera', emote: 'anger' }, { do: 'fx', fx: { kind: 'backdrop', style: 'gloom', color: '#5ccfae' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 2.6 }], who: 'meera', t: 'Nobody. Licks. The shield.' },
             { cam: { close: 'fizz' }, act: [{ do: 'pose', who: 'kiki', pose: 'stand' }, { do: 'pose', who: 'bunty', pose: 'stand' }, { do: 'face', who: 'bunty', dir: 1 }, { do: 'expr', who: 'kiki', expr: 'grin' }, { do: 'expr', who: 'bunty', expr: 'grin' }], who: 'fizz', t: 'And Bunty! STICKY... FINGERS! Everything you touch gets sticky!' },
             {
-              cam: { full: 'bunty' }, act: [
-                { do: 'pose', who: 'bunty', pose: 'reach' }, { do: 'prop', who: 'bunty', prop: 'gumdrop', at: 0.4 }, { do: 'sfx', snd: 'squish', at: 0.4 },
-                { do: 'expr', who: 'bunty', expr: 'sad', at: 0.8 }, { do: 'pose', who: 'bunty', pose: 'slump', at: 0.9 }, { do: 'emote', who: 'bunty', emote: 'gloom', at: 1.0 }, { do: 'sfx', snd: 'sad', at: 1.0 },
-              ], who: 'bunty', t: 'That’s it? That’s just... my normal hands.', lineAt: 1.1,
+              cam: { full: 'bunty' }, tone: 'sad', act: [
+                { do: 'expr', who: 'bunty', expr: 'love' }, { do: 'fx', fx: { kind: 'aura', who: 'bunty', color: '#ffb38a', on: true } }, { do: 'sfx', snd: 'magic' },
+                { do: 'fx', fx: { kind: 'power', name: 'Sticky Fingers', color: '#ff9b6a', icon: 'sticky' }, at: 0.2 },
+                { do: 'pose', who: 'bunty', pose: 'reach', at: 0.9 }, { do: 'prop', who: 'bunty', prop: 'gumdrop', at: 1.2 }, { do: 'sfx', snd: 'squish', at: 1.2 },
+                { do: 'fx', fx: { kind: 'aura', who: 'bunty', color: '#ffb38a', on: false }, at: 1.6 },
+                { do: 'expr', who: 'bunty', expr: 'sad', at: 1.7 }, { do: 'pose', who: 'bunty', pose: 'slump', at: 1.8 }, { do: 'emote', who: 'bunty', emote: 'gloom', at: 1.9 }, { do: 'sfx', snd: 'sad', at: 1.9 },
+              ], who: 'bunty', t: 'That’s it? That’s just... my normal hands.', lineAt: 2.0,
             },
             { cam: { wide: 620, zoom: 0.78 }, act: [{ do: 'sfx', snd: 'drumroll' }, { do: 'expr', who: 'fizz', expr: 'excited' }, { do: 'prop', who: 'bunty', prop: null }, { do: 'pose', who: 'bunty', pose: 'stand' }, { do: 'expr', who: 'bunty', expr: 'normal' }], who: 'fizz', t: 'And our Captain {name} gets...' },
             {
-              cam: { full: 'you' }, mood: 'triumph', act: [
-                { do: 'fx', fx: { kind: 'backdrop', style: 'rays' } }, { do: 'fx', fx: { kind: 'sprinkles', dur: 3 } }, { do: 'fx', fx: { kind: 'confetti' }, at: 0.3 },
-                { do: 'sfx', snd: 'magic' }, { do: 'sfx', snd: 'fanfare', at: 0.4 }, { do: 'pose', who: 'you', pose: 'cheer' }, { do: 'expr', who: 'you', expr: 'love' },
-                { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 3.8 },
-              ], n: 'Rainbow sprinkles rain down. Everything they touch turns bouncy and bright!',
+              cam: { low: 'you' }, mood: 'triumph', act: [
+                { do: 'pose', who: 'you', pose: 'crouch' }, { do: 'expr', who: 'you', expr: 'determined' }, { do: 'face', who: 'you', dir: 1 },
+                { do: 'fx', fx: { kind: 'aura', who: 'you', color: '#ffd36e', on: true } }, { do: 'sfx', snd: 'magic' },
+                { do: 'fx', fx: { kind: 'backdrop', style: 'rays', color: '#ffd36e' }, at: 0.2 },
+                { do: 'fx', fx: { kind: 'power', name: 'Sprinkle Shower', color: '#ff7ab8', icon: 'sprinkle' }, at: 0.3 },
+              ], who: 'fizz', t: 'SPRINKLE... SHOWER!', lineAt: 0.6,
+            },
+            {
+              cam: { at: [600, 330, 0.72] }, act: [
+                { do: 'fx', fx: { kind: 'backdrop', style: null } },
+                { do: 'jump', who: 'you', to: 560, h: 540, dur: 1.4, at: 0.1, then: 'cheer' }, { do: 'spin', who: 'you', turns: 1, dur: 0.6, at: 0.3 },
+                { do: 'pose', who: 'you', pose: 'holdUp', at: 0.9 }, { do: 'fx', fx: { kind: 'burst', who: 'you' }, at: 0.92 },
+                { do: 'fx', fx: { kind: 'sprinkles', dur: 3.5 }, at: 0.95 }, { do: 'sfx', snd: 'sparkle', at: 0.95 }, { do: 'sfx', snd: 'fanfare', at: 1.0 }, { do: 'fx', fx: { kind: 'confetti' }, at: 1.1 },
+                ...all(['kiki', 'ro', 'bunty', 'meera'], (id, i) => [{ do: 'expr', who: id, expr: 'shock', at: 0.4 + i * 0.05 } as Action, { do: 'pose', who: id, pose: 'lookUp', at: 0.4 } as Action]),
+              ], n: 'The Captain leaps up high and throws rainbow sprinkles everywhere!', lineAt: 0.3,
+            },
+            {
+              cam: { wide: 620, zoom: 0.78 }, act: [
+                { do: 'fx', fx: { kind: 'aura', who: 'you', color: '#ffd36e', on: false }, at: 1.2 }, { do: 'expr', who: 'you', expr: 'love' },
+                { do: 'el', el: 'jellyhill', to: { scale: 1.1 }, dur: 0.25, yoyo: 3 }, { do: 'el', el: 'rock', to: { scale: 1.12 }, dur: 0.22, yoyo: 3, at: 0.3 }, { do: 'el', el: 'floss', to: { scale: 1.06 }, dur: 0.3, yoyo: 3, at: 0.15 },
+                ...all(['kiki', 'ro', 'bunty', 'meera'], (id, i) => [{ do: 'pose', who: id, pose: 'stand' } as Action, { do: 'hop', who: id, n: 3, h: 46, at: 0.2 + i * 0.12 } as Action, { do: 'expr', who: id, expr: 'laugh', at: 0.2 } as Action]),
+                { do: 'sfx', snd: 'boing', at: 0.2 }, { do: 'sfx', snd: 'boing', at: 0.6 }, { do: 'sfx', snd: 'boing', at: 1.0 },
+              ], n: 'Everything the sprinkles touch turns bouncy and bright!',
             },
             { reward: 'sprinkle-shower' },
             { cam: { close: 'you' }, mood: 'playful', act: [{ do: 'pose', who: 'you', pose: 'stand' }, { do: 'expr', who: 'you', expr: 'grin' }, { do: 'look', who: 'you', gaze: 'cam' }], who: 'you', t: 'Sprinkles! Okay. I can work with sprinkles.' },
@@ -185,11 +320,15 @@ export const candy: World = {
     },
 
     /* ======================= Chapter 2: Jelly Bean Bounce ======================= */
+    // A long course over a pudding sea: twenty beans, a Big Gap and three sinking beans. Ro races
+    // ahead alone, swinging on candy-cane poles with his toffee arm. The crew gets past each crisis
+    // together (a sprinkle shower, a shield springboard, gumball stepping stones) and bounces over
+    // the finish line as one.
     {
       id: 'c-2',
       title: 'Jelly Bean Bounce',
-      teaser: 'Bounce from bean to bean. The winner gets three Stars.',
-      recap: 'Ro won the race. Bunty got stuck to a bean, flew like a bird, and loved it.',
+      teaser: 'Bounce from bean to bean, past a Big Gap and sinking beans!',
+      recap: 'Ro won the race alone. The crew crossed the Big Gap and the sinking beans together.',
       scenes: [
         {
           id: 'c2-morning', set: 'vista', mood: 'wonder', tint: { color: '#ffd9a0', opacity: 0.14 }, cam: { el: 'course', zoom: 0.9, dy: -300 },
@@ -200,85 +339,263 @@ export const candy: World = {
           ],
         },
         {
-          id: 'c2-course', set: 'jellycourse', mood: 'race', trans: 'fade', cam: { wide: 1700, y: 400, zoom: 0.75 },
+          id: 'c2-course', set: 'jellycourse', mood: 'race', trans: 'fade', cam: { wide: COURSE.booth, y: 400, zoom: 0.75 },
           cast: [
-            { id: 'bunty', x: 140 }, { id: 'meera', x: 210 }, { id: 'you', x: 280 }, { id: 'kiki', x: 350 }, { id: 'ro', x: 420 },
-            { id: 'fizz', x: 1700, y: 452, lift: 0, prop: 'mic' },
+            { id: 'bunty', x: 100 }, { id: 'you', x: 175 }, { id: 'meera', x: 250 }, { id: 'kiki', x: 325 }, { id: 'ro', x: 400 },
+            { id: 'fizz', x: COURSE.booth, y: 452, lift: 0, prop: 'mic' },
           ],
           shots: [
             { act: [{ do: 'expr', who: 'fizz', expr: 'excited' }, { do: 'fx', fx: { kind: 'sparkle', el: 'booth' } }, { do: 'sfx', snd: 'drum' }], who: 'fizz', t: 'GAME ONE! The Jelly Bean Bounce!' },
-            { cam: { wide: 900, zoom: 0.72 }, move: { wide: 2700, zoom: 0.72 }, moveDur: 5, act: [{ do: 'el', el: 'b3', to: { scale: 1.08 }, dur: 0.3, yoyo: 2, at: 1.2 }, { do: 'el', el: 'b6', to: { scale: 1.08 }, dur: 0.3, yoyo: 2, at: 2.4 }], who: 'fizz', t: 'Bounce from bean to bean. First to the finish wins three Stars!' },
-            { insert: 'stars3', act: [{ do: 'sfx', snd: 'sparkle', at: 0.2 }, { do: 'sfx', snd: 'sparkle', at: 0.8 }], hold: 1.4 },
+            // A tour of the course: beans, poles, the Big Gap, the sinking beans, the finish.
+            {
+              cam: { wide: 700, zoom: 0.72 }, move: { wide: 2700, zoom: 0.72 }, moveDur: 6,
+              act: [...['b2', 'b4', 'b6', 'b8', 'b10'].map((el, i) => ({ do: 'el' as const, el, to: { scale: 1.08 }, dur: 0.25, yoyo: 1, at: 0.6 + i * 1.1 })), { do: 'el', el: 'pole1', to: { rot: 4 }, dur: 0.2, yoyo: 2, at: 1.6 }, { do: 'el', el: 'pole2', to: { rot: -4 }, dur: 0.2, yoyo: 2, at: 4.6 }],
+              who: 'fizz', t: 'Bounce from bean to bean, all the way to the finish!',
+            },
+            { cam: { at: [COURSE.gapFrom, 560, 0.72] }, move: { at: [COURSE.gapTo, 560, 0.72] }, moveDur: 4, act: [{ do: 'sfx', snd: 'wobble', at: 1.2 }], who: 'fizz', t: 'Watch out for the Big Gap...' },
+            {
+              cam: { at: [SINK_X[0], 560, 0.72] }, move: { at: [SINK_X[2], 560, 0.72] }, moveDur: 4,
+              act: SINK_X.flatMap((_, i) => [{ do: 'el', el: `k${i + 1}`, to: { y: 26 }, dur: 0.45, yoyo: 1, at: 0.5 + i * 1.1 } as Action, { do: 'sfx', snd: 'bubble', at: 0.5 + i * 1.1 } as Action]),
+              who: 'fizz', t: '...and the sneaky sinking beans. BLOOP!',
+            },
+            { cam: { el: 'finish', zoom: 0.8, dy: -60 }, insert: 'stars3', act: [{ do: 'sfx', snd: 'sparkle', at: 0.2 }, { do: 'sfx', snd: 'sparkle', at: 0.8 }], who: 'fizz', t: 'The first one here wins three shiny Stars!', hold: 0.6 },
             { cam: { medium: ['kiki', 'ro'] }, act: [{ do: 'expr', who: 'ro', expr: 'determined' }, { do: 'face', who: 'ro', dir: -1 }, { do: 'fx', fx: { kind: 'backdrop', style: 'speed', color: '#ff9b85' } }], who: 'ro', t: 'Three Stars. Mine.' },
             { cam: { medium: ['kiki', 'ro'] }, act: [{ do: 'fx', fx: { kind: 'backdrop', style: null } }, { do: 'expr', who: 'kiki', expr: 'grin' }, { do: 'face', who: 'kiki', dir: 1 }], who: 'kiki', t: 'Not if I bounce ON you first!' },
             {
-              cam: { wide: 280, zoom: 0.8 }, act: [
+              cam: { wide: 250, zoom: 0.8 }, act: [
                 ...all(KIDS, (id, i) => [{ do: 'face', who: id, dir: 1, at: i * 0.05 } as Action, { do: 'pose', who: id, pose: 'crouch', at: 0.2 + i * 0.07 } as Action, { do: 'expr', who: id, expr: 'determined', at: 0.2 } as Action]),
                 { do: 'sfx', snd: 'drumroll' },
               ], n: 'Everyone crouches on the start line...',
             },
             { cam: { close: 'fizz' }, act: [{ do: 'fx', fx: { kind: 'word', text: 'READY?', color: '#8fc8ff' } }], who: 'fizz', t: 'Ready... set...' },
             {
-              cam: { wide: 640, zoom: 0.75 }, act: [
+              cam: { wide: 420, zoom: 0.72 }, act: [
                 { do: 'fx', fx: { kind: 'word', text: 'GO!', color: '#7fe6c9' } }, { do: 'sfx', snd: 'ding' }, { do: 'fx', fx: { kind: 'speedlines', on: true } },
-                { do: 'jump', who: 'ro', to: BEAN_X[0], h: 130, dur: 0.6, at: 0.1 }, { do: 'jump', who: 'ro', to: BEAN_X[1], h: 130, dur: 0.6, at: 0.95 },
-                { do: 'jump', who: 'kiki', to: BEAN_X[0] - 30, h: 150, dur: 0.6, at: 0.25 }, { do: 'jump', who: 'you', to: BEAN_X[0] + 30, h: 140, dur: 0.6, at: 0.4 },
-                { do: 'jump', who: 'meera', to: BEAN_X[0] - 50, h: 120, dur: 0.6, at: 0.55 }, { do: 'jump', who: 'bunty', to: BEAN_X[0] + 10, h: 120, dur: 0.6, at: 0.7 },
+                ...hop('ro', B[0], 0.1, 'b1', { h: 130 }), ...hop('ro', B[1], 0.95, 'b2', { h: 130 }),
+                ...hop('meera', B[0] - 30, 1.15, 'b1', { h: 150, dur: 0.75 }),
+                ...all(['you', 'kiki', 'bunty'], (id) => [{ do: 'pose', who: id, pose: 'stand', at: 1.6 } as Action]),
                 { do: 'fx', fx: { kind: 'speedlines', on: false }, at: 1.4 },
-                ...[1, 2].map((n) => ({ do: 'el' as const, el: `b${n}`, to: { scale: 0.92 }, dur: 0.12, yoyo: 1, at: 0.7 + n * 0.2 })),
               ], who: 'fizz', t: 'GO!', lineAt: 0.05,
             },
+            // Ro's arm needs something to hold: he hooks a candy-cane pole, pulls himself to it, swings round and flies on.
             {
-              cam: { wide: 1100, zoom: 0.75 }, act: [
-                { do: 'pose', who: 'ro', pose: 'stretchArm' }, { do: 'stretch', who: 'ro', len: 6, dur: 0.4 }, { do: 'jump', who: 'ro', to: BEAN_X[4], h: 230, dur: 1.2, at: 0.4 },
-                { do: 'stretch', who: 'ro', len: 1, dur: 0.3, at: 1.5 }, { do: 'track', who: 'ro', lead: 80, at: 0.4 }, { do: 'fx', fx: { kind: 'motion', on: true, dir: 'left' }, at: 0.4 },
-                { do: 'sfx', snd: 'stretch' }, { do: 'fx', fx: { kind: 'motion', on: false }, at: 2.0 },
-              ], n: 'Ro stretches across three beans at once!',
+              cam: { at: [1075, 560, 0.72] }, act: [
+                { do: 'face', who: 'ro', dir: 1 }, { do: 'pose', who: 'ro', pose: 'stretchArm' }, { do: 'expr', who: 'ro', expr: 'determined' },
+                { do: 'stretch', who: 'ro', len: reach(POLE_X[0] - B[1]), dur: 0.4, atWord: 1 }, { do: 'sfx', snd: 'stretch', atWord: 1 },
+                { do: 'el', el: 'pole1', to: { rot: 5 }, dur: 0.12, yoyo: 2, atWord: 1, at: 0.4 }, { do: 'sfx', snd: 'clink', atWord: 1, at: 0.4 },
+                ...swing('ro', POLE_X[0], B[4], 10),
+              ], n: 'Ro hooks his toffee arm round a candy cane... and ZOOMS!', lineAt: 0.3,
+            },
+            // Kiki uses Meera's head as a springboard: she really lands on it, then bounces off.
+            {
+              cam: { at: [850, 520, 0.72] }, act: [
+                ...hop('meera', B[1] - 10, 0.1, 'b2', { h: 140, dur: 0.7 }),
+                ...hop('kiki', B[0] - 20, 0.25, 'b1', { h: 150, dur: 0.7 }),
+                { do: 'expr', who: 'kiki', expr: 'laugh', at: 1.3 }, { do: 'face', who: 'kiki', dir: 1, at: 1.3 }, { do: 'pose', who: 'kiki', pose: 'crouch', at: 1.35 },
+                { do: 'pose', who: 'kiki', pose: 'jump', at: 1.5 },
+                { do: 'move', who: 'kiki', to: B[1] - 10, y: 716, gait: 'fly', ease: 'linear', dur: 0.56, then: 'crouch', at: 1.5 },
+                { do: 'lift', who: 'kiki', to: 450, dur: 0.28, ease: 'out', at: 1.5 }, { do: 'lift', who: 'kiki', to: MEERA_HEAD, dur: 0.28, ease: 'in', at: 1.78 },
+                { do: 'squash', who: 'meera', amt: 0.32, at: 2.06 }, { do: 'squash', who: 'kiki', amt: 0.2, at: 2.06 }, { do: 'expr', who: 'meera', expr: 'dizzy', at: 2.06 },
+                { do: 'sfx', snd: 'boing', at: 2.06 }, { do: 'fx', fx: { kind: 'word', text: 'BOING!', color: '#9fe08a' }, at: 2.06 },
+                // She stands on Meera's head for a moment (arms out, wobbling), then springs off it.
+                { do: 'pose', who: 'kiki', pose: 'brace', at: 2.16 }, { do: 'squash', who: 'meera', amt: 0.18, at: 2.5 }, { do: 'sfx', snd: 'boing', at: 2.55 },
+                { do: 'pose', who: 'kiki', pose: 'jump', at: 2.55 },
+                { do: 'move', who: 'kiki', to: B[2] - 20, y: 715, gait: 'fly', ease: 'linear', dur: 0.72, then: 'land', at: 2.55 },
+                { do: 'lift', who: 'kiki', to: 560, dur: 0.36, ease: 'out', at: 2.55 }, { do: 'lift', who: 'kiki', to: 0, dur: 0.36, ease: 'in', at: 2.91 },
+                { do: 'squash', who: 'kiki', amt: 0.18, at: 3.27 }, { do: 'sfx', snd: 'thud', at: 3.27 }, { do: 'el', el: 'b3', to: { scale: 0.93 }, dur: 0.1, yoyo: 1, at: 3.27 },
+                { do: 'pose', who: 'kiki', pose: 'stand', at: 3.5 },
+              ], who: 'kiki', t: 'Coming through, Meera!', lineAt: 1.0,
+            },
+            { cam: { medium: 'meera' }, act: [{ do: 'pose', who: 'meera', pose: 'hips' }, { do: 'expr', who: 'meera', expr: 'grumpy' }, { do: 'emote', who: 'meera', emote: 'anger' }], who: 'meera', t: 'Hey! My head is NOT a trampoline!' },
+            // Bunty lands wobbly, puts his hands down to steady himself, and his Sticky Fingers glue them to the bean.
+            {
+              cam: { at: [330, 540, 0.72] }, act: [
+                { do: 'face', who: 'bunty', dir: 1 }, { do: 'expr', who: 'bunty', expr: 'grin' }, { do: 'cam', to: { at: [450, 540, 0.72] }, dur: 0.8, at: 0.2 },
+                { do: 'jump', who: 'bunty', to: B[0] - 45, h: 170, dur: 0.8, at: 0.2, then: 'land' }, { do: 'el', el: 'b1', to: { scale: 0.93 }, dur: 0.1, yoyo: 1, at: 1.14 },
+                { do: 'expr', who: 'bunty', expr: 'worried', at: 1.2 },
+                { do: 'pose', who: 'bunty', pose: 'stuck', atWord: 8 }, { do: 'el', el: 'goo', to: { opacity: 1 }, dur: 0.15, atWord: 8, at: 0.12 }, { do: 'sfx', snd: 'squish', atWord: 8, at: 0.12 },
+                { do: 'pose', who: 'bunty', pose: 'stuckPull', atWord: 11 }, { do: 'expr', who: 'bunty', expr: 'shock', atWord: 11 }, { do: 'emote', who: 'bunty', emote: '!', atWord: 11 },
+                { do: 'el', el: 'goo', to: { scale: 1.25 }, dur: 0.25, yoyo: 1, atWord: 11 }, { do: 'sfx', snd: 'squish', atWord: 11 },
+              ], n: 'Bunty lands all wobbly and puts his hands down. Uh-oh. They STICK!', lineAt: 1.3,
             },
             {
-              cam: { medium: ['meera', 'kiki'] }, act: [
-                { do: 'place', who: 'meera', x: BEAN_X[1] }, { do: 'place', who: 'kiki', x: BEAN_X[0] }, { do: 'pose', who: 'meera', pose: 'stand' }, { do: 'face', who: 'meera', dir: 1 },
-                { do: 'jump', who: 'kiki', to: BEAN_X[2], h: 330, dur: 1.1, at: 0.2 }, { do: 'squash', who: 'meera', amt: 0.3, at: 0.72 }, { do: 'expr', who: 'meera', expr: 'dizzy', at: 0.72 },
-                { do: 'sfx', snd: 'boing', at: 0.72 }, { do: 'fx', fx: { kind: 'word', text: 'BOING!', color: '#9fe08a' }, at: 0.72 }, { do: 'expr', who: 'meera', expr: 'grumpy', at: 1.3 }, { do: 'emote', who: 'meera', emote: 'anger', at: 1.3 },
-              ], who: 'meera', t: 'Hey! My head is NOT a trampoline!', lineAt: 1.4,
+              cam: { full: 'bunty', dx: 55 }, tone: 'excited', act: [
+                ...[0.3, 1.1, 1.9].flatMap((t) => [{ do: 'pose', who: 'bunty', pose: 'stuckPull', at: t } as Action, { do: 'pose', who: 'bunty', pose: 'stuck', at: t + 0.4 } as Action, { do: 'el', el: 'goo', to: { scale: 1.2 }, dur: 0.2, yoyo: 1, at: t } as Action]),
+                { do: 'expr', who: 'bunty', expr: 'shock' }, { do: 'expr', who: 'bunty', expr: 'grin', at: 1.6 },
+              ], who: 'bunty', t: 'My sticky fingers! I’m part of the jelly bean now!',
+            },
+            { cam: { low: 'you' }, act: [{ do: 'face', who: 'you', dir: 1 }, { do: 'pose', who: 'you', pose: 'stand' }, { do: 'expr', who: 'you', expr: 'determined' }], who: 'you', t: 'Hold on, Bunty! Nobody gets left behind!' },
+            { gate: { id: 'g-c2-bounce', title: 'Jelly Bean Bounce', ask: 'Bunty is stuck to a jelly bean! Help the Captain get him free.', by: 'bunty' } },
+            // The Captain's heroic Sprinkle Shower: a power-up, a leap, and sprinkles thrown from the top of the jump.
+            {
+              cam: { low: 'you' }, mood: 'triumph', act: [
+                { do: 'pose', who: 'you', pose: 'crouch' }, { do: 'expr', who: 'you', expr: 'determined' },
+                { do: 'fx', fx: { kind: 'aura', who: 'you', color: '#ffd36e', on: true } }, { do: 'sfx', snd: 'magic' },
+                { do: 'fx', fx: { kind: 'backdrop', style: 'speed', color: '#ffb3d9' }, at: 0.2 },
+                { do: 'fx', fx: { kind: 'power', name: 'Sprinkle Shower', color: '#ff7ab8', icon: 'sprinkle' }, at: 0.4 },
+              ], who: 'you', t: 'Hang on, Bunty! SPRINKLE... SHOWER!', lineAt: 0.7,
             },
             {
-              cam: { medium: 'kiki' }, act: [{ do: 'place', who: 'you', x: BEAN_X[0] + 90 }, { do: 'face', who: 'kiki', dir: -1 }, { do: 'pose', who: 'kiki', pose: 'point' }, { do: 'expr', who: 'kiki', expr: 'shock' }, { do: 'emote', who: 'kiki', emote: '!' }],
-              who: 'kiki', t: 'Wait! Bunty is stuck to a bean!',
+              cam: { at: [400, 330, 0.72] }, act: [
+                { do: 'fx', fx: { kind: 'backdrop', style: null } },
+                { do: 'jump', who: 'you', to: 330, h: 560, dur: 1.5, at: 0.1 }, { do: 'spin', who: 'you', turns: 1, dur: 0.6, at: 0.3 },
+                { do: 'pose', who: 'you', pose: 'holdUp', at: 0.95 }, { do: 'fx', fx: { kind: 'burst', who: 'you' }, at: 0.98 },
+                { do: 'fx', fx: { kind: 'sprinkles', dur: 3 }, at: 1.0 }, { do: 'sfx', snd: 'sparkle', at: 1.0 }, { do: 'sfx', snd: 'fanfare', at: 1.05 }, { do: 'fx', fx: { kind: 'confetti' }, at: 1.1 },
+                { do: 'fx', fx: { kind: 'sparkle', el: 'b1', n: 12 }, at: 1.9 }, { do: 'el', el: 'b1', to: { scale: 1.1 }, dur: 0.2, yoyo: 2, at: 1.9 },
+                { do: 'fx', fx: { kind: 'aura', who: 'you', color: '#ffd36e', on: false }, at: 2.4 },
+              ], n: 'The Captain leaps up high and throws a rainbow of sprinkles!', lineAt: 0.3,
             },
             {
-              cam: { full: 'bunty' }, act: [{ do: 'place', who: 'bunty', x: BEAN_X[0] }, { do: 'pose', who: 'bunty', pose: 'crouch' }, { do: 'expr', who: 'bunty', expr: 'worried' }, { do: 'el', el: 'b1', to: { scale: 1.06 }, dur: 0.2, yoyo: 2 }, { do: 'expr', who: 'bunty', expr: 'grin', at: 1.8 }],
-              who: 'bunty', t: 'My sticky fingers! I’m part of the jelly bean now!',
+              cam: { at: [480, 520, 0.72] }, act: [
+                { do: 'el', el: 'b1', to: { scale: 1.12 }, dur: 0.18, yoyo: 2 }, { do: 'fx', fx: { kind: 'sparkle', el: 'b1', n: 10 } }, { do: 'sfx', snd: 'boing' },
+                { do: 'pose', who: 'bunty', pose: 'stuckPull', at: 0.2 },
+                { do: 'el', el: 'goo', to: { scale: 1.6, opacity: 0 }, dur: 0.3, at: 0.5 }, { do: 'sfx', snd: 'pop', at: 0.5 }, { do: 'expr', who: 'bunty', expr: 'love', at: 0.5 },
+                { do: 'jump', who: 'bunty', to: B[3], h: 480, dur: 1.8, at: 0.45 }, { do: 'spin', who: 'bunty', turns: 2, dur: 1.4, at: 0.7 },
+                { do: 'track', who: 'bunty', lead: 0, at: 0.5 }, { do: 'fx', fx: { kind: 'motion', on: true, dir: 'left' }, at: 0.6 }, { do: 'fx', fx: { kind: 'motion', on: false }, at: 2.3 },
+                { do: 'el', el: 'b4', to: { scale: 0.92 }, dur: 0.1, yoyo: 1, at: 2.39 },
+              ], who: 'bunty', t: 'I’M FLYING! I’M A BIRD! A STICKY BIRD!', lineAt: 0.6,
             },
-            { cam: { low: 'you' }, act: [{ do: 'face', who: 'you', dir: -1 }, { do: 'pose', who: 'you', pose: 'stand' }, { do: 'expr', who: 'you', expr: 'determined' }], who: 'you', t: 'Hold on, Bunty! Nobody gets left behind!' },
-            { gate: { id: 'g-c2-bounce', title: 'Jelly Bean Bounce', ask: 'Bunty is stuck! Help the crew bounce over to him.', by: 'bunty' } },
-            { cam: { wide: BEAN_X[0], zoom: 0.8 }, act: [{ do: 'fx', fx: { kind: 'sprinkles', dur: 2 } }, { do: 'sfx', snd: 'magic' }, { do: 'el', el: 'b1', to: { scale: 1.15 }, dur: 0.25, yoyo: 3, at: 0.6 }, { do: 'fx', fx: { kind: 'sparkle', el: 'b1' }, at: 0.7 }], n: 'A sprinkle shower makes the bean extra bouncy...' },
+            // Far ahead, Ro crosses the Big Gap alone on a candy-cane pole.
             {
-              cam: { wide: BEAN_X[2], zoom: 0.75 }, act: [
-                { do: 'expr', who: 'bunty', expr: 'love' }, { do: 'jump', who: 'bunty', to: BEAN_X[3], h: 420, dur: 1.8 }, { do: 'spin', who: 'bunty', turns: 2, dur: 1.4, at: 0.3 },
-                { do: 'track', who: 'bunty', lead: 0 }, { do: 'sfx', snd: 'boing' }, { do: 'fx', fx: { kind: 'motion', on: true, dir: 'left' }, at: 0.2 }, { do: 'fx', fx: { kind: 'motion', on: false }, at: 1.9 },
-              ], who: 'bunty', t: 'I’M FLYING! I’M A BIRD! A STICKY BIRD!', lineAt: 0.3,
+              cam: { at: [3150, 540, 0.72] }, act: [
+                { do: 'place', who: 'ro', x: B[9] - 20 }, { do: 'face', who: 'ro', dir: 1 }, { do: 'pose', who: 'ro', pose: 'stretchArm' }, { do: 'expr', who: 'ro', expr: 'grin' },
+                { do: 'stretch', who: 'ro', len: reach(POLE_X[2] - (B[9] - 20)), dur: 0.45, at: 0.3 }, { do: 'sfx', snd: 'stretch', at: 0.3 },
+                { do: 'el', el: 'pole3', to: { rot: 5 }, dur: 0.12, yoyo: 2, at: 0.75 }, { do: 'sfx', snd: 'clink', at: 0.75 },
+                ...swing('ro', POLE_X[2], B[10], undefined, 1.1),
+              ], n: 'Far ahead, Ro reaches the Big Gap. He doesn’t even slow down.', lineAt: 0.2,
+            },
+            // The crew bounces on together until the beans run out.
+            {
+              cam: { at: [2300, 540, 0.72] }, move: { at: [2700, 540, 0.72] }, moveDur: 3.6, trans: 'wipe', act: [
+                { do: 'place', who: 'meera', x: B[7] }, { do: 'place', who: 'kiki', x: B[6] }, { do: 'place', who: 'you', x: B[5] }, { do: 'place', who: 'bunty', x: B[4] }, { do: 'place', who: 'ro', x: B[14] },
+                ...all(KIDS.filter((k) => k !== 'ro'), (id) => [{ do: 'face', who: id, dir: 1 } as Action, { do: 'pose', who: id, pose: 'stand' } as Action, { do: 'expr', who: id, expr: 'happy' } as Action]),
+                ...hop('meera', B[8], 0.2, 'b9'), ...hop('meera', B[9] - 60, 1.1, 'b10'),
+                ...hop('kiki', B[7], 0.5, 'b8'), ...hop('kiki', B[8] + 55, 1.4, 'b9'),
+                ...hop('you', B[6], 0.8, 'b7'), ...hop('you', B[8] - 55, 1.9, 'b9', { h: 190, dur: 0.8 }),
+                ...hop('bunty', B[5], 1.1, 'b6'), ...hop('bunty', B[6], 2.0, 'b7'), ...hop('bunty', B[7], 2.9, 'b8'),
+                ...[0.3, 1.2, 2.1, 3.0].map((t) => ({ do: 'sfx' as const, snd: 'boing' as const, at: t })),
+              ], n: 'Boing, boing, boing! The crew bounces on... until the beans run out.', lineAt: 0.4,
+            },
+            { cam: { at: [COURSE.gapFrom + 240, 560, 0.72] }, move: { at: [COURSE.gapTo - 60, 560, 0.72] }, moveDur: 3, tone: 'surprised', act: [{ do: 'sfx', snd: 'wobble', at: 0.6 }], who: 'kiki', t: 'The next bean is SO far away!' },
+            { cam: { medium: ['kiki', 'meera'] }, act: [{ do: 'face', who: 'meera', dir: -1 }, { do: 'expr', who: 'meera', expr: 'worried' }, { do: 'expr', who: 'kiki', expr: 'worried' }, { do: 'pose', who: 'meera', pose: 'hips' }], who: 'meera', t: 'Too far to jump. Even for you, Kiki.' },
+            { gate: { id: 'g-c2-gap', title: 'The Big Gap', ask: 'The next bean is too far away! Help the crew get across the Big Gap.', by: 'meera' } },
+            { cam: { medium: ['you', 'kiki'] }, act: [{ do: 'face', who: 'you', dir: 1 }, { do: 'emote', who: 'you', emote: 'idea' }, { do: 'pose', who: 'you', pose: 'point', at: 0.3 }, { do: 'expr', who: 'you', expr: 'grin' }, { do: 'expr', who: 'kiki', expr: 'normal' }], who: 'you', t: 'Meera! Your shield is round and bouncy. Like a trampoline!' },
+            { cam: { close: 'meera' }, act: [{ do: 'face', who: 'meera', dir: -1 }, { do: 'pose', who: 'meera', pose: 'stand' }, { do: 'expr', who: 'meera', expr: 'grin' }], who: 'meera', t: 'A shield trampoline? Okay! Just NOT my head.' },
+            // Meera turns her shield into a springboard; the Captain makes it extra springy.
+            {
+              cam: { at: [COURSE.gapFrom - 10, 560, 0.8] }, act: [
+                { do: 'face', who: 'meera', dir: 1 }, { do: 'pose', who: 'meera', pose: 'reachDown', at: 0.2 }, { do: 'prop', who: 'meera', prop: null, at: 0.6 },
+                { do: 'el', el: 'shieldboard', to: { opacity: 1, scale: 1 }, dur: 0.35, ease: 'back', at: 0.6 }, { do: 'sfx', snd: 'clink', at: 0.6 },
+                { do: 'pose', who: 'meera', pose: 'stand', at: 1.0 },
+                { do: 'fx', fx: { kind: 'sprinkles', dur: 1.6 }, at: 1.3 }, { do: 'sfx', snd: 'sparkle', at: 1.3 },
+                { do: 'el', el: 'shieldboard', to: { scale: 1.15 }, dur: 0.2, yoyo: 2, at: 1.9 }, { do: 'fx', fx: { kind: 'sparkle', el: 'shieldboard', n: 10 }, at: 1.9 },
+              ], n: 'Meera lays her shield flat. Sprinkles make it super springy!', lineAt: 0.3,
             },
             {
-              cam: { wide: 2850, zoom: 0.8 }, act: [
-                { do: 'place', who: 'ro', x: BEAN_X[8] }, { do: 'jump', who: 'ro', to: 2900, h: 160, dur: 0.8, at: 0.4 }, { do: 'fx', fx: { kind: 'confetti' }, at: 1.3 },
-                { do: 'sfx', snd: 'fanfare', at: 1.3 }, { do: 'fx', fx: { kind: 'word', text: 'FINISH!', color: '#ffd36e' }, at: 1.3 }, { do: 'el', el: 'finish', to: { scale: 1.05 }, dur: 0.2, yoyo: 1, at: 1.3 },
-              ], n: 'But up ahead, someone is already at the finish line.', lineAt: 1.0,
+              cam: { at: [COURSE.gapFrom - 10, 520, 0.72] }, act: [
+                { do: 'jump', who: 'kiki', to: SHIELD_X, y: SHIELD_Y, h: 110, dur: 0.5, at: 0.2 }, ...boing(0.84),
+                { do: 'jump', who: 'kiki', to: B[10] - 55, y: 715, h: 560, dur: 1.5, at: 0.9 }, { do: 'spin', who: 'kiki', turns: 1, dur: 0.7, at: 1.2 }, { do: 'expr', who: 'kiki', expr: 'laugh', at: 0.9 },
+                { do: 'track', who: 'kiki', lead: 0, at: 0.95 }, { do: 'el', el: 'b11', to: { scale: 0.92 }, dur: 0.1, yoyo: 1, at: 2.54 },
+              ], who: 'kiki', t: 'Wheeee! Best trampoline EVER!', lineAt: 1.0,
             },
-            { cam: { low: 'ro' }, mood: 'triumph', act: [{ do: 'pose', who: 'ro', pose: 'cheer' }, { do: 'expr', who: 'ro', expr: 'laugh' }, { do: 'fx', fx: { kind: 'backdrop', style: 'rays', color: '#ffd36e' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 2.5 }], who: 'ro', t: 'FIRST! Three Stars for Ro!' },
             {
-              cam: { wide: 2850, zoom: 0.75 }, mood: 'playful', act: [
-                { do: 'pose', who: 'ro', pose: 'stand' }, { do: 'face', who: 'ro', dir: -1 },
-                { do: 'enter', who: 'kiki', from: 'left', to: 2780, gait: 'run' }, { do: 'enter', who: 'meera', from: 'left', to: 2700, gait: 'run', at: 0.2 },
-                { do: 'enter', who: 'you', from: 'left', to: 2620, gait: 'run', at: 0.35 }, { do: 'enter', who: 'bunty', from: 'left', to: 2550, gait: 'run', at: 0.5 },
-                { do: 'expr', who: 'kiki', expr: 'grumpy', at: 1.4 }, { do: 'emote', who: 'kiki', emote: 'anger', at: 1.5 }, { do: 'pose', who: 'kiki', pose: 'hips', at: 1.6 },
-              ], who: 'kiki', t: 'You didn’t even look back for Bunty.', lineAt: 1.7,
+              cam: { at: [3150, 420, 0.72] }, move: { at: [3900, 540, 0.72] }, moveDur: 4.4, act: [
+                { do: 'jump', who: 'you', to: SHIELD_X, y: SHIELD_Y, h: 110, dur: 0.5, at: 0.1 }, ...boing(0.74),
+                { do: 'jump', who: 'you', to: B[10] + 55, y: 715, h: 540, dur: 1.4, at: 0.8 }, { do: 'spin', who: 'you', turns: 1, dur: 0.6, at: 1.1 },
+                { do: 'jump', who: 'bunty', to: SHIELD_X, y: SHIELD_Y, h: 160, dur: 0.7, at: 0.9 }, ...boing(1.74),
+                { do: 'jump', who: 'bunty', to: B[11] - 60, y: 715, h: 560, dur: 1.5, at: 1.8 }, { do: 'spin', who: 'bunty', turns: 2, dur: 1.2, at: 2.0 }, { do: 'expr', who: 'bunty', expr: 'love', at: 1.8 },
+                { do: 'jump', who: 'meera', to: SHIELD_X, y: SHIELD_Y, h: 90, dur: 0.4, at: 1.95 }, ...boing(2.49),
+                { do: 'jump', who: 'meera', to: B[11] + 50, y: 715, h: 560, dur: 1.5, at: 2.55 }, { do: 'expr', who: 'meera', expr: 'laugh', at: 2.55 },
+              ], n: 'Boing! Boing! BOING! One after another, they fly across the gap!', lineAt: 0.5,
+            },
+            {
+              cam: { full: ['bunty', 'meera'] }, act: [
+                { do: 'face', who: 'meera', dir: -1 }, { do: 'pose', who: 'meera', pose: 'holdUp', at: 0.6 },
+                { do: 'el', el: 'shieldboard', to: { x: B[11] + 50 - SHIELD_X - 50, y: -250, rot: 720 }, dur: 0.9, ease: 'out', at: 0.2 }, { do: 'sfx', snd: 'whoosh', at: 0.2 },
+                { do: 'el', el: 'shieldboard', to: { opacity: 0 }, dur: 0.05, at: 1.1 }, { do: 'prop', who: 'meera', prop: 'shield', at: 1.1 }, { do: 'sfx', snd: 'clink', at: 1.1 },
+                { do: 'expr', who: 'meera', expr: 'smug', at: 1.4 }, { do: 'expr', who: 'bunty', expr: 'laugh', at: 1.4 },
+              ], who: 'meera', t: 'Okay. A shield trampoline is fine. A HEAD trampoline is not.', lineAt: 1.5,
+            },
+            // Ro zips over the sinking beans on the last pole and lands at the finish, all alone.
+            {
+              cam: { at: [4995, 540, 0.72] }, act: [
+                { do: 'place', who: 'ro', x: B[14] }, { do: 'face', who: 'ro', dir: 1 }, { do: 'pose', who: 'ro', pose: 'stretchArm' }, { do: 'expr', who: 'ro', expr: 'determined' },
+                { do: 'stretch', who: 'ro', len: reach(POLE_X[3] - B[14]), dur: 0.5, at: 0.2 }, { do: 'sfx', snd: 'stretch', at: 0.2 },
+                { do: 'el', el: 'pole4', to: { rot: -5 }, dur: 0.12, yoyo: 2, at: 0.7 }, { do: 'sfx', snd: 'clink', at: 0.7 },
+                ...swing('ro', POLE_X[3], B[15], undefined, 1.0, 320, 1.15),
+                ...hop('ro', B[16], 2.75, 'b17', { h: 150 }), ...hop('ro', FINISH.ro, 3.7, undefined, { h: 230, dur: 0.9 }),
+                { do: 'sfx', snd: 'fanfare', at: 4.75 }, { do: 'fx', fx: { kind: 'confetti' }, at: 4.75 }, { do: 'fx', fx: { kind: 'word', text: 'FINISH!', color: '#ffd36e' }, at: 4.75 },
+                { do: 'el', el: 'finish', to: { scale: 1.05 }, dur: 0.2, yoyo: 1, at: 4.75 },
+              ], n: 'Ro swings right over the sinking beans... and lands at the finish!', lineAt: 0.3,
+            },
+            { cam: { low: 'ro' }, act: [{ do: 'pose', who: 'ro', pose: 'cheer' }, { do: 'expr', who: 'ro', expr: 'laugh' }, { do: 'fx', fx: { kind: 'backdrop', style: 'rays', color: '#ffd36e' } }, { do: 'fx', fx: { kind: 'backdrop', style: null }, at: 2.5 }], who: 'ro', t: 'FIRST! Three Stars for Ro!' },
+            // The crew meets the sinking beans.
+            {
+              cam: { at: [4900, 540, 0.75] }, mood: 'race', trans: 'wipe', act: [
+                { do: 'place', who: 'meera', x: B[13] - 60 }, { do: 'place', who: 'you', x: B[13] + 50 }, { do: 'place', who: 'kiki', x: KIKI_POP }, { do: 'place', who: 'bunty', x: B[14] + 10 },
+                { do: 'prop', who: 'meera', prop: null }, ...all(['meera', 'you', 'kiki', 'bunty'], (id) => [{ do: 'face', who: id, dir: 1 } as Action, { do: 'pose', who: id, pose: 'stand' } as Action]),
+                { do: 'expr', who: 'bunty', expr: 'grin' },
+                ...hop('bunty', SINK_X[0] - 70, 0.3), { do: 'ride', who: 'bunty', on: 'k1', dx: -70, at: 1.05 },
+                { do: 'el', el: 'k1', to: { y: 150 }, dur: 1.3, ease: 'in', atWord: 10 }, { do: 'cycle', who: 'bunty', cycle: 'flail', atWord: 10 }, { do: 'expr', who: 'bunty', expr: 'shock', atWord: 10 },
+                { do: 'sfx', snd: 'gulp', atWord: 10 }, { do: 'fx', fx: { kind: 'splash', el: 'k1', color: '#ff9fc8' }, atWord: 10, at: 0.6 }, { do: 'sfx', snd: 'bubble', atWord: 10, at: 0.6 },
+              ], n: 'Bunty hops onto the next bean... and it starts to SINK!', lineAt: 0.2,
+            },
+            {
+              cam: { full: ['kiki', 'bunty'] }, act: [
+                { do: 'face', who: 'kiki', dir: 1 }, { do: 'pose', who: 'kiki', pose: 'reachDown', at: 0.2 }, { do: 'expr', who: 'kiki', expr: 'determined' },
+                { do: 'cycle', who: 'bunty', cycle: null }, { do: 'face', who: 'bunty', dir: -1 }, { do: 'pose', who: 'bunty', pose: 'holdUp', at: 0.2 }, { do: 'expr', who: 'bunty', expr: 'worried' },
+                { do: 'ride', who: 'bunty', on: null, atWord: 4 }, { do: 'sfx', snd: 'slurp', atWord: 4 },
+                { do: 'jump', who: 'bunty', to: B[14] + 10, y: 715, h: 160, dur: 0.6, atWord: 4 }, { do: 'mess', who: 'bunty', color: '#ff8fbf', atWord: 4 },
+                { do: 'el', el: 'k1', to: { y: 0 }, dur: 1.4, ease: 'out', atWord: 4, at: 0.6 }, { do: 'pose', who: 'kiki', pose: 'stand', atWord: 4, at: 0.5 },
+                { do: 'expr', who: 'bunty', expr: 'laugh', atWord: 4, at: 0.9 },
+              ], who: 'kiki', t: 'Grab my hand, Bunty! Up you come!', lineAt: 0.4,
+            },
+            { cam: { medium: 'kiki' }, act: [{ do: 'face', who: 'kiki', dir: 1 }, { do: 'expr', who: 'kiki', expr: 'worried' }, { do: 'pose', who: 'kiki', pose: 'point' }], who: 'kiki', t: 'There are THREE sinking beans! How do we get across?' },
+            { gate: { id: 'g-c2-sink', title: 'Sinking Beans', ask: 'These beans sink when you stand on them! Help the crew find a way across.', by: 'kiki' } },
+            { cam: { medium: ['meera', 'you'] }, act: [{ do: 'emote', who: 'you', emote: 'idea' }, { do: 'pose', who: 'you', pose: 'point', at: 0.3 }, { do: 'expr', who: 'you', expr: 'grin' }, { do: 'expr', who: 'meera', expr: 'normal' }], who: 'you', t: 'Kiki! Gumballs float. Pop some onto the sinking beans!' },
+            {
+              cam: { low: 'kiki' }, act: [
+                { do: 'prop', who: 'kiki', prop: 'gumball' }, { do: 'pose', who: 'kiki', pose: 'holdUp' }, { do: 'expr', who: 'kiki', expr: 'grin' },
+                { do: 'fx', fx: { kind: 'aura', who: 'kiki', color: '#ff7ab8', on: true } }, { do: 'sfx', snd: 'magic' }, { do: 'fx', fx: { kind: 'backdrop', style: 'speed', color: '#ff9fcf' }, at: 0.2 },
+              ], who: 'kiki', t: 'GUMBALL POPPER... times THREE!', lineAt: 0.5,
+            },
+            {
+              cam: { at: [SINK_X[1], 520, 0.72] }, act: [
+                { do: 'fx', fx: { kind: 'backdrop', style: null } },
+                ...SINK_X.flatMap((x, i) => gumballDrop(i, x, i)),
+              ], n: 'POP! POP! POP! Three giant gumballs land, and the beans sink away.', lineAt: 0.8,
+            },
+            {
+              cam: { at: [5150, 520, 0.72] }, move: { at: [5820, 540, 0.72] }, moveDur: 5.4, act: [
+                { do: 'fx', fx: { kind: 'aura', who: 'kiki', color: '#ff7ab8', on: false } }, { do: 'prop', who: 'kiki', prop: null }, { do: 'pose', who: 'kiki', pose: 'stand' },
+                ...['gs1', 'gs2', 'gs3'].map((el, i) => ({ do: 'el' as const, el, to: { y: 6 }, dur: 0.6, yoyo: 4, ease: 'inOut' as const, at: i * 0.3 })),
+                ...stones('kiki', 0.2, [B[15] - 30, B[16] - 30]),
+                ...stones('bunty', 1.0, [B[15] + 50]),
+                ...hop('you', B[14] + 40, 0.6), ...stones('you', 1.8, [B[15] - 50]),
+                ...hop('meera', B[14] - 40, 1.4), ...stones('meera', 2.6, []),
+                ...[0.94, 1.74, 2.54, 3.34].map((t) => ({ do: 'sfx' as const, snd: 'boing' as const, at: t })),
+              ], n: 'The gumballs float like stepping stones. Hop, hop, hop, all the way!', lineAt: 0.5,
+            },
+            // The crew bounces over the finish line together, bean by bean.
+            {
+              cam: { at: [6050, 520, 0.72] }, move: { at: [6650, 540, 0.72] }, moveDur: 4.2, act: [
+                { do: 'place', who: 'ro', x: FINISH.ro }, { do: 'face', who: 'ro', dir: -1 }, { do: 'pose', who: 'ro', pose: 'stand' },
+                ...hop('kiki', FINISH.kiki, 0.2, undefined, { h: 240, dur: 1.0 }),
+                ...hop('bunty', B[16], 0.4, 'b17'), ...hop('bunty', FINISH.bunty, 1.3, undefined, { h: 170, dur: 0.75 }),
+                ...hop('you', B[16] - 20, 1.3, 'b17'), ...hop('you', FINISH.you, 2.2, undefined, { h: 190, dur: 0.8 }),
+                ...hop('meera', B[15], 0.6, 'b16', { y: 715 }), ...hop('meera', B[16], 2.4, 'b17'), ...hop('meera', FINISH.meera, 3.3, undefined, { h: 210, dur: 0.85 }),
+                { do: 'fx', fx: { kind: 'confetti' }, at: 4.4 }, { do: 'sfx', snd: 'cheer', at: 4.4 },
+                ...all(['kiki', 'bunty', 'you', 'meera'], (id, i) => [{ do: 'pose', who: id, pose: 'cheer', at: 4.6 + i * 0.05 } as Action, { do: 'expr', who: id, expr: 'laugh', at: 4.4 } as Action, { do: 'pose', who: id, pose: 'stand', at: 5.5 } as Action]),
+              ], n: 'Boing, boing, boing! The whole crew bounces over the finish line.', lineAt: 0.5,
+            },
+            {
+              cam: { medium: ['kiki', 'ro'] }, mood: 'playful', act: [
+                { do: 'face', who: 'kiki', dir: 1 }, { do: 'expr', who: 'kiki', expr: 'grumpy' }, { do: 'emote', who: 'kiki', emote: 'anger', at: 0.2 }, { do: 'pose', who: 'kiki', pose: 'hips', at: 0.3 },
+              ], who: 'kiki', t: 'You didn’t even look back for Bunty.', lineAt: 0.5,
             },
             { cam: { close: 'ro' }, act: [{ do: 'expr', who: 'ro', expr: 'smug' }, { do: 'pose', who: 'ro', pose: 'shrug' }], who: 'ro', t: 'It’s a race! You’re supposed to race.' },
             { cam: { medium: ['bunty', 'you'] }, act: [{ do: 'face', who: 'you', dir: -1 }, { do: 'expr', who: 'you', expr: 'worried' }], who: 'you', t: 'Bunty, are you okay?' },
             { cam: { medium: ['bunty', 'you'] }, act: [{ do: 'expr', who: 'bunty', expr: 'love' }, { do: 'hop', who: 'bunty', n: 2 }, { do: 'expr', who: 'you', expr: 'happy' }], who: 'bunty', t: 'I was a jelly bean. Best. Day. Ever.' },
-            { cam: { close: 'fizz' }, act: [{ do: 'place', who: 'fizz', x: 2700, y: 715, lift: 220 }, { do: 'expr', who: 'fizz', expr: 'happy' }], who: 'fizz', t: 'A gift for the Captain: Jelly Boots! Extra bouncy, not sticky!' },
-            { reward: 'jelly-boots' },
             {
               cam: { close: 'ro' }, mood: 'sad', act: [
                 { do: 'fx', fx: { kind: 'tint', color: '#5a3fa0', opacity: 0.3 } }, { do: 'fx', fx: { kind: 'vignette', on: true } }, { do: 'prop', who: 'ro', prop: 'star' },

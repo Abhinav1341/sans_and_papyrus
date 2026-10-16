@@ -13,6 +13,7 @@ import { PROPS } from '../src/cinema/props';
 import { SOUND_IDS } from '../src/lib/sfx';
 import { MOODS } from '../src/lib/music';
 import { INSERT_IDS } from '../src/cinema/inserts';
+import { POWER_ICONS } from '../src/cinema/powers';
 import { isGate, isLine, isReward, isTitle, type Action, type Frame, type Fx } from '../src/cinema/types';
 
 const CAST = new Set(['you', 'ro', 'meera', 'kiki', 'bunty', 'fizz']);
@@ -78,7 +79,8 @@ for (const ch of CHAPTERS) {
       switch (fx.kind) {
         case 'backdrop': if (fx.style && !BACKDROPS.has(fx.style)) errors.push(`${where}: unknown backdrop ${fx.style}`); break;
         case 'burst': case 'sparkle': case 'splash': if ('who' in fx && fx.who) checkWho(where, fx.who); if ('el' in fx && fx.el && !els.has(fx.el)) errors.push(`${where}: fx on unknown element ${fx.el}`); break;
-        case 'dust': case 'hearts': case 'notes': checkWho(where, fx.who); break;
+        case 'dust': case 'hearts': case 'notes': case 'aura': checkWho(where, fx.who); break;
+        case 'power': if (!(fx.icon in POWER_ICONS)) errors.push(`${where}: unknown power icon ${fx.icon}`); if (!fx.name) errors.push(`${where}: power banner without a name`); break;
         default: break;
       }
     };
@@ -129,6 +131,11 @@ for (const ch of CHAPTERS) {
           const n = (sh.t ?? sh.n ?? '').split(/\s+/).filter(Boolean).length;
           if (!n) errors.push(`${w}: atWord on a shot without a line`);
           else if (a.atWord < 0 || a.atWord >= n) errors.push(`${w}: atWord ${a.atWord} but the line has ${n} words`);
+        }
+        if (a.toWord !== undefined) {
+          const n = (sh.t ?? sh.n ?? '').split(/\s+/).filter(Boolean).length;
+          if (a.atWord === undefined) errors.push(`${w}: toWord without atWord`);
+          else if (a.toWord <= a.atWord || a.toWord >= n) errors.push(`${w}: toWord ${a.toWord} must come after atWord ${a.atWord}, inside the ${n}-word line`);
         }
         if ('who' in a && a.do !== 'track') checkWho(w, a.who as string);
         switch (a.do) {

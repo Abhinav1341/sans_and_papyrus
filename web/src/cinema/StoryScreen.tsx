@@ -94,7 +94,7 @@ function Player({ chapter }: { chapter: ChapterRef }) {
     <section className="story" aria-label={`${chapter.world.title}: ${chapter.title}`} data-screen="story">
       <h2 className="sr-only">{chapter.world.label}: {chapter.title}</h2>
       <div className="stage" ref={stageRef} onClick={() => ctl.current?.tap()} aria-hidden="true" />
-      {insert ? <Insert id={insert} skin={hero.look.skin} /> : null}
+      {insert ? <Insert id={insert} skin={hero.look.skin} outfit={hero.look.outfit} /> : null}
       {panels ? <Panels panels={panels} hero={hero.look} /> : null}
       <div className="story-hud" onClick={(e) => e.stopPropagation()}>
         <IconButton icon="pause" label="Pause" onClick={() => pause(true)} />

@@ -62,6 +62,9 @@ export const WORLD_COLORS: [string, string, boolean][] = [
   ['#bfe9ff', '#2f6fb3', false], ['#e0e0e0', '#666666', false], ['#ffe0b0', '#c9873c', true], ['#ffd36e', '#ff7ab8', true],
 ];
 
+/** Where the station's game board pivots when it tips. */
+const BOARD_PIVOT = { x: 1200, y: 720 };
+
 export function station(): SetDef {
   const W = 2400;
   const E = elements();
@@ -114,7 +117,8 @@ export function station(): SetDef {
   const front = `<path d="M-500 920 Q${W / 2} 880 ${W + 500} 920 L${W + 500} 1100 L-500 1100 Z" fill="#120e2b"/>`;
   return {
     id: 'station', w: W, h: 1000, ground: 720, top: -300, bottom: 1100, bg: '#0b0820', defs,
-    layers: [{ p: 0.08, svg: far }, { p: 0.3, svg: worlds }, { p: 0.6, svg: mid }, { p: 1, svg: main }, { p: 1.4, svg: front, front: true }],
+    // The whole board is one piece pivoting at its middle, so it can tip like a slide at the end of the chapter.
+    layers: [{ p: 0.08, svg: far }, { p: 0.3, svg: worlds }, { p: 0.6, svg: mid }, { p: 1, svg: E.el('board', BOARD_PIVOT.x, BOARD_PIVOT.y, `<g transform="translate(${-BOARD_PIVOT.x} ${-BOARD_PIVOT.y})">${main}</g>`) }, { p: 1.4, svg: front, front: true }],
     els: E.anchors,
   };
 }
