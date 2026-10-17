@@ -138,6 +138,13 @@ The model files come from https://github.com/thewh1teagle/kokoro-onnx/releases (
 
 ## Host on Google Cloud (Cloud Run)
 
+**Releasing:** work goes to `main`; the live site is built from the `deploy` branch. To release what is
+on `main`, run `git push origin main:deploy` (never commit to `deploy` directly). The Cloud Build trigger
+`deploy-game` (config in `/cloudbuild.yaml`) builds `web/` and rolls it out in about 5 minutes; pushes
+that only change `generator/` don't redeploy. To roll back, `git push --force origin <good-commit>:deploy`.
+
+The first deploy, or a one-off deploy from a laptop:
+
 ```
 gcloud run deploy sans-and-papyrus --source . --project project-b87959c5-a26a-49fe-adf --region asia-south1 \
   --allow-unauthenticated --min-instances 0 --max-instances 3 \
