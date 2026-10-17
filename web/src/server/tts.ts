@@ -17,6 +17,8 @@ export type VoicePart = 'q' | 'hint' | 'x' | `o.${string}` | `c.${string}`;
 
 /** Said when a round ends. Fixed text (no child's name), so it is one shared clip. */
 export const DONE_LINE = 'Brilliant work, Captain! The crew says thank you.';
+/** Fizz says this before a genuine dilemma (an open choice): more than one answer is okay. One shared clip. */
+export const OPEN_LINE = 'Both could work. Which feels right to you?';
 
 /** What a part says, and who says it. Null when the item has no such part. */
 export function partText(item: Situation, part: string): { text: string; speaker: Speaker } | null {
@@ -42,6 +44,7 @@ export function voiceUrl(item: Situation, part: VoicePart): string | null {
   return p ? `/api/voice?item=${encodeURIComponent(item.id)}&part=${encodeURIComponent(part)}&v=${clipHash(p.speaker, p.text)}` : null;
 }
 export const doneVoiceUrl = () => `/api/voice?part=done&v=${clipHash('narrator', DONE_LINE)}`;
+export const openVoiceUrl = () => `/api/voice?part=open&v=${clipHash('fizz', OPEN_LINE)}`;
 
 /* ---------- synthesis ---------- */
 

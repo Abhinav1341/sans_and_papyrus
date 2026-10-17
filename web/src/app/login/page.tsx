@@ -69,7 +69,7 @@ export default function LoginPage() {
           </button>
         </form>
       </div>
-      <p className="legal">No ads. No purchases. No real names: only what helps the game fit your child. <Link href="/privacy">Privacy</Link></p>
+      <p className="legal">No ads. No purchases. No real names: only what helps the game fit your child. <Link href="/privacy">Privacy</Link> · <Link href="/how-it-works">How it works</Link></p>
     </section>
   );
 }

@@ -134,7 +134,7 @@ export async function answerItem(accountId: string, roundId: string, itemId: str
       picker,
       roundId: round.id,
       gateId: round.gateId,
-      performance: Math.round(out.performance * 100) / 100,
+      ...(out.openChoice ? { openChoice: true } : { performance: Math.round(out.performance * 100) / 100 }),
       skillChanges: out.skillChanges,
       createdAt: now(),
     };

@@ -1,0 +1,31 @@
+.lead { font-weight: 700; line-height: 1.45; color: var(--text-soft); }
+
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.step { display: grid; grid-template-columns: 32px 1fr; gap: var(--sp-3); align-items: start; }
+.step p { margin: 2px 0 0; }
+.num {
+  width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--space-3); border: 1px solid var(--line); font-family: var(--font-display); font-weight: 800; color: var(--sun);
+}
+.who { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-base); display: flex; flex-wrap: wrap; gap: var(--sp-2); align-items: baseline; }
+.model { font-family: var(--font-body); font-size: var(--fs-sm); font-weight: 700; color: var(--sky); }
+.stop { color: var(--pink); font-size: var(--fs-sm); }
+
+.funnel p { margin: var(--sp-2) 0 0; }
+.bar { height: 12px; border-radius: 999px; background: var(--space-1); border: 1px solid var(--line); overflow: hidden; }
+.bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--mint), var(--sky)); }
+
+.examples, .quotes { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--sp-3); }
+.examples li { display: grid; gap: 2px; }
+.examples li span:last-child { color: var(--text-muted); font-size: var(--fs-sm); font-weight: 700; }
+.tag {
+  justify-self: start; font-size: 13px; font-weight: 800; padding: 1px 10px; border-radius: 999px;
+  background: var(--space-3); border: 1px solid var(--line); color: var(--lilac);
+}
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--sp-3); }
+.stats div { background: var(--space-1); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-3); display: grid; gap: 2px; }
+.stats strong { font-family: var(--font-display); font-size: var(--fs-2xl); line-height: 1; color: var(--sun); }
+.stats span { font-size: var(--fs-sm); font-weight: 700; color: var(--text-muted); }
+
+.quotes blockquote { margin: 4px 0 0; padding-left: var(--sp-3); border-left: 3px solid var(--violet-500); color: var(--text-soft); font-weight: 700; }

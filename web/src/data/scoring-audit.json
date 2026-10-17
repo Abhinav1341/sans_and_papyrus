@@ -1,0 +1,12 @@
+{
+  "asOf": "2026-10-17T10:42:02.486Z",
+  "bank": "live",
+  "items": 145,
+  "situations": 100,
+  "itemsWithConflicts": 0,
+  "ruleChecks": 48,
+  "ruleConflicts": 0,
+  "simulatedChildren": 10,
+  "itemsPerChild": 120,
+  "openChoices": 4
+}

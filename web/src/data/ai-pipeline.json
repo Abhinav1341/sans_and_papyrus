@@ -1,0 +1,126 @@
+{
+  "asOf": "2026-10-17T10:43:50.101Z",
+  "models": {
+    "writer": "gemini-3.8-flash",
+    "grader": "gemini-3.6-flash",
+    "judge": "gemini-3.1-pro-preview",
+    "embedding": "gemini-embedding-001",
+    "picker": "gemini-3.5-flash-lite",
+    "report": "gemini-3.8-flash"
+  },
+  "generation": {
+    "runs": 11,
+    "requested": 137,
+    "accepted": 111,
+    "rejectedByStage": {
+      "rules": 6,
+      "category": 11,
+      "duplicate": 8,
+      "curator": 1
+    },
+    "costUsd": 1.75,
+    "examples": [
+      {
+        "stage": "rules",
+        "title": "Inter-house relay lineup",
+        "reason": "The hint gives away the answer"
+      },
+      {
+        "stage": "duplicate",
+        "title": "The carrom corner",
+        "reason": "Too similar to an earlier item (similarity 0.951)"
+      },
+      {
+        "stage": "category",
+        "title": "The contest report",
+        "reason": "Off-category: aimed at selfManagement (1), but the grader found the best option mainly shows relationshipSkills (2), responsibleDecisionMaking (2)"
+      },
+      {
+        "stage": "curator",
+        "title": "The Last Twenty Minutes",
+        "reason": "The situation depicts bullying and exclusion of younger children, but does not offer an option to tell a trusted adult as required by the basic checks."
+      }
+    ]
+  },
+  "rejudge": {
+    "file": "rejudge-202610171040.json",
+    "model": "gemini-3.1-pro-preview",
+    "at": "2026-10-17T10:40:52.513Z",
+    "all": {
+      "judged": 167,
+      "accepted": 108,
+      "stopped": 59,
+      "openChoice": 6
+    },
+    "seeds": {
+      "judged": 56,
+      "accepted": 36,
+      "stopped": 20,
+      "openChoice": 2
+    },
+    "generated": {
+      "judged": 111,
+      "accepted": 72,
+      "stopped": 39,
+      "openChoice": 4
+    },
+    "errors": 0,
+    "failedBy": {
+      "honestConsequences": 23,
+      "feelingsStayReal": 4,
+      "showNotPreach": 23,
+      "fitsGame": 9,
+      "hintIsNudge": 9,
+      "realForIndianChildren": 7,
+      "constructVisible": 5,
+      "safe": 3,
+      "noShaming": 2,
+      "explanationIsKind": 12,
+      "certaintyFits": 2,
+      "notATherapist": 3,
+      "originalPlot": 1
+    },
+    "usage": {
+      "gemini-3.1-pro-preview": {
+        "calls": 167,
+        "inputTokens": 609240,
+        "outputTokens": 82124,
+        "thinkingTokens": 236433
+      }
+    },
+    "costUsd": 5.041164,
+    "quotes": [
+      {
+        "title": "The Quest Door Keys",
+        "source": "generated",
+        "check": "honestConsequences",
+        "note": "Fails on \"The gate clicks open on their first try!\" because inserting only the first of three required keys would not logically open the gate."
+      },
+      {
+        "title": "The leaked answers",
+        "source": "generated",
+        "check": "honestConsequences",
+        "note": "\"replaces the questions before the test starts\" is unbelievable; a school cannot rewrite and print a terminal exam in under an hour."
+      },
+      {
+        "title": "The broken sketch pen",
+        "source": "generated",
+        "check": "honestConsequences",
+        "note": "Fails on 'Rohan appreciates your honesty, and you share your colours happily.' A kind choice is magically rewarded without any friction."
+      },
+      {
+        "title": "Heated debate",
+        "source": "generated",
+        "check": "honestConsequences",
+        "note": "\"agrees to try your opening argument\" - A teammate who rejects every idea is unlikely to instantly agree just because you asked calmly; this is a magical reward."
+      }
+    ]
+  },
+  "play": {
+    "answers": 89,
+    "aiPicks": 64,
+    "reports": 3,
+    "reportsChecked": 0,
+    "reportsRewritten": 0
+  }
+}

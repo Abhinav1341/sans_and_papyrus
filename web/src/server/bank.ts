@@ -5,7 +5,7 @@
 import { Situation } from '../../lib/schemas';
 import { COLLECTIONS, GAME } from './config';
 import { db } from './db';
-import { voiceUrl } from './tts';
+import { OPEN_LINE, openVoiceUrl, voiceUrl } from './tts';
 
 let cache: { at: number; items: Situation[]; byId: Map<string, Situation> } | null = null;
 
@@ -44,6 +44,8 @@ export interface ClientItem {
   expectedTimeSec: number;
   /** Spoken versions (Cloud Text-to-Speech) of the question and the hint. */
   voice: { q: string | null; hint: string | null };
+  /** A genuine dilemma: Fizz says more than one answer is okay, and the choice isn't measured. */
+  open: { text: string; voice: string } | null;
 }
 
 export function toClientItem(item: Situation, optionOrder: string[]): ClientItem {
@@ -57,5 +59,6 @@ export function toClientItem(item: Situation, optionOrder: string[]): ClientItem
     hint: item.hint?.text ?? null,
     expectedTimeSec: item.expectedTimeSec,
     voice: { q: voiceUrl(item, 'q'), hint: voiceUrl(item, 'hint') },
+    open: item.kind === 'situation' && item.openChoice ? { text: OPEN_LINE, voice: openVoiceUrl() } : null,
   };
 }

@@ -15,6 +15,7 @@ import { categoryOf, createPlayer, ratingFor, shortlist, type Round } from '../s
 import { limit, resetLimits } from '../src/server/limits';
 import { getPlayer, upsertPlayer } from '../src/server/players';
 import { getReport } from '../src/server/report';
+import { checkReport } from '../src/server/report-check';
 import { answerItem, nextItem, startRound } from '../src/server/rounds';
 import { createSessionValue, readSessionValue } from '../src/server/session';
 
@@ -239,6 +240,12 @@ await deleteAccountAndData(acct.id);
 const left = ['accounts', 'players', 'rounds', 'playEvents', 'parentReports'].map((c) => [...(db.data.get(c)?.values() ?? [])].filter((d) => JSON.stringify(d).includes(acct.id)).length);
 check(left.every((n) => n === 0), 'nothing about the account is left');
 check((await db.get(COLLECTIONS.accounts, other.id)) !== null, "other accounts are untouched");
+
+console.log('\nParent note word check');
+const note = { summary: 'Growing in noticing how friends feel.', strengths: ['Noticing others'], growingAreas: ['Staying calm is not changing yet'], habits: ['Points out when someone is left out'], tryAtHome: ['Ask what a story character might mean'] };
+check(checkReport(note).length === 0, 'a kind, growth-framed note passes ("not changing yet" is allowed)');
+for (const bad of ['She scored well', 'Shows low empathy', 'Behind other children', 'Possible ADHD', 'Made mistakes', 'A concern for now', 'Bad at maths', '80% right'])
+  check(checkReport({ ...note, summary: bad }).length > 0, `"${bad}" is caught`);
 
 console.log(failures ? `\n${failures} CHECK(S) FAILED` : '\nALL BACKEND CHECKS PASSED');
 process.exit(failures ? 1 : 0);

@@ -9,6 +9,7 @@ import { COLLECTIONS, GAME } from './config';
 import { db } from './db';
 import { geminiJson } from './gemini';
 import { getPlayer, parsePlayer } from './players';
+import { checkReport } from './report-check';
 
 const LABEL: Record<string, string> = {
   selfAwareness: 'Understanding their own feelings', selfManagement: 'Calming down and staying patient',
@@ -22,6 +23,8 @@ interface StoredReport {
   basedOnEvents: number;
   createdAt: string;
   source: 'ai' | 'fallback';
+  /** The code check on the AI note: problems found in the first draft, and whether a rewrite fixed them. */
+  check?: { firstDraftProblems: string[]; rewritten: boolean; passed: boolean };
 }
 
 export function summarise(p: PlayerProfile) {
@@ -39,7 +42,9 @@ export function summarise(p: PlayerProfile) {
     ageBand: p.ageBand,
     itemsPlayed: p.totalPlayed,
     roundsPlayed: p.roundsPlayed ?? 0,
-    skillTrends: growth.map((g) => `${g.skill}: ${g.change >= 0 ? '+' : ''}${g.change} over ${g.played} items`),
+    // Words, not numbers, so the note has nothing to repeat as a score. A skill that hasn't moved is
+    // "not changing yet": never "weak" or "behind".
+    skillTrends: growth.map((g) => `${g.skill}: ${g.change >= 60 ? 'growing well' : g.change >= 20 ? 'growing' : 'not changing yet'} (${g.played} items)`),
     timing: habit,
     hints: hints.hintsOffered
       ? `${hints.hintsUsed} of ${hints.hintsOffered} hints used (${hints.thoughtfulUses} after thinking first, ${hints.reflexUses} straight away)`
@@ -71,6 +76,8 @@ const SYSTEM = `You write a short, warm progress note for the parent of a child 
 that practises social-emotional skills (CASEL) and a few puzzles.
 Rules:
 - Growth framing only. Never label the child ("low empathy", "bad at maths"), never diagnose, never mention scores or numbers.
+- Never compare with other children, never use worry words ("concern", "behind"), never call a choice a mistake.
+- A skill that is "not changing yet" is described exactly that way, as something to practise together.
 - Base everything on the data given; if there is little data, say so kindly.
 - strengths and growingAreas: concrete, everyday wording (max 3 each).
 - habits: what their play suggests about how they approach choices (e.g. takes time to think, asks for help when stuck).
@@ -149,15 +156,25 @@ async function buildReport(accountId: string, refresh: boolean) {
 
   const s = summarise(p);
   let report: ParentReport, source: StoredReport['source'] = 'ai';
+  let check: StoredReport['check'];
   try {
     if (!GAME.aiEnabled) throw new Error('AI is switched off (GAME_AI=off)');
-    report = await geminiJson({ model: GAME.models.report, system: SYSTEM, prompt: JSON.stringify(s, null, 1), schema: ParentReport, temperature: 0.4, timeoutMs: 20000 });
+    const write = (extra = '') => geminiJson({ model: GAME.models.report, system: SYSTEM, prompt: JSON.stringify(s, null, 1) + extra, schema: ParentReport, temperature: 0.4, timeoutMs: 20000 });
+    report = await write();
+    // Code checks every AI note before a parent sees it; one rewrite, then the plain version.
+    const firstDraftProblems = checkReport(report);
+    check = { firstDraftProblems, rewritten: firstDraftProblems.length > 0, passed: !firstDraftProblems.length };
+    if (firstDraftProblems.length) {
+      report = await write(`\n\nYour last draft used words parents must not see. Rewrite it without them:\n- ${firstDraftProblems.join('\n- ')}`);
+      check.passed = checkReport(report).length === 0;
+      if (!check.passed) throw new Error(`the note still failed the word check (${checkReport(report).join('; ')})`);
+    }
   } catch (err) {
     console.warn(`Parent report: using the plain version (${(err as Error).message})`);
     report = fallbackReport(s);
     source = 'fallback';
   }
-  const stored: StoredReport = { playerId: accountId, report, basedOnEvents: itemsPlayed, createdAt: new Date().toISOString(), source };
+  const stored: StoredReport = { playerId: accountId, report, basedOnEvents: itemsPlayed, createdAt: new Date().toISOString(), source, ...(check ? { check } : {}) };
   await db().set(COLLECTIONS.reports, accountId, stored);
   return { status: 'ready' as const, ...stored, stats, shape };
 }

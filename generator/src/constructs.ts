@@ -14,6 +14,8 @@ export interface Construct {
   bands: ("8-10" | "11-14")[];
   brief: string;
   seedIds: string[];
+  /** A genuine dilemma: more than one okay answer, so the choice never moves skill levels. */
+  openChoice?: boolean;
 }
 
 export const CONSTRUCTS: Construct[] = [
@@ -151,6 +153,7 @@ export const CONSTRUCTS: Construct[] = [
     bands: ["8-10", "11-14"],
     brief: "A family or community duty (a function, helping a grandparent, minding a younger sibling) clashes with something the child wants. This is a dilemma: more than one option can be okay, especially options that talk to the family and find a way to honour both.",
     seedIds: ["rsit-21", "rsit-09"],
+    openChoice: true,
   },
   {
     id: "online-safety",

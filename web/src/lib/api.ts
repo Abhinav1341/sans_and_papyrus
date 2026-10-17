@@ -41,4 +41,6 @@ export interface RoundItem {
   expectedTimeSec: number;
   /** Spoken versions of the question and the hint (/api/voice URLs). */
   voice: { q: string | null; hint: string | null };
+  /** A genuine dilemma: Fizz says more than one answer is okay (no single right answer, nothing measured). */
+  open: { text: string; voice: string } | null;
 }

@@ -12,7 +12,8 @@
     "test": "tsx tests/validate-story.ts",
     "voices:export": "tsx tools/voices/export-lines.ts",
     "voices:warm": "tsx --env-file=.env.local tools/warm-voices.mts",
-    "test:backend": "tsx tests/backend-flow.mts"
+    "test:backend": "tsx tests/backend-flow.mts",
+    "test:scoring": "tsx --env-file-if-exists=.env.local tests/scoring-audit.mts"
   },
   "dependencies": {
     "@google-cloud/firestore": "^9.3.1",

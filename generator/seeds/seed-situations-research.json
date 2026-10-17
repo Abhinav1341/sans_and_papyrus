@@ -686,7 +686,8 @@
   "seedIds": [],
   "status": "draft",
   "similarIds": [],
-  "createdAt": "2026-10-16T21:58:54.124Z"
+  "createdAt": "2026-10-16T21:58:54.124Z",
+  "openChoice": true
  },
  {
   "id": "rsit-10",
@@ -1605,7 +1606,8 @@
   "seedIds": [],
   "status": "draft",
   "similarIds": [],
-  "createdAt": "2026-10-16T21:58:54.126Z"
+  "createdAt": "2026-10-16T21:58:54.126Z",
+  "openChoice": true
  },
  {
   "id": "rsit-22",

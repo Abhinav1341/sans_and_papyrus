@@ -97,6 +97,9 @@ export const Situation = z
     options: z.array(Option).min(3).max(4),
     hint: Hint.optional(),                           // only some items have one
     puzzle: PuzzleDetails.optional(),                // present only when kind = "puzzle"
+    /** A genuine dilemma: more than one option is an okay choice. The game says so ("Both could work")
+     *  and the choice is recorded but never moves skill levels. Set by the judge, confirmed by reviewers. */
+    openChoice: z.boolean().optional(),
 
     // Provenance and curation
     source: z.enum(["seed", "generated"]),
@@ -172,6 +175,8 @@ export const CurationResult = z.object({
   hintIsNudge: z.boolean().optional(), // hint guides thinking without giving the answer
   explanationIsKind: z.boolean().optional(), // puzzles: the walkthrough is gentle, never shaming
   reasons: z.array(z.string()).max(5),
+  originalPlot: z.boolean().optional(), // not a seed example's plot retold with new names or setting
+  openChoice: z.boolean().optional(),   // situations: more than one option is a genuinely okay choice
   // The Satori-lens judge: one verdict per principle (optional so items judged before it still load)
   principles: z.object({
     honestConsequences: z.object({ pass: z.boolean(), note: z.string().max(200) }), // believable, not sugar-coated or catastrophic
@@ -299,7 +304,8 @@ export const PlayEvent = z.object({
   picker: PickerDecision,            // how this item was chosen
   roundId: z.string().optional(),
   gateId: z.string().optional(),     // the story gate that opened the round
-  performance: z.number().min(0).max(1).optional(), // 0–1: how well the choice showed the item's skills
+  performance: z.number().min(0).max(1).optional(), // 0–1: how well the choice showed the item's skills (not set for open choices)
+  openChoice: z.boolean().optional(), // a dilemma: the choice was recorded, skills were not moved
   skillChanges: z.record(z.string(), z.number()).optional(),
   createdAt: z.string(),
 });

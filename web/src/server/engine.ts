@@ -167,7 +167,8 @@ export interface AnswerInput {
 
 export interface AnswerOutcome {
   player: PlayerProfile;
-  performance: number;        // 0–1: how well the choice showed the item's skills
+  performance: number;        // 0–1: how well the choice showed the item's skills (0.5 for an open choice)
+  openChoice?: boolean;       // a dilemma: the choice is recorded, but no skill moves
   correct?: boolean;          // puzzles only (never shown to the child as right or wrong)
   timeRatio: number;
   ease: number;               // for the next item in this round
@@ -192,7 +193,11 @@ export function applyAnswer(p0: PlayerProfile, item: Situation, a: AnswerInput):
 
   let performance: number;
   let correct: boolean | undefined;
-  if (item.kind === 'puzzle') {
+  const open = item.kind === 'situation' && !!item.openChoice;
+  if (open) {
+    // A genuine dilemma has more than one okay answer, so the choice says nothing about skill level.
+    performance = 0.5;
+  } else if (item.kind === 'puzzle') {
     correct = a.optionId === item.puzzle!.correctOptionId;
     performance = correct ? 1 : 0;
     const s = item.puzzle!.domain;
@@ -204,8 +209,11 @@ export function applyAnswer(p0: PlayerProfile, item: Situation, a: AnswerInput):
       const vals = item.options.map((o) => o.scores?.[c] ?? 0);
       const max = Math.max(...vals), min = Math.min(...vals);
       if (max === min) continue; // the options don't differ on this skill: nothing to learn
-      const perf = ((chosen.scores?.[c] ?? 0) - min) / (max - min);
       const primary = item.primaryCompetencies.includes(c);
+      // The item's focus skills are judged against the other options (choosing the best one available is
+      // full marks). Side skills use the option's own score (-2..+2 → 0..1), so a best answer that is merely
+      // neutral on a side skill never lowers it just because a weaker option happened to score higher there.
+      const perf = primary ? ((chosen.scores?.[c] ?? 0) - min) / (max - min) : ((chosen.scores?.[c] ?? 0) + 2) / 4;
       if (primary) perfs.push(perf);
       bump(c, k * (primary ? 1 : 0.5) * (perf - expectedScore(p.skills[c], rating)));
     }
@@ -217,6 +225,9 @@ export function applyAnswer(p0: PlayerProfile, item: Situation, a: AnswerInput):
   if (item.hint) p.helpSeeking.hintsOffered++;
   if (a.hintOpened && item.hint) {
     p.helpSeeking.hintsUsed++;
+    if (open) p.helpSeeking.thoughtfulUses++; // asking for help on a dilemma is never a reflex
+  }
+  if (a.hintOpened && item.hint && !open) {
     const thoughtful =
       (a.hintOpenedAtMs ?? 0) >= GAME.thoughtfulHintShare * item.expectedTimeSec * 1000 && rating >= levelFor(p0, item) - 50;
     if (thoughtful) {
@@ -235,9 +246,9 @@ export function applyAnswer(p0: PlayerProfile, item: Situation, a: AnswerInput):
   p.updatedAt = new Date().toISOString();
   for (const s of Object.keys(p.skills) as Skill[]) p.skills[s] = round1(p.skills[s]);
 
-  const struggled = a.hintOpened || performance < 0.4;
-  const ease = struggled ? GAME.easeAfterStruggle : performance >= 0.8 ? GAME.liftAfterSuccess : 0;
-  return { player: p, performance, correct, timeRatio, ease, skillChanges: changes };
+  const struggled = !open && (a.hintOpened || performance < 0.4);
+  const ease = open ? 0 : struggled ? GAME.easeAfterStruggle : performance >= 0.8 ? GAME.liftAfterSuccess : 0;
+  return { player: p, performance, correct, timeRatio, ease, skillChanges: changes, ...(open ? { openChoice: true } : {}) };
 }
 
 /** Fisher–Yates shuffle of an item's option ids, so the best option isn't always in the same place. */

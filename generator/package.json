@@ -10,7 +10,9 @@
     "bank:export": "tsx scripts/export-readable.ts",
     "bank:dashboard": "tsx scripts/dashboard.ts",
     "bank:review-export": "tsx scripts/review.ts export",
-    "bank:review-apply": "tsx scripts/review.ts apply"
+    "bank:review-apply": "tsx scripts/review.ts apply",
+    "bank:rejudge": "tsx scripts/rejudge.ts",
+    "bank:stats": "tsx scripts/export-stats.ts"
   },
   "dependencies": {
     "@google-cloud/firestore": "^9.3.1",

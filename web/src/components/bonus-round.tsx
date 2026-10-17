@@ -32,6 +32,9 @@ const LETTERS = 'ABCDEF';
 const clock = () => performance.now();
 
 const questionLine = (item: RoundItem): Line => ({ text: `${item.title}. ${item.text}`, url: item.voice.q, speaker: 'narrator' });
+/** Fizz's "Both could work" line, read after the question on a genuine dilemma. */
+const openLines = (item: RoundItem): { key: string; line: Line }[] =>
+  item.open ? [{ key: 'open', line: { text: item.open.text, url: item.open.voice, speaker: 'fizz' } }] : [];
 const optionLines = (item: RoundItem): Line[] => item.options.map((o) => ({ text: o.text, url: o.voice, speaker: 'narrator' }));
 
 /* ---------- reading aloud, with the word being spoken ---------- */
@@ -100,7 +103,7 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
     shownAt.current = clock();
     hintAt.current = null;
     setPhase({ at: 'item', item, number, hintOpen: false });
-    r.start([{ key: 'q', line: questionLine(item) }]);
+    r.start([{ key: 'q', line: questionLine(item) }, ...openLines(item)]);
     prefetch([...item.options.map((o) => o.voice), item.voice.hint]);
   }, [r]);
 
@@ -243,6 +246,7 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
       const titleWords = captionWords(`${item.title}.`).length;
       const readAll = () => r.start([
         { key: 'q', line: questionLine(item) },
+        ...openLines(item),
         ...optionLines(item).map((line, i) => ({ key: `o${i}`, line })),
       ], { force: true });
       return (
@@ -252,6 +256,12 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
             <div className="who" style={{ color: 'var(--c-narrator)' }}><Icon name="book" />Storyteller</div>
             <p className="line"><Words text={item.text} on={r.wordOf('q')} skip={titleWords} /></p>
           </div>
+          {item.open ? (
+            <div className="round-caption round-hint round-open" role="note">
+              <div className="who" style={{ color: 'var(--c-fizz)' }}><Svg html={fizzFaceSVG('happy', 'openfz')} className="face" />Fizz</div>
+              <p className="line"><Words text={item.open.text} on={r.wordOf('open')} /></p>
+            </div>
+          ) : null}
           <div className="round-options" role="group" aria-label="Your choice">
             {item.options.map((o, i) => (
               <button key={o.id} type="button" disabled={!!picked} aria-pressed={picked === o.id}

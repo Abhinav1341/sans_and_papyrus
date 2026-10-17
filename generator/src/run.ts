@@ -5,7 +5,7 @@
 import { createHash, randomBytes } from "node:crypto";
 import {
   COMPETENCIES, CurationResult, GeneratedSituation, GradeResult, PUZZLE_DOMAINS, PUZZLE_EVERY_N_ITEMS,
-  Situation, type Competency, type PuzzleDomain,
+  Situation, z, type Competency, type PuzzleDomain,
 } from "../../web/lib/schemas";
 import { PIPELINE_CONFIG as CFG } from "./config";
 import { CONSTRUCTS, constructById } from "./constructs";
@@ -44,7 +44,11 @@ const embedText = (x: { title: string; text: string; options: { text: string }[]
   `${x.title}. ${x.text} Options: ${x.options.map((o) => o.text).join(" / ")}`;
 
 /** The judge's output: the shared curation shape, with the Satori principles required rather than optional. */
-const JudgeResult = CurationResult.extend({ principles: CurationResult.shape.principles.unwrap() });
+export const JudgeResult = CurationResult.extend({
+  principles: CurationResult.shape.principles.unwrap(),
+  originalPlot: z.boolean(),
+  openChoice: z.boolean(),
+});
 
 const newId = (kind: string) => `gen-${kind === "situation" ? "sit" : "pz"}-${Date.now().toString(36)}${randomBytes(2).toString("hex")}`;
 
@@ -210,7 +214,8 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
     const failedPrinciples = Object.entries(curation.principles ?? {}).filter(([, v]) => !v.pass).map(([k, v]) => `${k}: ${v.note}`);
     const passes =
       curation.accept && curation.safe && curation.fitsGame &&
-      curation.hintIsNudge !== false && curation.explanationIsKind !== false && failedPrinciples.length === 0;
+      curation.hintIsNudge !== false && curation.explanationIsKind !== false && curation.originalPlot !== false &&
+      failedPrinciples.length === 0;
     if (!passes)
       return reject(t, "curator", [...failedPrinciples, ...curation.reasons].slice(0, 6).concat(failedPrinciples.length || curation.reasons.length ? [] : ["Judge did not accept"]), {
         candidate, grade, curation, maxSimilarity: top.sim, mostSimilarId: top.id,
@@ -233,6 +238,7 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
       options: candidate.options.map((o) => ({ ...o, ...(scoresById.get(o.id) ? { scores: scoresById.get(o.id) } : {}) })),
       ...(candidate.hint ? { hint: candidate.hint } : {}),
       ...(candidate.puzzle ? { puzzle: candidate.puzzle } : {}),
+      ...(candidate.kind === "situation" && (curation.openChoice || constructById(t.construct)?.openChoice) ? { openChoice: true } : {}),
       source: "generated" as const,
       seedIds: examples.map((e) => e.id),
       status: "draft" as const, // a person approves it before any child sees it (scripts/review.ts)

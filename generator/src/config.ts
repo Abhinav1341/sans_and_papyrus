@@ -6,7 +6,9 @@ export const PIPELINE_CONFIG = {
   models: {
     generator: process.env.GEMINI_GENERATOR_MODEL ?? "gemini-3.8-flash", // A: newest Flash; good writing at volume
     grader: process.env.GEMINI_GRADER_MODEL ?? "gemini-3.6-flash",       // B: a different model version from A, so it judges A's work independently
-    curator: process.env.GEMINI_CURATOR_MODEL ?? "gemini-3.8-flash",     // C: careful safety and fit review
+    // C: a different model family from A and B (Pro, not Flash), so no stage marks its own kind of work.
+    // Offline only (never at play time), so a preview model is acceptable here.
+    curator: process.env.GEMINI_CURATOR_MODEL ?? "gemini-3.1-pro-preview",
     embedding: process.env.GEMINI_EMBEDDING_MODEL ?? "gemini-embedding-001",
   },
   temperature: { generator: 1.0, grader: 0.2, curator: 0.2 },
@@ -18,6 +20,7 @@ export const PIPELINE_CONFIG = {
   pricesPerMillionUsd: {
     "gemini-3.8-flash": { input: 0.75, output: 3.75 },
     "gemini-3.5-flash-lite": { input: 0.3, output: 2.5 },
+    "gemini-3.1-pro-preview": { input: 2, output: 12 },
   } as Record<string, { input: number; output: number } | undefined>,
 
   /** Category check: A's target competency must be among the grader's top N competencies for the best option. */
