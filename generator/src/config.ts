@@ -38,6 +38,9 @@ export const PIPELINE_CONFIG = {
   /** Seed examples shown to the generator for each new item. */
   examplesPerPrompt: 3,
 
+  /** Human review: approvals from different people before a generated item goes live. */
+  requiredApprovals: { situation: 2, puzzle: 1 } as const,
+
   collections: {
     seeds: "seedItems",          // hand-written seeds, uploaded by scripts/upload-seeds.ts
     generated: "generatedItems", // accepted generated items, ready for the game

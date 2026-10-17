@@ -1,0 +1,2061 @@
+{
+  "summary": {
+    "runId": "20261016T223714-28ac",
+    "startedAt": "2026-10-16T22:37:14.710Z",
+    "finishedAt": "2026-10-16T22:39:45.751Z",
+    "requested": 15,
+    "accepted": 12,
+    "rejectedByStage": {
+      "duplicate": 2,
+      "category": 1
+    },
+    "acceptedByCategory": {
+      "situation:selfManagement": 12
+    },
+    "models": {
+      "generator": "gemini-3.8-flash",
+      "grader": "gemini-3.6-flash",
+      "curator": "gemini-3.8-flash",
+      "embedding": "gemini-embedding-001"
+    },
+    "usage": {
+      "gemini-3.8-flash": {
+        "calls": 27,
+        "inputTokens": 90177,
+        "outputTokens": 11526,
+        "thinkingTokens": 24127
+      },
+      "gemini-embedding-001": {
+        "calls": 15,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thinkingTokens": 0
+      },
+      "gemini-3.6-flash": {
+        "calls": 13,
+        "inputTokens": 16549,
+        "outputTokens": 4753,
+        "thinkingTokens": 11472
+      }
+    },
+    "estimatedCostUsd": 0.2013315
+  },
+  "accepted": [
+    {
+      "id": "gen-sit-mvbjt3btb4e0",
+      "kind": "situation",
+      "title": "The last sparkler box",
+      "text": "During the festival, Yash pushes past you and grabs the last sparkler box from the table. Your chest feels tight, your face burns, and your hands squeeze into tight fists. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 78,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement",
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "body signals",
+        "calm",
+        "patience"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Shove Yash back and snatch the box out of his hand",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Yash shoves you back, and the box falls onto the damp grass."
+        },
+        {
+          "id": "b",
+          "text": "Notice my tight fists, take three deep breaths to cool down, then ask to share",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Your shoulders relax. Yash looks at the box and hands you half the sparklers."
+        },
+        {
+          "id": "c",
+          "text": "Pretend I don't care at all and look away",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "You walk off, but your stomach stays in knots for the rest of the evening."
+        },
+        {
+          "id": "d",
+          "text": "Shout loudly so all the neighbors stare at him",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Yash turns red, hides the box behind his back, and refuses to talk to you."
+        }
+      ],
+      "hint": {
+        "text": "What are your tight fists and hot face telling you to do first?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-03",
+        "sit-15",
+        "sit-01"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "rsit-02",
+        "sit-03",
+        "gen-sit-mvb0pjmr08ab"
+      ],
+      "createdAt": "2026-10-16T22:37:40.505Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfManagement",
+          "difficulty": 2,
+          "construct": "gross-body-cues"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario clearly tests emotional regulation in response to a provocative event. Option B explicitly models self-awareness by noticing physical anger signals and self-management through breathing, followed by constructive communication."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Perfectly embodies the construct of noticing physical somatic cues before regulating an emotional reaction.",
+            "Culturally authentic festival scenario with honest, proportional consequences that avoid moralizing."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are natural and grounded, from sparklers dropping on damp grass to lingering physical tension."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Physical sensations of anger and unresolved tension ('stomach stays in knots') are honestly preserved."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Outcomes unfold naturally from actions without preaching or lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Regulating oneself before asking to share is the clear constructive path for this age band."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options represent common impulses without judging or belittling the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Focuses on everyday self-regulation through breath and somatic awareness without clinical jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Festive context of sharing sparklers is highly relatable and natural for children in India."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Explicitly highlights body signals (burning face, tight chest, clenched fists) without labeling the emotion."
+            }
+          }
+        },
+        "maxSimilarity": 0.8956704688713567,
+        "mostSimilarId": "rsit-02"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjt6wvb3ce",
+      "kind": "situation",
+      "title": "Baton Drop",
+      "text": "During relay practice on the school ground, you fumble the baton pass to Ishita, and it drops into the mud. Your team finishes last in the trial heat. Your chest tightens, and a thought pops up: \"I ruin everything for our team.\" What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 102,
+      "expectedTimeSec": 30,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement",
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "resilience",
+        "self-compassion",
+        "sportsmanship"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell myself I'm hopeless at running and sit out the rest of practice",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You spend the afternoon on the bench, watching the others and feeling miserable."
+        },
+        {
+          "id": "b",
+          "text": "Crack a loud joke about greasy fingers so no one notices how upset I am",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "A few runners chuckle, but the tight knot in your stomach stays."
+        },
+        {
+          "id": "c",
+          "text": "Remind myself that one mistake doesn't define me, and ask Ishita to drill the pass again",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Ishita nods, and the two of you practise the exchange until the timing clicks."
+        },
+        {
+          "id": "d",
+          "text": "Complain that Ishita ran too fast so the coach doesn't blame me",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Ishita looks hurt and avoids pairing with you for the next drill."
+        }
+      ],
+      "hint": {
+        "text": "Does one dropped baton really mean you ruin everything?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-13",
+        "sit-05",
+        "sit-16"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "sit-04",
+        "rsit-16",
+        "sit-16"
+      ],
+      "createdAt": "2026-10-16T22:37:45.152Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfManagement",
+          "difficulty": 2,
+          "construct": "reappraisal"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option C shows strong self-management by reframing self-critical thoughts and relationship skills by proactively practicing with a teammate. The other choices illustrate common unhelpful responses: quitting (A), deflecting with humor (B), and blaming others (D)."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately embodies the construct of identifying and reframing an unhelpful automatic thought.",
+            "Consequences remain realistic and grounded without preachiness or magical resolution.",
+            "Age-appropriate and relatable school sports scenario for Indian children."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic, from lingering discomfort after deflection to a natural recovery through practice."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledge the physical knot in the stomach and misery without prematurely dismissing them."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Shows outcomes directly through team dynamics and personal emotional state without moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Reframing and working through the error clearly fits the cognitive reframing construct without invalidating other defense mechanisms."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "All choices depict common human reactions to embarrassment and self-blame without shaming the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Focuses on everyday self-talk and sportsmanship without therapeutic jargon or diagnostic terms."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "School ground relay trials and inter-house athletics practice are highly familiar experiences."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Quoted cognitive distortion ('I ruin everything for our team') is directly challenged and reframed in the constructive option."
+            }
+          }
+        },
+        "maxSimilarity": 0.9149507431432411,
+        "mostSimilarId": "sit-04"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjt88tfd4d",
+      "kind": "situation",
+      "title": "Cancelled zoo trip",
+      "text": "In the class group chat, Aarav posts that tomorrow's zoo trip is cancelled due to heavy rain. You had packed your favourite snacks and felt excited all week. You feel crushed and annoyed. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 84,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement"
+      ],
+      "valueTags": [
+        "disappointment",
+        "patience",
+        "coping"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Take a slow breath and remind myself that the trip will still happen on a sunny day",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "You still feel disappointed, but your chest feels lighter and you unpack calmly."
+        },
+        {
+          "id": "b",
+          "text": "Mute the group chat angrily, kick your backpack, and sulk in your room",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You stay cross all evening and have a bad headache before dinner."
+        },
+        {
+          "id": "c",
+          "text": "Text Aarav in the chat to see if a few friends want to play online ludo instead",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Aarav replies with a thumbs-up and sets up a game room for tomorrow."
+        }
+      ],
+      "hint": {
+        "text": "We cannot change the rain, but what helps us feel a little better when plans change?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-01",
+        "sit-03",
+        "sit-15"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "rsit-03",
+        "rsit-06",
+        "gen-sit-mvb1356i36b5"
+      ],
+      "createdAt": "2026-10-16T22:37:46.877Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfManagement",
+          "difficulty": 1,
+          "construct": "compas-coping"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Handling sudden disappointment is challenging for 8-10-year-olds, making angry sulking a tempting option. Taking deep breaths to calm down clearly demonstrates self-management, while suggesting an online game shows strong relationship skills by adaptively connecting with peers."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The construct of coping by engaging versus escaping is clearly illustrated with realistic adapting, problem-solving, and escaping options.",
+            "Consequences remain honest and grounded; disappointment is allowed to linger without magic fixes.",
+            "Culturally authentic scenario of heavy rain cancelling a trip and connecting over online ludo."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic; acknowledging that disappointment still lingers after calming down."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Hard feelings are validated and kept real without forced cheerfulness."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Actions lead directly to outcomes without moralising or adult lectures."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Both reframing (a) and finding an alternate activity (c) are valid, engaging ways to cope."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Sulking and kicking the bag are described as behavioural reactions without insulting the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No medicalised or clinical terms used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Rain cancellations, class group chats, and playing online ludo with classmates are familiar and relatable."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Includes clear adapting (a), escaping (b), and problem-solving (c) paths for an uncontrollable disappointment."
+            }
+          }
+        },
+        "maxSimilarity": 0.8803839871416723,
+        "mostSimilarId": "rsit-03"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjtt0y294d",
+      "kind": "situation",
+      "title": "The Missed Shield",
+      "text": "During a clutch online match, your squad loses because you mistimed your shield. Ravi sighs heavily into his headset, and an unhelpful thought instantly hits you: \"I ruin every match, they only play with me out of pity.\" Vikram quickly types into the lobby, \"Ready up, let's go again.\" You want to quit to spare them, but leaving mid-session gives the team an automatic rank penalty. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 132,
+      "expectedTimeSec": 35,
+      "difficulty": 3,
+      "primaryCompetencies": [
+        "selfManagement",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "teamwork",
+        "resilience",
+        "perspective"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Disconnect right away so they don't have to carry me through another match",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "The squad takes a penalty loss, and Vikram messages asking why you logged off."
+        },
+        {
+          "id": "b",
+          "text": "Remind myself that one bad play doesn't make me useless, and ask how to adjust our timing",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Ravi says, \"Pop it two seconds earlier next time,\" and the squad lines up for round two."
+        },
+        {
+          "id": "c",
+          "text": "Type in the chat that my network lagged so neither of them blames me",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Vikram suggests waiting, and an awkward silence settles over the voice call."
+        },
+        {
+          "id": "d",
+          "text": "Stay in the game but mute my mic and play overly safe so I don't mess up again",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Without callouts the squad struggles, and you spend the game second-guessing every click."
+        }
+      ],
+      "hint": {
+        "text": "Does one dropped round really prove you ruin every match?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-05",
+        "sit-16",
+        "sit-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjidbzf4a9",
+        "gen-sit-mvbjt6wvb3ce",
+        "gen-sit-mvb1356i36b5"
+      ],
+      "createdAt": "2026-10-16T22:38:13.810Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfManagement",
+          "difficulty": 4,
+          "construct": "reappraisal"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B demonstrates excellent self-management by countering negative self-talk and strong relationship skills by communicating openly with teammates. Disconnecting or making excuses hurts the team and avoids taking ownership of personal emotional regulation."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Accurately reflects the construct of identifying and reframing an unhelpful cognitive distortion.",
+            "Very relatable scenario for modern Indian pre-teens playing squad games online with peers.",
+            "Consequences are grounded and natural without preaching."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic and reflect genuine squad gaming dynamics without exaggerated drama."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The feeling of shame and self-doubt after letting friends down is honoured honestly."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Shows the outcome through the squad's reactions rather than lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Directly evaluates the construct of reframing cognitive distortions versus acting on them."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options capture common defensive reactions like blaming lag or muting without shaming the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Focuses on everyday thought habits without diagnostic or clinical jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Online squad gaming with friends is highly relevant to Indian kids aged 11-14."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Explicitly quotes the unhelpful thought and provides options to reframe, hide, or give up."
+            }
+          }
+        },
+        "maxSimilarity": 0.9009473278043522,
+        "mostSimilarId": "gen-sit-mvbjidbzf4a9"
+      }
+    },
+    {
+      "id": "gen-sit-mvbju2ddb986",
+      "kind": "situation",
+      "title": "The New Comic on the Desk",
+      "text": "The librarian puts a brand-new comic on the desk. She asks you and Aarav to wait five minutes without touching it while she gets the ink stamp. The bright cover is right in front of you, and you really want to peek inside. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 96,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "patience",
+        "honesty",
+        "self-control"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Open the comic quickly and flip through the first pages",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "The librarian returns, takes the comic back, and asks you to wait until tomorrow."
+        },
+        {
+          "id": "b",
+          "text": "Turn toward the shelf and look at the riddle books while waiting",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Reading the riddles makes the time fly by until the librarian calls your name."
+        },
+        {
+          "id": "c",
+          "text": "Peek inside, crease the corner by mistake, and admit it as soon as she returns",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "The librarian thanks you for telling the truth, smooths the page, and stamps it."
+        },
+        {
+          "id": "d",
+          "text": "Sit on your hands and count backward from sixty to keep still",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Counting takes effort, but you manage to leave the comic untouched on the desk."
+        }
+      ],
+      "hint": {
+        "text": "What could you focus on so waiting doesn't feel so hard?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-01",
+        "sit-03",
+        "sit-15"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjna23c162",
+        "gen-sit-mvbjjsx1fcf5",
+        "gen-sit-mvbjrk3o81f7"
+      ],
+      "createdAt": "2026-10-16T22:38:25.922Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfManagement",
+          "difficulty": 2,
+          "construct": "inhibition-delay"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario tests impulse control and self-management when faced with immediate temptation. Options B and D demonstrate active self-regulation strategies to follow instructions, whereas Option A fails self-management and Option C shows poor self-control balanced by honest admission."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Accurately maps to the delay of gratification construct with realistic strategies and slips.",
+            "Consequences are proportionate, realistic, and free of preachiness or humiliation.",
+            "Acknowledge the physical and emotional effort required to wait."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are measured and realistic, such as waiting until tomorrow or the librarian smoothing a creased page."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges that waiting takes genuine effort and temptation is hard to resist."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Actions resolve through direct cause and effect without moralizing or lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Leaves room for different self-regulation styles (distraction vs physical containment) alongside owning up."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The slip in option C and giving in in option A are treated neutrally without shaming the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No diagnostic or therapeutic clinical jargon used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "School library setting and stamped book checkout are familiar and culturally grounded."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Construct is clearly represented: giving in, distracting oneself, holding out, and owning up after a slip."
+            }
+          }
+        },
+        "maxSimilarity": 0.8624772069319038,
+        "mostSimilarId": "gen-sit-mvbjna23c162"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjufch2c26",
+      "kind": "situation",
+      "title": "The Skipping Rope",
+      "text": "You are learning to skip rope in the park with Sana. You trip four times in a row. A thought pops up: \"I'm just clumsy, I can never do this.\" Sana holds out the rope for another go. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 89,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement",
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "persistence",
+        "patience"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Remind myself that tripping happens when learning, and try again",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "You trip once more, but then manage two clean jumps in a row."
+        },
+        {
+          "id": "b",
+          "text": "Tell Sana I need to watch her rhythm first, since new skills take time",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Watching Sana helps you see the right timing, and your frustration cools down."
+        },
+        {
+          "id": "c",
+          "text": "Say my knee hurts so I can sit down and stop missing",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Sana asks if you need water, but you feel uneasy about making an excuse."
+        },
+        {
+          "id": "d",
+          "text": "Drop the rope and decide skipping is a silly game anyway",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Sana skips alone, while you sit on the grass feeling upset."
+        }
+      ],
+      "hint": {
+        "text": "Is tripping four times proof that you can never learn?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-01",
+        "sit-03",
+        "sit-15"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjt6wvb3ce",
+        "gen-sit-mvbjtt0y294d",
+        "rsit-16"
+      ],
+      "createdAt": "2026-10-16T22:38:42.737Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfManagement",
+          "difficulty": 3,
+          "construct": "reappraisal"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This situation highlights how children handle self-doubt and frustration when learning a physical skill. Option A displays strong self-management and growth mindset, while Option B shows high self-awareness by recognizing personal learning needs. Faking an injury or dismissing the game are realistic, tempting coping mechanisms for an 8 to 10-year-old facing embarrassment."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Construct of reframing an unhelpful thought is cleanly integrated with an explicit quote in the prompt.",
+            "Consequences are honest and measured, showing that learning takes practice without magical immediate success.",
+            "The hint nudges reflection without dictating the choice."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Realistic consequence in option A where tripping happens once more before improvement."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Frustration and the discomfort of making excuses are acknowledged rather than bypassed."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Shows the outcome naturally without moralizing or lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Leaves room for multiple constructive approaches like trying again or pausing to observe."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options C and D describe common coping reactions without shaming the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Keeps language relatable without therapy or diagnostic jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Skipping rope with a friend at the park is relatable and age-appropriate."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Unhelpful thought is quoted directly and challenged through reframing."
+            }
+          }
+        },
+        "maxSimilarity": 0.8801199058944239,
+        "mostSimilarId": "gen-sit-mvbjt6wvb3ce"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjuhia5c8b",
+      "kind": "situation",
+      "title": "Sidelined at the party",
+      "text": "At Gurpreet's birthday party, everyone forms pairs for a gaming tournament. The brackets fill up quickly, and you are left without a partner for the first round. You spent all week looking forward to competing. Now Karthik and the others are gathered around the screen shouting with excitement, while you are left on the sidelines. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 118,
+      "expectedTimeSec": 30,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement",
+        "socialAwareness"
+      ],
+      "valueTags": [
+        "coping",
+        "patience",
+        "adaptability"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Pull up a chair beside Karthik to scout opponent tactics and cheer for his team",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 2,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "You stay connected to the action, and Karthik appreciates having you call out sneaky plays."
+        },
+        {
+          "id": "b",
+          "text": "Sit alone in the dining room staring at the wall until someone asks what happened",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "The time drags on slowly, and your disappointment turns into heavy frustration."
+        },
+        {
+          "id": "c",
+          "text": "Accept missing this round, grab some samosas, and start a board game at the side table",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Two other friends come over to join you, and you end up having a great laugh together."
+        },
+        {
+          "id": "d",
+          "text": "Complain to Gurpreet that the bracket was unfair and demand they restart it",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Gurpreet looks flustered, the room turns quiet, and the game pauses awkwardly."
+        }
+      ],
+      "hint": {
+        "text": "When you cannot change what happened, what helps you make the most of your time?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-05",
+        "sit-04",
+        "sit-16"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "sit-16",
+        "sit-15",
+        "gen-sit-mvbjfnp37afb"
+      ],
+      "createdAt": "2026-10-16T22:38:45.539Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfManagement",
+          "difficulty": 3,
+          "construct": "compas-coping"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Being left out of a anticipated activity at a party is genuinely frustrating for middle schoolers, making sulking or complaining tempting. Options A and C demonstrate excellent emotional self-management and prosocial adaptation. Demanding a restart puts unfair pressure on the host, working against relationship skills."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Accurately captures the construct of engaging versus escaping when facing a disappointing situation.",
+            "Culturally grounded and relatable context for Indian adolescents.",
+            "Provides realistic consequences without preaching or overly rosy outcomes."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic and grounded without magical resolutions or exaggerated drama."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Validates the disappointment of missing out on an activity looked forward to all week."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Shows social outcomes naturally through peer reactions rather than adults lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Allows multiple constructive ways to handle downtime (cheering/scouting or playing another game)."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Sulking and complaining are described neutrally in terms of behavior and experiential outcomes."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of clinical vocabulary or prescriptive therapy advice."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Culturally authentic setting with natural details like samosas and video game tournaments."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Distinctly contrasts active engagement and adaptive coping against sulking and avoidance."
+            }
+          }
+        },
+        "maxSimilarity": 0.8619380337783517,
+        "mostSimilarId": "sit-16"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjup739e7d",
+      "kind": "situation",
+      "title": "The Mock Test Score",
+      "text": "During evening tuition, Sir returns our mock tests. Irfan, who studied with me all week, leans over and loudly points at my low score: \"Wait, didn't you say you understood this chapter?\" My cheeks burn hot, my fingernails dig into my palms, and my chest feels tight and breathless. Yash turns around to stare, and Sir pauses mid-lecture. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 115,
+      "expectedTimeSec": 30,
+      "difficulty": 3,
+      "primaryCompetencies": [
+        "selfManagement",
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "emotional regulation",
+        "calmness",
+        "friendship"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Snap back loudly that Irfan barely passed his own paper",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Sir scolds both of us for disrupting the batch, and the whole room stays tense."
+        },
+        {
+          "id": "b",
+          "text": "Notice my clenched hands, take two slow breaths to steady myself, and tell Irfan quietly we will talk after class",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "The tightness in my chest eases, Sir continues the lesson, and Irfan quietly looks back at his desk."
+        },
+        {
+          "id": "c",
+          "text": "Shove the paper into my bag and ignore everyone, pretending nothing happened",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "My jaw stays clenched the whole hour, and I cannot focus on anything Sir writes."
+        },
+        {
+          "id": "d",
+          "text": "Complain to Sir right away that Irfan is mocking my marks",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Sir reprimands Irfan in front of the room, leaving a heavy silence between our benches."
+        }
+      ],
+      "hint": {
+        "text": "When your body feels that sudden surge of heat, what helps you settle before speaking?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-04",
+        "sit-05",
+        "sit-13"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvb0pjmr08ab",
+        "gen-sit-mvbjt3btb4e0",
+        "sit-03"
+      ],
+      "createdAt": "2026-10-16T22:38:55.503Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfManagement",
+          "difficulty": 4,
+          "construct": "gross-body-cues"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Public embarrassment in front of peers creates a strong emotional impulse to retaliate or hide. Option B clearly demonstrates self-awareness by recognizing physical signs of anger and strong self-management by using deep breathing to stay calm and address the peer privately later."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately captures the construct of somatic awareness without prematurely labeling the emotion.",
+            "Culturally authentic tuition setting that resonates with Indian children aged 11-14.",
+            "Consequences are grounded, realistic, and avoid preachy lectures or magical resolutions."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences realistically reflect classroom dynamics without exaggeration or magical outcomes."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The sting of embarrassment and ongoing physical tension are validated rather than dismissed."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The narrative avoids moralizing language and shows outcomes through character behavior."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "De-escalating and talking after class appropriately fits the immediate disruption in a tuition batch."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options and consequences describe natural peer reactions without shaming the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Focuses on everyday physiological responses and slow breathing without clinical jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Evening tuition, mock test papers, and addressing the teacher as Sir are deeply familiar to Indian students."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Physical sensations are vividly described without naming anger or embarrassment, and option b directly attends to them."
+            }
+          }
+        },
+        "maxSimilarity": 0.877079994356344,
+        "mostSimilarId": "gen-sit-mvb0pjmr08ab"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjv4z86e06",
+      "kind": "situation",
+      "title": "Unpinned in the chat",
+      "text": "You spent an hour compiling revision notes for tomorrow's test and pinned them in the class group chat. Two minutes later, Farhan removes the pin and posts a random meme instead. A few classmates react with laughing emojis. Your face burns, and your fingers hover over the keyboard, ready to fire back. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 93,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "patience",
+        "conflict resolution",
+        "communication"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Fire off a sarcastic message in the group calling Farhan childish",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Farhan gets defensive, an argument breaks out in the chat, and everyone loses focus on studying."
+        },
+        {
+          "id": "b",
+          "text": "Message Farhan privately to ask why he unpinned my notes",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Farhan texts back: \"So sorry! My screen froze while downloading your file and I tapped unpin by mistake. Fixing it now!\""
+        },
+        {
+          "id": "c",
+          "text": "Take a breath, put the phone down for five minutes, and quietly re-pin the notes later",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Your anger cools down. The notes stay pinned, and Farhan drops a thumbs-up reaction on them."
+        }
+      ],
+      "hint": {
+        "text": "Before reacting when you feel provoked, how can you find out what actually happened?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-13",
+        "sit-05",
+        "sit-16"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "sit-03",
+        "gen-sit-mvbjt88tfd4d",
+        "sit-14"
+      ],
+      "createdAt": "2026-10-16T22:39:15.956Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfManagement",
+          "difficulty": 2,
+          "construct": "dodge-ambiguous"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Group chat conflicts are common and tempting for early teens to escalate publicly. Option C demonstrates excellent self-management by pausing before reacting, while Option B shows strong relationship skills by handling conflict privately. Option A acts impulsively and worsens the conflict."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately fulfills all requirements of the 'Accident or on purpose?' construct.",
+            "Relatable and realistic peer scenario for Indian middle schoolers using study group chats.",
+            "Consequences are natural, non-preachy, and validate emotional reactions without shaming."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic: firing back causes chat drama, while private checking uncovers a mundane accidental touch."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Names the immediate visceral feeling ('Your face burns, and your fingers hover over the keyboard') honestly."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Shows the outcome through the natural peer response without moral lectures or preachy language."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Allows room for both direct private checking (Option B) and self-regulated pausing (Option C)."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Option A shows the natural consequence of escalation without insulting the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Contains no clinical or therapy jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Class WhatsApp groups for exam notes are a daily reality for urban and semi-urban Indian students."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly presents ambiguous harm with hostile, checking, and benefit-of-the-doubt options, revealing an accidental cause upon checking."
+            }
+          }
+        },
+        "maxSimilarity": 0.8732131601151554,
+        "mostSimilarId": "sit-03"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjv5p79c03",
+      "kind": "situation",
+      "title": "Rain at the Reception",
+      "text": "At a cousin's wedding, heavy rain stops you and Farhan from playing outside. Uncle says everyone must stay inside the noisy hall. You feel restless and disappointed. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 68,
+      "expectedTimeSec": 30,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement"
+      ],
+      "valueTags": [
+        "disappointment",
+        "patience",
+        "adaptability"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Sit in a corner with crossed arms and ignore everyone",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Farhan wanders off, and the evening feels very long and boring."
+        },
+        {
+          "id": "b",
+          "text": "Ask Farhan to find toothpicks so you two can build small puzzles at a table",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "You both get busy testing your puzzles and forget about the rain."
+        },
+        {
+          "id": "c",
+          "text": "Remind myself that rain happens, and suggest checking out the dessert counter",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Tasting warm gulab jamuns together lifts your mood right away."
+        }
+      ],
+      "hint": {
+        "text": "When plans change, what helps you move forward instead of staying upset?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-01",
+        "sit-03",
+        "sit-15"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "rsit-03",
+        "gen-sit-mvbjt88tfd4d",
+        "gen-sit-mvbjjr5mc134"
+      ],
+      "createdAt": "2026-10-16T22:39:16.891Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfManagement",
+          "difficulty": 2,
+          "construct": "compas-coping"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Sulking in Option A demonstrates poor self-management when faced with disappointment. Option B displays strong relationship skills by engaging a peer in a creative indoor game. Option C demonstrates excellent self-management by using cognitive reframing to accept uncontrollable changes."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Culturally authentic setting and relatable dilemma for Indian children.",
+            "Clearly fulfills the construct with distinct problem-solving, adapting, and escaping options.",
+            "Consequences are realistic, gentle, and free of preachiness."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are natural and believable without magical rewards or extreme reactions."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges restlessness and disappointment honestly before offering constructive ways to adapt."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No lecturing or moralizing; outcomes follow directly from the actions."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Leaves room for multiple good engaging responses (building puzzles or reframing with dessert)."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Sulking option portrays natural disengagement without labeling or shaming the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Maintains an everyday, age-appropriate coping scenario without clinical terms."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Family wedding reception setting and gulab jamuns feel warmly grounded in Indian childhood."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly represents problem-solving (toothpicks), adapting (reframing plus dessert), and escaping (sulking)."
+            }
+          }
+        },
+        "maxSimilarity": 0.8772557672113888,
+        "mostSimilarId": "rsit-03"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjvrrmcd4b",
+      "kind": "situation",
+      "title": "The Library Comic",
+      "text": "In the library, you reach for the last space comic. Vikram quickly snatches it right from your fingers. Your fists squeeze tight, your teeth clench, and your chest feels suddenly hot. Vikram sits down at a table to read. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 101,
+      "expectedTimeSec": 30,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement",
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "calm",
+        "patience",
+        "sharing"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Squeeze my fists harder and snatch the comic right off his table",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "The cover tears slightly, and the librarian asks both of you to step outside."
+        },
+        {
+          "id": "b",
+          "text": "Notice my tight hands, uncurl my fingers, breathe out, and ask Vikram to share the desk",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Vikram looks up surprised, then shifts the book to the middle so you can read too."
+        },
+        {
+          "id": "c",
+          "text": "Notice my hot chest, take a slow breath, and quietly ask the librarian to set turns",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "The librarian sets a ten-minute reading rule, though Vikram frowns at you for telling."
+        },
+        {
+          "id": "d",
+          "text": "Swallow the feeling down, walk to another shelf, and pretend I do not care",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Your chest stays tight, and you spend the rest of library period staring at Vikram."
+        }
+      ],
+      "hint": {
+        "text": "What does your body need before you decide how to answer Vikram?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-03",
+        "sit-15",
+        "sit-01"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjt3btb4e0",
+        "gen-sit-mvbju2ddb986",
+        "gen-sit-mvbjhokp6ef3"
+      ],
+      "createdAt": "2026-10-16T22:39:45.490Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfManagement",
+          "difficulty": 3,
+          "construct": "gross-body-cues"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario highlights bodily cues of anger and emotional regulation. Snatching back is a tempting impulsive reaction for children aged 8-10, but the healthy coping strategies in options B and C clearly show self-awareness and self-management."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Precisely captures bodily sensations of anger without prematurely labeling the emotion.",
+            "Consequences are realistic, including the subtle social friction of reporting to a teacher/librarian.",
+            "Options reflect developmentally authentic coping strategies for 8-10 year olds."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are proportionate and believable, avoiding magical resolution or catastrophe."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Lingering frustration in option D is honestly acknowledged without forced toxic positivity."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No lecturing or moralizing language in options or consequences."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Leaves room for either direct calm negotiation or seeking a mediator without preaching a single moral."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The impulsive and suppressive choices are framed without shaming the reader."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Focuses naturally on somatosensory awareness and deep breathing without clinical jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "A school library comic-sharing dilemma is familiar and culturally natural for Indian school contexts."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Directly targets noticing somatic cues of strong emotion prior to action."
+            }
+          }
+        },
+        "maxSimilarity": 0.9061295740876677,
+        "mostSimilarId": "gen-sit-mvbjt3btb4e0"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjvrtgdbd2",
+      "kind": "situation",
+      "title": "Board Problem",
+      "text": "During evening tuition, sir writes a complex trigonometry problem on the board. Divya finishes hers in five minutes, but your page is full of scribbles. Frustrated, a heavy thought takes over: \"I'll never get this, my brain just isn't built for maths.\" Sir announces that everyone must show their working in ten minutes. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 125,
+      "expectedTimeSec": 40,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement",
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "resilience",
+        "perseverance",
+        "learning"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Remind myself it's just a new topic, and ask Divya which formula she used for step two",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Divya points out a substitution you missed. You finish late, but the logic clicks."
+        },
+        {
+          "id": "b",
+          "text": "Decide I'm just hopeless at trigonometry and quickly copy Divya's page so sir doesn't scold me",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Sir marks your book complete, but the next practice problem leaves you just as lost."
+        },
+        {
+          "id": "c",
+          "text": "Accept that I need time, take a steady breath, and work through the first step alone at my pace",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "You only complete half the problem before time is up, but you fully understand that part."
+        },
+        {
+          "id": "d",
+          "text": "Shove my notebook into my bag and claim my pen ran out to avoid the pressure",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Sir lends you a pen and asks you to sit beside him to solve it after class."
+        }
+      ],
+      "hint": {
+        "text": "Is getting stuck on a hard question proof that you can never learn it?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-13",
+        "sit-16",
+        "sit-05"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "sit-10",
+        "rsit-16",
+        "gen-sit-mvbjup739e7d"
+      ],
+      "createdAt": "2026-10-16T22:39:45.556Z",
+      "pipeline": {
+        "runId": "20261016T223714-28ac",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfManagement",
+          "difficulty": 3,
+          "construct": "reappraisal"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This item evaluates self-management and self-awareness under academic pressure and negative self-talk. Option C highlights self-regulation and persistence, while Option A shows constructive help-seeking. Options B and D reflect dishonesty and avoidance."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Culturally authentic setting of evening tuition with relatable academic frustration.",
+            "Faithfully captures the construct with a quoted negative automatic thought and varied cognitive coping strategies.",
+            "Honest, grounded consequences without preaching or magical outcomes."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic: copying leaves the child still lost, working at one's own pace finishes half the work."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges math anxiety and academic panic without dismissing the difficulty."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The outcomes demonstrate the effect of reframing versus avoidance without lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Allows multiple valid paths to handle the thought, such as seeking targeted peer help or pacing oneself."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Choices avoid pejorative labels, presenting avoidant reactions neutrally."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Focuses on everyday study stress and self-talk without psychological jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Evening tuition, addressing the teacher as 'sir', and peer comparison fit middle-school life in India."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Construct is explicitly visible with the quoted thought and options showing reframing, giving up, and avoidance."
+            }
+          }
+        },
+        "maxSimilarity": 0.8801272575595258,
+        "mostSimilarId": "sit-10"
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "gen-sit-mvbjtgv9d243",
+      "runId": "20261016T223714-28ac",
+      "target": {
+        "kind": "situation",
+        "ageBand": "8-10",
+        "competency": "selfManagement",
+        "difficulty": 3,
+        "construct": "gross-body-cues"
+      },
+      "stage": "duplicate",
+      "reasons": [
+        "Too similar to gen-sit-mvbjt3btb4e0 (similarity 0.922)"
+      ],
+      "createdAt": "2026-10-16T22:37:58.053Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "A Stolen Turn",
+        "text": "At your cousin's house, Gopal snatches the game controller before your turn ends. Your throat feels tight, your chest gets hot, and your fingers curl into hard fists. What do you do?",
+        "ageBand": "8-10",
+        "primaryCompetencies": [
+          "selfManagement",
+          "selfAwareness"
+        ],
+        "valueTags": [
+          "patience",
+          "calm",
+          "boundaries"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Notice my tight fists, breathe out slowly until my chest relaxes, and tell Gopal it is still my turn",
+            "consequence": "Your heartbeat slows down, and Gopal hands the controller back with a sheepish look."
+          },
+          {
+            "id": "b",
+            "text": "Notice the heat in my chest and step out to the balcony for fresh air, even if I miss this round",
+            "consequence": "The tightness fades after a minute, though Gopal finishes the round without you."
+          },
+          {
+            "id": "c",
+            "text": "Yank the controller right back before my chest explodes",
+            "consequence": "Gopal pulls back hard, the cord unplugs, and the console shuts off mid-game."
+          },
+          {
+            "id": "d",
+            "text": "Swallow the tightness in my throat and pretend I do not mind",
+            "consequence": "You sit on the floor quietly, but your chest stays heavy and tense."
+          }
+        ],
+        "hint": {
+          "text": "What is happening in your body, and how can you help it settle before you respond?"
+        }
+      },
+      "maxSimilarity": 0.9222240919738622,
+      "mostSimilarId": "gen-sit-mvbjt3btb4e0"
+    },
+    {
+      "id": "gen-sit-mvbjtrk7b513",
+      "runId": "20261016T223714-28ac",
+      "target": {
+        "kind": "situation",
+        "ageBand": "11-14",
+        "competency": "selfManagement",
+        "difficulty": 3,
+        "construct": "compas-coping"
+      },
+      "stage": "category",
+      "reasons": [
+        "Off-category: aimed at selfManagement (1), but the grader found the best option mainly shows relationshipSkills (2), responsibleDecisionMaking (2)"
+      ],
+      "createdAt": "2026-10-16T22:38:11.911Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Topic Switch",
+        "text": "You and Thomas are in the school library, ready to assemble your history project. Just as you open your files, your teacher informs you that another group had already reserved your topic, so you must switch to your backup choice. You know very little about this new topic, and the presentation is first period tomorrow. What do you do?",
+        "ageBand": "11-14",
+        "primaryCompetencies": [
+          "selfManagement"
+        ],
+        "valueTags": [
+          "coping",
+          "resilience",
+          "teamwork"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Take a breath to steady myself, accept the change, and look for an interesting angle in the new topic.",
+            "consequence": "The tightness in your chest eases, and Thomas gets curious about a lesser-known event to highlight."
+          },
+          {
+            "id": "b",
+            "text": "Grumble that the teacher is unfair and sit with my arms crossed until the period ends.",
+            "consequence": "The library bell rings for next period, leaving you with an empty sheet and the same heavy dread."
+          },
+          {
+            "id": "c",
+            "text": "Set up a quick plan with Thomas: write down three main questions and split the history shelves to find them.",
+            "consequence": "Focusing on small tasks keeps you calm, and you finish the first draft before the period is over."
+          },
+          {
+            "id": "d",
+            "text": "Tell Thomas he can handle the research today because I'm not in the mood anymore.",
+            "consequence": "Thomas looks stressed trying to manage alone, and an awkward silence settles between you."
+          }
+        ],
+        "hint": {
+          "text": "When an unexpected change happens, what helps you move forward instead of getting stuck?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 1,
+              "selfManagement": 2,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": 0,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 0,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "d",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": -1,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -2
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "This scenario tests emotional regulation and teamwork under sudden time pressure. Option A shows strong self-management through self-calming and adaptability, while Option C demonstrates effective relationship skills and practical decision-making. Unhelpful options reflect poor self-regulation and failing a teammate."
+      },
+      "maxSimilarity": 0.8760143788626708,
+      "mostSimilarId": "gen-sit-mvbjhokp6ef3"
+    },
+    {
+      "id": "gen-sit-mvbjv9ar0159",
+      "runId": "20261016T223714-28ac",
+      "target": {
+        "kind": "situation",
+        "ageBand": "8-10",
+        "competency": "selfManagement",
+        "difficulty": 1,
+        "construct": "inhibition-delay"
+      },
+      "stage": "duplicate",
+      "reasons": [
+        "Too similar to gen-sit-mvbjna23c162 (similarity 0.936)"
+      ],
+      "createdAt": "2026-10-16T22:39:21.555Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Fresh Besan Laddoos",
+        "text": "Your brother Irfan sets a plate of fresh besan laddoos on the table. 'Wait until everyone sits down,' he says, stepping into the kitchen. They smell sweet, and your tummy rumbles loudly. Nobody is watching. What do you do?",
+        "ageBand": "8-10",
+        "primaryCompetencies": [
+          "selfManagement",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "patience",
+          "honesty",
+          "self-control"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Read my comic book in the hall to keep my mind off the food",
+            "consequence": "Focusing on the story helps time pass quickly until dinner is called."
+          },
+          {
+            "id": "b",
+            "text": "Pop one into my mouth and wipe the crumbs away",
+            "consequence": "It tastes sweet, but you feel jumpy whenever someone walks by."
+          },
+          {
+            "id": "c",
+            "text": "Ask Irfan if I can have a small carrot slice while waiting",
+            "consequence": "Irfan hands you a crunchy slice, and the wait doesn't feel as hard."
+          },
+          {
+            "id": "d",
+            "text": "Eat one laddoo, then tell Irfan honestly that I gave in",
+            "consequence": "Irfan is glad you told the truth and asks you to help call everyone."
+          }
+        ],
+        "hint": {
+          "text": "What can help you wait when something tempting is right in front of you?"
+        }
+      },
+      "maxSimilarity": 0.9364869037858067,
+      "mostSimilarId": "gen-sit-mvbjna23c162"
+    }
+  ]
+}

@@ -5,6 +5,7 @@
  * - C (curator) sees the finished item, B's grading and the seed style.
  */
 import type { Competency, GeneratedSituation, GradeResult, PuzzleDomain, Situation } from "../../web/lib/schemas";
+import type { Construct } from "./constructs";
 
 export const COMPETENCY_GUIDE = `The five CASEL competencies:
 - selfAwareness: recognising and naming one's own feelings, strengths and needs
@@ -48,6 +49,15 @@ Strict rules for every item:
 7. Use the setting and the character names you are given, so the bank stays varied.
 8. Match the target difficulty you are given (see the difficulty guide).
 
+Writing for children (the Satori lens: honest, warm, never preachy):
+9. Consequences are honest. A kind choice is not magically rewarded (no prizes, no whole class cheering);
+   an unhelpful choice is not catastrophic or humiliating. Show a believable next moment.
+10. Feelings stay real. No "don't be sad" and no instant happy ending that erases a hard feeling.
+11. Show, don't preach. No "should", no moral at the end, no adult giving a lecture in the consequence.
+12. Respect real dilemmas. When the research construct is a dilemma, make two options genuinely reasonable.
+13. Never diagnose, name conditions or give medical or therapy advice. Big worries point to a trusted grown-up.
+14. When you are given a research construct, the situation must make that idea clearly visible.
+
 For a situation (kind "situation"):
 - A realistic everyday dilemma with emotional weight, ending with "What do you do?".
 - Include one clearly kind and thoughtful option, and at least one tempting but unhelpful option (easy, impulsive or popular).
@@ -73,10 +83,14 @@ export function generatorPrompt(args: {
   names: string[];
   examples: Situation[];
   avoidTitles: string[];
+  construct?: Construct;
 }): string {
+  const research = args.construct
+    ? `\nResearch construct: ${args.construct.name} (${args.construct.source}).\nBuild the situation so this idea is clearly visible: ${args.construct.brief}\n`
+    : "";
   const focus =
     args.kind === "situation"
-      ? `Focus competency: ${args.competency} (it must be one of primaryCompetencies).\n${COMPETENCY_GUIDE}`
+      ? `Focus competency: ${args.competency} (it must be one of primaryCompetencies).\n${COMPETENCY_GUIDE}${research}`
       : `Puzzle domain: ${args.domain}.`;
   return `Write one new ${args.kind} for ${AGE_GUIDE[args.ageBand]}
 ${focus}
@@ -142,21 +156,40 @@ export function graderPrompt(c: GeneratedSituation): string {
 /* C: curator                                                          */
 /* ------------------------------------------------------------------ */
 
-export const CURATOR_SYSTEM = `You are the final reviewer for a value-education game for children aged 8 to 14 in India.
-Decide whether a generated item may enter the bank. Be strict: when in doubt, reject.
+export const CURATOR_SYSTEM = `You are the Satori-lens judge for a value-education game for children aged 8 to 14 in India:
+a child psychologist who is warm but clinically disciplined, honest before comforting, and never preachy.
+Decide whether a generated item may go to human review. Be strict: when in doubt, reject. A person still
+approves every item you pass; your job is to stop anything that should never reach them.
 
-Check:
+Basic checks:
 - safe: nothing frightening, harmful, romantic, medical or age-inappropriate; no stereotypes about religion, caste, gender, region or body.
-- fitsGame: matches the style, length and purpose of the seed examples; realistic for Indian children; teaches something through choices rather than lecturing.
+- fitsGame: matches the style, length and purpose of the seed examples.
 - hintIsNudge (only if there is a hint): the hint guides thinking without giving the answer away.
 - explanationIsKind (puzzles only): the explanation is gentle and never makes a child feel stupid.
 - Situations about bullying, exclusion or online unkindness must offer an option to tell a trusted adult.
-- accept: true only if every check passes and you would happily show this to a 9-year-old.
+
+The Satori principles (give each a pass or fail and a one-line note naming the exact words that fail it):
+- honestConsequences (honesty before comfort): consequences are believable. Fail if a kind choice is magically
+  rewarded (prizes, everyone cheering) or an unhelpful one ends in catastrophe or humiliation.
+- feelingsStayReal (refusal to bypass): hard feelings are named and allowed. Fail on "don't be sad", "it's fine"
+  or a happy ending that erases the feeling.
+- showNotPreach (depth without decoration): the lesson shows through what happens. Fail on "should", a moral,
+  or an adult lecturing in a consequence.
+- certaintyFits (humility about certainty): one clear best answer only where the situation really has one;
+  a genuine dilemma leaves room for more than one okay answer. Fail if a real dilemma forces a single "right" answer.
+- noShaming (respect for autonomy): no option or consequence shames or labels the child who chooses it.
+- notATherapist: no diagnosis words, conditions, symptoms, treatment or medical advice; big worries point to a trusted grown-up.
+- realForIndianChildren (clinical discipline): culturally real for children in India, age-right, no stereotypes.
+- constructVisible: the research construct you are given clearly shows in the situation. Pass when no construct is given.
+
+- accept: true only if every basic check and every principle passes, and you would happily show this to a 9-year-old.
 - reasons: short, specific reasons for your decision (always give at least one).`;
 
-export function curatorPrompt(c: GeneratedSituation, g: GradeResult, examples: Situation[]): string {
+export function curatorPrompt(c: GeneratedSituation, g: GradeResult, examples: Situation[], construct?: Construct): string {
   return `Seed examples of the house style:
 ${JSON.stringify(examples.map(exampleForGenerator), null, 2)}
+
+Research construct this item must show: ${construct ? `${construct.name}. ${construct.brief}` : "none (puzzle or untargeted item)"}
 
 Item to review:
 ${JSON.stringify(c, null, 2)}

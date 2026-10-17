@@ -1,0 +1,1187 @@
+{
+  "summary": {
+    "runId": "20261016T224211-44ae",
+    "startedAt": "2026-10-16T22:42:11.666Z",
+    "finishedAt": "2026-10-16T22:43:27.159Z",
+    "requested": 9,
+    "accepted": 8,
+    "rejectedByStage": {
+      "rules": 1
+    },
+    "acceptedByCategory": {
+      "puzzle:math": 8
+    },
+    "models": {
+      "generator": "gemini-3.8-flash",
+      "grader": "gemini-3.6-flash",
+      "curator": "gemini-3.8-flash",
+      "embedding": "gemini-embedding-001"
+    },
+    "usage": {
+      "gemini-3.8-flash": {
+        "calls": 17,
+        "inputTokens": 54248,
+        "outputTokens": 6887,
+        "thinkingTokens": 13167
+      },
+      "gemini-embedding-001": {
+        "calls": 8,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thinkingTokens": 0
+      },
+      "gemini-3.6-flash": {
+        "calls": 8,
+        "inputTokens": 9818,
+        "outputTokens": 1295,
+        "thinkingTokens": 3662
+      }
+    },
+    "estimatedCostUsd": 0.1158885
+  },
+  "accepted": [
+    {
+      "id": "gen-pz-mvbjzce801c6",
+      "kind": "puzzle",
+      "title": "Cones for the pitch",
+      "text": "Karthik brings 8 plastic cones to mark the cricket pitch in the playground. Abdul brings 6 more cones. How many cones do they have altogether?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 29,
+      "expectedTimeSec": 15,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "teamwork",
+        "counting"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "12",
+          "consequence": "Two cones are left out of the count."
+        },
+        {
+          "id": "b",
+          "text": "14",
+          "consequence": "They set out all the cones along the boundary."
+        },
+        {
+          "id": "c",
+          "text": "15",
+          "consequence": "That is one more cone than they actually brought."
+        },
+        {
+          "id": "d",
+          "text": "16",
+          "consequence": "They would need two extra cones to make that number."
+        }
+      ],
+      "hint": {
+        "text": "What do you get when you add 6 to 8?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "8 cones plus 6 cones makes 14 cones in all.",
+        "computation": "8 + 6"
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-math-01",
+        "pz-math-02",
+        "pz-math-03"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvb0oa43b18e"
+      ],
+      "createdAt": "2026-10-16T22:42:32.192Z",
+      "pipeline": {
+        "runId": "20261016T224211-44ae",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "math",
+          "difficulty": 1
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a straightforward single-step addition problem (8 + 6 = 14) suitable for 8-10 year olds. Because it is a purely mathematical puzzle, CASEL competency scores are not applicable.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "A relatable playground cricket context for children in India.",
+            "Gentle, clear consequences for math calculation errors without shaming.",
+            "The hint nudges the child toward the addition operation without giving the total away."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences plainly state whether all cones are accounted for without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Realistic setting of setting up a game together with no forced emotional resolution."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Presents a simple cooperative math problem without moralising."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "A clear single correct mathematical answer (8 + 6 = 14)."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect answers are handled factually and gently."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No therapeutic or diagnostic language used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Setting up a cricket pitch using cones is very natural for Indian school grounds."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Construct is untargeted/puzzle item."
+            }
+          }
+        },
+        "maxSimilarity": 0.8100001013083559,
+        "mostSimilarId": "gen-pz-mvb0oa43b18e"
+      }
+    },
+    {
+      "id": "gen-pz-mvbjzdl268c0",
+      "kind": "puzzle",
+      "title": "Pebbles in the Park",
+      "text": "Nikhil collects 20 smooth pebbles in the neighbourhood park. He gives 4 pebbles to Ravi. Then, Nikhil divides the rest equally between his 2 jacket pockets. How many pebbles are in each pocket?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 37,
+      "expectedTimeSec": 30,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "sharing",
+        "fairness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "6",
+          "consequence": "One pocket still has extra space left."
+        },
+        {
+          "id": "b",
+          "text": "8",
+          "consequence": "Both pockets feel balanced and carry the same weight!"
+        },
+        {
+          "id": "c",
+          "text": "10",
+          "consequence": "He runs out of pebbles before filling the second pocket."
+        },
+        {
+          "id": "d",
+          "text": "16",
+          "consequence": "That is the total number of pebbles before splitting them."
+        }
+      ],
+      "hint": {
+        "text": "First subtract the pebbles given to Ravi, then divide what is left."
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "Nikhil has 20 - 4 = 16 pebbles left. Dividing 16 into 2 pockets gives 16 ÷ 2 = 8 pebbles each.",
+        "computation": "(20 - 4) / 2"
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-math-01",
+        "pz-math-02",
+        "pz-math-03"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "pz-math-01",
+        "pz-math-02",
+        "gen-pz-mvb12i8e8a0b"
+      ],
+      "createdAt": "2026-10-16T22:42:33.734Z",
+      "pipeline": {
+        "runId": "20261016T224211-44ae",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "math",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This two-step math word problem requires subtraction followed by division (20 - 4 = 16, then 16 / 2 = 8). It is very straightforward for children aged 8-10.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Simple, age-appropriate multi-step math puzzle set in a natural, relatable everyday context.",
+            "Gentle, logical consequences and a helpful hint that does not spoil the calculation."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences logically reflect the arithmetic outcome without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Neutral and grounded framing appropriate for a math puzzle."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No moralising or preachy tone."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Math problem with a clear objective calculation."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect consequences describe the physical distribution of pebbles without judging the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No psychological or therapeutic terminology used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Familiar names and everyday neighbourhood play setting."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Passes as no construct was specified."
+            }
+          }
+        },
+        "maxSimilarity": 0.8315855270970773,
+        "mostSimilarId": "pz-math-01"
+      }
+    },
+    {
+      "id": "gen-pz-mvbjzgnba077",
+      "kind": "puzzle",
+      "title": "Juice on the trip",
+      "text": "During a rest stop on their school trip, Thomas and Diya offer to buy juice for their six-member group. A pack of 6 bottles costs ₹150, but the shopkeeper gives a school discount of ₹30. If all 6 friends split the final bill equally, how much does each person need to contribute?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 56,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "fairness",
+        "planning"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "₹20",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Everyone chips in ₹20, and the bill is settled smoothly."
+        },
+        {
+          "id": "b",
+          "text": "₹25",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "That divides the full ₹150 without subtracting the discount."
+        },
+        {
+          "id": "c",
+          "text": "₹30",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "That totals ₹180, collecting more than the original price."
+        },
+        {
+          "id": "d",
+          "text": "₹15",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "That leaves the group ₹30 short at the counter."
+        }
+      ],
+      "hint": {
+        "text": "What is the total price after subtracting the discount?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "a",
+        "explanation": "Subtracting the ₹30 discount from ₹150 leaves ₹120. Divided equally among 6 friends, ₹120 / 6 is ₹20 each.",
+        "computation": "(150 - 30) / 6"
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-math-05",
+        "pz-math-04",
+        "pz-math-06"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvb12i8e8a0b",
+        "gen-pz-mvb0oa43b18e",
+        "pz-math-04"
+      ],
+      "createdAt": "2026-10-16T22:42:37.704Z",
+      "pipeline": {
+        "runId": "20261016T224211-44ae",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "math",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "To solve this two-step math problem, subtract the discount from the original price (₹150 - ₹30 = ₹120) and divide the final bill by 6 (₹120 / 6 = ₹20). This is straightforward for children aged 11-14. As a standard math word problem, SEL competencies are not directly applicable.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Simple, culturally grounded math puzzle with clear steps.",
+            "Consequences and explanation are gentle, factual, and supportive."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences explain the arithmetic outcome cleanly without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Grounded and practical scenario."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Focuses purely on the problem-solving task without moralising."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Mathematical problem with a single definite correct answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Wrong answer explanations clarify the mathematical step missed without condescension."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of clinical or therapeutic framing."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Splitting the bill for juice on a school trip is completely natural and relatable."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct required for math puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8764796213122594,
+        "mostSimilarId": "gen-pz-mvb12i8e8a0b"
+      }
+    },
+    {
+      "id": "gen-pz-mvbjzv21c904",
+      "kind": "puzzle",
+      "title": "Drill on the Track",
+      "text": "During football conditioning, Coach asks Gurpreet to complete 4 sets of shuttle sprints. Each set covers 100 metres. Gurpreet runs at a steady pace of 5 metres per second. Coach insists on a 30-second breather between sets, but no break is needed after the final set ends. How many total seconds will Gurpreet need to finish the entire drill?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 63,
+      "expectedTimeSec": 45,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement"
+      ],
+      "valueTags": [
+        "focus",
+        "perseverance"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "80",
+          "consequence": "That only counts the running time without any breathers."
+        },
+        {
+          "id": "b",
+          "text": "140",
+          "consequence": "That only accounts for two breathers instead of three."
+        },
+        {
+          "id": "c",
+          "text": "170",
+          "consequence": "Coach clicks the stopwatch right as Gurpreet crosses the line."
+        },
+        {
+          "id": "d",
+          "text": "200",
+          "consequence": "That adds an extra rest break after the drill is already over."
+        }
+      ],
+      "hint": {
+        "text": "How many breaks happen between 4 sets?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "c",
+        "explanation": "Each set takes 100 / 5 = 20 seconds, so 4 sets take 80 seconds. There are 3 breaks between 4 sets (3 * 30 = 90 seconds). 80 + 90 = 170 seconds.",
+        "computation": "4 * (100 / 5) + (4 - 1) * 30"
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-math-05",
+        "pz-math-06",
+        "pz-math-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvb13f4m1e28",
+        "gen-sit-mvbjqwjp0155",
+        "gen-pz-mvb0oa43b18e"
+      ],
+      "createdAt": "2026-10-16T22:42:56.377Z",
+      "pipeline": {
+        "runId": "20261016T224211-44ae",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "math",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Each 100m set takes 20 seconds to run (100 / 5), giving 80 seconds of total running time across 4 sets. With 3 rest periods of 30 seconds between the 4 sets, the total rest time is 90 seconds, making the overall total 170 seconds.",
+          "solvedOptionId": "c"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clean, well-constructed word problem highlighting the fencepost concept in sports practice.",
+            "Gentle, informative feedback on each distracter without shaming the player.",
+            "Culturally familiar and relatable context for Indian school children."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences plainly state where the calculation went off or celebrate timing without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Realistic athletic training scenario with natural pacing."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Clear mathematical reasoning with no moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Pure math puzzle with a uniquely correct computational solution."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Error consequences guide the thinking gently rather than belittling mistakes."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No psychological or therapeutic claims."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Gurpreet doing track drills is culturally authentic and relatable."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct targeted."
+            }
+          }
+        },
+        "maxSimilarity": 0.8199437678808341,
+        "mostSimilarId": "gen-sit-mvb13f4m1e28"
+      }
+    },
+    {
+      "id": "gen-pz-mvbjzygo61c3",
+      "kind": "puzzle",
+      "title": "Paper Stars for the Wall",
+      "text": "Ishita and Harsh are folding paper stars to decorate the living room. Ishita folds 5 stars every hour, and Harsh folds 4 stars every hour. Working together, how many hours will it take them to make 45 stars?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 46,
+      "expectedTimeSec": 30,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement"
+      ],
+      "valueTags": [
+        "teamwork",
+        "patience"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "4 hours",
+          "consequence": "They only have 36 stars folded so far."
+        },
+        {
+          "id": "b",
+          "text": "5 hours",
+          "consequence": "All 45 stars are ready to hang up!"
+        },
+        {
+          "id": "c",
+          "text": "9 hours",
+          "consequence": "That is how long Ishita would take completely on her own."
+        },
+        {
+          "id": "d",
+          "text": "10 hours",
+          "consequence": "They would end up folding twice as many stars as they need."
+        }
+      ],
+      "hint": {
+        "text": "First add up how many stars they can finish together in one hour."
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "Together they fold 5 + 4 = 9 stars each hour. To reach 45 stars, it takes 45 ÷ 9 = 5 hours.",
+        "computation": "45 / (5 + 4)"
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-math-03",
+        "pz-math-02",
+        "pz-math-01"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvb12i8e8a0b",
+        "gen-pz-mvb0oa43b18e",
+        "pz-math-02"
+      ],
+      "createdAt": "2026-10-16T22:43:00.792Z",
+      "pipeline": {
+        "runId": "20261016T224211-44ae",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "math",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a standard two-step math word problem for 8-10 year olds. First, combine their folding rates (5 + 4 = 9 stars/hour), then divide the total stars by the rate (45 / 9 = 5 hours). The text is clear and accessible.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clear, gentle math puzzle with realistic joint-effort premise.",
+            "Hint guides problem-solving steps without giving away the calculation."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences plainly state the resulting number of stars without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Natural framing without forced cheer or emotional bypass."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Focuses on the task outcome rather than lecturing about cooperation."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "A concrete arithmetic problem with a clear correct answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Wrong answer consequences describe the math outcome neutrally."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical or diagnostic language present."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Familiar names and realistic craft activity for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Puzzle item with no target construct specified."
+            }
+          }
+        },
+        "maxSimilarity": 0.8201995956430403,
+        "mostSimilarId": "gen-pz-mvb12i8e8a0b"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk09toeb97",
+      "kind": "puzzle",
+      "title": "Boundary Markers",
+      "text": "Lakshmi and Arnav are setting up cones along the 200-metre sprint track in the school playground for sports day. They place a cone right at the start line, and then one cone every 8 metres all the way to the finish line. How many cones do they place in total?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 54,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "teamwork",
+        "planning"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "24",
+          "consequence": "They stop short before reaching the finish line."
+        },
+        {
+          "id": "b",
+          "text": "25",
+          "consequence": "The gaps are right, but the starting line is left empty."
+        },
+        {
+          "id": "c",
+          "text": "26",
+          "consequence": "The entire track is marked clearly from start to finish."
+        },
+        {
+          "id": "d",
+          "text": "27",
+          "consequence": "There is an extra cone sitting past the finish line."
+        }
+      ],
+      "hint": {
+        "text": "How many gaps are there, and did you count the very first cone?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "c",
+        "explanation": "200 ÷ 8 gives 25 spaces between cones. Adding the cone at the start line means 25 + 1 = 26 cones.",
+        "computation": "200 / 8 + 1"
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-math-04",
+        "pz-math-05",
+        "pz-math-06"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbjzce801c6",
+        "gen-pz-mvbjzv21c904",
+        "gen-pz-mvb0oa43b18e"
+      ],
+      "createdAt": "2026-10-16T22:43:15.516Z",
+      "pipeline": {
+        "runId": "20261016T224211-44ae",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "math",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a classic fencepost math problem where students must divide 200 by 8 to get 25 intervals, then add 1 for the cone at the start line (option c). It tests arithmetic and attention to boundary conditions. The off-by-one distractor (25) makes it moderately challenging for the 11-14 age band.",
+          "solvedOptionId": "c"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "A clean, classic fencepost math puzzle grounded in a familiar Indian school sports day setting.",
+            "Consequences clearly and concretely describe the physical result of each calculation without judgment.",
+            "The hint offers a helpful conceptual nudge without revealing the answer."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences accurately reflect what happens on the track with each cone count."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Realistic tone without emotional bypass."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No moralising or preachy language."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Math problem with a clear correct answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options explain the spatial outcome gently without shaming."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical or diagnostic framing."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Setting up the track for sports day is very relatable for Indian school students."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct required for this puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8761334041229619,
+        "mostSimilarId": "gen-pz-mvbjzce801c6"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk0c2t6237",
+      "kind": "puzzle",
+      "title": "Sketch pens in the chat",
+      "text": "In the class group chat, Irfan writes that their project team needs 20 sketch pens. They already have 8 pens in their kit. If 3 classmates bring the rest equally, how many pens should each classmate bring?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 41,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "teamwork",
+        "cooperation"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "3",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "The team is still three pens short."
+        },
+        {
+          "id": "b",
+          "text": "4",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "The team collects exactly enough pens for the project."
+        },
+        {
+          "id": "c",
+          "text": "6",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "The team ends up with more pens than needed."
+        },
+        {
+          "id": "d",
+          "text": "12",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "That is the total needed, not each person's share."
+        }
+      ],
+      "hint": {
+        "text": "How many more pens do they need before dividing by 3?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "They need 20 − 8 = 12 more pens. Divided equally among 3 classmates, 12 ÷ 3 = 4 pens each.",
+        "computation": "(20 - 8) / 3"
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-math-02",
+        "pz-math-03",
+        "pz-math-01"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvb12i8e8a0b",
+        "pz-math-04",
+        "gen-pz-mvb0oa43b18e"
+      ],
+      "createdAt": "2026-10-16T22:43:18.437Z",
+      "pipeline": {
+        "runId": "20261016T224211-44ae",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "math",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "To solve the puzzle, subtract the 8 existing sketch pens from the 20 needed to find that 12 pens are still required (20 - 8 = 12). Dividing 12 by the 3 classmates shows that each classmate must bring 4 pens (12 / 3 = 4). This multi-step math word problem is appropriate for 8-10 year olds.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clean, age-appropriate multi-step math puzzle with an engaging school context.",
+            "Helpful, non-revealing hint and kind explanation.",
+            "Gentle and realistic consequences for incorrect arithmetic options."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences accurately and matter-of-factly reflect the arithmetic result."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "No emotional bypassing or exaggerated emotional reactions."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Focuses purely on the problem-solving task without moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Math puzzle with an objectively correct answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect consequences describe the pen count rather than judging the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Contains no therapeutic language or clinical advice."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Sketch pens and class group chats for school projects are very familiar to Indian schoolchildren."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No research construct required for this math puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8849210935651518,
+        "mostSimilarId": "gen-pz-mvb12i8e8a0b"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk0inm2810",
+      "kind": "puzzle",
+      "title": "Packing the Cookies",
+      "text": "Vikram and Kavya bake 30 cookies at home. Vikram eats 2 warm cookies, and Kavya eats 4. They pack the rest equally into 4 gift boxes for their cousins. How many cookies go into each box?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 40,
+      "expectedTimeSec": 45,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "fairness",
+        "sharing"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "5",
+          "consequence": "Four cookies are left behind on the cooling tray."
+        },
+        {
+          "id": "b",
+          "text": "6",
+          "consequence": "Each box is filled evenly with none left over."
+        },
+        {
+          "id": "c",
+          "text": "7",
+          "consequence": "They run out of cookies before filling the fourth box."
+        },
+        {
+          "id": "d",
+          "text": "8",
+          "consequence": "That would need more cookies than they have left."
+        }
+      ],
+      "hint": {
+        "text": "How many cookies are left after Vikram and Kavya eat theirs?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "They eat 2 + 4 = 6 cookies, leaving 30 − 6 = 24. Dividing 24 equally among 4 boxes gives 6 cookies per box.",
+        "computation": "(30 - 2 - 4) / 4"
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-math-02",
+        "pz-math-03",
+        "pz-math-01"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "pz-math-01",
+        "gen-pz-mvbjzdl268c0",
+        "gen-pz-mvbjzgnba077"
+      ],
+      "createdAt": "2026-10-16T22:43:26.963Z",
+      "pipeline": {
+        "runId": "20261016T224211-44ae",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "math",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a simple two-step math word problem for 8-10 year olds. First subtract the eaten cookies (30 - 6 = 24) and then divide by the number of boxes (24 / 4 = 6).",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Engaging, age-appropriate multi-step math puzzle that ties naturally into sharing and fairness.",
+            "Gentle hint and clear, encouraging consequences."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences realistically describe remaining or missing cookies without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Warm and realistic context of baking and sharing treats."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Free of lectures or moralizing tone."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Math problem has a clear objective correct answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options neutrally describe arithmetic discrepancies."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language or therapeutic overtones."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Culturally authentic names and relatable domestic scene of sharing treats with cousins."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct required for this math puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8595140693844597,
+        "mostSimilarId": "pz-math-01"
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "gen-pz-mvbjztztac53",
+      "runId": "20261016T224211-44ae",
+      "target": {
+        "kind": "puzzle",
+        "ageBand": "11-14",
+        "domain": "math",
+        "difficulty": 4
+      },
+      "stage": "rules",
+      "reasons": [
+        "The hint gives away the answer"
+      ],
+      "createdAt": "2026-10-16T22:42:55.001Z",
+      "candidate": {
+        "kind": "puzzle",
+        "title": "Laps on the Playground Track",
+        "text": "During sports practice in the school playground, Divya and Thomas run laps around the track. Divya completes one lap in 60 seconds, while Thomas takes 90 seconds. If they start together from the starting line and keep their steady paces in the same direction, after how many seconds will Divya first catch up to Thomas from behind?",
+        "ageBand": "11-14",
+        "primaryCompetencies": [
+          "selfManagement"
+        ],
+        "valueTags": [
+          "focus",
+          "patience"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "150",
+            "consequence": "Divya is ahead, but she hasn't quite caught up to him yet."
+          },
+          {
+            "id": "b",
+            "text": "180",
+            "consequence": "Divya pulls level with Thomas right as she finishes her third lap!"
+          },
+          {
+            "id": "c",
+            "text": "240",
+            "consequence": "She already passed him earlier and is pulling ahead again."
+          },
+          {
+            "id": "d",
+            "text": "270",
+            "consequence": "That would be after three of Thomas's full laps, well past their first meetup."
+          }
+        ],
+        "hint": {
+          "text": "Think about how many laps each runner completes in 180 seconds."
+        },
+        "puzzle": {
+          "domain": "math",
+          "correctOptionId": "b",
+          "explanation": "In 180 seconds, Divya completes 3 full laps (180 ÷ 60) and Thomas completes 2 full laps (180 ÷ 90), so Divya laps him exactly at the mark.",
+          "computation": "(60 * 90) / (90 - 60)"
+        }
+      }
+    }
+  ]
+}

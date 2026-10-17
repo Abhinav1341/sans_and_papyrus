@@ -1,0 +1,1148 @@
+{
+  "summary": {
+    "runId": "20261016T224329-5b4d",
+    "startedAt": "2026-10-16T22:43:29.368Z",
+    "finishedAt": "2026-10-16T22:45:10.229Z",
+    "requested": 10,
+    "accepted": 8,
+    "rejectedByStage": {
+      "duplicate": 1,
+      "rules": 1
+    },
+    "acceptedByCategory": {
+      "puzzle:reasoning": 8
+    },
+    "models": {
+      "generator": "gemini-3.8-flash",
+      "grader": "gemini-3.6-flash",
+      "curator": "gemini-3.8-flash",
+      "embedding": "gemini-embedding-001"
+    },
+    "usage": {
+      "gemini-3.8-flash": {
+        "calls": 18,
+        "inputTokens": 53466,
+        "outputTokens": 7061,
+        "thinkingTokens": 15328
+      },
+      "gemini-embedding-001": {
+        "calls": 9,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thinkingTokens": 0
+      },
+      "gemini-3.6-flash": {
+        "calls": 8,
+        "inputTokens": 9899,
+        "outputTokens": 762,
+        "thinkingTokens": 4642
+      }
+    },
+    "estimatedCostUsd": 0.12405825
+  },
+  "accepted": [
+    {
+      "id": "gen-pz-mvbk12bz3d29",
+      "kind": "puzzle",
+      "title": "The Quest Door Keys",
+      "text": "Aarav and Ishita need three keys to unlock an online game gate: Blue, Green, and Gold. The Blue key goes in before the Green key. The Gold key goes in before the Blue key. Which key must they use first?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 46,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [],
+      "valueTags": [
+        "logic",
+        "problem solving"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Blue key",
+          "consequence": "The gate stays locked because another key comes before Blue."
+        },
+        {
+          "id": "b",
+          "text": "Green key",
+          "consequence": "The gate buzzes because Green must go in after Blue."
+        },
+        {
+          "id": "c",
+          "text": "Gold key",
+          "consequence": "The gate clicks open on their first try!"
+        }
+      ],
+      "hint": {
+        "text": "Which key has to go in even before the Blue one?"
+      },
+      "puzzle": {
+        "domain": "reasoning",
+        "correctOptionId": "c",
+        "explanation": "Gold goes before Blue, and Blue goes before Green. That puts Gold first in line."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-reason-02",
+        "pz-reason-01",
+        "pz-reason-03"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjqg6lca28",
+        "pz-reason-02",
+        "gen-sit-mvbjma8555a1"
+      ],
+      "createdAt": "2026-10-16T22:43:52.464Z",
+      "pipeline": {
+        "runId": "20261016T224329-5b4d",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "reasoning",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a basic logic puzzle requiring two relational steps to solve: Gold goes before Blue, and Blue goes before Green, meaning Gold is used first. It does not test SEL skills, so option scores are omitted.",
+          "solvedOptionId": "c"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "A clean, engaging relational logic puzzle that fits the seed examples well.",
+            "Gentle explanation and encouraging, non-shaming feedback for incorrect options."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences realistically reflect game mechanics without exaggerated outcomes."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Natural framing for a lighthearted gaming puzzle."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Presents a simple logic challenge without any moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Single correct answer fits a formal transitive logic puzzle."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect consequences are factual feedback without criticism."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Purely a reasoning puzzle; no therapeutic themes present."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Relatable context of online games with familiar names (Aarav, Ishita)."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct specified; puzzle assesses reasoning clearly."
+            }
+          }
+        },
+        "maxSimilarity": 0.8500212483489117,
+        "mostSimilarId": "gen-sit-mvbjqg6lca28"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk13u9a5b1",
+      "kind": "puzzle",
+      "title": "The Carrom Clue",
+      "text": "At their cousin's house, Kavya posts a riddle in the cousins' group chat to find the carrom board:\n\n'It is kept in either the study, the veranda, or the storeroom. It is on the ground floor, but not in any room that has a fan.'\n\nKarthik checks the rooms:\n• The study is upstairs.\n• The veranda has a ceiling fan.\n\nWhere did Kavya put the carrom board?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 74,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "logic",
+        "problemSolving"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "The study",
+          "consequence": "Karthik heads upstairs, but the study is on the first floor."
+        },
+        {
+          "id": "b",
+          "text": "The veranda",
+          "consequence": "Karthik checks the veranda, but the whirring ceiling fan rules it out."
+        },
+        {
+          "id": "c",
+          "text": "The storeroom",
+          "consequence": "Karthik opens the storeroom door and finds the carrom board leaning against the shelf."
+        }
+      ],
+      "hint": {
+        "text": "Which room meets both conditions: downstairs and without a fan?"
+      },
+      "puzzle": {
+        "domain": "reasoning",
+        "correctOptionId": "c",
+        "explanation": "The study is upstairs, so it cannot be the room. The veranda has a fan, which eliminates it. That leaves only the storeroom."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-reason-04",
+        "pz-reason-05",
+        "pz-reason-06"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjm49cd04f",
+        "gen-sit-mvbjfnp37afb",
+        "gen-sit-mvbjshlm0ddd"
+      ],
+      "createdAt": "2026-10-16T22:43:54.417Z",
+      "pipeline": {
+        "runId": "20261016T224329-5b4d",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "reasoning",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This straightforward logic puzzle requires two steps of elimination to rule out the study and veranda. Because it is a purely cognitive reasoning puzzle, no SEL competencies are scored. The correct location is the storeroom.",
+          "solvedOptionId": "c"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "A clean, culturally authentic elimination puzzle using familiar household details.",
+            "The hint nudges effectively without giving away the answer, and the explanation is clear and kind."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences realistically describe checking each room based on the clues."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Standard reasoning puzzle without forced emotional arcs."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No moralizing or lecturing present."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Deductive reasoning puzzle appropriately has one exact answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Wrong options are corrected neutrally without negative judgment."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No medical or therapy language."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Carrom, verandas, storerooms, and cousin chats are relatable and common in Indian homes."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No research construct specified for this reasoning puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8361467433120566,
+        "mostSimilarId": "gen-sit-mvbjm49cd04f"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk1lfnf997",
+      "kind": "puzzle",
+      "title": "The Photo Stool",
+      "text": "At the wedding photobooth, Ishita wears a red dupatta. Vikram wears a blue kurta. Arnav wears a green jacket. The cousin standing on the wooden stool wears a green jacket. Who is on the stool?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 38,
+      "expectedTimeSec": 20,
+      "difficulty": 1,
+      "primaryCompetencies": [],
+      "valueTags": [
+        "logic",
+        "observation"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Vikram",
+          "consequence": "Vikram is wearing the blue kurta."
+        },
+        {
+          "id": "b",
+          "text": "Arnav",
+          "consequence": "Arnav smiles from the top of the stool in his green jacket!"
+        },
+        {
+          "id": "c",
+          "text": "Ishita",
+          "consequence": "Ishita is wearing the red dupatta."
+        }
+      ],
+      "hint": {
+        "text": "Which cousin is wearing green?"
+      },
+      "puzzle": {
+        "domain": "reasoning",
+        "correctOptionId": "b",
+        "explanation": "Arnav is wearing the green jacket, so Arnav is standing on the stool."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-reason-02",
+        "pz-reason-03",
+        "pz-reason-01"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjmrkb79d1",
+        "gen-sit-mvbjq0ni29f8",
+        "gen-sit-mvbjjr5mc134"
+      ],
+      "createdAt": "2026-10-16T22:44:17.219Z",
+      "pipeline": {
+        "runId": "20261016T224329-5b4d",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "reasoning",
+          "difficulty": 1
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a simple single-step logic puzzle that involves direct matching of clue details (green jacket). Since Arnav is explicitly stated as wearing a green jacket, he is the cousin standing on the stool. There are no social-emotional competencies tested here.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Simple, clear deduction puzzle perfectly suited for 8-10 year olds.",
+            "Culturally familiar and relatable context without any stereotyping.",
+            "Gentle explanation and nudge hint."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences plainly state each person's outfit without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Not applicable for a straightforward deductive puzzle."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Presents a simple observation task with no moralising."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Single correct answer fits a direct logic puzzle."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect consequences are factual reminders rather than reproaches."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No psychological or therapeutic content."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Dupatta, kurta, and wedding photobooth are natural and real for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Pass because no specific research construct is required for this puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8316584172971461,
+        "mostSimilarId": "gen-sit-mvbjmrkb79d1"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk1qz6a595",
+      "kind": "puzzle",
+      "title": "Sprint Timings",
+      "text": "At sprint practice, four runners timed their laps. Divya wore blue and Mehul wore red; the other two runners wore green and yellow. Looking at the coach's board: Divya finished ahead of Mehul. Mehul did not finish last. The runner in third place wore green. Who finished in second place?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 60,
+      "expectedTimeSec": 40,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "logic",
+        "focus"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Divya",
+          "consequence": "Divya was ahead of Mehul, placing her in first."
+        },
+        {
+          "id": "b",
+          "text": "Mehul",
+          "consequence": "Mehul eliminates third and last place, leaving him in second."
+        },
+        {
+          "id": "c",
+          "text": "The runner in green",
+          "consequence": "The board confirms the runner in green took third."
+        },
+        {
+          "id": "d",
+          "text": "The runner in yellow",
+          "consequence": "Yellow ended up taking fourth place."
+        }
+      ],
+      "hint": {
+        "text": "Rule out which positions Mehul cannot possibly be in."
+      },
+      "puzzle": {
+        "domain": "reasoning",
+        "correctOptionId": "b",
+        "explanation": "Mehul wore red, so he was not third (green). He was not fourth (last). Because Divya was ahead of him, he cannot be first either. That leaves Mehul in second place."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-reason-06",
+        "pz-reason-05",
+        "pz-reason-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbjzv21c904",
+        "gen-pz-mvbk09toeb97",
+        "pz-reason-02"
+      ],
+      "createdAt": "2026-10-16T22:44:24.402Z",
+      "pipeline": {
+        "runId": "20261016T224329-5b4d",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "reasoning",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Mehul cannot be 4th (stated) or 3rd (3rd place wore green, whereas Mehul wore red). Since Divya finished ahead of Mehul, Mehul cannot be 1st either, leaving 2nd place for Mehul. This requires two logical elimination steps appropriate for middle school students.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clean logic puzzle with a single solvable deduction",
+            "Gentle explanation and helpful nudge hint appropriate for age band 11-14"
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Passes; consequences clearly explain the placement based on deduction."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Passes; standard logic puzzle with no emotional bypassing."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Passes; objective logic puzzle without moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Passes; deductive reasoning yields exactly one valid position for Mehul."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Passes; no shaming in any option or consequence."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Passes; free of therapeutic jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Passes; familiar sprint practice context with Indian names."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Passes; no construct required for this puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.850680424341199,
+        "mostSimilarId": "gen-pz-mvbjzv21c904"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk23jqbd47",
+      "kind": "puzzle",
+      "title": "Bibs for Practice",
+      "text": "At sports practice, Divya and Uday pick bibs from a box. The box has three colours: green, orange, and blue. Uday takes the blue bib. Divya does not want the orange bib. Which bib does Divya choose?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 40,
+      "expectedTimeSec": 20,
+      "difficulty": 2,
+      "primaryCompetencies": [],
+      "valueTags": [
+        "logic"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Green",
+          "consequence": "Divya pulls the green bib over her shirt."
+        },
+        {
+          "id": "b",
+          "text": "Orange",
+          "consequence": "Divya decided not to pick the orange bib."
+        },
+        {
+          "id": "c",
+          "text": "Blue",
+          "consequence": "Uday already took the blue bib."
+        }
+      ],
+      "hint": {
+        "text": "Which colour did Uday take, and which colour did Divya say no to?"
+      },
+      "puzzle": {
+        "domain": "reasoning",
+        "correctOptionId": "a",
+        "explanation": "Uday took the blue bib, leaving green and orange. Since Divya did not want orange, she chose green."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-reason-02",
+        "pz-reason-01",
+        "pz-reason-03"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbk1qz6a595",
+        "gen-pz-mvbk12bz3d29",
+        "gen-sit-mvbjjsx1fcf5"
+      ],
+      "createdAt": "2026-10-16T22:44:40.694Z",
+      "pipeline": {
+        "runId": "20261016T224329-5b4d",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "reasoning",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This puzzle requires a simple two-step process of elimination: since Uday takes blue and Divya rejects orange, she must choose green. The text is brief and easy to read for children aged 8 to 10.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Simple, accessible logic puzzle fitting the 8-10 age band.",
+            "Gentle, clear hint and explanation with realistic framing."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences plainly state what happens without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Realistic and appropriate for a sports practice logic puzzle."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No preachy moralizing; stays focused on the reasoning task."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "The logic problem has exactly one sound deductive solution."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options guide kindly without negative judgment."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language or therapeutic overreach."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Names and sports practice setting are natural for Indian school contexts."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct specified; puzzle logic is clean."
+            }
+          }
+        },
+        "maxSimilarity": 0.8856183707842341,
+        "mostSimilarId": "gen-pz-mvbk1qz6a595"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk2bgl3533",
+      "kind": "puzzle",
+      "title": "Flashlight lineup in the dark",
+      "text": "During a sudden power cut at home, Karthik and Ravi line up four flashlights in a row on the table from left to right: Amber, Blue, Green, and Red.\n\n• The Red flashlight is at an outer end, but not the far right.\n• The Amber flashlight is placed directly between Red and Blue.\n• The Blue flashlight sits to the left of the Green flashlight.\n\nWhich flashlight is in the third position from the left?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 80,
+      "expectedTimeSec": 30,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "logic",
+        "problemSolving"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Amber",
+          "consequence": "Amber sits second, right between Red and Blue."
+        },
+        {
+          "id": "b",
+          "text": "Blue",
+          "consequence": "Karthik clicks the third switch and a bright blue beam cuts through the dark."
+        },
+        {
+          "id": "c",
+          "text": "Green",
+          "consequence": "Green must sit at the far right end in fourth place."
+        },
+        {
+          "id": "d",
+          "text": "Red",
+          "consequence": "Red is placed first on the far left."
+        }
+      ],
+      "hint": {
+        "text": "Find where Red must go first, then check which flashlights must flank Amber."
+      },
+      "puzzle": {
+        "domain": "reasoning",
+        "correctOptionId": "b",
+        "explanation": "Since Red is at an end but not on the far right, Red is first. Amber sits between Red and Blue, placing Amber second and Blue third. Green goes fourth, keeping Blue to its left."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-reason-06",
+        "pz-reason-05",
+        "pz-reason-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbk1qz6a595",
+        "gen-pz-mvbk12bz3d29",
+        "gen-pz-mvbk13u9a5b1"
+      ],
+      "createdAt": "2026-10-16T22:44:50.949Z",
+      "pipeline": {
+        "runId": "20261016T224329-5b4d",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "reasoning",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This logic puzzle uses straightforward deductive steps suitable for ages 11-14. By placing Red at the far left (position 1), Amber directly next in position 2, and Blue in position 3, the third position is clearly identified as Blue.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clear, engaging logic puzzle set in a relatable everyday context (a power cut).",
+            "Hints and explanations are gentle, step-by-step, and mathematically sound.",
+            "Consequences for incorrect choices clarify the logic kindly without shaming."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences plainly describe flashlight placement without exaggerations."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "No forced emotional bypass; fits the logic puzzle genre well."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Presents a clean deductive challenge without moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Clear single deductive solution based on explicit positional clues."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options guide the reasoning gently without critical remarks."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical terminology or therapeutic framing."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "A power cut at home is completely familiar and culturally authentic for children in India."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct specified for this reasoning puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8388725686517733,
+        "mostSimilarId": "gen-pz-mvbk1qz6a595"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk2haz13e1",
+      "kind": "puzzle",
+      "title": "Slippers by the Door",
+      "text": "At his cousin's house, Rahul lines up four pairs of slippers: blue, red, yellow, and green. The green pair is at the far right. The red pair is right next to green. The blue pair is not next to red. Which pair is at the far left?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 51,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "logic",
+        "deduction"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Blue",
+          "consequence": "Rahul places the blue slippers right at the far left."
+        },
+        {
+          "id": "b",
+          "text": "Red",
+          "consequence": "The red slippers must sit beside the green ones instead."
+        },
+        {
+          "id": "c",
+          "text": "Yellow",
+          "consequence": "The yellow pair fits into the second spot beside red."
+        },
+        {
+          "id": "d",
+          "text": "Green",
+          "consequence": "The green slippers are already at the far right."
+        }
+      ],
+      "hint": {
+        "text": "Where does the green pair go first, and who can sit next to red?"
+      },
+      "puzzle": {
+        "domain": "reasoning",
+        "correctOptionId": "a",
+        "explanation": "Green is in spot 4 and red is in spot 3. Because blue cannot touch red, blue must go to spot 1 at the far left."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-reason-03",
+        "pz-reason-01",
+        "pz-reason-02"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbk1qz6a595",
+        "gen-pz-mvbk12bz3d29",
+        "gen-pz-mvbk1lfnf997"
+      ],
+      "createdAt": "2026-10-16T22:44:58.523Z",
+      "pipeline": {
+        "runId": "20261016T224329-5b4d",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "reasoning",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This logic puzzle requires step-by-step spatial elimination: Green is in spot 4, Red is in spot 3, and since Blue cannot be in spot 2 next to Red, Blue must be in spot 1 at the far left. This multi-step reasoning is appropriately challenging for 8-10 year olds.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clean, culturally relatable logic deduction puzzle suitable for Indian households.",
+            "The hint nudges without giving away the answer.",
+            "Explanation is simple, kind, and clearly steps through the reasoning."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences plainly state placement without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Neutral and factual logic puzzle consequences."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No moralizing or lecturing present."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Single clear deductive answer fits the logic puzzle premise."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Gentle explanations without shame for incorrect options."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Contains no clinical or therapy concepts."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Lining up slippers by the door is everyday and authentic for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No specific research construct specified for this puzzle item."
+            }
+          }
+        },
+        "maxSimilarity": 0.8441569992458867,
+        "mostSimilarId": "gen-pz-mvbk1qz6a595"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk2q5tefcf",
+      "kind": "puzzle",
+      "title": "The Festival Mystery Bags",
+      "text": "At the colony festival celebration, Nikhil and Harsh stand before a game stall. Three gift bags—Blue, Orange, and Green—sit on the counter. Exactly one bag contains the prize token.\n\nThe tags read:\n• Blue bag: \"The token is not in this bag.\"\n• Orange bag: \"The token is not in the Green bag.\"\n• Green bag: \"The token is in this bag.\"\n\nThe stallkeeper smiles: \"Only one tag tells the truth; the other two are false.\"\n\nWhich bag contains the token?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 95,
+      "expectedTimeSec": 75,
+      "difficulty": 3,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "logic",
+        "criticalThinking"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "The Blue bag",
+          "consequence": "Nikhil opens the Blue bag and pulls out the shining prize token!"
+        },
+        {
+          "id": "b",
+          "text": "The Orange bag",
+          "consequence": "If the token were in Orange, both Blue and Orange tags would be telling the truth."
+        },
+        {
+          "id": "c",
+          "text": "The Green bag",
+          "consequence": "If the token were in Green, both Blue and Green tags would be telling the truth."
+        },
+        {
+          "id": "d",
+          "text": "It is impossible to tell",
+          "consequence": "Testing each bag one by one reveals a single logical answer."
+        }
+      ],
+      "hint": {
+        "text": "Test each bag one by one. If the token were in that bag, how many tags would be true?"
+      },
+      "puzzle": {
+        "domain": "reasoning",
+        "correctOptionId": "a",
+        "explanation": "If the token is in Orange or Green, Blue's tag is automatically true, making at least two tags true. Only if the token is in Blue is exactly one tag true: Orange's."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-reason-05",
+        "pz-reason-04",
+        "pz-reason-06"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbk12bz3d29",
+        "gen-pz-mvbk23jqbd47",
+        "gen-pz-mvbk1lfnf997"
+      ],
+      "createdAt": "2026-10-16T22:45:10.001Z",
+      "pipeline": {
+        "runId": "20261016T224329-5b4d",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "reasoning",
+          "difficulty": 4
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "To solve this logic puzzle, children must evaluate the truth value of each tag. Since the Orange tag ('not in Green') and Green tag ('in Green') are direct opposites, exactly one of them must be true. Because only one tag overall is true, the Blue tag ('not in Blue') must be false, meaning the token is in the Blue bag.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "A clean, well-constructed logic puzzle that fits the established house style.",
+            "The reasoning is logically sound and the explanation is clear and respectful.",
+            "The colony festival setting is relatable and culturally natural for Indian children."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences objectively explain why wrong choices fail the logic condition without drama."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Neutral and engaging tone suitable for a mathematical/deductive reasoning puzzle."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No moralizing or preaching; strictly focuses on deduction."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "A logic puzzle has one definitively correct answer, which is correctly identified."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options guide the child through the logical contradiction kindly."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Purely a reasoning puzzle; no therapeutic or diagnostic elements."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Colony festival game stall is a familiar and joyful setting."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct specified for this reasoning puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8497914664423052,
+        "mostSimilarId": "gen-pz-mvbk12bz3d29"
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "gen-pz-mvbk1e3u7170",
+      "runId": "20261016T224329-5b4d",
+      "target": {
+        "kind": "puzzle",
+        "ageBand": "8-10",
+        "domain": "reasoning",
+        "difficulty": 3
+      },
+      "stage": "duplicate",
+      "reasons": [
+        "Too similar to gen-pz-mvbk12bz3d29 (similarity 0.942)"
+      ],
+      "createdAt": "2026-10-16T22:44:07.722Z",
+      "candidate": {
+        "kind": "puzzle",
+        "title": "Three Digital Gates",
+        "text": "In an online quest, Esha needs to open three digital gates: Red, Blue, and Green. The clue says: 'The Red gate opens after the Blue gate. The Green gate opens before the Blue gate.' Which gate opens first?",
+        "ageBand": "8-10",
+        "primaryCompetencies": [
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "logic",
+          "problem solving"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Red gate",
+            "consequence": "The Red gate opens after the Blue gate, so it cannot be first."
+          },
+          {
+            "id": "b",
+            "text": "Blue gate",
+            "consequence": "The Blue gate comes after the Green gate."
+          },
+          {
+            "id": "c",
+            "text": "Green gate",
+            "consequence": "The Green gate opens first, followed by Blue and then Red."
+          }
+        ],
+        "hint": {
+          "text": "Put the gates in order: which one comes before the Blue gate?"
+        },
+        "puzzle": {
+          "domain": "reasoning",
+          "correctOptionId": "c",
+          "explanation": "Green opens before Blue, and Red opens after Blue. That gives the order Green, Blue, Red. So the Green gate opens first."
+        }
+      },
+      "maxSimilarity": 0.9423228376359547,
+      "mostSimilarId": "gen-pz-mvbk12bz3d29"
+    },
+    {
+      "id": "gen-pz-mvbk1rhbbfb7",
+      "runId": "20261016T224329-5b4d",
+      "target": {
+        "kind": "puzzle",
+        "ageBand": "11-14",
+        "domain": "reasoning",
+        "difficulty": 4
+      },
+      "stage": "rules",
+      "reasons": [
+        "The hint gives away the answer"
+      ],
+      "createdAt": "2026-10-16T22:44:25.055Z",
+      "candidate": {
+        "kind": "puzzle",
+        "title": "The Park Bench Boxes",
+        "text": "In the neighbourhood park, Anjali and Divya find three sports boxes on a bench: Red, Green, and Blue. Exactly one box holds the badminton shuttles.\n\nEach box has a label:\n• Red box: \"The shuttles are in this box.\"\n• Green box: \"The shuttles are not in this box.\"\n• Blue box: \"The shuttles are not in the Red box.\"\n\nDivya notices a note underneath: \"Only one of the three labels is true.\" Which box holds the shuttles?",
+        "ageBand": "11-14",
+        "primaryCompetencies": [
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "logic",
+          "problem solving"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "The Red box",
+            "consequence": "If the shuttles are here, both the Red and Green labels turn out to be true."
+          },
+          {
+            "id": "b",
+            "text": "The Green box",
+            "consequence": "Divya opens the Green lid and finds the shuttles neatly stacked inside."
+          },
+          {
+            "id": "c",
+            "text": "The Blue box",
+            "consequence": "If the shuttles are here, both the Green and Blue labels turn out to be true."
+          }
+        ],
+        "hint": {
+          "text": "What happens to each label if the shuttles are in the Green box?"
+        },
+        "puzzle": {
+          "domain": "reasoning",
+          "correctOptionId": "b",
+          "explanation": "If the shuttles are in Green, the Red and Green labels are false, leaving only the Blue label true. Any other box would make two labels true."
+        }
+      }
+    }
+  ]
+}

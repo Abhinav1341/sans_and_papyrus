@@ -49,7 +49,11 @@ export default function LoginPage() {
           onClick={() => run('google', signInWithGoogle)}>
           <Svg html={GOOGLE_G} />Sign in with Google
         </button>
-        <div className="divider">or</div>
+        {/* Visible without scrolling on a phone: the quickest way in for anyone just trying the game. */}
+        <Button variant="ghost" icon="play" sub="No sign-up needed" disabled={!hydrated || busy} onClick={() => run('guest', signInAsGuest)}>
+          Play as a guest
+        </Button>
+        <div className="divider">or use email</div>
         <form className="stack" noValidate onSubmit={(e) => { e.preventDefault(); void run('email', () => signInWithEmail(email, password, mode)); }}>
           <div className="field">
             <label htmlFor="email">Email</label>
@@ -65,9 +69,6 @@ export default function LoginPage() {
           </button>
         </form>
       </div>
-      <button type="button" className="linkish guest-link" disabled={!hydrated || busy} onClick={() => run('guest', signInAsGuest)}>
-        Just looking? Play as a guest
-      </button>
       <p className="legal">No ads. No purchases. No real names: only what helps the game fit your child. <Link href="/privacy">Privacy</Link></p>
     </section>
   );

@@ -3,9 +3,12 @@
 Offline pipeline that grows the game's question bank. It runs on your laptop and writes to Firestore;
 the game (in `../web`) only reads Firestore. This folder is never deployed.
 
-**Flow:** A writes an item (Gemini 3.8 Flash) → code checks hard rules → code rejects near-duplicates (embeddings)
-→ B grades blind (Gemini 3.6 Flash) → code checks the grading and the category → C reviews safety and fit
-(Gemini 3.8 Flash) → accepted items are stored.
+**Flow:** each situation is built on a research construct (`src/constructs.ts`: emotion understanding, intent-reading,
+perspective taking, coping, reappraisal, moral vs conventional rules, duty reasoning, life skills) → A writes it
+(Gemini 3.8 Flash) → code checks hard rules → code rejects near-duplicates (embeddings) → B grades blind (Gemini 3.6 Flash)
+→ code checks the grading and the category → C, the Satori-lens judge (Gemini 3.8 Flash), checks safety and eight principles
+(honest consequences, feelings stay real, show don't preach, room for dilemmas, no shaming, not a therapist, real for Indian
+children, construct visible) → items are saved as **drafts** → people approve them (`bank:review-*`) before any child sees them.
 
 **Shared schema:** `../web/lib/schemas.ts` is the single source of truth for both the game and the generator.
 
@@ -26,6 +29,8 @@ npm run bank:expand -- --kind situation --competency socialAwareness --count 30 
 npm run bank:expand -- --kind puzzle --domain math --count 12
 npm run bank:dashboard                         # output/dashboard.html: runs, funnel, coverage, costs, item browser
 npm run bank:export                            # output/bank-readable.md: every item as a readable document
+npm run bank:review-export                     # drafts → output/review/review-<date>.md (readable) + .csv (decisions)
+npm run bank:review-apply -- --file <csv>      # approve/reject; situations need 2 reviewers, puzzles 1 (--dry-run to preview)
 ```
 
 Options: `--count`, `--kind situation|puzzle|mixed`, `--band 8-10|11-14|any`, `--competency`, `--domain`,

@@ -21,6 +21,8 @@ export interface Target {
   domain?: NonNullable<Situation["puzzle"]>["domain"];
   /** Difficulty the generator was asked for (1–4); the grader's own rating is stored on the item. */
   difficulty: number;
+  /** Situations: the research construct the item is built on (see constructs.ts). */
+  construct?: string;
 }
 
 /** An accepted item as stored: a normal bank item plus its embedding and how the pipeline judged it. */
@@ -34,6 +36,11 @@ export type GeneratedRecord = Situation & {
     curation: CurationResult;
     maxSimilarity: number;
     mostSimilarId?: string;
+  };
+  /** Human review (scripts/review.ts). The item goes live only when enough different people approve it. */
+  review?: {
+    approvals: { reviewer: string; note?: string; at: string }[];
+    rejection?: { reviewer: string; note: string; at: string };
   };
 };
 
@@ -68,7 +75,8 @@ export interface RunSummary {
 }
 
 const SEEDS_DIR = join(import.meta.dirname, "..", "seeds");
-const SEED_FILES = ["seed-situations.json", "seed-puzzles.json"];
+// seed-situations-research.json: research-based seeds, "draft" until a person approves them (scripts/build-research-seeds.ts)
+const SEED_FILES = ["seed-situations.json", "seed-puzzles.json", "seed-situations-research.json"];
 
 /** Seeds from generator/seeds, validated against the schema. */
 export function loadSeeds(): Situation[] {
@@ -137,6 +145,13 @@ export class FirestoreBank {
   async loadGenerated(): Promise<GeneratedRecord[]> {
     const snap = await this.col("generated").get();
     return snap.docs.map((d) => d.data() as GeneratedRecord);
+  }
+  async loadByStatus(status: Situation["status"]): Promise<GeneratedRecord[]> {
+    const snap = await this.col("generated").where("status", "==", status).get();
+    return snap.docs.map((d) => d.data() as GeneratedRecord);
+  }
+  async saveReview(id: string, status: Situation["status"], review: NonNullable<GeneratedRecord["review"]>) {
+    await this.col("generated").doc(id).update({ status, review });
   }
   async saveAccepted(r: GeneratedRecord) {
     await this.col("generated").doc(r.id).set(r);

@@ -1,0 +1,1420 @@
+{
+  "summary": {
+    "runId": "20261016T224512-649b",
+    "startedAt": "2026-10-16T22:45:12.325Z",
+    "finishedAt": "2026-10-16T22:46:40.201Z",
+    "requested": 9,
+    "accepted": 9,
+    "rejectedByStage": {},
+    "acceptedByCategory": {
+      "puzzle:vocabulary": 9
+    },
+    "models": {
+      "generator": "gemini-3.8-flash",
+      "grader": "gemini-3.6-flash",
+      "curator": "gemini-3.8-flash",
+      "embedding": "gemini-embedding-001"
+    },
+    "usage": {
+      "gemini-3.8-flash": {
+        "calls": 18,
+        "inputTokens": 56199,
+        "outputTokens": 7131,
+        "thinkingTokens": 11898
+      },
+      "gemini-embedding-001": {
+        "calls": 9,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thinkingTokens": 0
+      },
+      "gemini-3.6-flash": {
+        "calls": 9,
+        "inputTokens": 11093,
+        "outputTokens": 2513,
+        "thinkingTokens": 7722
+      }
+    },
+    "estimatedCostUsd": 0.113508
+  },
+  "accepted": [
+    {
+      "id": "gen-pz-mvbk373d1ec3",
+      "kind": "puzzle",
+      "title": "Waiting in the Library",
+      "text": "Aarav waited quietly in the school library while Sneha finished reading the comic book. He was being patient. What does patient mean?",
+      "ageBand": "8-10",
+      "readingLevel": 1,
+      "wordCount": 35,
+      "expectedTimeSec": 15,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "selfManagement"
+      ],
+      "valueTags": [
+        "patience",
+        "respect"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Able to wait calmly",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Aarav waits calmly and smiles when Sneha passes him the book."
+        },
+        {
+          "id": "b",
+          "text": "Speaking very loudly",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Speaking loudly is not what patient means."
+        },
+        {
+          "id": "c",
+          "text": "Running very fast",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Running fast is about speed, not waiting."
+        },
+        {
+          "id": "d",
+          "text": "Feeling very sleepy",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Feeling sleepy means needing a nap."
+        }
+      ],
+      "hint": {
+        "text": "Think about how someone acts when they do not mind waiting for their turn."
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "a",
+        "explanation": "Being patient means you can wait calmly without getting upset or angry."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-vocab-02",
+        "pz-vocab-01",
+        "pz-vocab-03"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbju2ddb986",
+        "rsit-07",
+        "gen-sit-mvbjrk3o81f7"
+      ],
+      "createdAt": "2026-10-16T22:45:31.945Z",
+      "pipeline": {
+        "runId": "20261016T224512-649b",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "vocabulary",
+          "difficulty": 1
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a simple vocabulary puzzle defining 'patient'. The context clue in the text ('waited quietly') and the obvious distractor options make this very easy for children aged 8–10.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clear, age-appropriate vocabulary puzzle that models everyday emotional regulation and patience in a relatable school setting."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic and grounded without exaggerated praise or disproportionate outcomes."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges waiting calmly without denying that waiting can sometimes be challenging."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Demonstrates patience through a clear story context without lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Vocabulary definition has a clear single correct answer appropriate for a puzzle."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Distractor feedback is matter-of-fact and neutral."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No medical, clinical, or diagnostic terminology used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Familiar names and school library scenario fit an Indian school context naturally."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Vocabulary puzzle domain is well-represented."
+            }
+          }
+        },
+        "maxSimilarity": 0.8351991003123159,
+        "mostSimilarId": "gen-sit-mvbju2ddb986"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk38qg9979",
+      "kind": "puzzle",
+      "title": "Thoughtful at the wedding",
+      "text": "At the family wedding, Diya saw that Anjali could not reach the snack table. Diya brought a plate over to share with her. Diya was being thoughtful. What does thoughtful mean?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 54,
+      "expectedTimeSec": 20,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "kindness",
+        "caring"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Thinking about others' needs and helping",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 2,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Diya's small action helps Anjali feel included and cared for."
+        },
+        {
+          "id": "b",
+          "text": "Being in a big hurry to finish first",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Hurrying means moving fast, not thinking of others."
+        },
+        {
+          "id": "c",
+          "text": "Speaking loudly across the room",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Speaking loudly describes volume, not caring about someone."
+        },
+        {
+          "id": "d",
+          "text": "Forgetting what someone wanted",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Forgetting is the opposite of keeping someone in mind."
+        }
+      ],
+      "hint": {
+        "text": "How did Diya's action help Anjali feel comfortable?"
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "a",
+        "explanation": "Being thoughtful means noticing what another person might need and doing something gentle to help them."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-vocab-02",
+        "pz-vocab-01",
+        "pz-vocab-03"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjq0ni29f8",
+        "gen-sit-mvbjr3da7c0d",
+        "gen-sit-mvbjmrkb79d1"
+      ],
+      "createdAt": "2026-10-16T22:45:34.072Z",
+      "pipeline": {
+        "runId": "20261016T224512-649b",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "vocabulary",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a straightforward vocabulary question using clear context clues from the short passage. Option A correctly defines being thoughtful in an SEL context. Children aged 8 to 10 will easily identify the correct definition.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Culturally familiar and relatable context for children in India.",
+            "Clear, gentle vocabulary puzzle teaching empathy and consideration.",
+            "Gentle explanation and supportive hint without giving away the answer directly."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Believable and grounded consequences without exaggerated reactions."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Accurately frames inclusion and warmth without emotional bypass."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Demonstrates thoughtfulness through an everyday action without moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "A clear vocabulary puzzle with one unambiguous correct definition."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options explain word definitions kindly without shaming."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of clinical terminology or diagnostic framing."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Family weddings and crowded buffet/snack tables are highly familiar social settings."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct was targeted; functions well as a foundational vocabulary puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8435778478376036,
+        "mostSimilarId": "gen-sit-mvbjq0ni29f8"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk3jx19273",
+      "kind": "puzzle",
+      "title": "Staying Composed",
+      "text": "While visiting his cousin Ishita, Aarav accidentally deleted her saved progress in their phone game. Ishita took a deep breath and stayed composed instead of shouting. What does composed mean here?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 54,
+      "expectedTimeSec": 18,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "selfManagement",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "calmness",
+        "patience"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Calm and in control of her feelings",
+          "consequence": "Ishita quietly restarts the level, and Aarav helps her catch up."
+        },
+        {
+          "id": "b",
+          "text": "Loudly celebrating a big win",
+          "consequence": "That describes excitement rather than what Ishita is feeling."
+        },
+        {
+          "id": "c",
+          "text": "Confused about how the game works",
+          "consequence": "That describes confusion, but Ishita understands the game well."
+        },
+        {
+          "id": "d",
+          "text": "Too anxious to say anything",
+          "consequence": "That describes nervousness, not staying steady."
+        }
+      ],
+      "hint": {
+        "text": "Notice that Ishita took a pause and a deep breath instead of losing her temper."
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "a",
+        "explanation": "Being composed means staying calm, steady, and in control of your emotions even during an annoying moment."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-vocab-04",
+        "pz-vocab-05",
+        "pz-vocab-06"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvb1356i36b5",
+        "gen-sit-mvbjshlm0ddd",
+        "gen-sit-mvbjfnp37afb"
+      ],
+      "createdAt": "2026-10-16T22:45:48.565Z",
+      "pipeline": {
+        "runId": "20261016T224512-649b",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "vocabulary",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A correctly defines 'composed' as being calm and in control of emotions. The clear context clues of taking a deep breath instead of shouting make this a very simple vocabulary puzzle for 11–14 year olds.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Relatable and realistic everyday scenario for Indian tweens and teens.",
+            "Gentle, clear vocabulary puzzle that models healthy emotional regulation without preaching."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Aarav helping her catch up after an accidental mistake is natural and believable."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Recognises that the situation is annoying while showing a healthy pause to regulate."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Shows emotional control in action without moralising or using 'should'."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Vocabulary puzzle has a single linguistically accurate correct answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Distractors and consequences are neutral and supportive."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Uses everyday emotional language without clinical jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Playing mobile games together with cousins is very culturally relatable."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct specified; untargeted vocabulary puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.841884029304341,
+        "mostSimilarId": "gen-sit-mvb1356i36b5"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk3t9b4798",
+      "kind": "puzzle",
+      "title": "Sister's Paper Castle",
+      "text": "Thomas spent an hour helping his little sister Jaya rebuild her paper castle after it tore. Jaya felt grateful for his patience. Which word means the OPPOSITE of grateful?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 33,
+      "expectedTimeSec": 20,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "gratitude",
+        "family",
+        "kindness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Thankful",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Thankful means having gratitude, which is the same meaning rather than the opposite."
+        },
+        {
+          "id": "b",
+          "text": "Ungrateful",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Ungrateful means not feeling or showing thanks for kindness received."
+        },
+        {
+          "id": "c",
+          "text": "Generous",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Generous describes someone who shares freely with others."
+        },
+        {
+          "id": "d",
+          "text": "Careful",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Careful means taking time to avoid mistakes or damage."
+        }
+      ],
+      "hint": {
+        "text": "Did you check whether the question asks for the same meaning, or the opposite?"
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "b",
+        "explanation": "Grateful means feeling thankful. The opposite word is ungrateful, which means failing to appreciate someone's help."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-vocab-01",
+        "pz-vocab-03",
+        "pz-vocab-02"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbk38qg9979",
+        "gen-sit-mvb12y6kd952",
+        "pz-vocab-02"
+      ],
+      "createdAt": "2026-10-16T22:46:00.671Z",
+      "pipeline": {
+        "runId": "20261016T224512-649b",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "vocabulary",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a straightforward vocabulary question asking for the antonym of grateful. The prefix un- makes ungrateful an easy and obvious choice for children aged 8 to 10.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clear, gentle vocabulary puzzle with an accurate opposite definition.",
+            "Relatable and warm sibling scenario suitable for the 8-10 age band."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences give neutral, clear feedback on word definitions without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Recognises the genuine emotion of gratitude when someone helps with patience."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Focuses purely on the vocabulary meaning without moralising or lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "A straightforward antonym question where having a single correct answer is appropriate."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options explain the definitions respectfully without condescension."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical terminology or medical framing used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Relatable sibling context with familiar Indian names."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct was targeted for this vocabulary puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8080748359753859,
+        "mostSimilarId": "gen-pz-mvbk38qg9979"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk3uy63210",
+      "kind": "puzzle",
+      "title": "Ayaan's Campaign Poster",
+      "text": "At her cousin Ayaan's house, Ayaan excitedly unrolls a poster he spent all evening making for his school club election. The slogan is clever, but the lettering is cramped and hard to decipher. Meenakshi wants to help him, so she chooses to give a tactful response rather than blurting out her initial reaction. What does \"tactful\" mean here?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 100,
+      "expectedTimeSec": 25,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "communication",
+        "empathy"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Carefully phrasing her thoughts so she is helpful without causing hurt",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Ayaan listens closely and asks how they can space out the heading together."
+        },
+        {
+          "id": "b",
+          "text": "Praising the poster as flawless so Ayaan stays cheerful",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "That would be flattering or insincere rather than tactful."
+        },
+        {
+          "id": "c",
+          "text": "Pointing out every flaw bluntly so the truth is immediately clear",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -2,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "That would be harsh and direct, which can easily sting."
+        },
+        {
+          "id": "d",
+          "text": "Quickly changing the topic to avoid sharing any opinion at all",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "That avoids the conversation entirely instead of being considerate."
+        }
+      ],
+      "hint": {
+        "text": "Meenakshi wants to help Ayaan fix the letters, but also cares about his feelings."
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "a",
+        "explanation": "Being tactful means being thoughtful and sensitive in how you speak, sharing necessary feedback without needlessly embarrassing someone."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-vocab-04",
+        "pz-vocab-06",
+        "pz-vocab-05"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjshlm0ddd",
+        "gen-pz-mvbk3jx19273",
+        "gen-sit-mvbjfnp37afb"
+      ],
+      "createdAt": "2026-10-16T22:46:02.862Z",
+      "pipeline": {
+        "runId": "20261016T224512-649b",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "vocabulary",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A correctly defines 'tactful' by emphasizing constructive feedback delivered with empathy. The definition is straightforward for 11-14 year olds, as the context clues and alternative choices clearly contrast true tact against unhelpful flattery, bluntness, or avoidance.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clear, age-appropriate vocabulary puzzle defining 'tactful' in an authentic peer context.",
+            "Gentle explanation and nuanced answer choices distinguish tact from flattery or avoidance."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Ayaan's reaction to thoughtful feedback is grounded and realistic without being exaggerated."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges both the pride in Ayaan's hard work and Meenakshi's wish not to sting his feelings."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Consequences and explanation neutrally define communication styles without moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "As a vocabulary puzzle, having a single distinct correct definition is fully appropriate."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options are evaluated objectively without disparaging the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Contains no diagnostic or therapeutic framing."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Relatable scenario of cousins working on school club elections."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct specified; vocabulary puzzle aligns well with social awareness."
+            }
+          }
+        },
+        "maxSimilarity": 0.8527308181873712,
+        "mostSimilarId": "gen-sit-mvbjshlm0ddd"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk42nle73d",
+      "kind": "puzzle",
+      "title": "Finding Common Ground",
+      "text": "During a heated debate prep in the classroom, Simran and Abdul disagreed sharply over their opening speech. Instead of arguing further, Abdul adopted a ______ tone, offering to blend Simran's ideas with his own to resolve the conflict. Which word best fits Abdul's approach?",
+      "ageBand": "11-14",
+      "readingLevel": 3,
+      "wordCount": 48,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "socialAwareness"
+      ],
+      "valueTags": [
+        "conflict resolution",
+        "peacemaking"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Conciliatory",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Abdul's calm offer eases the tension, and they begin drafting together."
+        },
+        {
+          "id": "b",
+          "text": "Resentful",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Resentful means feeling bitter and angry about past treatment."
+        },
+        {
+          "id": "c",
+          "text": "Indifferent",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Indifferent means having no interest or care about what happens."
+        },
+        {
+          "id": "d",
+          "text": "Domineering",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Domineering means trying to control others aggressively."
+        }
+      ],
+      "hint": {
+        "text": "Which word describes an effort to make peace and restore harmony?"
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "a",
+        "explanation": "Conciliatory means intending to placate, make peace, or resolve conflict by finding common ground."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-vocab-04",
+        "pz-vocab-06",
+        "pz-vocab-05"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvb0pjmr08ab",
+        "gen-sit-mvbjgvwv761e",
+        "gen-sit-mvbjh4b49e02"
+      ],
+      "createdAt": "2026-10-16T22:46:12.849Z",
+      "pipeline": {
+        "runId": "20261016T224512-649b",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "vocabulary",
+          "difficulty": 4
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Abdul demonstrates strong relationship skills by seeking compromise to resolve conflict. The word 'conciliatory' means intended to pacify or bring about peace, which directly fits his action of blending ideas.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Fits the vocabulary puzzle format cleanly with age-appropriate vocabulary for 11-14.",
+            "Realistically portrays classroom debate preparation and constructive conflict resolution.",
+            "Definitions and consequences are kind, honest, and non-preachy."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Abdul's offer easing tension and leading to joint drafting is grounded and realistic."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Sharp disagreement and heated debate tension are acknowledged without dismissal."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Illustrates conflict resolution through action rather than lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "As a vocabulary puzzle, 'conciliatory' is the single appropriate fit in context."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect answers provide neutral definitions without shaming the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical terminology or medical advice present."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Debate preparation in an Indian school context with Simran and Abdul is natural and culturally familiar."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct specified; puzzle focuses directly on conflict-resolution vocabulary."
+            }
+          }
+        },
+        "maxSimilarity": 0.8536789036757215,
+        "mostSimilarId": "gen-sit-mvb0pjmr08ab"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk47648fb8",
+      "kind": "puzzle",
+      "title": "Feeling Grateful on the Bus",
+      "text": "On the school bus, Noor shared her cold water bottle with Divya on a hot afternoon. Divya felt grateful. Which word means the same as grateful?",
+      "ageBand": "8-10",
+      "readingLevel": 1,
+      "wordCount": 30,
+      "expectedTimeSec": 15,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "gratitude",
+        "kindness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Thankful",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Divya smiles and thanks Noor warmly."
+        },
+        {
+          "id": "b",
+          "text": "Impatient",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Impatient means not wanting to wait."
+        },
+        {
+          "id": "c",
+          "text": "Confused",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Confused means not understanding something."
+        },
+        {
+          "id": "d",
+          "text": "Lonely",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Lonely means feeling all by yourself."
+        }
+      ],
+      "hint": {
+        "text": "What do you say when a friend helps you out?"
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "a",
+        "explanation": "Grateful means feeling thankful and happy for someone's help or kindness."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-vocab-03",
+        "pz-vocab-02",
+        "pz-vocab-01"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbjzgnba077",
+        "gen-pz-mvbk38qg9979",
+        "gen-pz-mvbk3t9b4798"
+      ],
+      "createdAt": "2026-10-16T22:46:18.700Z",
+      "pipeline": {
+        "runId": "20261016T224512-649b",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "vocabulary",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a straightforward vocabulary puzzle where identifying 'thankful' as the synonym for 'grateful' is easy for children aged 8 to 10. The scenario briefly touches on self-awareness and social awareness by highlighting emotional responses to a kind action.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Appropriate vocabulary puzzle for ages 8-10 with a relatable everyday context of sharing water on a hot school bus ride.",
+            "Gentle explanation and nudge hint that does not give away the answer outright."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are grounded and simple definitions or reactions."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Validates the feeling of gratitude naturally without exaggeration."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Focuses cleanly on vocabulary meaning without lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "A clear synonym puzzle where one correct answer is appropriate."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options provide neutral dictionary-style definitions without judgment."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of clinical language or unsolicited medical advice."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Sharing water on a hot afternoon school bus is familiar and realistic in India."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct specified for this vocabulary puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8124684884834658,
+        "mostSimilarId": "gen-pz-mvbjzgnba077"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk4iunf6da",
+      "kind": "puzzle",
+      "title": "A Calming Message",
+      "text": "On the bumpy school bus ride home, the sports group chat was flooded with angry arguments after a tough loss. Thomas carefully typed a reply: \"Everyone worked hard today, even if things didn't go our way. Let's review the match tomorrow instead of arguing here.\" Noor noticed that Thomas was being exceptionally tactful. What does \"tactful\" mean here?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 88,
+      "expectedTimeSec": 30,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "communication",
+        "conflict resolution"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Careful to say things without hurting or upsetting others",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "The chat quietens down as teammates pause to reconsider their words."
+        },
+        {
+          "id": "b",
+          "text": "Unconcerned about whether the team won or lost",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Thomas cares deeply about the team, which is why he stepped in to help."
+        },
+        {
+          "id": "c",
+          "text": "Agreeing with whichever teammate shouts the loudest",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Thomas did not take sides just to keep the loudest voices happy."
+        },
+        {
+          "id": "d",
+          "text": "Speaking bluntly without filtering any thoughts",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Thomas paused and edited his message instead of reacting immediately."
+        }
+      ],
+      "hint": {
+        "text": "Notice how Thomas chose his words to avoid worsening people's anger."
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "a",
+        "explanation": "Being tactful means choosing your words with care and sensitivity so you resolve tension without offending or hurting anyone."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-vocab-05",
+        "pz-vocab-04",
+        "pz-vocab-06"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjidbzf4a9",
+        "gen-pz-mvbk3uy63210",
+        "gen-pz-mvbk42nle73d"
+      ],
+      "createdAt": "2026-10-16T22:46:33.839Z",
+      "pipeline": {
+        "runId": "20261016T224512-649b",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "11-14",
+          "domain": "vocabulary",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Context clues in the story clearly illustrate Thomas de-escalating a tense group chat, helping students deduce the definition of 'tactful'. Option A accurately defines the word, making this puzzle very accessible for 11–14 year-olds.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Well-crafted vocabulary puzzle using realistic school peer-group context clues.",
+            "Gentle explanation and hint that prompt reflection without spoon-feeding."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Plausible outcome of teammates pausing to reconsider words rather than an unrealistic magical resolution."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges the frustration and heated atmosphere after a tough sports loss."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Demonstrates tact in action through Thomas's exact words rather than lecturing about diplomacy."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Appropriately has one correct definition for a standard vocabulary puzzle."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options and consequences gently clarify why those definitions do not match without ridiculing."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of clinical language or unsolicited psychoanalysis."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Group chats about school sports on the bus ride home are very familiar and relatable to Indian middle-schoolers."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct specified for this puzzle item."
+            }
+          }
+        },
+        "maxSimilarity": 0.8565405309745991,
+        "mostSimilarId": "gen-sit-mvbjidbzf4a9"
+      }
+    },
+    {
+      "id": "gen-pz-mvbk4nlna369",
+      "kind": "puzzle",
+      "title": "Grateful on the Trip",
+      "text": "On the school trip, Esha felt grateful when Uday shared his umbrella during the rain. What does grateful mean?",
+      "ageBand": "8-10",
+      "readingLevel": 1,
+      "wordCount": 41,
+      "expectedTimeSec": 15,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "gratitude",
+        "kindness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Feeling great about winning a contest",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Great sounds like grateful, but the word has a different meaning."
+        },
+        {
+          "id": "b",
+          "text": "Feeling thankful and appreciative",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Esha smiles and gives Uday a warm thank you."
+        },
+        {
+          "id": "c",
+          "text": "Feeling cold and uncomfortable from water",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "That describes the chilly rain, not the feeling of gratitude."
+        },
+        {
+          "id": "d",
+          "text": "Wanting to keep everything to yourself",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "That describes being selfish, not feeling grateful."
+        }
+      ],
+      "hint": {
+        "text": "How do you feel in your heart when a classmate helps you out?"
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "b",
+        "explanation": "Grateful means feeling thankful and appreciative when someone shows you kindness."
+      },
+      "source": "generated",
+      "seedIds": [
+        "pz-vocab-01",
+        "pz-vocab-03",
+        "pz-vocab-02"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbk47648fb8",
+        "gen-sit-mvbj228a93b4",
+        "gen-pz-mvbjzgnba077"
+      ],
+      "createdAt": "2026-10-16T22:46:39.995Z",
+      "pipeline": {
+        "runId": "20261016T224512-649b",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "8-10",
+          "domain": "vocabulary",
+          "difficulty": 3
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a simple vocabulary question suitable for 8 to 10 year olds. Option B correctly defines the emotion word grateful, using a clear context clue of receiving help.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clear, age-appropriate vocabulary puzzle that aligns well with the seed examples.",
+            "Gentle and helpful feedback on incorrect options without shaming."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences offer realistic clarifications for word meanings and a simple, warm reaction."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Accurately names and validates the feeling of gratitude."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Focuses purely on defining the emotion without moralizing or lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Vocabulary definition naturally has a single correct answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options guide understanding kindly without negative labeling."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical terminology or medical framing used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Relatable context of a school trip and sharing an umbrella in the rain."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct required for this vocabulary puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.8752366651998029,
+        "mostSimilarId": "gen-pz-mvbk47648fb8"
+      }
+    }
+  ],
+  "rejected": []
+}

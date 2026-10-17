@@ -1,0 +1,585 @@
+{
+  "summary": {
+    "runId": "20261016T221546-7b5f",
+    "startedAt": "2026-10-16T22:15:46.057Z",
+    "finishedAt": "2026-10-16T22:17:45.009Z",
+    "requested": 4,
+    "accepted": 3,
+    "rejectedByStage": {
+      "category": 1
+    },
+    "acceptedByCategory": {
+      "situation:selfAwareness": 1,
+      "situation:socialAwareness": 1,
+      "situation:responsibleDecisionMaking": 1
+    },
+    "models": {
+      "generator": "gemini-3.8-flash",
+      "grader": "gemini-3.6-flash",
+      "curator": "gemini-3.8-flash",
+      "embedding": "gemini-embedding-001"
+    },
+    "usage": {
+      "gemini-embedding-001": {
+        "calls": 26,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thinkingTokens": 0
+      },
+      "gemini-3.8-flash": {
+        "calls": 7,
+        "inputTokens": 22294,
+        "outputTokens": 2789,
+        "thinkingTokens": 6014
+      },
+      "gemini-3.6-flash": {
+        "calls": 4,
+        "inputTokens": 4982,
+        "outputTokens": 1412,
+        "thinkingTokens": 3121
+      }
+    },
+    "estimatedCostUsd": 0.04973175
+  },
+  "accepted": [
+    {
+      "id": "gen-sit-mvbj1yhqb910",
+      "kind": "situation",
+      "title": "The new captain",
+      "text": "In the neighbourhood park, Simran picks you to be captain for the cricket match. You feel thrilled, but your stomach also twists with worry about making mistakes. Simran asks, \"Ready to lead?\" What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 67,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "feelings",
+        "courage"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell Simran I am excited, but also a little nervous",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Simran smiles and says you can set up the field together."
+        },
+        {
+          "id": "b",
+          "text": "Boast loudly and pretend I am not nervous at all",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Your tummy stays in a tight knot as the game begins."
+        },
+        {
+          "id": "c",
+          "text": "Say no and sit out so I do not mess up",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You watch from the park bench, wishing you were playing."
+        }
+      ],
+      "hint": {
+        "text": "Can a person feel happy and worried at the same time?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-10",
+        "sit-01",
+        "sit-12"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "rsit-10",
+        "sit-01",
+        "rsit-21"
+      ],
+      "createdAt": "2026-10-16T22:16:34.535Z",
+      "pipeline": {
+        "runId": "20261016T221546-7b5f",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfAwareness",
+          "difficulty": 1,
+          "construct": "pons-mixed"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A shows excellent self-awareness by accurately naming mixed feelings of excitement and anxiety. Option B hides feelings behind bravado, while Option C lets anxiety lead to complete avoidance. For 8-10 year-olds, admitting nerves is slightly challenging but clearly the healthiest choice."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately models the mixed feelings construct by recognizing both excitement and anxiety.",
+            "Consequences are grounded and realistic for a neighbourhood peer setting.",
+            "Warm, relatable scenario for Indian children without moralising or preachy language."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "A friend offering to set up the field together is a natural peer reaction, not an over-the-top reward."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Allows nervous tension to linger authentically when avoided or masked."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Consequences show the internal and social outcome without preachy morals or adult lectures."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Appropriately targets emotional recognition without turning friendship into a high-stakes test."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options present common childhood defense mechanisms (boasting, avoidance) neutrally."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Uses natural bodily sensations and emotions without clinical jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Neighbourhood park cricket is an everyday, culturally natural setting for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly targets mixed feelings: option A explicitly names both excitement and nervousness."
+            }
+          }
+        },
+        "maxSimilarity": 0.8680296848585214,
+        "mostSimilarId": "rsit-10"
+      }
+    },
+    {
+      "id": "gen-sit-mvbj228a93b4",
+      "kind": "situation",
+      "title": "Downpour at the mela",
+      "text": "Sudden rain pours over the society Diwali mela. You are secretly thrilled because the stage drama you dreaded performing in is cancelled. But right beside you, Gopal stares at his drenched greeting card stall with his shoulders slumped. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 96,
+      "expectedTimeSec": 30,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "empathy",
+        "perspective",
+        "support"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Celebrate loudly that the drama is cancelled and urge Gopal to grab jalebis",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -2,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Gopal looks away and quietly begins pulling wet paper off his table alone."
+        },
+        {
+          "id": "b",
+          "text": "Help Gopal cover his stall and ask if he wants to move the crafts inside",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Gopal manages a small smile. \"Thanks. Let's at least save the clay diyas.\""
+        },
+        {
+          "id": "c",
+          "text": "Run to the shelter tent to message friends about the drama getting called off",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "You stay dry, while Gopal struggles to lift heavy, soaked cardboard boxes."
+        },
+        {
+          "id": "d",
+          "text": "Tell Gopal not to worry because nobody likes standing at stalls anyway",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Gopal frowns. \"I spent two weeks making these cards.\""
+        }
+      ],
+      "hint": {
+        "text": "Why might this rain bring disappointment for Gopal even if it brought relief to you?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-14",
+        "sit-02",
+        "sit-05"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "rsit-03",
+        "gen-sit-mvb14t58ee57",
+        "rsit-01"
+      ],
+      "createdAt": "2026-10-16T22:16:39.371Z",
+      "pipeline": {
+        "runId": "20261016T221546-7b5f",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "socialAwareness",
+          "difficulty": 2,
+          "construct": "pons-desire"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "The scenario contrasts personal relief with a peer's clear disappointment. Option B demonstrates strong empathy (social awareness) and supportive behavior (relationship skills) by noticing Gopal's feelings and offering practical help."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Clearly illustrates the target construct of divergent emotional reactions to the same event.",
+            "Culturally authentic setting with grounded, believable consequences.",
+            "The hint nudges reflection on perspective taking without dictating an answer."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic and measured, avoiding magical fixes or exaggerated reactions."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Gopal's disappointment is honored honestly without forced cheerfulness."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Actions and character reactions drive the scenario without moralising."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Option B is clearly the attuned, supportive response while alternate options feel human and plausible."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Consequences report neutral behavioural outcomes without labelling the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Contains no therapeutic jargon or clinical framing."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Diwali mela, society stalls, clay diyas, and jalebis are natural and relatable for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Directly embodies differing wishes and feelings stemming from the same weather event."
+            }
+          }
+        },
+        "maxSimilarity": 0.847758538271284,
+        "mostSimilarId": "rsit-03"
+      }
+    },
+    {
+      "id": "gen-sit-mvbj3gnxbf3c",
+      "kind": "situation",
+      "title": "The last window seat",
+      "text": "On the afternoon school bus, there is only one window seat left. Both you and Thomas reach it together. You really want to watch the rain outside, and Thomas does too. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 67,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "fairness",
+        "turn-taking"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Push ahead quickly and take the window seat for the whole ride",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Thomas sits in the aisle looking down, and the ride feels awkward."
+        },
+        {
+          "id": "b",
+          "text": "Slump into the aisle seat sadly without saying a word",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "You spend the whole journey feeling upset that you missed out."
+        },
+        {
+          "id": "c",
+          "text": "Suggest swapping seats halfway when the bus reaches the market",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Thomas agrees with a smile, and both of you enjoy watching the rain."
+        }
+      ],
+      "hint": {
+        "text": "Is there a way for both of you to get a chance by the window?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-12",
+        "sit-06",
+        "sit-01"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "sit-08",
+        "gen-sit-mvb14bh24b87",
+        "gen-sit-mvb13f4m1e28"
+      ],
+      "createdAt": "2026-10-16T22:17:44.733Z",
+      "pipeline": {
+        "runId": "20261016T221546-7b5f",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "responsibleDecisionMaking",
+          "difficulty": 2,
+          "construct": "fair-sharing"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Proposing a fair compromise to split the ride shows excellent relationship skills and responsible decision-making. Pushing past a peer shows poor self-management and lack of empathy. It scores a 2 in difficulty because giving up half of a desired reward requires noticeable impulse control for 8 to 10-year-olds."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Accurately maps the specified construct: grabbing, giving up sadly, and finding a fair compromise.",
+            "Consequences are natural, realistic, and free of preachiness or exaggerated drama.",
+            "Culturally relatable and age-appropriate for 8-10-year-olds on an Indian school bus."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences realistically show awkwardness, lingering sadness, and mutual cooperation without magical rewards."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Disappointment and discomfort are acknowledged rather than bypassed or minimized."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Outcomes unfold naturally through peers' reactions without didactic commentary."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "The compromise is a genuinely constructive path without forcing an unnatural moral decree."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options portray understandable child impulses without derogatory labels."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of psychological jargon or diagnostic framing."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Watching the rain from a school bus and using a familiar landmark like the market feels true to life in India."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly presents the required three facets: grabbing, giving up sadly, and a turn-taking compromise."
+            }
+          }
+        },
+        "maxSimilarity": 0.8591793444159956,
+        "mostSimilarId": "sit-08"
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "gen-sit-mvbj2qcmddd4",
+      "runId": "20261016T221546-7b5f",
+      "target": {
+        "kind": "situation",
+        "ageBand": "11-14",
+        "competency": "selfManagement",
+        "difficulty": 3,
+        "construct": "peer-pressure"
+      },
+      "stage": "category",
+      "reasons": [
+        "Off-category: aimed at selfManagement (1), but the grader found the best option mainly shows relationshipSkills (2), responsibleDecisionMaking (2)"
+      ],
+      "createdAt": "2026-10-16T22:17:10.630Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The contest report",
+        "text": "You are sitting at the dining table with your family when your phone buzzes. In the project group chat, Mohit urges everyone to file false complaints against Kiran's poster in the school digital art contest. 'If her post gets taken down, our entry will easily win,' Mohit texts, demanding everyone do it now. What do you do?",
+        "ageBand": "11-14",
+        "primaryCompetencies": [
+          "selfManagement",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "peer pressure",
+          "fairness",
+          "courage"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "File the complaint quickly so Mohit doesn't accuse me of letting the team down",
+            "consequence": "You tap submit, but a tight knot stays in your stomach through dinner."
+          },
+          {
+            "id": "b",
+            "text": "Text back a clear no, stating that trying to get Kiran disqualified is unfair",
+            "consequence": "Mohit sends an eye-roll emoji, but no one else brings up the plan again."
+          },
+          {
+            "id": "c",
+            "text": "Refuse to report it, and suggest we share our own poster with friends to get genuine votes",
+            "consequence": "A classmate agrees, and the group switches to brainstorming ways to share your work."
+          },
+          {
+            "id": "d",
+            "text": "Show the messages to my mother at the table and ask how to handle the pressure",
+            "consequence": "She reads the chat and helps you draft a calm reply that stands your ground."
+          }
+        ],
+        "hint": {
+          "text": "What matters more right now: winning at any cost, or standing up for what feels right?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 1,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 1,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "d",
+            "scores": {
+              "selfAwareness": 2,
+              "selfManagement": 1,
+              "socialAwareness": 0,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 45,
+        "rationale": "This scenario tests how a middle schooler navigates peer pressure and dishonesty. Filing a false report is clearly wrong, making Option A negative across multiple areas. Options B and C demonstrate strong ethical decision-making and constructive group communication, while Option D highlights self-awareness and appropriate help-seeking skills when facing peer pressure."
+      },
+      "maxSimilarity": 0.8683795327257837,
+      "mostSimilarId": "gen-sit-mvb0nt5taeba"
+    }
+  ]
+}

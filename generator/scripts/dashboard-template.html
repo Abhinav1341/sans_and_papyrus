@@ -346,7 +346,7 @@ function renderItems() {
         ${i.hint ? `<p><b>Hint:</b> ${esc(i.hint)}</p>` : ""}
         ${i.explanation ? `<p><b>Explanation:</b> ${esc(i.explanation)}</p>` : ""}
         ${i.grader ? `<p class="muted"><b>Grader (B):</b> ${esc(i.grader)}</p>` : ""}
-        ${i.curator ? `<p class="muted"><b>Curator (C):</b> ${esc(i.curator.join(" · "))}</p>` : ""}
+        ${i.curator ? `<p class="muted"><b>Satori-lens judge (C):</b> ${esc(i.curator.join(" · "))}</p>` : ""}
         <p class="muted">${esc(i.id)}${i.similarity != null ? ` · closest existing item similarity ${i.similarity.toFixed(2)}` : ""}${i.runId ? ` · run ${esc(i.runId)}` : ""}</p>
       </div></details>`).join("") : `<div class="empty">No items match these filters</div>`;
 }

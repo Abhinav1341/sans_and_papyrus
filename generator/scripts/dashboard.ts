@@ -35,8 +35,8 @@ const STAGES = [
   { key: "duplicate", step: "Not a duplicate", reject: "Duplicate" },
   { key: "grader", step: "Graded by B", reject: "Grader (B)" },
   { key: "category", step: "In the right category", reject: "Off-category" },
-  { key: "curator", step: "Approved by C", reject: "Curator (C)" },
-  { key: "schema", step: "Accepted into the bank", reject: "Schema" },
+  { key: "curator", step: "Passed the Satori-lens judge (C)", reject: "Satori-lens judge (C)" },
+  { key: "schema", step: "Saved for human review", reject: "Schema" },
 ] as const;
 
 const categoryOf = (i: any): string =>

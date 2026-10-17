@@ -1,0 +1,2257 @@
+{
+  "summary": {
+    "runId": "20261016T223419-6003",
+    "startedAt": "2026-10-16T22:34:19.372Z",
+    "finishedAt": "2026-10-16T22:37:12.552Z",
+    "requested": 16,
+    "accepted": 13,
+    "rejectedByStage": {
+      "duplicate": 2,
+      "curator": 1
+    },
+    "acceptedByCategory": {
+      "situation:relationshipSkills": 13
+    },
+    "models": {
+      "generator": "gemini-3.8-flash",
+      "grader": "gemini-3.6-flash",
+      "curator": "gemini-3.8-flash",
+      "embedding": "gemini-embedding-001"
+    },
+    "usage": {
+      "gemini-3.8-flash": {
+        "calls": 30,
+        "inputTokens": 98689,
+        "outputTokens": 12588,
+        "thinkingTokens": 30607
+      },
+      "gemini-embedding-001": {
+        "calls": 16,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thinkingTokens": 0
+      },
+      "gemini-3.6-flash": {
+        "calls": 14,
+        "inputTokens": 17785,
+        "outputTokens": 4706,
+        "thinkingTokens": 12996
+      }
+    },
+    "estimatedCostUsd": 0.235998
+  },
+  "accepted": [
+    {
+      "id": "gen-sit-mvbjpgwwe22f",
+      "kind": "situation",
+      "title": "Ten Balls Each",
+      "text": "You and Farhan agreed to take turns batting for ten balls each at the neighbourhood park. After finishing his turn, Farhan keeps holding the bat and announces, \"I'm hitting so well today, I get another round!\" It's your turn, and he gave his word. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 103,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "assertiveness",
+        "fairness",
+        "honesty"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Snatch the bat from his hands and yell that he is a cheat",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Farhan shoves you back, the other players start shouting, and the game halts."
+        },
+        {
+          "id": "b",
+          "text": "Look at him and say calmly, \"We agreed on ten balls each, Farhan. It's my turn now.\"",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Farhan pauses, then hands over the bat and jogs out to field."
+        },
+        {
+          "id": "c",
+          "text": "Say nothing and quietly head back out to the boundary to field",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Farhan keeps batting while you stand in the deep, feeling frustrated and ignored."
+        },
+        {
+          "id": "d",
+          "text": "Ask Uncle Thomas by the benches to help remind everyone of the rule",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Uncle Thomas walks over and reminds Farhan that sticking to agreements keeps the match fair."
+        }
+      ],
+      "hint": {
+        "text": "How can you stand up for what was agreed without starting a shouting match?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-11",
+        "sit-09",
+        "sit-05"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjlj8j2cef",
+        "gen-sit-mvbjjsx1fcf5",
+        "rsit-02"
+      ],
+      "createdAt": "2026-10-16T22:34:51.488Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "relationshipSkills",
+          "difficulty": 2,
+          "construct": "assertive-communication"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario tests peer conflict resolution and emotional self-control. Option B is the optimal response for middle schoolers, showing assertive direct communication while keeping composure."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Captures an everyday Indian playground cricket scenario with authentic peer dynamics.",
+            "Clearly balances aggressive, passive, assertive, and trusted-adult options as demanded by the construct.",
+            "Consequences are grounded and natural without moralising."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Outcomes reflect natural playground dynamics without disproportionate drama or magical rewards."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Option C honestly acknowledges the lingering frustration and feeling ignored."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Consequences show the immediate social impact without lecturing the player."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Direct assertiveness and adult mediation are both presented respectfully."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Choices avoid labelling the child and clearly describe actions and reactions."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Maintains an everyday peer-conflict scope without clinical language."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Cricket turn-taking in a neighbourhood park with an 'Uncle' nearby is highly relatable and authentic."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Faithfully fulfills all construct criteria: promise broken, aggressive, passive, assertive, and adult mediation."
+            }
+          }
+        },
+        "maxSimilarity": 0.8835148926580371,
+        "mostSimilarId": "gen-sit-mvbjlj8j2cef"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjpi3g4daf",
+      "kind": "situation",
+      "title": "Next in Line",
+      "text": "At football practice, you have been waiting in line for shooting drills. Just as your turn arrives, Vikram runs up and cuts ahead of you. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 71,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "assertiveness",
+        "fairness",
+        "communication"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Shout at Vikram and push him out of the way",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Vikram shoves back, and the drill stops while everyone stares."
+        },
+        {
+          "id": "b",
+          "text": "Say calmly, 'Vikram, I was next. You can take the shot after me'",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Vikram steps aside, and you step up to take your shot."
+        },
+        {
+          "id": "c",
+          "text": "Say nothing and walk quietly to the back of the line",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Vikram takes your turn, and you miss out on practicing your kick."
+        },
+        {
+          "id": "d",
+          "text": "Tell Coach Thomas that Vikram jumped the line",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Coach Thomas reminds the team to keep order, and you take your turn."
+        }
+      ],
+      "hint": {
+        "text": "How can you stand up for your turn without losing your temper?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-06",
+        "sit-08",
+        "sit-15"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvb13f4m1e28",
+        "gen-sit-mvbjjsx1fcf5",
+        "gen-sit-mvb0pjmr08ab"
+      ],
+      "createdAt": "2026-10-16T22:34:53.021Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "relationshipSkills",
+          "difficulty": 1,
+          "construct": "assertive-communication"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B demonstrates clear self-management and relationship skills by staying calm and assertively setting a polite boundary. Option A lacks emotional control and escalates conflict, while Option C avoids standing up for oneself. Option D relies on an adult before attempting a direct, peaceful resolution."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Cleanly matches the construct by offering clear assertive, passive, aggressive, and adult-supported options.",
+            "Consequences are natural, realistic, and free of preachiness."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences for shoving, being passive, and speaking up are realistic and proportionate."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges the frustration of losing a turn without sugarcoating or dismissing feelings."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Shows the outcome of each reaction without moralizing statements or adult lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Assertive communication is highlighted, while turning to the coach is also validated as a reasonable alternative."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Describes actions and direct social results neutrally without judging the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of therapeutic or clinical jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Sports practice drills and cutting in line are universally relatable and age-appropriate for Indian school settings."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly portrays line-cutting and gives assertive, aggressive, passive, and adult-consulting options."
+            }
+          }
+        },
+        "maxSimilarity": 0.8702694767518305,
+        "mostSimilarId": "gen-sit-mvb13f4m1e28"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjptrkd5c6",
+      "kind": "situation",
+      "title": "The laptop turn",
+      "text": "Abdul promised you could use the family laptop at five to finish an English assignment that closes at five-thirty. It is now five-fifteen, and he refuses to log off his multiplayer game, saying, \"Chill out, just wait ten minutes.\" Your deadline is slipping away, and you feel furious. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 105,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "assertiveness",
+        "boundaries",
+        "fairness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Slam the laptop lid shut and yell at him for breaking his word",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Abdul shouts back, a noisy argument starts, and the laptop stays closed while time slips away."
+        },
+        {
+          "id": "b",
+          "text": "Say nothing and try typing the long assignment on your phone screen",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Formatting the document on a tiny screen is frustrating, and you barely submit before the portal locks."
+        },
+        {
+          "id": "c",
+          "text": "Tell him firmly, \"You promised five. The portal closes at five-thirty, and I need the laptop now.\"",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Abdul groans at having to leave his game, but he saves his match and slides the laptop over."
+        },
+        {
+          "id": "d",
+          "text": "Ask Mum to step in so the agreed schedule is followed",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Mum tells Abdul to log off right away, though Abdul mutters that you ran to tell on him."
+        }
+      ],
+      "hint": {
+        "text": "How can you make your urgent need clear without turning this into a fight?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-11",
+        "sit-09",
+        "sit-05"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvb0pjmr08ab",
+        "gen-sit-mvb1356i36b5",
+        "sit-09"
+      ],
+      "createdAt": "2026-10-16T22:35:08.144Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "relationshipSkills",
+          "difficulty": 3,
+          "construct": "assertive-communication"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario tests self-management and assertive communication under time pressure. Option C shows strong self-management by remaining calm despite feeling furious and using clear, direct language to state the problem. Option A represents an outburst that risks damaging property and relationships."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Accurately maps the construct with clear aggressive, passive, assertive, and adult-involvement options.",
+            "Consequences are grounded and realistic without moralizing or magical outcomes.",
+            "Sibling and family laptop sharing dynamic is culturally authentic and relatable for Indian children."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences show believable friction, such as Abdul groaning or complaining about telling Mum."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges fury and deadline panic without dismissing them."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Actions drive the outcome naturally without didactic statements or adult lectures."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Allows room for both direct assertiveness and involving a parent as valid routes with realistic trade-offs."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options describe actions without labeling the child who chooses them."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of clinical framing or therapeutic jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Shared family devices and portal deadlines are everyday realities for urban and semi-urban Indian students."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Broken promise situation featuring aggressive, passive, assertive, and trusted adult options."
+            }
+          }
+        },
+        "maxSimilarity": 0.8785865001549327,
+        "mostSimilarId": "gen-sit-mvb0pjmr08ab"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjq0ni29f8",
+      "kind": "situation",
+      "title": "Dada's Dinner Thali",
+      "text": "At your cousin's wedding, your uncle asks you to help serve Dada his dinner. Just then, Gurpreet calls you over to join a big game of tag on the lawn with everyone. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 87,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "family",
+        "cooperation",
+        "patience"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell Gurpreet to start, and say you will join as soon as Dada finishes",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Gurpreet promises to save you a spot, and Dada smiles warmly as you hand him warm rotis."
+        },
+        {
+          "id": "b",
+          "text": "Ask Gurpreet to help you serve Dada so you both can play sooner",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Gurpreet brings Dada water and sweets, and together you finish quickly to join the game."
+        },
+        {
+          "id": "c",
+          "text": "Run straight to the lawn before the game starts without you",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "You have fun playing, but feel a pinch of guilt seeing your uncle rushing to help Dada."
+        },
+        {
+          "id": "d",
+          "text": "Stay beside Dada, but grumble loudly so people know you are missing out",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Dada notices your frowning face and asks gently if you would rather go play."
+        }
+      ],
+      "hint": {
+        "text": "Is there a way to make sure Dada is cared for without completely missing the fun?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-08",
+        "sit-15",
+        "sit-10"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "rsit-21",
+        "gen-sit-mvbjmrkb79d1",
+        "gen-sit-mvbjfnp37afb"
+      ],
+      "createdAt": "2026-10-16T22:35:17.070Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "relationshipSkills",
+          "difficulty": 3,
+          "construct": "duty-community"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario presents a clear conflict between an appealing social activity and a family duty to assist an elder. Option A shows strong responsible decision-making and delayed gratification, while Option B demonstrates creative problem-solving and cooperation."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Captures an authentic Indian family wedding dynamic with warmth and realism.",
+            "Presents balanced dilemma options without preaching or over-rewarding."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic, showing both natural warmth and mild mixed feelings without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges feelings like the pull to play and the natural pinch of guilt without dismissing them."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Actions speak through Dada's and Gurpreet's reactions rather than moralizing dialogue."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Allows multiple constructive ways to balance family duty with peer play."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options reflecting hesitation or grumbling are treated with gentle curiosity rather than condemnation."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of clinical framing or diagnostic vocabulary."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Deeply familiar cultural setting involving serving elders at a family wedding."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly explores balancing family responsibility toward a grandparent with personal desire to play."
+            }
+          }
+        },
+        "maxSimilarity": 0.87223148703044,
+        "mostSimilarId": "rsit-21"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjqg6lca28",
+      "kind": "situation",
+      "title": "The Only Hoverboard",
+      "text": "In an online game, you and Karthik unlock the only hoverboard on the island. Only one player can ride it. Karthik types, \"Let me try!\" You really want to ride it right now too. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 68,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "fairness",
+        "turn-taking"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Quickly click to grab the board before Karthik can",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You zoom off into the sky, but Karthik sends a sad emoji and stops playing."
+        },
+        {
+          "id": "b",
+          "text": "Type, \"You take the first turn, then pass it to me\"",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Karthik agrees. He flies one loop around the island, then lands and gives it to you."
+        },
+        {
+          "id": "c",
+          "text": "Let him take it without saying anything and feel glum",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Karthik has fun flying, while your character stands on the grass feeling left out."
+        }
+      ],
+      "hint": {
+        "text": "How could both of you get a chance to ride?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-15",
+        "sit-10",
+        "sit-06"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "sit-08",
+        "gen-sit-mvbjma8555a1",
+        "gen-sit-mvb1356i36b5"
+      ],
+      "createdAt": "2026-10-16T22:35:37.197Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "relationshipSkills",
+          "difficulty": 2,
+          "construct": "fair-sharing"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Proposing to take turns (Option B) clearly demonstrates fairness, clear communication, and relationship skills. Grabbing the board acts on impulse at the expense of a friend, while silently giving up leads to unexpressed resentment."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately maps all required construct elements: grabbing, giving up sadly, and finding a fair turn-taking solution.",
+            "Consequences reflect realistic, relatable social interactions in contemporary online multiplayer games for 8-10 year olds."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Karthik's reactions (leaving the game, or happily sharing after one loop) feel natural and unforced."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Allows for the feeling of being left out and glum when yielding without speaking up."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No lecturing or moralizing; actions play out naturally."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Proposing a fair turn fits the concrete problem of a single in-game item without being preachy."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The impulsive grab option is described neutrally without judging the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Keeps entirely to normal childhood play dynamics with no therapeutic jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Online co-op gaming with friends is very familiar and relatable to Indian children in this age bracket."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Directly embodies the required research construct of sharing and fair turn-taking."
+            }
+          }
+        },
+        "maxSimilarity": 0.8788485111825896,
+        "mostSimilarId": "sit-08"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjqwjp0155",
+      "kind": "situation",
+      "title": "The Senior Drill",
+      "text": "At football practice, Coach unexpectedly invites you and Joseph to join the senior squad's special tactical session. You've dreamed of this for months. But your phone buzzes: a reminder from Mum that Dadi needs you home by 5:30 p.m. to help her walk to the clinic while your parents finish work. Staying means breaking your promise at home; leaving means missing your big chance. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 3,
+      "wordCount": 130,
+      "expectedTimeSec": 65,
+      "difficulty": 4,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "family",
+        "responsibility",
+        "honesty"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Call Mum to explain the opportunity and ask if an aunt or neighbour can help Dadi today",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Mum appreciates you checking first and arranges for Chachi to step in, though she reminds you to plan ahead next time."
+        },
+        {
+          "id": "b",
+          "text": "Tell Coach and Joseph about your family commitment, leave on time, and ask Joseph to share drill notes later",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Coach respects your reliability, Joseph promises to fill you in tomorrow, and you reach home right on time for Dadi."
+        },
+        {
+          "id": "c",
+          "text": "Switch off my phone, stay for the full session, and make up an excuse later",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -2,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "The drill goes well, but you return home to find Dadi struggled on her own and your parents are deeply upset."
+        },
+        {
+          "id": "d",
+          "text": "Complain to Joseph that family duties always ruin your sports opportunities",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Joseph doesn't know how to respond, and venting leaves you feeling grumpy without resolving what to do."
+        }
+      ],
+      "hint": {
+        "text": "Is there a way to respect your family's trust while also being clear with your team?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-09",
+        "sit-11",
+        "sit-05"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvb13f4m1e28",
+        "rsit-21",
+        "gen-sit-mvbjn5gz4cf3"
+      ],
+      "createdAt": "2026-10-16T22:35:58.405Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "relationshipSkills",
+          "difficulty": 3,
+          "construct": "duty-community"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This situation poses a tough conflict between a major personal ambition and a critical family duty. Option B demonstrates strong responsibility and relationship skills by honouring commitments while proactively finding a way to catch up later. Option A shows reasonable problem-solving, while C and D reflect poor self-management and avoidance of responsibility."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Presents a grounded, relatable Indian family dilemma with genuine trade-offs.",
+            "Offers two healthy, distinct ways to resolve the tension (problem-solving with family vs. honoring the commitment directly) without forcing a single moral answer.",
+            "Consequences are natural and realistic without preaching or catastrophizing."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic, reflecting natural relational reactions from coach, friend, and parents."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges the genuine conflict between wanting a sporting milestone and caring for Dadi."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Outcomes unfold naturally from actions taken rather than through adult moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Leaves room for multiple sensible choices (communicating with family or honoring the commitment) to both be valid."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options portray believable adolescent reactions without mocking or shaming the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical terminology or medical advice used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Culturally authentic setting involving Dadi, Chachi, and balancing extracurriculars with family care."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly models the clash between personal desire and family duty."
+            }
+          }
+        },
+        "maxSimilarity": 0.8901852378091554,
+        "mostSimilarId": "gen-sit-mvb13f4m1e28"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjr3da7c0d",
+      "kind": "situation",
+      "title": "The Kulfi Counter",
+      "text": "At a family wedding reception, you wait patiently in a long line for kulfi. Just as you reach the front, Nikhil pushes right in front of you and reaches for a bowl. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 84,
+      "expectedTimeSec": 30,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "standing up for oneself",
+        "fairness",
+        "communication"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Shove his arm and shout, 'Get lost, I was here first!'",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Nearby guests turn to stare at the commotion, and Nikhil glares angrily back at you."
+        },
+        {
+          "id": "b",
+          "text": "Look at him and say firmly, 'Nikhil, I waited my turn. Please go behind me.'",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Nikhil pauses, looks surprised that you spoke up, and steps behind you in line."
+        },
+        {
+          "id": "c",
+          "text": "Say nothing and step back, letting him take your spot.",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Nikhil takes his bowl and walks off, while you wait even longer feeling annoyed."
+        },
+        {
+          "id": "d",
+          "text": "Tell the elder serving dessert, 'Excuse me, I was next in line.'",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "The elder serves you first and tells Nikhil to wait his turn like everyone else."
+        }
+      ],
+      "hint": {
+        "text": "Can you speak up for yourself without shouting or starting a fight?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-08",
+        "sit-15",
+        "sit-10"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjpi3g4daf",
+        "gen-sit-mvbjjr5mc134",
+        "gen-sit-mvbjmrkb79d1"
+      ],
+      "createdAt": "2026-10-16T22:36:07.246Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "relationshipSkills",
+          "difficulty": 3,
+          "construct": "assertive-communication"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Being cut in line after waiting patiently triggers strong frustration in children. Option B displays clear relationship skills and self-management through calm, assertive boundary setting. Option D is also a responsible and safe approach to resolving the issue politely."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Fits the construct perfectly with balanced aggressive, passive, assertive, and adult-help options.",
+            "Culturally grounded and realistic scenario for children in India.",
+            "Consequences are natural, proportionate, and free from preaching."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic: shouting causes unwanted attention, while speaking calmly or telling an elder restores fairness."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Validates the annoyance of being cut in line without bypassing the frustration."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No moralising language or adult lecturing; consequences unfold directly from the child's action."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Recognises both assertive peer communication and politely alerting an adult as valid choices."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Choices and outcomes do not shame or label the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical terminology or medical advice used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "A kulfi line at a family wedding reception is an authentic, everyday Indian cultural setting."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly models calm assertiveness versus aggression and passivity when someone cuts in line."
+            }
+          }
+        },
+        "maxSimilarity": 0.9080819494570624,
+        "mostSimilarId": "gen-sit-mvbjpi3g4daf"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjrk3o81f7",
+      "kind": "situation",
+      "title": "The Hidden Guide",
+      "text": "During revision in the school library, Aarav nudges you with the only copy of the exam guide. 'Quick, slide it behind the old encyclopedias,' he whispers. 'If Section B gets it, their scores will beat ours.' He presses the book into your hands, waiting. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 106,
+      "expectedTimeSec": 40,
+      "difficulty": 3,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "peer pressure",
+        "fairness",
+        "honesty"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Slip the book behind the encyclopedias like Aarav asks",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -2,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Aarav nods in relief, but you feel uneasy watching another student search the empty rack."
+        },
+        {
+          "id": "b",
+          "text": "Hand it back to Aarav and tell him firmly that hiding library books is wrong",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Aarav rolls his eyes and mutters under his breath, but he puts the book down."
+        },
+        {
+          "id": "c",
+          "text": "Refuse to hide it, and suggest you both spend twenty minutes jotting down notes before returning it",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Aarav hesitates, then pulls out a notebook so you can both copy the key points quickly."
+        },
+        {
+          "id": "d",
+          "text": "Shrug, place the guide on a random table, and walk to the other side of the room",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Aarav looks annoyed at being abandoned, and the silence between you lasts all afternoon."
+        }
+      ],
+      "hint": {
+        "text": "How can you help your study partner without being unfair to other classmates?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-11",
+        "sit-09",
+        "sit-14"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjhokp6ef3",
+        "gen-sit-mvb0nt5taeba",
+        "gen-sit-mvb11mwjfd86"
+      ],
+      "createdAt": "2026-10-16T22:36:28.932Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "relationshipSkills",
+          "difficulty": 4,
+          "construct": "peer-pressure"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This item presents a common academic peer-pressure scenario involving unfair advantage and shared resources. Option C is the strongest choice as it resists cheating while offering a constructive solution. The difficulty is a 3 because middle-schoolers often struggle with peer pressure and competitive dynamics."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Captures a very authentic Indian school dynamic regarding exam competition and library resources.",
+            "Accurately reflects the required construct with going along, a firm no, and a constructive alternative.",
+            "Consequences are grounded and realistic without moralizing or magical rewards."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences show natural peer reactions like eye-rolling and lingering awkwardness without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Lingering unease and social tension are preserved rather than glossed over."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Consequences depict interpersonal dynamics rather than preaching right versus wrong."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Offers nuanced choices that navigate peer pressure with varying degrees of social friction."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options describe actions objectively without labeling the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Keeps focus strictly on peer interaction and school ethics."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "The exam pressure and inter-section competition (Section B) are highly relatable for Indian students."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly exhibits peer pressure with options for complying, refusing firmly, and proposing a fair alternative."
+            }
+          }
+        },
+        "maxSimilarity": 0.8738806392992602,
+        "mostSimilarId": "gen-sit-mvbjhokp6ef3"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjrlajb972",
+      "kind": "situation",
+      "title": "The broken party toy",
+      "text": "At Aarav's birthday party, you accidentally step on his new toy car and the wheel snaps off. Nobody saw it happen. Aarav is in the other room cutting the cake. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 62,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "honesty",
+        "apology",
+        "responsibility"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Hide the broken car behind the sofa and walk away",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "You rejoin the party, but you keep worrying Aarav will find out."
+        },
+        {
+          "id": "b",
+          "text": "Tell Aarav what happened and offer to help fix it",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Aarav feels sad about the toy, but he smiles and says thank you for being honest."
+        },
+        {
+          "id": "c",
+          "text": "Say Rahul was playing near the toys earlier",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -2,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Rahul looks hurt when people ask him, and you feel guilty inside."
+        }
+      ],
+      "hint": {
+        "text": "How would you feel if someone broke your birthday present without telling you?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-10",
+        "sit-06",
+        "sit-08"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "sit-12",
+        "gen-sit-mvb0ovbt1f27",
+        "gen-sit-mvbjoqalb74c"
+      ],
+      "createdAt": "2026-10-16T22:36:30.475Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "relationshipSkills",
+          "difficulty": 1,
+          "construct": "honesty-repair"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Admitting to an accident when no one saw requires courage, but the right path is clear. Option B demonstrates high responsible decision-making and relationship skills through honesty and offer of repair. Hiding the toy or blaming another child works directly against personal accountability and trust."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately reflects the construct of owning up to an unseen accident.",
+            "Consequences honestly balance Aarav's disappointment with his appreciation for honesty without sugarcoating.",
+            "Age-appropriate Indian birthday party setting with natural phrasing."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences portray realistic internal worry, quiet guilt, and genuine mixed feelings."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Aarav is allowed to feel sad about his broken toy rather than instantly celebrating the apology."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The consequences show emotional and relational outcomes directly without adult lectures or moralizing words."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Clear best path fits this foundational accountability construct where blaming and hiding cause harm."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options present common impulsive avoidance reactions neutrally without labelling the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No diagnostic language or medicalized emotion terms used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Familiar birthday party setting for 8-10 year olds in India."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly operationalizes owning up versus hiding or blaming when an accident happens unseen."
+            }
+          }
+        },
+        "maxSimilarity": 0.9001299969068559,
+        "mostSimilarId": "sit-12"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjrqaj6eb8",
+      "kind": "situation",
+      "title": "Balcony Confession",
+      "text": "At Nandini's birthday party, Vikram pulls you out to the quiet balcony. He looks overwhelmed. \"I've missed three weeks of coaching because I got completely lost in class, and now the teacher is calling home on Monday. I don't know what to do, but promise you won't tell anyone.\" You can tell this is far bigger than one bad day. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 116,
+      "expectedTimeSec": 35,
+      "difficulty": 3,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "asking for help",
+        "friendship",
+        "trust"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell him to brush it off for now and come back inside to dance",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Vikram tries to join the music, but stays quiet in a corner and leaves early."
+        },
+        {
+          "id": "b",
+          "text": "Promise to keep his secret and help him invent an excuse",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Vikram feels briefly relieved, but the worry returns twice as heavy the next morning."
+        },
+        {
+          "id": "c",
+          "text": "Encourage him to talk to a trusted adult, and offer to be there with him",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Vikram takes a deep breath and agrees to speak with his older brother tonight."
+        },
+        {
+          "id": "d",
+          "text": "Go tell his parents right away in the middle of the party",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Vikram feels cornered and embarrassed in front of all the guests."
+        }
+      ],
+      "hint": {
+        "text": "When a problem is too heavy to carry alone, who has the experience to truly help?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-09",
+        "sit-11",
+        "sit-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjolll413f",
+        "gen-sit-mvbjl380cfbc",
+        "gen-sit-mvbjm3io31a6"
+      ],
+      "createdAt": "2026-10-16T22:36:36.955Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "relationshipSkills",
+          "difficulty": 2,
+          "construct": "help-seeking"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This item addresses a common adolescent dilemma: balancing secrecy/loyalty to a friend against taking responsible action. Option C demonstrates strong relationship skills and responsible decision-making by offering support without enabling dishonesty or impulsively breaching trust."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Captures an authentic academic pressure scenario familiar to Indian adolescents without medicalising distress.",
+            "Shows natural consequences for each path, respecting the friend's agency rather than forcing an immediate confrontation."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences realistically reflect social dynamics and lingering anxiety rather than neat, magic resolutions."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The heaviness of being overwhelmed and the awkwardness at the party remain tangible."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Outcomes demonstrate why secrecy or blurting fails without lecturing the player."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Navigates peer trust and adult support with appropriate nuance."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options present common adolescent instincts neutrally without judgment."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Focuses purely on situational academic stress without clinical or diagnostic phrasing."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Missing coaching classes and fear of a teacher calling home is deeply grounded in Indian middle-school reality."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Directly embodies 'Reaching for help' for a problem bigger than a bad day."
+            }
+          }
+        },
+        "maxSimilarity": 0.9090007782505583,
+        "mostSimilarId": "gen-sit-mvbjolll413f"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjs7mi7ead",
+      "kind": "situation",
+      "title": "A secret at Kiran's house",
+      "text": "At your cousin Kiran's house, Kiran is crying softly. For two weeks, older kids at the park have been cornering him and taking his pocket money. Kiran whispers, \"Promise you won't tell Ma! They said it will get worse.\" What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 84,
+      "expectedTimeSec": 35,
+      "difficulty": 3,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "asking for help",
+        "trust",
+        "safety"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Offer to go with Kiran to tell his mother together",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Kiran holds your hand as his mother listens calmly and makes a plan to protect him."
+        },
+        {
+          "id": "b",
+          "text": "Keep the secret and offer to face the older kids with him",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "You both feel anxious walking there, realizing this is too big to handle on your own."
+        },
+        {
+          "id": "c",
+          "text": "Tell his mother immediately without telling Kiran first",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "His mother steps in to handle it, though Kiran feels upset that his trust was broken."
+        },
+        {
+          "id": "d",
+          "text": "Tell Kiran to simply stay inside the house from now on",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Kiran avoids the park, but he still feels frightened whenever he looks outside."
+        }
+      ],
+      "hint": {
+        "text": "When a friend is scared and unsafe, which grown-up can make things secure for both of you?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-10",
+        "sit-15",
+        "sit-08"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjm3io31a6",
+        "gen-sit-mvbjl380cfbc",
+        "gen-sit-mvbjrqaj6eb8"
+      ],
+      "createdAt": "2026-10-16T22:36:59.418Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "relationshipSkills",
+          "difficulty": 3,
+          "construct": "help-seeking"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario presents a classic conflict for children between keeping a secret for a friend/family member and seeking adult help to ensure safety from bullying. Offering to support Kiran in telling his mother balances trust, empathy, and safety effectively."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Accurately reflects the construct of reaching out to a trusted adult when a peer is unsafe.",
+            "Consequences are realistic, gentle, and psychologically sound without shaming or preachiness.",
+            "Culturally grounded and age-appropriate for 8 to 10-year-olds in India."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences realistically balance emotional trust with practical safety without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Kiran's fear and anxiety are preserved rather than magically swept away."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The outcomes show the natural trade-offs between safety, fear, and friendship without moralising."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Option A models the best path, while Option C honestly shows the friction of protecting someone without their consent."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "None of the options or consequence texts blame, mock, or shame the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language used; handles fear and safety through normal familial support."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Cornering at a neighbourhood park and fear of telling parents are deeply familiar contexts."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Directly targets reaching for help when a situation is unsafe and too big to handle alone."
+            }
+          }
+        },
+        "maxSimilarity": 0.8850781929656971,
+        "mostSimilarId": "gen-sit-mvbjm3io31a6"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjs8ulb657",
+      "kind": "situation",
+      "title": "Stage Credit",
+      "text": "During the annual day drama rehearsal, Karthik steps up to the microphone and introduces the script you spent three evenings writing together as entirely his own work. The drama teacher praises his creativity, and Karthik smiles and accepts the credit without mentioning you. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 105,
+      "expectedTimeSec": 25,
+      "difficulty": 3,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "fairness",
+        "communication",
+        "honesty"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Interrupt loudly on stage and call Karthik a liar in front of the cast",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "The rehearsal halts awkwardly, Karthik becomes defensive, and the teacher asks you both to sit out."
+        },
+        {
+          "id": "b",
+          "text": "Keep quiet and say nothing, but ignore Karthik for the rest of the day",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You feel bitter all afternoon, and the teacher remains unaware that you contributed."
+        },
+        {
+          "id": "c",
+          "text": "Pull Karthik aside at the break and firmly tell him he needs to clarify your shared credit",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Karthik looks sheepish, admits he got caught in the moment, and mentions your name during the next run-through."
+        },
+        {
+          "id": "d",
+          "text": "Speak to the drama teacher privately after rehearsal with your shared draft notes",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "The teacher updates the official programme credits, though Karthik feels uneasy that you did not approach him first."
+        }
+      ],
+      "hint": {
+        "text": "What is the clearest way to stand up for your work without turning it into a shouting match?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-09",
+        "sit-11",
+        "sit-14"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "rsit-18",
+        "sit-09",
+        "gen-sit-mvb0pjmr08ab"
+      ],
+      "createdAt": "2026-10-16T22:37:01.005Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "relationshipSkills",
+          "difficulty": 3,
+          "construct": "assertive-communication"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Having a peer take credit for shared work triggers strong emotions, making impulse control challenging. Options C and D both demonstrate strong emotional regulation, with C prioritizing direct peer communication and D relying on evidence-based mediation."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately reflects the construct with clear passive, aggressive, assertive, and adult-mediation choices.",
+            "Consequences are realistic and emotionally nuanced, showing honest social friction without preaching."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences follow naturally, including realistic peer awkwardness when speaking to the teacher first."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledge the bitterness of silence and the defensive reactions of public confrontation."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The outcomes show the impact of each communication style without lecturing or moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Both direct resolution with a peer and approaching a teacher are treated as viable options with distinct trade-offs."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Choices and outcomes remain neutral and descriptive without shaming the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical terminology or therapeutic framing used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Annual day play rehearsals and shared scriptwriting are relatable, culturally authentic school scenarios."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Construct is clearly visible with aggressive, passive, assertive, and trusted-adult options."
+            }
+          }
+        },
+        "maxSimilarity": 0.9153361393530244,
+        "mostSimilarId": "rsit-18"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjshlm0ddd",
+      "kind": "situation",
+      "title": "The Cracked Keepsake",
+      "text": "At your cousin Pooja's house, you admire her sister Kiran's delicate ceramic project on the study table. While picking it up, it slips from your fingers and a corner chips off. Pooja is busy in the kitchen, and Kiran is returning from coaching in twenty minutes, already exhausted from exams. Nobody saw what happened, and Pooja might think the house cat knocked it down. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 127,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "honesty",
+        "accountability",
+        "repair"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Push the chip under the table and let everyone think the cat did it",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Kiran scolds Pooja for leaving the door open, leaving a tense cloud in the room."
+        },
+        {
+          "id": "b",
+          "text": "Tell Pooja right away and wait together to explain honestly to Kiran, offering to help glue it",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Kiran is upset at first, but appreciates you stepping forward instead of letting her wonder."
+        },
+        {
+          "id": "c",
+          "text": "Try to stick it back with tape quietly so neither of them notices today",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "The piece tilts awkwardly, making the crack more obvious when Kiran touches it later."
+        },
+        {
+          "id": "d",
+          "text": "Leave the study room immediately and sit in the living room pretending to read",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "You keep checking your phone nervously, dreading the moment Kiran discovers the damage."
+        }
+      ],
+      "hint": {
+        "text": "How might hiding the truth affect the trust between Pooja and Kiran?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-09",
+        "sit-11",
+        "sit-02"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "sit-12",
+        "gen-sit-mvbjrlajb972",
+        "gen-sit-mvb0ovbt1f27"
+      ],
+      "createdAt": "2026-10-16T22:37:12.346Z",
+      "pipeline": {
+        "runId": "20261016T223419-6003",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "relationshipSkills",
+          "difficulty": 4,
+          "construct": "honesty-repair"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario tests honesty and accountability following an accidental mistake when cover-up is easy. Option B demonstrates strong responsible decision-making and relationship skills by owning up to the accident and offering a constructive solution, whereas the other choices reflect avoidant or dishonest behavior."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately reflects the construct of owning up and repairing an unseen mistake.",
+            "Consequences are grounded and realistic, acknowledging initial upset rather than magical fixes.",
+            "Culturally authentic context for Indian pre-teens with relatable domestic dynamics."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are plausible; Kiran is still upset initially rather than instantly delighted."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Allows Kiran's frustration and the narrator's nervous dread to exist without dismissal."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Outcomes show interpersonal friction and emotional relief organically without moralising."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Owning up and offering repair is the clear constructive path for an accidental breakage."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options present natural human impulses to hide or stall without judgmental language."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of clinical framing, therapy jargon, or inappropriate diagnostics."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Visiting cousins, ceramic crafts, and returning tired from coaching are natural everyday realities."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Clearly presents an unseen mistake with options to conceal, blame, or admit and repair."
+            }
+          }
+        },
+        "maxSimilarity": 0.9103512262809109,
+        "mostSimilarId": "sit-12"
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "gen-sit-mvbjp2qm9237",
+      "runId": "20261016T223419-6003",
+      "target": {
+        "kind": "situation",
+        "ageBand": "8-10",
+        "competency": "relationshipSkills",
+        "difficulty": 2,
+        "construct": "honesty-repair"
+      },
+      "stage": "duplicate",
+      "reasons": [
+        "Too similar to gen-sit-mvbjkf1of372 (similarity 0.937)"
+      ],
+      "createdAt": "2026-10-16T22:34:33.118Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The deleted file",
+        "text": "In the class group chat, Siddharth asks, \"Someone deleted my science project file from the shared drive! Who did it?\" You remember clicking delete by mistake earlier, but nobody saw you. What do you do?",
+        "ageBand": "8-10",
+        "primaryCompetencies": [
+          "relationshipSkills",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "honesty",
+          "apologising",
+          "teamwork"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Say nothing and hope Siddharth finds a backup copy",
+            "consequence": "Siddharth worries for hours, and you feel uneasy all evening."
+          },
+          {
+            "id": "b",
+            "text": "Reply that it was an accident, apologise, and help him restore it from the trash folder",
+            "consequence": "Siddharth recovers his project and is relieved that you spoke up quickly."
+          },
+          {
+            "id": "c",
+            "text": "Message that an app glitch probably erased the file",
+            "consequence": "Siddharth wastes time contacting tech support, and the file stays stuck in the trash."
+          }
+        ],
+        "hint": {
+          "text": "How might Siddharth feel if no one owns up?"
+        }
+      },
+      "maxSimilarity": 0.9366594915360278,
+      "mostSimilarId": "gen-sit-mvbjkf1of372"
+    },
+    {
+      "id": "gen-sit-mvbjr2cx6771",
+      "runId": "20261016T223419-6003",
+      "target": {
+        "kind": "situation",
+        "ageBand": "11-14",
+        "competency": "relationshipSkills",
+        "difficulty": 4,
+        "construct": "peer-pressure"
+      },
+      "stage": "curator",
+      "reasons": [
+        "The situation depicts bullying and exclusion of younger children, but does not offer an option to tell a trusted adult as required by the basic checks."
+      ],
+      "createdAt": "2026-10-16T22:36:05.937Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Last Twenty Minutes",
+        "text": "At the neighbourhood park, only twenty minutes of daylight remain for your match. Karthik marches toward the concrete pitch where two younger kids are drawing hopscotch grids. 'Let's kick their chalk away and take over,' Karthik urges. Simran nods, handing you a bat: 'Back us up, or we lose our only game this week.' What do you do?",
+        "ageBand": "11-14",
+        "primaryCompetencies": [
+          "relationshipSkills",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "peer pressure",
+          "fairness",
+          "assertiveness"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Help Karthik shoo the kids away so the team can play before sunset",
+            "consequence": "You get your game, but the younger kids leave upset, and the win feels hollow."
+          },
+          {
+            "id": "b",
+            "text": "Say firmly, 'No, that's unkind. I'm not doing that,' and hand the bat back",
+            "consequence": "Karthik calls you a buzzkill, but your clear refusal makes the others stop and think."
+          },
+          {
+            "id": "c",
+            "text": "Say, 'Don't ruin their game. Let's ask if they want to field with us or take the side path'",
+            "consequence": "Karthik grumbles, but the younger kids happily move to the boundary to help fetch balls."
+          },
+          {
+            "id": "d",
+            "text": "Stay quiet and look at my phone to let them handle it",
+            "consequence": "Karthik kicks the chalk into the grass while you stand by, feeling uneasy inside."
+          }
+        ],
+        "hint": {
+          "text": "How can you stand your ground with friends without ignoring what the younger kids need?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -2,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 1,
+              "selfManagement": 1,
+              "socialAwareness": 1,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 2,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "d",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 3,
+        "readingLevel": 2,
+        "expectedTimeSec": 40,
+        "rationale": "This scenario presents a realistic conflict between peer pressure, limited play time, and fairness to younger children. Option C shows strong social awareness and relationship skills by finding an inclusive compromise. Option B shows firm ethical decision-making, while option A actively hurts others."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "reasons": [
+          "The situation depicts bullying and exclusion of younger children, but does not offer an option to tell a trusted adult as required by the basic checks."
+        ],
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are grounded and believable without magical rewards or overblown drama."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Acknowledge feelings of unease and peer friction naturally without bypassing."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "Shows the social impact of actions without moralizing or lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "Leaves room for both a firm direct refusal and an inclusive compromise."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "Presents passive or flawed choices without labeling or scolding the player."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "Contains no clinical terminology or medical framing."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Culturally authentic setting of evening neighbourhood park cricket and daylight constraints."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "Clearly demonstrates peer pressure with options for going along, a firm refusal, and a constructive alternative."
+          }
+        }
+      },
+      "maxSimilarity": 0.8928376474299431,
+      "mostSimilarId": "gen-sit-mvbjlj8j2cef"
+    },
+    {
+      "id": "gen-sit-mvbjrvtt4223",
+      "runId": "20261016T223419-6003",
+      "target": {
+        "kind": "situation",
+        "ageBand": "8-10",
+        "competency": "relationshipSkills",
+        "difficulty": 2,
+        "construct": "fair-sharing"
+      },
+      "stage": "duplicate",
+      "reasons": [
+        "Too similar to gen-sit-mvbjqg6lca28 (similarity 0.921)"
+      ],
+      "createdAt": "2026-10-16T22:36:44.129Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Golden Shield",
+        "text": "In your online game, a rare golden shield drops after beating the monster. There is only one, and both you and Vikram race towards it. You both press collect at the exact same second. What do you do?",
+        "ageBand": "8-10",
+        "primaryCompetencies": [
+          "relationshipSkills",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "fairness",
+          "turn-taking",
+          "sharing"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Spam-click fast to grab it before Vikram can",
+            "consequence": "You get the shield, but Vikram goes silent and leaves the team match."
+          },
+          {
+            "id": "b",
+            "text": "Step back sadly and let Vikram have it without saying anything",
+            "consequence": "Vikram equips the shield happily, but you feel down for the rest of the game."
+          },
+          {
+            "id": "c",
+            "text": "Type in chat that you can take turns using it each stage",
+            "consequence": "Vikram sends a thumbs-up emoji, and you both charge into the next zone together."
+          },
+          {
+            "id": "d",
+            "text": "Tell Vikram he can keep this one if you get the next rare drop",
+            "consequence": "Vikram agrees right away, and you both keep playing as a team."
+          }
+        ],
+        "hint": {
+          "text": "How can you make sure both of you still have fun playing together?"
+        }
+      },
+      "maxSimilarity": 0.9207506135268394,
+      "mostSimilarId": "gen-sit-mvbjqg6lca28"
+    }
+  ]
+}

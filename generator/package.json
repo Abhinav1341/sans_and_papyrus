@@ -8,7 +8,9 @@
     "bank:expand": "tsx scripts/expand-bank.ts",
     "typecheck": "tsc --noEmit",
     "bank:export": "tsx scripts/export-readable.ts",
-    "bank:dashboard": "tsx scripts/dashboard.ts"
+    "bank:dashboard": "tsx scripts/dashboard.ts",
+    "bank:review-export": "tsx scripts/review.ts export",
+    "bank:review-apply": "tsx scripts/review.ts apply"
   },
   "dependencies": {
     "@google-cloud/firestore": "^9.3.1",

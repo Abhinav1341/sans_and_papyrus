@@ -8,6 +8,7 @@ import {
   Situation, type Competency, type PuzzleDomain,
 } from "../../web/lib/schemas";
 import { PIPELINE_CONFIG as CFG } from "./config";
+import { CONSTRUCTS, constructById } from "./constructs";
 import { UsageTracker, callJson, cosine, embed, type LlmClient } from "./gemini";
 import {
   CURATOR_SYSTEM, GENERATOR_SYSTEM, GRADER_SYSTEM, NAMES, SETTINGS, curatorPrompt, generatorPrompt, graderPrompt, pickRandom,
@@ -34,16 +35,33 @@ export interface ExpandDeps {
   log?: (line: string) => void;
 }
 
-type BankEntry = { id: string; title: string; embedding: number[]; kind: string; competencies: string[] };
+type BankEntry = { id: string; title: string; embedding: number[]; kind: string; competencies: string[]; construct?: string };
+
+/** The construct a seed was built on, from the constructs' own seed lists. */
+const seedConstruct = (id: string) => CONSTRUCTS.find((c) => c.seedIds.includes(id))?.id;
 
 const embedText = (x: { title: string; text: string; options: { text: string }[] }) =>
   `${x.title}. ${x.text} Options: ${x.options.map((o) => o.text).join(" / ")}`;
 
+/** The judge's output: the shared curation shape, with the Satori principles required rather than optional. */
+const JudgeResult = CurationResult.extend({ principles: CurationResult.shape.principles.unwrap() });
+
 const newId = (kind: string) => `gen-${kind === "situation" ? "sit" : "pz"}-${Date.now().toString(36)}${randomBytes(2).toString("hex")}`;
 
-/** Spreads requests across kinds, age bands and the least-covered competencies. */
+/**
+ * Spreads requests across kinds, age bands and the least-covered competencies. Each situation is built on
+ * the least-used research construct that fits its competency and age band (counting what this run plans too).
+ */
 function planTargets(opts: ExpandOptions, bank: BankEntry[]): Target[] {
   const coverage = (c: string) => bank.filter((b) => b.kind === "situation" && b.competencies.includes(c)).length;
+  const constructUse = new Map<string, number>();
+  for (const b of bank) if (b.construct) constructUse.set(b.construct, (constructUse.get(b.construct) ?? 0) + 1);
+  const pickConstruct = (competency: Competency, band: "8-10" | "11-14") => {
+    const fits = CONSTRUCTS.filter((c) => c.competencies.includes(competency) && c.bands.includes(band));
+    const best = [...fits].sort((a, b) => (constructUse.get(a.id) ?? 0) - (constructUse.get(b.id) ?? 0) || Math.random() - 0.5)[0];
+    if (best) constructUse.set(best.id, (constructUse.get(best.id) ?? 0) + 1);
+    return best?.id;
+  };
   const competencies = opts.competency ? [opts.competency] : [...COMPETENCIES].sort((a, b) => coverage(a) - coverage(b));
   const domains = opts.domain ? [opts.domain] : [...PUZZLE_DOMAINS];
   const targets: Target[] = [];
@@ -53,18 +71,21 @@ function planTargets(opts: ExpandOptions, bank: BankEntry[]): Target[] {
     const kind =
       opts.kind === "mixed" ? ((i + 1) % PUZZLE_EVERY_N_ITEMS === 0 ? "puzzle" : "situation") : opts.kind;
     const ageBand = opts.ageBand === "any" ? (i % 2 === 0 ? "8-10" : "11-14") : opts.ageBand;
-    targets.push(
-      kind === "situation"
-        ? { kind, ageBand, competency: competencies[s++ % competencies.length], difficulty: difficultyFor(i, ageBand) }
-        : { kind, ageBand, domain: domains[p++ % domains.length], difficulty: difficultyFor(i, ageBand) }
-    );
+    if (kind === "situation") {
+      const competency = competencies[s++ % competencies.length];
+      targets.push({ kind, ageBand, competency, difficulty: difficultyFor(i, ageBand), construct: pickConstruct(competency, ageBand) });
+    } else {
+      targets.push({ kind, ageBand, domain: domains[p++ % domains.length], difficulty: difficultyFor(i, ageBand) });
+    }
   }
   return targets;
 }
 
-/** Seed examples closest to the target, with a little randomness so prompts vary. */
+/** Seed examples closest to the target (its construct's own seeds first), with a little randomness so prompts vary. */
 function pickExamples(seeds: Situation[], t: Target): Situation[] {
+  const constructSeeds = constructById(t.construct)?.seedIds ?? [];
   const score = (s: Situation) =>
+    (constructSeeds.includes(s.id) ? 6 : 0) +
     (s.kind === t.kind ? 10 : 0) +
     (s.ageBand === t.ageBand ? 3 : 0) +
     (t.competency && s.primaryCompetencies.includes(t.competency) ? 2 : 0) +
@@ -102,10 +123,11 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
   for (const s of seeds) {
     const key = `${models.embedding}:${s.id}:${createHash("sha1").update(embedText(s)).digest("hex").slice(0, 12)}`;
     cache[key] ??= await embed(deps.ai, models.embedding, embedText(s), usage);
-    bank.push({ id: s.id, title: s.title, embedding: cache[key], kind: s.kind, competencies: s.primaryCompetencies });
+    bank.push({ id: s.id, title: s.title, embedding: cache[key], kind: s.kind, competencies: s.primaryCompetencies, construct: seedConstruct(s.id) });
   }
   saveEmbeddingCache(deps.outDir, cache);
-  for (const g of previous) bank.push({ id: g.id, title: g.title, embedding: g.embedding, kind: g.kind, competencies: g.primaryCompetencies });
+  for (const g of previous)
+    bank.push({ id: g.id, title: g.title, embedding: g.embedding, kind: g.kind, competencies: g.primaryCompetencies, construct: g.pipeline?.target?.construct });
 
   // 3. Plan and process each candidate.
   const targets = planTargets(opts, bank);
@@ -123,8 +145,8 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
   await pool(targets, opts.concurrency, async (t, i) => {
     const label = `[${i + 1}/${targets.length}]`;
     labels.set(t, label);
-    log(`${label} start: ${t.kind} ${t.ageBand} ${t.competency ?? t.domain}, difficulty ${t.difficulty}`);
-    const examples = pickExamples(seeds, t);
+    log(`${label} start: ${t.kind} ${t.ageBand} ${t.competency ?? t.domain}${t.construct ? ` · ${t.construct}` : ""}, difficulty ${t.difficulty}`);
+    const examples = pickExamples(seeds.filter((s) => s.status === "active"), t); // drafts never teach the generator
     const avoidTitles = bank.map((b) => b.title).slice(-80);
 
     // A: generate
@@ -132,7 +154,7 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
     try {
       candidate = await callJson(deps.ai, {
         usage, model: models.generator, system: GENERATOR_SYSTEM, schema: GeneratedSituation, temperature: CFG.temperature.generator,
-        prompt: generatorPrompt({ ...t, examples, avoidTitles, setting: pickRandom(SETTINGS, 1)[0], names: pickRandom(NAMES, 3) }),
+        prompt: generatorPrompt({ ...t, construct: constructById(t.construct), examples, avoidTitles, setting: pickRandom(SETTINGS, 1)[0], names: pickRandom(NAMES, 3) }),
       });
     } catch (err) {
       return reject(t, "generator", [(err as Error).message]);
@@ -175,21 +197,22 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
     }
 
 
-    // C: curate
+    // C: the Satori-lens judge (every principle must pass; a person still approves whatever it lets through)
     let curation: CurationResult;
     try {
       curation = await callJson(deps.ai, {
-        usage, model: models.curator, system: CURATOR_SYSTEM, schema: CurationResult, temperature: CFG.temperature.curator,
-        prompt: curatorPrompt(candidate, grade, examples),
+        usage, model: models.curator, system: CURATOR_SYSTEM, schema: JudgeResult, temperature: CFG.temperature.curator,
+        prompt: curatorPrompt(candidate, grade, examples, constructById(t.construct)),
       });
     } catch (err) {
       return reject(t, "curator", [(err as Error).message], { candidate, grade });
     }
+    const failedPrinciples = Object.entries(curation.principles ?? {}).filter(([, v]) => !v.pass).map(([k, v]) => `${k}: ${v.note}`);
     const passes =
       curation.accept && curation.safe && curation.fitsGame &&
-      curation.hintIsNudge !== false && curation.explanationIsKind !== false;
+      curation.hintIsNudge !== false && curation.explanationIsKind !== false && failedPrinciples.length === 0;
     if (!passes)
-      return reject(t, "curator", curation.reasons.length ? curation.reasons : ["Curator did not accept"], {
+      return reject(t, "curator", [...failedPrinciples, ...curation.reasons].slice(0, 6).concat(failedPrinciples.length || curation.reasons.length ? [] : ["Judge did not accept"]), {
         candidate, grade, curation, maxSimilarity: top.sim, mostSimilarId: top.id,
       });
 
@@ -212,7 +235,7 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
       ...(candidate.puzzle ? { puzzle: candidate.puzzle } : {}),
       source: "generated" as const,
       seedIds: examples.map((e) => e.id),
-      status: "active" as const,
+      status: "draft" as const, // a person approves it before any child sees it (scripts/review.ts)
       similarIds: sims.filter((s) => s.sim >= CFG.neighbourThreshold).slice(0, CFG.maxNeighbours).map((s) => s.id),
       createdAt: new Date().toISOString(),
     };
@@ -230,9 +253,9 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
       },
     };
     accepted.push(record);
-    bank.push({ id: record.id, title: record.title, embedding, kind: record.kind, competencies: record.primaryCompetencies });
+    bank.push({ id: record.id, title: record.title, embedding, kind: record.kind, competencies: record.primaryCompetencies, construct: t.construct });
     await deps.store?.saveAccepted(record);
-    log(`  ${label} ✓ accepted: "${record.title}" (asked difficulty ${t.difficulty}, graded ${record.difficulty})`);
+    log(`  ${label} ✓ passed all gates, saved as a draft for human review: "${record.title}" (asked difficulty ${t.difficulty}, graded ${record.difficulty})`);
   });
 
   // 4. Summary, stored in Firestore and as a local run file.

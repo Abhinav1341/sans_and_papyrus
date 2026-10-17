@@ -233,7 +233,6 @@ svg .flowdown { animation: flowdown 1s linear infinite; }
 .round-done h3 { color: var(--sun); }
 .round-stars { display: flex; gap: 6px; justify-content: center; }
 .round-stars .ico { width: 36px; height: 36px; color: var(--sun); animation: tc-zoom .6s var(--ease-spring) both; }
-.guest-link { margin-top: 4px; }
 
 /* ============ Power-ups: aura and power banner ============ */
 svg .aura-streak { animation: aura-rise 2.2s linear infinite; }

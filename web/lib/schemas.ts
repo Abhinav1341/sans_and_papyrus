@@ -172,6 +172,17 @@ export const CurationResult = z.object({
   hintIsNudge: z.boolean().optional(), // hint guides thinking without giving the answer
   explanationIsKind: z.boolean().optional(), // puzzles: the walkthrough is gentle, never shaming
   reasons: z.array(z.string()).max(5),
+  // The Satori-lens judge: one verdict per principle (optional so items judged before it still load)
+  principles: z.object({
+    honestConsequences: z.object({ pass: z.boolean(), note: z.string().max(200) }), // believable, not sugar-coated or catastrophic
+    feelingsStayReal: z.object({ pass: z.boolean(), note: z.string().max(200) }),   // no "don't be sad", no erased feelings
+    showNotPreach: z.object({ pass: z.boolean(), note: z.string().max(200) }),      // no lectures or morals
+    certaintyFits: z.object({ pass: z.boolean(), note: z.string().max(200) }),      // one best answer only where there really is one
+    noShaming: z.object({ pass: z.boolean(), note: z.string().max(200) }),          // no option or consequence shames the chooser
+    notATherapist: z.object({ pass: z.boolean(), note: z.string().max(200) }),      // no diagnosis or medical advice; big worries → trusted adult
+    realForIndianChildren: z.object({ pass: z.boolean(), note: z.string().max(200) }), // culturally real, no stereotypes
+    constructVisible: z.object({ pass: z.boolean(), note: z.string().max(200) }),   // the research idea clearly shows (pass if none given)
+  }).optional(),
 });
 export type CurationResult = z.infer<typeof CurationResult>;
 

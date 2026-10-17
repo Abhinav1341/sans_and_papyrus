@@ -1,0 +1,1914 @@
+{
+  "summary": {
+    "runId": "20261016T223947-83d8",
+    "startedAt": "2026-10-16T22:39:47.958Z",
+    "finishedAt": "2026-10-16T22:42:09.321Z",
+    "requested": 14,
+    "accepted": 10,
+    "rejectedByStage": {
+      "rules": 1,
+      "category": 3
+    },
+    "acceptedByCategory": {
+      "situation:selfAwareness": 10
+    },
+    "models": {
+      "generator": "gemini-3.8-flash",
+      "grader": "gemini-3.6-flash",
+      "curator": "gemini-3.8-flash",
+      "embedding": "gemini-embedding-001"
+    },
+    "usage": {
+      "gemini-3.8-flash": {
+        "calls": 24,
+        "inputTokens": 79170,
+        "outputTokens": 10198,
+        "thinkingTokens": 21079
+      },
+      "gemini-embedding-001": {
+        "calls": 13,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thinkingTokens": 0
+      },
+      "gemini-3.6-flash": {
+        "calls": 13,
+        "inputTokens": 16565,
+        "outputTokens": 4836,
+        "thinkingTokens": 10748
+      }
+    },
+    "estimatedCostUsd": 0.17666625
+  },
+  "accepted": [
+    {
+      "id": "gen-sit-mvbjweatd07e",
+      "kind": "situation",
+      "title": "The Fellowship Email",
+      "text": "The email arrives: you got selected for the month-long summer science camp in Bengaluru. Yash high-fives you, grinning ear-to-ear, while Ma dials Dadi to celebrate. You feel a burst of pride, but looking around your room, a sudden anxious knot tightens in your stomach about being away from home alone. Yash asks, \"Aren't you totally thrilled?\" What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 114,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "honesty",
+        "emotional awareness",
+        "family"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell Yash I am really excited about the camp, but also a bit nervous about leaving home",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Yash nods and sits beside you. \"That makes sense. It's a huge step, but we'll video call every evening.\""
+        },
+        {
+          "id": "b",
+          "text": "Pretend I only feel pure excitement and start bragging about the campus",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Everyone cheers, but late that night you lie awake with the nervous flutter still stuck in your chest."
+        },
+        {
+          "id": "c",
+          "text": "Shrug and say the camp probably won't even be that interesting",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Yash looks confused by your flat reaction, and the celebration in the kitchen quiets down."
+        },
+        {
+          "id": "d",
+          "text": "Slip away to my room and search online for reasons to cancel my spot",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You read about the strict schedule, feeling more overwhelmed instead of addressing what you actually feel."
+        }
+      ],
+      "hint": {
+        "text": "Can a person feel proud of an opportunity and still feel scared about what comes next?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-04",
+        "sit-11",
+        "sit-02"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbj1yhqb910",
+        "rsit-17",
+        "rsit-01"
+      ],
+      "createdAt": "2026-10-16T22:40:14.694Z",
+      "pipeline": {
+        "runId": "20261016T223947-83d8",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfAwareness",
+          "difficulty": 2,
+          "construct": "pons-mixed"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A demonstrates excellent self-awareness by acknowledging and sharing complex, conflicting emotions (excitement and anxiety). The unhelpful options reflect common emotional defense mechanisms like bragging, downplaying achievements, or engaging in avoidant behavior."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Accurately maps the target construct of mixed feelings with high emotional resonance.",
+            "Culturally grounded and authentic to urban Indian family life without relying on stereotypes.",
+            "Consequences are honest, gentle, and avoid preachiness or magical resolution."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences show the internal cost of hiding feelings and the relief of being honest without magical rewards."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Both excitement and anxiety are permitted to co-exist without rushing to fix or erase the nervousness."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Consequences naturally show the internal burden of emotional avoidance without lectures."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Acknowledging both emotions directly resolves the internal conflict while keeping choices grounded."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Avoidant choices like downplaying or wanting to cancel are treated as understandable impulses."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Uses natural phrases like 'anxious knot' without clinical or diagnostic terminology."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Details like calling Dadi and traveling away to Bengaluru for summer camp fit Indian middle-school contexts smoothly."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Directly targets holding and expressing two conflicting emotions at once."
+            }
+          }
+        },
+        "maxSimilarity": 0.8869793449159838,
+        "mostSimilarId": "gen-sit-mvbj1yhqb910"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjwii16f1c",
+      "kind": "situation",
+      "title": "The Spice Stall Run",
+      "text": "At the busy market, Papa hands Yash twenty rupees. \"Go ahead to the spice stall alone and buy turmeric,\" Papa says. Yash feels big and excited, but also a little nervous about the bustling crowd. Papa smiles and asks, \"Ready?\" What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 92,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "feelings",
+        "growing up",
+        "honesty"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell Papa I am excited to try, but a bit nervous too",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Papa smiles, points out the yellow signboard, and waits where Yash can still see him."
+        },
+        {
+          "id": "b",
+          "text": "Boast that I am totally brave and dash ahead into the crowd",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You bump into a shopper's basket and realise you cannot spot the stall."
+        },
+        {
+          "id": "c",
+          "text": "Pretend I don't care and tell Papa to buy it himself",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Papa takes the money back, and you feel disappointed you missed your chance."
+        },
+        {
+          "id": "d",
+          "text": "Nod quietly and drag my feet, hiding the tight feeling in my chest",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "You head off alone, but every noisy scooter horn makes you flinch."
+        }
+      ],
+      "hint": {
+        "text": "Can you feel two very different things at the exact same moment?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-10",
+        "sit-01",
+        "sit-07"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbj1yhqb910",
+        "gen-sit-mvb11i6z6678",
+        "gen-sit-mvbjm3io31a6"
+      ],
+      "createdAt": "2026-10-16T22:40:20.137Z",
+      "pipeline": {
+        "runId": "20261016T223947-83d8",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfAwareness",
+          "difficulty": 2,
+          "construct": "pons-mixed"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A shows strong self-awareness by accurately identifying and expressing conflicting feelings of excitement and nervousness. The incorrect options illustrate common unhelpful coping mechanisms for children, such as reckless bravado, defensive disinterest, or passive suppression."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Accurately reflects the construct of mixed feelings (excited and nervous) in an everyday Indian setting.",
+            "Consequences are natural, realistic, and non-preachy.",
+            "The hint provides a gentle cognitive nudge without revealing the answer."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Papa offering guidance while staying visible is a completely believable and supportive adult response."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges conflicting feelings of eagerness and nervousness without brushing either away."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Shows the outcome through the market interaction without moralising or lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Communicating mixed feelings directly is clearly constructive for an eight-year-old taking on a new task."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options present normal childhood reactions (bravado, hesitation) without scolding the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Free of clinical language or diagnostic framing."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Buying turmeric at a spice stall in a bustling market is familiar and culturally accurate for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Directly targets mixed feelings by having the best option explicitly voice both excitement and nervousness."
+            }
+          }
+        },
+        "maxSimilarity": 0.8733969957768348,
+        "mostSimilarId": "gen-sit-mvbj1yhqb910"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjx3921bf6",
+      "kind": "situation",
+      "title": "Counting the Market Change",
+      "text": "At the vegetable market, your mother Meenakshi asks you to count the change. You get the total wrong twice. You think, \"I'm just terrible at maths.\" Meenakshi is waiting with the cloth bags. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 69,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "self-talk",
+        "patience",
+        "trying again"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell myself I am still learning, take a breath, and recount",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "You group the ten-rupee coins first and find the right total."
+        },
+        {
+          "id": "b",
+          "text": "Believe I will never get it right and hand the coins back",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Meenakshi counts them quickly, but you feel grumpy all the way home."
+        },
+        {
+          "id": "c",
+          "text": "Guess a number quickly so the vendor doesn't stare",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "The vendor smiles gently and points out you are two coins short."
+        }
+      ],
+      "hint": {
+        "text": "Is making a mistake the same as being bad at something?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-10",
+        "sit-01",
+        "sit-15"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjvrtgdbd2",
+        "gen-sit-mvbjufch2c26",
+        "gen-sit-mvb14i63c777"
+      ],
+      "createdAt": "2026-10-16T22:40:47.031Z",
+      "pipeline": {
+        "runId": "20261016T223947-83d8",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfAwareness",
+          "difficulty": 2,
+          "construct": "reappraisal"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A shows strong self-awareness through a growth mindset and clear self-management by regulating frustration and persisting. Option B reflects giving up under pressure, while Option C prioritizes avoiding mild social awkwardness over accuracy."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately reflects the construct of reframing an unhelpful automatic thought.",
+            "Culturally grounded scenario with realistic, everyday emotional consequences.",
+            "Gentle, nudging hint that supports self-reflection without dictating the choice."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic and modest: grouping coins helps solve it, giving up leaves a lingering grumpy feeling."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The frustration and grumpiness of feeling stuck are honored without being dismissed."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The reframing shows practical problem-solving in action without moralizing or lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Reframing self-talk is clearly healthier than despairing or guessing blindly in this context."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options describe natural emotional impulses when flustered without using derogatory labels."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Addresses everyday cognitive reframing cleanly without clinical jargon or diagnoses."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Counting change with cloth bags at a local vegetable market is very familiar and relatable."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Directly embodies the construct with a quoted automatic thought that gets reframed or yielded to."
+            }
+          }
+        },
+        "maxSimilarity": 0.8622206355574479,
+        "mostSimilarId": "gen-sit-mvbjvrtgdbd2"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjx74b5bf8",
+      "kind": "situation",
+      "title": "Meme in the Class Chat",
+      "text": "In the class group chat, Abdul posts a meme teasing your science poster. Suddenly, your cheeks feel burning hot and your fingers squeeze the phone tightly. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 81,
+      "expectedTimeSec": 30,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "calmness",
+        "feelings",
+        "digital safety"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Notice my burning face and tight hands, put the phone down, and breathe slowly",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Your grip relaxes and your breathing steadies, helping your mind clear before you respond."
+        },
+        {
+          "id": "b",
+          "text": "Type an angry reply straight away while my fingers are shaking",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Abdul fires back another joke, and other classmates begin taking sides in the chat."
+        },
+        {
+          "id": "c",
+          "text": "Post a laughing emoji to push the heat down and pretend it is funny",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Abdul thinks you enjoyed the joke and posts another one, leaving your chest tight."
+        },
+        {
+          "id": "d",
+          "text": "Step away from the screen and show the message to my mother",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "Your mother listens quietly, and you both decide the best way to handle the chat."
+        }
+      ],
+      "hint": {
+        "text": "What are your hot cheeks and tight fingers telling you before you type?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-01",
+        "sit-10",
+        "sit-08"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjv4z86e06",
+        "gen-sit-mvbjup739e7d",
+        "sit-14"
+      ],
+      "createdAt": "2026-10-16T22:40:52.044Z",
+      "pipeline": {
+        "runId": "20261016T223947-83d8",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfAwareness",
+          "difficulty": 3,
+          "construct": "gross-body-cues"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A clearly demonstrates self-awareness and self-management by recognizing physical body cues and pausing to calm down. Option D shows responsible decision-making by seeking support from a trusted adult. Reacting impulsively (Option B) or suppressing true feelings (Option C) are unhelpful responses."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Accurately reflects the construct of somatic awareness without labeling the emotion directly.",
+            "Provides realistic, non-preachy digital interactions with natural consequences.",
+            "Includes a healthy option to involve a trusted adult during online unkindness."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences follow naturally without overblown drama or magical fixes."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Physical discomfort and emotional tension are respected and allowed space."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No moralizing, lecturing, or 'should' statements in the consequences."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Both self-soothing and seeking adult guidance are treated as healthy paths."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options depict relatable impulsive reactions without mocking the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Grounds the experience in everyday bodily cues rather than clinical jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Class group chats and school project teasing are very familiar to Indian school kids."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Construct is fully met: body cues are described without naming the emotion, followed by self-regulation."
+            }
+          }
+        },
+        "maxSimilarity": 0.9188765669358897,
+        "mostSimilarId": "gen-sit-mvbjv4z86e06"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjx8yx610a",
+      "kind": "situation",
+      "title": "The Library Envelope",
+      "text": "In a quiet corner of the school library, the teacher hands you an envelope. Your essay won the state competition, earning a trip to Delhi. But Sana, who researched beside you every evening, didn't make the shortlist. Looking down, your heart leaps with excitement, yet a heavy pang of sadness for her hits at the exact same moment. Sana looks up from her notebook, waiting to know what the letter says. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 141,
+      "expectedTimeSec": 35,
+      "difficulty": 3,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "relationshipSkills"
+      ],
+      "valueTags": [
+        "honesty",
+        "empathy",
+        "friendship"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Show Sana the certificate and talk only about Delhi, pushing away the guilt you feel.",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Sana offers a polite smile and congratulates you, but quietly packs her books and leaves."
+        },
+        {
+          "id": "b",
+          "text": "Tell Sana you won, sharing both how thrilled you are and how sad you feel that she missed out.",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Sana takes a breath and hugs you, grateful that you were completely real about how both of you feel."
+        },
+        {
+          "id": "c",
+          "text": "Hide the envelope and pretend the results were delayed so she does not feel low.",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "The teacher announces it in assembly next morning, leaving Sana feeling misled and hurt."
+        },
+        {
+          "id": "d",
+          "text": "Tell her you won, but insist the contest was pointless and you do not care about going.",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Sana frowns at your forced indifference, sensing that you are pretending not to care."
+        }
+      ],
+      "hint": {
+        "text": "Can you be genuinely proud of your achievement while still feeling for your friend?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-02",
+        "sit-04",
+        "sit-16"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "rsit-01",
+        "gen-sit-mvbjweatd07e",
+        "gen-sit-mvb0re6833df"
+      ],
+      "createdAt": "2026-10-16T22:40:54.441Z",
+      "pipeline": {
+        "runId": "20261016T223947-83d8",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfAwareness",
+          "difficulty": 4,
+          "construct": "pons-mixed"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Navigating mixed emotions when celebrating personal success alongside a friend's disappointment is challenging for early adolescents. Option B demonstrates strong self-awareness and relationship skills by being honest and empathetic. The remaining options involve unhelpful strategies like bragging, lying, or feigning indifference."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately embodies the mixed feelings construct by naming both personal excitement and empathy for a friend.",
+            "Culturally grounded and realistic for Indian middle schoolers.",
+            "Consequences are natural, honest, and avoid preachy wrap-ups."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic, portraying natural interpersonal awkwardness and relief without exaggeration."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Honours both the joy of winning and the genuine sadness of a friend missing out simultaneously."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Does not use moralising language or adult lectures; results unfold organically."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Option B is clearly the healthiest response for the mixed-feelings construct without devaluing the emotional challenge."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Choices reflect common adolescent protective habits (hiding news, feigning indifference) without shaming."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical terminology or medicalising of emotional conflict."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Believable Indian school setting featuring a state competition, a trip to Delhi, and morning assembly."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Mixed feelings construct is central and clearly reflected in the dilemma and options."
+            }
+          }
+        },
+        "maxSimilarity": 0.8831489316488036,
+        "mostSimilarId": "rsit-01"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjxv2cdf96",
+      "kind": "situation",
+      "title": "Voice Note in the Park",
+      "text": "At the neighbourhood park bench, Irfan plays a voice note from Mary laughing about how your voice cracked during the class presentation. Instantly, your face burns, your heart hammers against your ribs, and your hands squeeze into tight, shaking balls. Irfan looks up, waiting to see what you will do. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 120,
+      "expectedTimeSec": 35,
+      "difficulty": 3,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "self-regulation",
+        "calmness",
+        "friendship"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Notice my pounding chest and clenched fists, take three slow breaths, and wait for the heat to cool",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "The tightness across your shoulders loosens, and your thoughts become clear enough to respond calmly."
+        },
+        {
+          "id": "b",
+          "text": "Tell Irfan right now that the voice note is mean and ask him to switch it off",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Irfan locks his screen and apologises, though your throat still feels tight for quite a while."
+        },
+        {
+          "id": "c",
+          "text": "Fire off a sarcastic reply in the group chat pointing out a mistake Mary made",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Mary snaps back instantly, and your phone starts buzzing with uncomfortable messages from classmates."
+        },
+        {
+          "id": "d",
+          "text": "Force a laugh and pretend it is funny, keeping my clenched hands tucked in my pockets",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Irfan replays the note once more, while the knot in your stomach twists even tighter."
+        }
+      ],
+      "hint": {
+        "text": "What are your hands and racing heartbeat telling you about this moment?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-16",
+        "sit-02",
+        "sit-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjx74b5bf8",
+        "gen-sit-mvbjup739e7d",
+        "gen-sit-mvbjv4z86e06"
+      ],
+      "createdAt": "2026-10-16T22:41:23.077Z",
+      "pipeline": {
+        "runId": "20261016T223947-83d8",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfAwareness",
+          "difficulty": 3,
+          "construct": "gross-body-cues"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This scenario presents a realistic peer-embarrassment trigger for young teens. Pausing to recognize body signals and regulate feelings (Option A) demonstrates strong self-awareness and self-management, whereas retaliating in a group chat (Option C) escalates conflict."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Precisely captures the research construct by detailing physical sensations without naming emotions.",
+            "Consequences are emotionally realistic and avoid preachy moralising."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences depict believable peer dynamics and lingering somatic tension rather than neat fairy-tale endings."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The pain of peer embarrassment is allowed to sit without being bypassed or quickly brushed off."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Outcomes show the effect of pausing versus lashing out without lecturing the player."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Setting boundaries right away (option B) is treated with dignity as an understandable choice alongside self-regulation."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options portray common, relatable adolescent reactions without judgment or mocking."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Focuses on everyday physiological grounding without medical or therapeutic jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Park benches, voice notes, and classroom presentation teasing reflect relatable Indian adolescent social life."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Body signals are described vividly without labelling feelings, and options clearly contrast noticing/calming against reacting or suppressing."
+            }
+          }
+        },
+        "maxSimilarity": 0.9090426665774927,
+        "mostSimilarId": "gen-sit-mvbjx74b5bf8"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjxwod37af",
+      "kind": "situation",
+      "title": "The Assembly Quiz",
+      "text": "Teacher announces you will lead the school assembly quiz tomorrow. You feel proud and thrilled, but your tummy twists with worry about making mistakes on the mic. Aarav turns around and asks, \"Aren't you totally excited?\" What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 93,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "feelings",
+        "honesty",
+        "courage"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell Aarav I am really excited, but also nervous about the big mic",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Aarav nods and smiles. \"That makes sense! We can practice your lines at lunch.\""
+        },
+        {
+          "id": "b",
+          "text": "Say, \"Yes, completely!\" and try to ignore the nervous flutter inside",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Aarav cheers, but your stomach stays tight and jittery through maths class."
+        },
+        {
+          "id": "c",
+          "text": "Tell Aarav I feel nervous, keeping my happy feeling hidden so I do not brag",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Aarav tries to comfort you, but you feel sad that you hid your excitement."
+        },
+        {
+          "id": "d",
+          "text": "Shrug and say it is no big deal so Aarav thinks I am fearless",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Aarav turns back to his desk, and you are left sitting alone with both feelings."
+        }
+      ],
+      "hint": {
+        "text": "Is it possible to feel happy and worried at the very same time?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-10",
+        "sit-01",
+        "sit-15"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbj1yhqb910",
+        "gen-sit-mvbjweatd07e",
+        "sit-01"
+      ],
+      "createdAt": "2026-10-16T22:41:25.166Z",
+      "pipeline": {
+        "runId": "20261016T223947-83d8",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfAwareness",
+          "difficulty": 3,
+          "construct": "pons-mixed"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A demonstrates strong self-awareness by accurately identifying and expressing mixed emotions (excitement and nervousness) to a peer. The distractors represent common but less healthy coping mechanisms, such as suppressing feelings or putting on a tough front."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Accurately maps the 'mixed feelings' construct to an everyday Indian school scenario.",
+            "Consequences are grounded, realistic, and do not over-reward or shame the child."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are natural, realistic social responses without melodrama or magic rewards."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Both excitement and tummy jitters are named and allowed to exist together."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The consequences show the internal experience without lecturing or stating a moral."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Directly matches the construct goal of acknowledging dual emotions while honoring other options as understandable."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The choices reflect very common childhood reactions to social pressure without pejorative framing."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical terminology or medical advice is used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Leading a morning assembly quiz is an authentic and relatable experience in Indian schools."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "The construct of mixed feelings is clearly articulated in the premise and option choices."
+            }
+          }
+        },
+        "maxSimilarity": 0.9132931853072286,
+        "mostSimilarId": "gen-sit-mvbj1yhqb910"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjy9gra542",
+      "kind": "situation",
+      "title": "Missed Catches",
+      "text": "During recess on the playground, you drop the ball twice. Shreya calls for the next round. A thought pops into your head: \"I ruin every game.\" What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 65,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "self-talk",
+        "resilience"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Believe the thought, sit on the bench alone, and give up",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "You sit watching from far away, feeling heavy and lonely."
+        },
+        {
+          "id": "b",
+          "text": "Remind myself it was only two drops and join the next throw",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "You stop thinking about the drops and catch the very next ball."
+        },
+        {
+          "id": "c",
+          "text": "Pretend my shoe hurts so Shreya does not see me miss again",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Shreya tells you to rest, and you spend the rest of break sitting out."
+        }
+      ],
+      "hint": {
+        "text": "Is dropping two balls proof that you ruin every game?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-01",
+        "sit-10",
+        "sit-15"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjt6wvb3ce",
+        "sit-04",
+        "gen-sit-mvbjufch2c26"
+      ],
+      "createdAt": "2026-10-16T22:41:41.739Z",
+      "pipeline": {
+        "runId": "20261016T223947-83d8",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfAwareness",
+          "difficulty": 1,
+          "construct": "reappraisal"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B is the clear best choice, showing self-management and persistence by challenging negative self-talk. Option A lacks emotional regulation and gives up easily. Option C uses dishonesty to avoid potential failure rather than building resilience."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Directly models cognitive reframing without clinical jargon.",
+            "Consequences are grounded and realistic for a playground setting.",
+            "Respectfully captures unhelpful self-talk familiar to children."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Outcomes reflect natural play experiences without exaggerated rewards or penalties."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The feeling of heaviness and loneliness when withdrawing is genuinely acknowledged."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Shows the outcome of each choice naturally without moralizing or lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Reframing cognitive distortion is appropriately highlighted while recognizing that joining in takes effort."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The options describe natural self-protective impulses without judgment or labels."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Teaches basic self-talk and perspective-taking without medical or therapeutic jargon."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Playground recess dynamics and names are familiar and culturally grounded."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Construct is clearly visible with quoted negative self-talk, reframing, and avoidance options."
+            }
+          }
+        },
+        "maxSimilarity": 0.9097911420668721,
+        "mostSimilarId": "gen-sit-mvbjt6wvb3ce"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjydv21d2a",
+      "kind": "situation",
+      "title": "The Maths Test Return",
+      "text": "In tuition class, Meenakshi ma'am gives back the maths tests. You scored full marks, but your benchmate Yash got a red cross on almost every sum. Meenakshi ma'am smiles and asks how you feel about your test. What do you do?",
+      "ageBand": "8-10",
+      "readingLevel": 2,
+      "wordCount": 85,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "feelings",
+        "honesty",
+        "empathy"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Cheer loudly and wave my paper around the table",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -2,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Everyone looks at your paper, and Yash shrinks down into his seat."
+        },
+        {
+          "id": "b",
+          "text": "Say I feel happy about my score, but also a bit sad for Yash",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 0,
+            "socialAwareness": 2,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Meenakshi ma'am nods with a warm smile, and Yash looks a little relieved."
+        },
+        {
+          "id": "c",
+          "text": "Shrug and pretend I do not care at all about marks",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You hide your own hard work, and the bench stays awkwardly quiet."
+        },
+        {
+          "id": "d",
+          "text": "Stuff the test paper into my bag and look away",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Meenakshi ma'am waits for an answer, and you feel jittery inside."
+        }
+      ],
+      "hint": {
+        "text": "Is it possible to feel happy for yourself and sorry for a friend at the same time?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-01",
+        "sit-10",
+        "sit-08"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "rsit-13",
+        "gen-sit-mvbjx8yx610a",
+        "gen-sit-mvbjup739e7d"
+      ],
+      "createdAt": "2026-10-16T22:41:47.438Z",
+      "pipeline": {
+        "runId": "20261016T223947-83d8",
+        "target": {
+          "kind": "situation",
+          "ageBand": "8-10",
+          "competency": "selfAwareness",
+          "difficulty": 2,
+          "construct": "pons-mixed"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B clearly demonstrates self-awareness by naming personal happiness and social awareness through empathy for Yash. Option A represents poor self-management and a severe lack of empathy, while C and D involve hiding feelings inappropriately."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "Captures an everyday Indian tuition class dynamic authentically and respectfully.",
+            "Clearly highlights the mixed feelings construct by recognizing personal happiness alongside empathy for a classmate.",
+            "Consequences are grounded, realistic, and avoid preachiness or exaggerated drama."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic and restrained; Yash looks relieved rather than magically overjoyed."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Acknowledges conflicting emotions of pride and sadness without bypassing either."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No moral lecturing from Meenakshi ma'am; actions and reactions carry the narrative."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Option B fits the mixed-feelings construct cleanly while leaving other options naturally flawed."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options present natural child impulses without derogatory labeling."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical terminology or therapeutic framing used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Tuition class setting, addressing the teacher as 'Meenakshi ma'am', and 'benchmate' are culturally spot-on."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Directly embodies the mixed feelings construct in an age-appropriate scenario."
+            }
+          }
+        },
+        "maxSimilarity": 0.8792784709093896,
+        "mostSimilarId": "rsit-13"
+      }
+    },
+    {
+      "id": "gen-sit-mvbjye92837a",
+      "kind": "situation",
+      "title": "Campfire banter",
+      "text": "During the class trip around the campfire, Thomas mimics the clumsy way you climbed the hill today. Everyone bursts out laughing. Your ears burn red, your jaw locks tight, and your fingernails dig deep into your palms. What do you do?",
+      "ageBand": "11-14",
+      "readingLevel": 2,
+      "wordCount": 86,
+      "expectedTimeSec": 35,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "emotional awareness",
+        "calmness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Notice my clenched hands and take a slow breath before saying anything",
+          "scores": {
+            "selfAwareness": 2,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Your shoulders relax a little, and you can tell Thomas quietly that it wasn't cool."
+        },
+        {
+          "id": "b",
+          "text": "Snap back immediately and mock the way Thomas dropped his mess tray",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "The laughter turns awkward, and the campfire gets tense and quiet."
+        },
+        {
+          "id": "c",
+          "text": "Force an uncomfortable laugh and swallow the tight lump in my throat",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "The others keep joking, but you stay stuck with a knotted stomach all evening."
+        },
+        {
+          "id": "d",
+          "text": "Storm away from the circle into the dark tents",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "A teacher follows to check on you, and you sit alone feeling thoroughly shaken."
+        }
+      ],
+      "hint": {
+        "text": "What are your clenched fists and burning ears telling you right now?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "sit-02",
+        "sit-11",
+        "sit-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjxv2cdf96",
+        "gen-sit-mvbjx74b5bf8",
+        "gen-sit-mvbjup739e7d"
+      ],
+      "createdAt": "2026-10-16T22:41:47.943Z",
+      "pipeline": {
+        "runId": "20261016T223947-83d8",
+        "target": {
+          "kind": "situation",
+          "ageBand": "11-14",
+          "competency": "selfAwareness",
+          "difficulty": 2,
+          "construct": "gross-body-cues"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.8-flash",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A shows excellent self-awareness by noticing body signals of anger and self-management by pausing to breathe. Retaliating (Option B) or storming off (Option D) escalate or avoid the situation impulsively. Handling peer embarrassment is challenging for middle schoolers, making Option A a clear positive model."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "Precisely operationalises the construct of tracking somatic sensations before reacting.",
+            "Consequences are grounded and realistic without being preachy or punitive.",
+            "Reflects authentic middle-school peer banter and school trip dynamics."
+          ],
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Calming down helps the child speak up quietly rather than magically fixing everything."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Names bodily tension honestly; bottling it up leaves a knotted stomach rather than feeling fine."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "Outcomes demonstrate emotional impact naturally without lecturing or morals."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "Pausing to regulate before responding is genuinely the healthiest response here."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Options like snapping back or walking off reflect understandable impulse without judgment."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Focuses on everyday physiological cues (clenched hands, breath) without clinical terms."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Class camps and campfire teasing over mess trays and hill climbs are relatable for Indian middle schoolers."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Strong physiological signals are described without naming anger, and Option A regulates before acting."
+            }
+          }
+        },
+        "maxSimilarity": 0.8965746920404395,
+        "mostSimilarId": "gen-sit-mvbjxv2cdf96"
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "gen-sit-mvbjw3i3ef57",
+      "runId": "20261016T223947-83d8",
+      "target": {
+        "kind": "situation",
+        "ageBand": "8-10",
+        "competency": "selfAwareness",
+        "difficulty": 1,
+        "construct": "pons-mixed"
+      },
+      "stage": "rules",
+      "reasons": [
+        "Contains a word not suitable for children: \"hate\""
+      ],
+      "createdAt": "2026-10-16T22:40:00.699Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Assembly Poem",
+        "text": "The teacher selects you to read your poem at the morning assembly. You feel proud of your writing, but thinking about the big stage makes your tummy flutter. Karthik smiles and asks how you feel. What do you do?",
+        "ageBand": "8-10",
+        "primaryCompetencies": [
+          "selfAwareness",
+          "relationshipSkills"
+        ],
+        "valueTags": [
+          "feelings",
+          "honesty"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Tell Karthik, \"I'm proud, but also really nervous.\"",
+            "consequence": "Karthik nods and smiles, saying it makes sense to feel both at once."
+          },
+          {
+            "id": "b",
+            "text": "Pretend I'm completely calm and say it is easy",
+            "consequence": "You act confident, but the fluttery feeling in your tummy stays bottled up."
+          },
+          {
+            "id": "c",
+            "text": "Say I hate it and wish I wasn't picked",
+            "consequence": "Karthik looks confused, knowing how much you love your poem."
+          },
+          {
+            "id": "d",
+            "text": "Just shrug and look away so he doesn't ask more",
+            "consequence": "Karthik turns back to his desk, and you carry the heavy worry alone."
+          }
+        ],
+        "hint": {
+          "text": "Is it possible to feel excited and scared about the very same thing?"
+        }
+      }
+    },
+    {
+      "id": "gen-sit-mvbjwlwkf4ef",
+      "runId": "20261016T223947-83d8",
+      "target": {
+        "kind": "situation",
+        "ageBand": "11-14",
+        "competency": "selfAwareness",
+        "difficulty": 3,
+        "construct": "pons-hidden"
+      },
+      "stage": "category",
+      "reasons": [
+        "Off-category: aimed at selfAwareness (0), but the grader found the best option mainly shows socialAwareness (2), relationshipSkills (2)"
+      ],
+      "createdAt": "2026-10-16T22:40:24.549Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Laughing Emojis in the Chat",
+        "text": "The debate team shortlist is posted in the class group chat. Noor didn't make it, despite prepping for weeks. Right away, Noor texts: \"Haha honestly so relieved! Less homework for me 😂🙌\". You know how much she wanted this spot, and you also recognize that hollow feeling when you laugh off your own hurt so nobody feels sorry for you. What do you do?",
+        "ageBand": "11-14",
+        "primaryCompetencies": [
+          "selfAwareness",
+          "socialAwareness"
+        ],
+        "valueTags": [
+          "empathy",
+          "friendship",
+          "support"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Reply with laughing emojis in the group chat and agree that debate is too much work",
+            "consequence": "The chat moves on to memes, but Noor stops replying for the rest of the evening."
+          },
+          {
+            "id": "b",
+            "text": "Send Noor a private text saying you know how hard she worked, and you're here if she feels upset",
+            "consequence": "Noor takes an hour to reply, then types: \"Thanks. I really thought I had a chance.\" You listen."
+          },
+          {
+            "id": "c",
+            "text": "Send Noor a private text inviting her to play badminton after school, without mentioning the list",
+            "consequence": "She accepts right away, grateful to step away from the phone without having to explain herself."
+          },
+          {
+            "id": "d",
+            "text": "Tell everyone in the group chat that Noor actually spent weeks practising and must be sad",
+            "consequence": "Noor leaves the group chat, feeling exposed in front of the whole class."
+          }
+        ],
+        "hint": {
+          "text": "When people hide disappointment behind a joke, what kind of space do they need?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -1
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 2,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 1,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "d",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -1,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 35,
+        "rationale": "Option B demonstrates high social awareness by recognizing Noor's masked feelings and strong relationship skills by offering private, non-embarrassing support. Option D misreads the situation by calling Noor out publicly, which undermines her dignity and privacy."
+      },
+      "maxSimilarity": 0.8775859913954401,
+      "mostSimilarId": "sit-14"
+    },
+    {
+      "id": "gen-sit-mvbjxr6c6083",
+      "runId": "20261016T223947-83d8",
+      "target": {
+        "kind": "situation",
+        "ageBand": "11-14",
+        "competency": "selfAwareness",
+        "difficulty": 4,
+        "construct": "pons-hidden"
+      },
+      "stage": "category",
+      "reasons": [
+        "Off-category: aimed at selfAwareness (0), but the grader found the best option mainly shows socialAwareness (2), relationshipSkills (2)"
+      ],
+      "createdAt": "2026-10-16T22:41:18.036Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Scrunched Paper",
+        "text": "During tuition, Sir hands back the physics tests. Karthik scrunches his sheet into his bag, laughs loudly, and declares, \"Total waste of time, who even cares about these marks?\" Two classmates laugh along. But sitting next to him, you notice his hands trembling as he hastily wipes a tear from his eye. You feel torn between joining the casual banter and acknowledging how upset he actually looks. What do you do?",
+        "ageBand": "11-14",
+        "primaryCompetencies": [
+          "selfAwareness",
+          "socialAwareness"
+        ],
+        "valueTags": [
+          "empathy",
+          "friendship",
+          "honesty"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Laugh along with the joke, assuming that if he's smiling, he really isn't bothered",
+            "consequence": "Karthik joins in for a second, but goes quiet and keeps his head down the rest of the hour."
+          },
+          {
+            "id": "b",
+            "text": "Call out to the group that Karthik is actually crying and they should stop laughing",
+            "consequence": "Karthik turns bright red, shoves his notebook into his bag, and tells you to mind your own business."
+          },
+          {
+            "id": "c",
+            "text": "Stay quiet during the teasing, then walk out together after class to check in privately",
+            "consequence": "Away from the batch, Karthik sighs and admits he studied all weekend and dreads showing his parents."
+          },
+          {
+            "id": "d",
+            "text": "Immediately offer him your own test sheet so he can copy all your corrected answers",
+            "consequence": "Karthik pushes the paper away, saying he doesn't want pity from anyone right now."
+          }
+        ],
+        "hint": {
+          "text": "Why might someone try to look cheerful when they are hurting inside?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -2,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -1
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 2,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "d",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": -2
+            }
+          }
+        ],
+        "difficulty": 3,
+        "readingLevel": 2,
+        "expectedTimeSec": 45,
+        "rationale": "This scenario requires students to look past surface-level mask-wearing (bravado) to notice true underlying emotions. Option C shows strong social awareness and relationship skills by offering support privately without causing public embarrassment. Option B is well-intentioned but lacks tact, while Option A ignores clear distress cues, and Option D promotes dishonesty."
+      },
+      "maxSimilarity": 0.8956906043364075,
+      "mostSimilarId": "gen-sit-mvbjg6ov15d9"
+    },
+    {
+      "id": "gen-sit-mvbjyuo7744f",
+      "runId": "20261016T223947-83d8",
+      "target": {
+        "kind": "situation",
+        "ageBand": "11-14",
+        "competency": "selfAwareness",
+        "difficulty": 3,
+        "construct": "pons-hidden"
+      },
+      "stage": "category",
+      "reasons": [
+        "Off-category: aimed at selfAwareness (0), but the grader found the best option mainly shows socialAwareness (2), relationshipSkills (2)"
+      ],
+      "createdAt": "2026-10-16T22:42:09.223Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Sunday Lineup",
+        "text": "During football practice, the coach moves Ravi to the substitutes' bench for the district tournament. Ravi laughs loudly and tosses his bib down, telling everyone, \"Honestly, I'm glad! Who wants to wake up at six on Sunday?\" But when he sits down beside you, his knuckles are white on his water bottle and he keeps blinking hard, staring fixedly at the grass. What do you do?",
+        "ageBand": "11-14",
+        "primaryCompetencies": [
+          "selfAwareness",
+          "socialAwareness"
+        ],
+        "valueTags": [
+          "empathy",
+          "support",
+          "friendship"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Laugh along and agree that having Sunday morning free is much better",
+            "consequence": "Ravi forces another grin, but falls quiet and stares at his boots for the rest of practice."
+          },
+          {
+            "id": "b",
+            "text": "Sit quietly beside him and murmur, \"It still really stings, though, after all that practice.\"",
+            "consequence": "Ravi's shoulders drop a little, and he lets out a quiet sigh without having to pretend anymore."
+          },
+          {
+            "id": "c",
+            "text": "Respect his pride during drills, but wait to walk over together when practice ends",
+            "consequence": "Ravi seems relieved not to be put on the spot around the team, and opens up on the walk home."
+          },
+          {
+            "id": "d",
+            "text": "Announce to the others that Ravi is secretly upset so they go easy on him",
+            "consequence": "Ravi flushes with embarrassment, grabs his kit, and storms off toward the changing rooms."
+          }
+        ],
+        "hint": {
+          "text": "Why might someone joke loudly when they are actually hurting inside?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 2,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 1,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "d",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -1,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 35,
+        "rationale": "Option B demonstrates high social awareness by seeing past Ravi's bravado and offering quiet, validating support that respects his dignity. Option A accepts the cover story and misses his distress, Option C is decent but passive, and Option D publicly embarrasses him, damaging trust."
+      },
+      "maxSimilarity": 0.9103282475428268,
+      "mostSimilarId": "gen-sit-mvbjg6ov15d9"
+    }
+  ]
+}
