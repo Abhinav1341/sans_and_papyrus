@@ -1,6 +1,6 @@
 /** The Captain (child profile) inside a grown-up's account. One Captain per account for now. */
 import { PlayerProfile } from '../../lib/schemas';
-import { COLLECTIONS } from './config';
+import { COLLECTIONS, GAME } from './config';
 import { db } from './db';
 import { changeAge, createPlayer } from './engine';
 
@@ -12,7 +12,9 @@ export function parsePlayer(raw: unknown, accountId: string): PlayerProfile | nu
     console.error(`Player ${accountId} does not match the schema: ${r.error.issues[0]?.message}`);
     return null;
   }
-  return r.data;
+  // Bands can change (6–7 got its own band): a profile saved under an old rule moves to its age's band.
+  const band = r.data.age ? GAME.ageBand(r.data.age) : r.data.ageBand;
+  return band === r.data.ageBand ? r.data : { ...r.data, ageBand: band };
 }
 
 export async function getPlayer(accountId: string): Promise<PlayerProfile | null> {

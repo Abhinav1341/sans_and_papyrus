@@ -1,0 +1,5315 @@
+{
+  "summary": {
+    "runId": "20261018T075331-1df5",
+    "startedAt": "2026-10-18T07:53:31.378Z",
+    "finishedAt": "2026-10-18T08:02:31.681Z",
+    "requested": 40,
+    "accepted": 17,
+    "rejectedByStage": {
+      "category": 5,
+      "curator": 18
+    },
+    "acceptedByCategory": {
+      "situation:selfManagement": 3,
+      "puzzle:math": 4,
+      "puzzle:vocabulary": 3,
+      "situation:socialAwareness": 2,
+      "puzzle:reasoning": 2,
+      "situation:relationshipSkills": 1,
+      "situation:selfAwareness": 1,
+      "situation:responsibleDecisionMaking": 1
+    },
+    "models": {
+      "generator": "gemini-3.8-flash",
+      "grader": "gemini-3.6-flash",
+      "curator": "gemini-3.1-pro-preview",
+      "embedding": "gemini-embedding-001"
+    },
+    "usage": {
+      "gemini-embedding-001": {
+        "calls": 56,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "thinkingTokens": 0
+      },
+      "gemini-3.8-flash": {
+        "calls": 40,
+        "inputTokens": 125299,
+        "outputTokens": 11449,
+        "thinkingTokens": 58267
+      },
+      "gemini-3.6-flash": {
+        "calls": 40,
+        "inputTokens": 47170,
+        "outputTokens": 10088,
+        "thinkingTokens": 28692
+      },
+      "gemini-3.1-pro-preview": {
+        "calls": 35,
+        "inputTokens": 117123,
+        "outputTokens": 16356,
+        "thinkingTokens": 46792
+      }
+    },
+    "estimatedCostUsd": 1.34743125
+  },
+  "accepted": [
+    {
+      "id": "gen-sit-mvdj52fe5ec4",
+      "kind": "situation",
+      "title": "Waiting at the Nets",
+      "text": "Coach asks Aarav to bat first today. You feel sad waiting on the bench. What do you do?",
+      "ageBand": "6-7",
+      "readingLevel": 2,
+      "wordCount": 37,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement"
+      ],
+      "valueTags": [
+        "patience",
+        "sportsmanship"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Ask Coach if I can field now",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Coach smiles and gives you a field spot."
+        },
+        {
+          "id": "b",
+          "text": "Cheer loudly for Aarav's big hits",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 2,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Aarav grins, and the waiting feels easier."
+        },
+        {
+          "id": "c",
+          "text": "Cross my arms and look away",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You sit alone and stay cross all practice."
+        }
+      ],
+      "hint": {
+        "text": "What helps you feel better while waiting?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ysit-02",
+        "ysit-12",
+        "ysit-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjjsx1fcf5",
+        "sit-16",
+        "sit-15"
+      ],
+      "createdAt": "2026-10-18T07:54:31.946Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "situation",
+          "ageBand": "6-7",
+          "competency": "selfManagement",
+          "difficulty": 1,
+          "construct": "compas-coping"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Waiting for a turn can be hard for 6-7 year olds. Option B demonstrates strong self-management by overcoming disappointment to cheer for a teammate, which also builds relationship skills. Sulking (Option C) reflects difficulty regulating feelings."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The item perfectly captures the research construct with clear problem-solving, adapting, and escaping options.",
+            "The scenario of waiting at cricket nets is highly relatable for Indian children.",
+            "Consequences are natural and believable, showing how different coping strategies affect the child's experience without preaching."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic; asking to field or cheering naturally improves the experience, while sulking leaves the child feeling cross."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The feeling of sadness is named in the prompt, and the feeling of being cross is allowed to exist in option C without being dismissed."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The outcomes show the benefits of engaging versus escaping without any adult lecturing or moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "The situation provides two healthy coping mechanisms (A and B) without pretending there is only one 'right' way to handle waiting."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Option C describes a natural consequence of sulking (staying cross) without mocking or labeling the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language or medical advice is used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Cricket practice at the nets is a very common and culturally relevant scenario for children in India."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "The options clearly map to problem-solving (A), adapting (B), and escaping (C) as requested by the construct."
+            }
+          }
+        },
+        "maxSimilarity": 0.882199324895917,
+        "mostSimilarId": "gen-sit-mvbjjsx1fcf5"
+      }
+    },
+    {
+      "id": "gen-pz-mvdj5b2t35aa",
+      "kind": "puzzle",
+      "title": "Idlis on Sneha's plate",
+      "text": "Sneha has 4 idlis on her plate. Karthik gives her 2 more idlis. How many idlis does Sneha have now?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 23,
+      "expectedTimeSec": 15,
+      "difficulty": 1,
+      "primaryCompetencies": [],
+      "valueTags": [
+        "counting",
+        "addition"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "5",
+          "consequence": "Count them once more on the plate."
+        },
+        {
+          "id": "b",
+          "text": "6",
+          "consequence": "Sneha smiles at her warm food."
+        },
+        {
+          "id": "c",
+          "text": "7",
+          "consequence": "That is one idli too many."
+        }
+      ],
+      "hint": {
+        "text": "Can you count two more after four?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "Sneha has 4 idlis and gets 2 more. 4 + 2 = 6 idlis in all.",
+        "computation": "4 + 2"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ypz-02",
+        "ypz-01",
+        "ypz-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "ypz-02",
+        "ypz-01",
+        "gen-pz-mvbk0inm2810"
+      ],
+      "createdAt": "2026-10-18T07:54:43.158Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "6-7",
+          "domain": "math",
+          "difficulty": 1
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a simple one-step addition word problem (4 + 2 = 6) appropriate for 6-7 year olds. The language is clear and straightforward with basic vocabulary.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The puzzle is a clear, culturally familiar math problem.",
+            "The hint gently guides the child to count on without giving the answer away.",
+            "The explanation is simple, kind, and easy for a 6-7 year old to understand."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "The consequences simply confirm the math or gently prompt a recount."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "No complex feelings are involved, and Sneha's smile is a natural reaction to food."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The item focuses purely on the math without any moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "As a math puzzle, there is exactly one correct answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options are met with gentle nudges to try again."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No medical or psychological language is used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Idlis are a very common and relatable food for children in India."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No specific construct was required."
+            }
+          }
+        },
+        "maxSimilarity": 0.8335636710215995,
+        "mostSimilarId": "ypz-02"
+      }
+    },
+    {
+      "id": "gen-pz-mvdj6zzzcd84",
+      "kind": "puzzle",
+      "title": "Ayaan and the crayons",
+      "text": "Ayaan smiles and shares his crayons. He is the opposite of mean. What is Ayaan?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 18,
+      "expectedTimeSec": 15,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "socialAwareness"
+      ],
+      "valueTags": [
+        "kindness",
+        "opposites"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Kind",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Ayaan gives a crayon with a big smile!"
+        },
+        {
+          "id": "b",
+          "text": "Angry",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Angry means mad. Ayaan is smiling today."
+        },
+        {
+          "id": "c",
+          "text": "Tall",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Tall is about height, not about sharing."
+        }
+      ],
+      "hint": {
+        "text": "What word means caring and nice?"
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "a",
+        "explanation": "The opposite of mean is kind. Ayaan is nice and shares his crayons."
+      },
+      "source": "generated",
+      "seedIds": [
+        "ypz-04",
+        "ypz-02",
+        "ypz-01"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "pz-vocab-02",
+        "gen-sit-mvbjivah635a",
+        "gen-pz-mvbk3uy63210"
+      ],
+      "createdAt": "2026-10-18T07:56:02.111Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "6-7",
+          "domain": "vocabulary",
+          "difficulty": 1
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This vocabulary puzzle asks children to identify the descriptor 'kind' using simple context clues like sharing and being the opposite of mean. The distractor options are clear contrasts, making it very straightforward for young readers.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The puzzle is age-appropriate and fits the vocabulary domain perfectly.",
+            "The consequences are gentle and explain why the incorrect options don't fit without making the child feel silly.",
+            "The hint provides a helpful nudge without giving the exact word away."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "The consequences simply explain the meaning of the words in a gentle way."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "No difficult feelings are dismissed or bypassed."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The puzzle teaches vocabulary without lecturing about the value of kindness."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "As a vocabulary puzzle, there is exactly one correct opposite for 'mean' among the choices."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The incorrect options are corrected gently without mocking the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No medical or diagnostic language is used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Ayaan is a familiar name, and sharing crayons is a relatable school or home scenario."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No specific research construct was required."
+            }
+          }
+        },
+        "maxSimilarity": 0.8365266043819798,
+        "mostSimilarId": "pz-vocab-02"
+      }
+    },
+    {
+      "id": "gen-sit-mvdj7xusd5f5",
+      "kind": "situation",
+      "title": "The Sunny Line",
+      "text": "We must stay in line on our trip. Imran feels very dizzy in the sun. What do you do?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 38,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "socialAwareness",
+        "responsibleDecisionMaking"
+      ],
+      "valueTags": [
+        "caring",
+        "rules"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Stay in line so teacher is happy",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Imran sits on the path and cries."
+        },
+        {
+          "id": "b",
+          "text": "Call the teacher to help Imran",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 2,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 2
+          },
+          "consequence": "The teacher helps Imran sit in the shade."
+        },
+        {
+          "id": "c",
+          "text": "Tell Imran to just keep walking",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -2,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Imran trips because he feels so dizzy."
+        }
+      ],
+      "hint": {
+        "text": "What does Imran need right now?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ysit-09",
+        "ysit-02",
+        "ysit-06"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjj2gzc1cd",
+        "gen-sit-mvb14bh24b87",
+        "rsit-07"
+      ],
+      "createdAt": "2026-10-18T07:56:45.989Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "situation",
+          "ageBand": "6-7",
+          "competency": "socialAwareness",
+          "difficulty": 2,
+          "construct": "turiel-moral-convention"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B shows clear social awareness and responsible decision-making by noticing a classmate's physical distress and alerting an adult for help. Option A prioritizes strict rule-following over safety, while Option C dismisses a peer's medical need. Young children may feel a slight conflict between following line rules and speaking up, making this a level 2 difficulty."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "reasons": [
+            "The situation perfectly captures the construct of wellbeing vs. rules in a way that is highly relatable for 6-7 year olds in India (standing in the sun).",
+            "The options are realistic for this age group, and the consequences show the natural outcomes without preaching.",
+            "The hint gently guides the child to focus on empathy rather than the rule."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences logically follow the actions without exaggerated rewards or punishments."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Imran's distress is acknowledged and not brushed aside."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The lesson emerges naturally from seeing Imran get help or get worse."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "There is a clear best answer for this age and situation, which is to get adult help."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "No options or consequences mock the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "Dizziness in the sun is a common childhood occurrence, and the solution is to get a teacher."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "School trips and standing in the sun are very common experiences."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "The conflict between the rule of staying in line and Imran's wellbeing is clear."
+            }
+          }
+        },
+        "maxSimilarity": 0.8572925668456624,
+        "mostSimilarId": "gen-sit-mvbjj2gzc1cd"
+      }
+    },
+    {
+      "id": "gen-pz-mvdj86w853d9",
+      "kind": "puzzle",
+      "title": "Books on Noor's Table",
+      "text": "Noor sits in the library with 5 books. She finds 4 more, then gives 2 to Yash. How many books does Noor have now?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 27,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [],
+      "valueTags": [
+        "counting",
+        "addition",
+        "subtraction"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "6",
+          "consequence": "Count again slowly from five."
+        },
+        {
+          "id": "b",
+          "text": "7",
+          "consequence": "Noor neatly stacks all seven books."
+        },
+        {
+          "id": "c",
+          "text": "9",
+          "consequence": "Remember, Noor gives two books away."
+        }
+      ],
+      "hint": {
+        "text": "Can you add four, then take away two?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "5 books plus 4 more make 9 books. Then 9 take away 2 leaves 7 books.",
+        "computation": "5 + 4 - 2"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ypz-01",
+        "ypz-02",
+        "ypz-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvdj5b2t35aa",
+        "gen-sit-mvbju2ddb986",
+        "pz-math-02"
+      ],
+      "createdAt": "2026-10-18T07:56:57.704Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "6-7",
+          "domain": "math",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a two-step math word problem requiring basic addition and subtraction (5 + 4 - 2 = 7). For a 6-to-7-year-old child, solving two operations in sequence is moderately challenging, making it difficulty 2. The text uses simple words and short sentences suited for early readers.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The math puzzle is age-appropriate and introduces a two-step word problem gently.",
+            "The hint and explanation are clear, kind, and easy to follow.",
+            "The consequences are encouraging and guide the child without giving away the answer immediately."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "The consequences reflect the math accurately and playfully."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "No feelings are invalidated."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The item focuses on the puzzle without adding unnecessary moral lessons."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "There is exactly one correct mathematical answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options are met with gentle nudges to try again."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No medical or therapeutic language is used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "The names and setting are familiar and easy to read for the age group."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No specific construct was required, and the math focus is clear."
+            }
+          }
+        },
+        "maxSimilarity": 0.8328410029045239,
+        "mostSimilarId": "gen-pz-mvdj5b2t35aa"
+      }
+    },
+    {
+      "id": "gen-pz-mvdj9ip0a862",
+      "kind": "puzzle",
+      "title": "Aarav's flower line",
+      "text": "Aarav makes a flower line for the festival. It goes orange, orange, yellow, orange, orange. Which flower comes next?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 25,
+      "expectedTimeSec": 20,
+      "difficulty": 1,
+      "primaryCompetencies": [],
+      "valueTags": [
+        "patterns",
+        "observation"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Yellow flower",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "The pattern looks bright and tidy now."
+        },
+        {
+          "id": "b",
+          "text": "Orange flower",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Three orange flowers together break the pattern."
+        },
+        {
+          "id": "c",
+          "text": "Red flower",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Aarav does not have red flowers here."
+        }
+      ],
+      "hint": {
+        "text": "How many orange flowers come before each yellow one?"
+      },
+      "puzzle": {
+        "domain": "reasoning",
+        "correctOptionId": "a",
+        "explanation": "The pattern repeats two orange flowers and one yellow flower. After two oranges, a yellow flower comes next."
+      },
+      "source": "generated",
+      "seedIds": [
+        "ypz-03",
+        "ypz-01",
+        "ypz-02"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "ypz-03",
+        "gen-pz-mvbk2haz13e1",
+        "gen-pz-mvbk12bz3d29"
+      ],
+      "createdAt": "2026-10-18T07:57:59.652Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "6-7",
+          "domain": "reasoning",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This simple repeating pattern puzzle (A-A-B-A-A-B) is very accessible for 6-7 year olds. The text is brief and easy to read. Because this is a pure logic puzzle with no emotional or social dilemmas, all SEL scores are zero.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The puzzle is age-appropriate and culturally relevant, using the familiar context of making flower garlands for a festival.",
+            "The hint effectively guides the child to notice the AAB pattern without giving the answer away.",
+            "The explanation is clear, gentle, and perfectly suited for a 6-7 year old's reading level."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "The consequences provide immediate, logical feedback on whether the pattern is maintained or broken."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "No emotions are involved in this logic puzzle, so no feelings are bypassed."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The item focuses purely on the pattern logic without any moralizing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "As a reasoning puzzle, there is exactly one correct answer to complete the pattern."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The incorrect consequences are neutral and helpful, simply explaining why the choice doesn't fit."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical or diagnostic language is used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Stringing orange and yellow flowers (like marigolds) for festivals is a highly recognizable activity for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No specific research construct was required."
+            }
+          }
+        },
+        "maxSimilarity": 0.851102414921602,
+        "mostSimilarId": "ypz-03"
+      }
+    },
+    {
+      "id": "gen-sit-mvdj9o30b7a4",
+      "kind": "situation",
+      "title": "Rain at Home",
+      "text": "It starts raining outside. You cheer because you love rain. Simran cries because she wanted the park. What do you do?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 42,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "socialAwareness"
+      ],
+      "valueTags": [
+        "empathy",
+        "kindness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Jump and shout, 'Rain is the best!'",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": -2,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Simran cries more and covers her ears."
+        },
+        {
+          "id": "b",
+          "text": "Ask Simran what she wants to play",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 2,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Simran wipes her eyes and picks a puzzle."
+        },
+        {
+          "id": "c",
+          "text": "Say, 'Do not cry, rain is good!'",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Simran turns away and feels more upset."
+        }
+      ],
+      "hint": {
+        "text": "Why is Simran sad about the rain?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ysit-01",
+        "ysit-06",
+        "ysit-02"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjiiysa44e",
+        "gen-sit-mvbj228a93b4",
+        "gen-sit-mvbjv5p79c03"
+      ],
+      "createdAt": "2026-10-18T07:58:06.637Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "situation",
+          "ageBand": "6-7",
+          "competency": "socialAwareness",
+          "difficulty": 1,
+          "construct": "pons-desire"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option b shows empathy and strong relationship skills by recognizing Simran's sadness and trying to find a shared activity. Option a completely ignores the friend's distress, while option c invalidates her feelings by telling her not to cry."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The text is perfectly pitched for 6-7 year olds with simple, decodable sentences.",
+            "The construct is clearly visible: the player and Simran have different feelings about the same event.",
+            "Option C beautifully demonstrates why telling someone 'don't cry' doesn't work, without the consequence needing to preach about it."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "The consequences are believable and realistic for a 6-7 year old's interaction."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The attempt to bypass feelings in option C ('Do not cry') is met with a realistic negative reaction, validating the sadness."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The lesson is shown entirely through Simran's reactions to the player's choices."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "There is one clear best answer (B) for showing empathy in this situation."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "None of the options or consequences shame or mock the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language or diagnoses are used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "A very common and relatable scenario for children in India, written in age-appropriate language."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "The construct is perfectly matched: the player is happy about the rain, but Simran is sad because her wish was different."
+            }
+          }
+        },
+        "maxSimilarity": 0.8732265687224835,
+        "mostSimilarId": "gen-sit-mvbjiiysa44e"
+      }
+    },
+    {
+      "id": "gen-pz-mvdjac8l7e8f",
+      "kind": "puzzle",
+      "title": "Fatima's Happy Smile",
+      "text": "Fatima smiles at the wedding. She feels happy. What is the opposite of happy?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 17,
+      "expectedTimeSec": 15,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "feelings",
+        "opposites"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Sleepy",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Sleepy means you want to nap."
+        },
+        {
+          "id": "b",
+          "text": "Sad",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Fatima is happy, not sad today!"
+        },
+        {
+          "id": "c",
+          "text": "Loud",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Loud is about big noises."
+        }
+      ],
+      "hint": {
+        "text": "How do you feel when you cry?"
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "b",
+        "explanation": "Happy and sad are opposites. When someone is not happy, they feel sad."
+      },
+      "source": "generated",
+      "seedIds": [
+        "ypz-04",
+        "ypz-02",
+        "ypz-03"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbk38qg9979"
+      ],
+      "createdAt": "2026-10-18T07:58:37.941Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "6-7",
+          "domain": "vocabulary",
+          "difficulty": 1
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a simple one-step vocabulary puzzle for young children identifying the antonym of 'happy'. Choosing 'sad' reflects basic emotional literacy and self-awareness vocabulary. The distractor choices are distinct and easy to rule out.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The item perfectly matches the seed examples in tone, length, and difficulty for the 6-7 age band.",
+            "The weakest line is 'When someone is not happy, they feel sad' because emotions aren't strictly binary (one could be angry, scared, or neutral), but it is acceptable for a basic vocabulary puzzle at this age.",
+            "The hint effectively nudges the child toward the answer by using a relatable physical reaction without giving the word away."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences accurately reflect the definitions of the words without over-promising or exaggerating."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Sadness is acknowledged as a valid opposite to happiness without being dismissed or erased."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The puzzle teaches the concept of opposites through a simple, relatable scenario rather than lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "There is only one correct opposite for 'happy' among the choices provided, which fits the puzzle format."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The incorrect options gently correct the definition without making the child feel silly for guessing them."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No medical or diagnostic language is used; emotions are kept basic and age-appropriate."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Fatima attending a wedding is a common, joyful, and relatable scenario for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct is required, and the vocabulary focus on opposites is perfectly clear."
+            }
+          }
+        },
+        "maxSimilarity": 0.8083176085954294,
+        "mostSimilarId": "gen-pz-mvbk38qg9979"
+      }
+    },
+    {
+      "id": "gen-sit-mvdjbbdab22c",
+      "kind": "situation",
+      "title": "Line for the Deer",
+      "text": "You wait in line to see the deer on the school trip. Noor pushes in front of you, and you feel upset. What do you do?",
+      "ageBand": "6-7",
+      "readingLevel": 2,
+      "wordCount": 48,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "relationshipSkills",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "speaking up",
+        "fairness",
+        "calm words"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Push her back and shout at her.",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Noor cries, and the teacher tells you both off."
+        },
+        {
+          "id": "b",
+          "text": "Say calmly, \"I was first, please go behind.\"",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Noor blushes, steps back, and waits her turn."
+        },
+        {
+          "id": "c",
+          "text": "Look down and say nothing at all.",
+          "scores": {
+            "selfAwareness": -1,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Noor stays ahead, and your tummy feels tight."
+        }
+      ],
+      "hint": {
+        "text": "How can you tell Noor using kind, clear words?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ysit-12",
+        "ysit-08",
+        "ysit-05"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjpi3g4daf",
+        "gen-sit-mvbjr3da7c0d",
+        "rsit-05"
+      ],
+      "createdAt": "2026-10-18T07:59:23.470Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "situation",
+          "ageBand": "6-7",
+          "competency": "relationshipSkills",
+          "difficulty": 2,
+          "construct": "assertive-communication"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Staying calm when someone pushes in line requires strong self-management, while speaking up politely demonstrates healthy relationship skills. Shouting back is a tempting but aggressive reaction, whereas staying silent ignores the problem."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The item perfectly captures the requested construct with clear aggressive, passive, and assertive options.",
+            "The physical description of feelings ('tummy feels tight') is excellent and relatable for the 6-7 age band.",
+            "The weakest line is 'Noor blushes, steps back, and waits her turn' because 'blushes' might be slightly advanced vocabulary for a 6-year-old and the immediate remorse is a bit idealized, but it remains acceptable."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "The consequence for speaking up is positive and resolves the issue without being overly magical or exaggerated."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The physical sensation of a 'tight tummy' accurately and gently reflects the discomfort of not speaking up."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The lesson emerges naturally from the outcomes without any moralizing or adult lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "There is a clear, healthy best choice for handling a peer cutting in line."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The passive and aggressive options have realistic negative outcomes but do not mock or label the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language or diagnostic terms are used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "School trips to see animals are common, and the scenario is highly relatable for young students."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "The scenario perfectly matches the construct of someone cutting in and provides the required option types."
+            }
+          }
+        },
+        "maxSimilarity": 0.8965660864392282,
+        "mostSimilarId": "gen-sit-mvbjpi3g4daf"
+      }
+    },
+    {
+      "id": "gen-sit-mvdjbw2k7f76",
+      "kind": "situation",
+      "title": "No lights at home",
+      "text": "The power goes out at home. You and Siddharth feel hot and bored. What do you do?",
+      "ageBand": "6-7",
+      "readingLevel": 2,
+      "wordCount": 39,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement"
+      ],
+      "valueTags": [
+        "coping",
+        "patience",
+        "calm"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Open the window for some cool air",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "A soft breeze blows in. You feel cooler."
+        },
+        {
+          "id": "b",
+          "text": "Make shadow birds on the wall with Siddharth",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Siddharth giggles at your funny hand shapes."
+        },
+        {
+          "id": "c",
+          "text": "Cross your arms and sulk in bed",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "The dark room stays hot and boring."
+        }
+      ],
+      "hint": {
+        "text": "What can help you feel better right now?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ysit-12",
+        "ysit-04",
+        "ysit-02"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjhml2d23c",
+        "gen-pz-mvbk2bgl3533",
+        "gen-sit-mvbjv5p79c03"
+      ],
+      "createdAt": "2026-10-18T07:59:50.300Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "situation",
+          "ageBand": "6-7",
+          "competency": "selfManagement",
+          "difficulty": 1,
+          "construct": "compas-coping"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Making shadow birds shows creative self-management and positive relationship skills when bored. Sulking is a common but unhelpful response to discomfort. The scenario is clear and relatable for young children."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The scenario of a power cut is highly relatable and culturally accurate for Indian children.",
+            "The options perfectly map to the requested construct: problem-solving (opening the window), adapting (shadow birds), and escaping (sulking).",
+            "The consequences are natural, immediate, and show the outcome without any adult lecturing.",
+            "The weakest line is 'The dark room stays hot and boring' because it slightly contradicts making shadow birds without mentioning a flashlight, but it is easily acceptable for this age group."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences naturally follow the actions without exaggerated rewards or punishments."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The feelings of being hot and bored are acknowledged and addressed through the child's actions."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The lesson is shown entirely through the physical and emotional results of the choices."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "The game allows for two healthy coping mechanisms (A and B) without forcing a single 'right' answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The escaping option (sulking) results in a natural consequence (staying bored) without mocking the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language or medical advice is used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Power cuts are a very common and relatable experience for children in India."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "The options clearly demonstrate problem-solving, adapting, and escaping as requested."
+            }
+          }
+        },
+        "maxSimilarity": 0.8638747699425651,
+        "mostSimilarId": "gen-sit-mvbjhml2d23c"
+      }
+    },
+    {
+      "id": "gen-pz-mvdjbzbadbb9",
+      "kind": "puzzle",
+      "title": "Nandini's Glass Bangles",
+      "text": "Nandini wears 5 glass bangles. Her sister gives her 2 more. How many bangles is Nandini wearing now?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 21,
+      "expectedTimeSec": 15,
+      "difficulty": 1,
+      "primaryCompetencies": [],
+      "valueTags": [
+        "counting",
+        "addition"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "6",
+          "consequence": "Count again slowly from five."
+        },
+        {
+          "id": "b",
+          "text": "7",
+          "consequence": "Nandini's bangles clink softly on her wrist."
+        },
+        {
+          "id": "c",
+          "text": "8",
+          "consequence": "That is one bangle too many."
+        }
+      ],
+      "hint": {
+        "text": "What number comes two after five?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "5 bangles and 2 more make 5 + 2 = 7.",
+        "computation": "5 + 2"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ypz-01",
+        "ypz-02",
+        "ypz-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvdj5b2t35aa",
+        "ypz-01",
+        "gen-pz-mvdj86w853d9"
+      ],
+      "createdAt": "2026-10-18T07:59:54.502Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "6-7",
+          "domain": "math",
+          "difficulty": 1
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a simple single-step addition problem (5 + 2 = 7) suitable for 6-7 year olds. The text is short and uses straightforward vocabulary, making it easy to comprehend and solve quickly.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The puzzle is a gentle, culturally relevant math problem.",
+            "The consequences are encouraging, and the correct consequence adds a nice sensory detail ('clink softly').",
+            "The hint and explanation are clear, helpful, and age-appropriate."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences provide simple, believable feedback for a math puzzle."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "No emotions are involved or dismissed."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "No moralizing, just straightforward math feedback."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "As a math puzzle, there is exactly one correct answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Incorrect options are handled gently without making the child feel silly."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No psychological or medical content."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Glass bangles are a familiar and culturally authentic detail for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct was required."
+            }
+          }
+        },
+        "maxSimilarity": 0.8680952769026934,
+        "mostSimilarId": "gen-pz-mvdj5b2t35aa"
+      }
+    },
+    {
+      "id": "gen-pz-mvdjd9zka5cd",
+      "kind": "puzzle",
+      "title": "Diya is Older",
+      "text": "Diya is older than Vikram. Vikram is six years old. How old is Diya?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 23,
+      "expectedTimeSec": 15,
+      "difficulty": 1,
+      "primaryCompetencies": [],
+      "valueTags": [
+        "reasoning",
+        "family"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Four years old",
+          "consequence": "Four is younger than six."
+        },
+        {
+          "id": "b",
+          "text": "Six years old",
+          "consequence": "Six is the same age as Vikram."
+        },
+        {
+          "id": "c",
+          "text": "Eight years old",
+          "consequence": "Eight is more than six. Diya is older!"
+        }
+      ],
+      "hint": {
+        "text": "Does older mean more years or fewer years?"
+      },
+      "puzzle": {
+        "domain": "reasoning",
+        "correctOptionId": "c",
+        "explanation": "Older means more years. Eight is more than six, so Diya is eight."
+      },
+      "source": "generated",
+      "seedIds": [
+        "ypz-03",
+        "ypz-01",
+        "ypz-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "ysit-08",
+        "gen-pz-mvdjbzbadbb9"
+      ],
+      "createdAt": "2026-10-18T08:00:54.992Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "6-7",
+          "domain": "reasoning",
+          "difficulty": 1
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a simple one-step logic puzzle for 6 to 7 year olds. Children compare ages to determine that someone older than a six-year-old must be eight. It tests basic age comparison with straightforward distractors.",
+          "solvedOptionId": "c"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The puzzle is simple, age-appropriate, and tests basic reasoning about age and numbers.",
+            "The hint gently guides the child to think about the meaning of 'older' without giving away the answer.",
+            "The explanation is clear, kind, and easy for a 6-7 year old to understand."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "The consequences accurately reflect the mathematical reality of the choices."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "No feelings are involved in this logic puzzle."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The puzzle teaches the concept of 'older' through application, not lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "There is only one correct answer among the choices provided."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The incorrect consequences are neutral and simply state why the number doesn't fit."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No medical or psychological content."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "The names Diya and Vikram are culturally appropriate, and the reading level is perfect for the age band."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No construct was provided, and the item functions well as a reasoning puzzle."
+            }
+          }
+        },
+        "maxSimilarity": 0.804894669414833,
+        "mostSimilarId": "ysit-08"
+      }
+    },
+    {
+      "id": "gen-sit-mvdjdzfoe904",
+      "kind": "situation",
+      "title": "Wet shoes on the bus",
+      "text": "Rahul drops his water bottle on your shoes. Your tummy feels tight and your teeth clamp shut. What do you do?",
+      "ageBand": "6-7",
+      "readingLevel": 2,
+      "wordCount": 39,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfAwareness",
+        "selfManagement"
+      ],
+      "valueTags": [
+        "calming down",
+        "noticing feelings"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Kick Rahul's bag under the seat",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": -1,
+            "relationshipSkills": -2,
+            "responsibleDecisionMaking": -2
+          },
+          "consequence": "Rahul shouts, and the bus driver turns around."
+        },
+        {
+          "id": "b",
+          "text": "Breathe slowly to relax your tummy",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Your tummy relaxes, and you tell Rahul softly."
+        },
+        {
+          "id": "c",
+          "text": "Hold it in and stay quiet",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -1,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Your stomach stays sore for the whole ride."
+        }
+      ],
+      "hint": {
+        "text": "How does your body feel right now?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ysit-03",
+        "ysit-09",
+        "ysit-07"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjj2gzc1cd",
+        "gen-sit-mvbjoqalb74c",
+        "gen-sit-mvb14bh24b87"
+      ],
+      "createdAt": "2026-10-18T08:01:27.972Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "situation",
+          "ageBand": "6-7",
+          "competency": "selfAwareness",
+          "difficulty": 1,
+          "construct": "gross-body-cues"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option B actively demonstrates self-management by using a calming technique when experiencing physical signs of anger. Option A reacts impulsively with retaliation, working strongly against self-management and relationship skills. Option C suppresses emotions rather than managing them constructively."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The weakest line is 'Your tummy relaxes, and you tell Rahul softly' because 'tell' usually needs an object (e.g., 'speak to Rahul softly'), but it remains understandable.",
+            "The item successfully implements the construct by focusing on the physical sensations of anger (tight tummy, clamped teeth) without naming the emotion.",
+            "The consequences are realistic, age-appropriate, and avoid preaching."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences logically follow the actions without magical rewards or catastrophic punishments."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The physical discomfort of the feeling is acknowledged and not dismissed."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The lesson is shown through the outcomes of the choices rather than an adult lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "There is a clear best choice for managing the physical signs of anger before reacting."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The negative options are handled neutrally without mocking or labeling the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language or diagnoses are used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "A school bus setting and a spilled water bottle are very relatable for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "Body signals (tight tummy, clamped teeth) are clearly described without naming the feeling."
+            }
+          }
+        },
+        "maxSimilarity": 0.8600538585310721,
+        "mostSimilarId": "gen-sit-mvbjj2gzc1cd"
+      }
+    },
+    {
+      "id": "gen-pz-mvdjeka36b11",
+      "kind": "puzzle",
+      "title": "Glad in the Game",
+      "text": "Rahul plays a fun online game. He feels glad when he wins. Which word means the same as glad?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 22,
+      "expectedTimeSec": 15,
+      "difficulty": 1,
+      "primaryCompetencies": [
+        "selfAwareness"
+      ],
+      "valueTags": [
+        "vocabulary",
+        "feelings"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Happy",
+          "scores": {
+            "selfAwareness": 1,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Rahul smiles and does a little dance."
+        },
+        {
+          "id": "b",
+          "text": "Angry",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Angry means feeling upset or cross."
+        },
+        {
+          "id": "c",
+          "text": "Tired",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Tired means wanting to sleep."
+        }
+      ],
+      "hint": {
+        "text": "How do you feel when good things happen?"
+      },
+      "puzzle": {
+        "domain": "vocabulary",
+        "correctOptionId": "a",
+        "explanation": "Glad and happy mean the same thing. Both words tell us that Rahul feels joyful."
+      },
+      "source": "generated",
+      "seedIds": [
+        "ypz-04",
+        "ypz-01",
+        "ypz-03"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjqg6lca28"
+      ],
+      "createdAt": "2026-10-18T08:01:54.987Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "6-7",
+          "domain": "vocabulary",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a simple single-step vocabulary puzzle for young children to match the emotion word 'glad' with 'happy'. It reinforces basic emotional literacy.",
+          "solvedOptionId": "a"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The puzzle is age-appropriate and clearly tests the intended vocabulary.",
+            "The hint gently guides the child to the answer without giving it away.",
+            "The explanation is kind and reinforces the learning objective."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "The consequences are simple, believable, and appropriate for a vocabulary puzzle."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Feelings are named accurately without being minimized."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The item teaches a synonym without lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "As a vocabulary puzzle, there is exactly one correct answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The incorrect options are corrected gently and neutrally."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language or medical advice is used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "The scenario and vocabulary are highly familiar to Indian children in this age band."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No specific research construct was required."
+            }
+          }
+        },
+        "maxSimilarity": 0.8046596494370082,
+        "mostSimilarId": "gen-sit-mvbjqg6lca28"
+      }
+    },
+    {
+      "id": "gen-sit-mvdjet4mfd0d",
+      "kind": "situation",
+      "title": "Rain on the bus trip",
+      "text": "Rain stops your school trip games. You feel sad because you cannot run with Imran. What do you do?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 37,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "selfManagement"
+      ],
+      "valueTags": [
+        "coping",
+        "patience",
+        "making the best of it"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Ask Imran to play games inside",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 1,
+            "socialAwareness": 0,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Imran smiles and says, \"I see something blue!\""
+        },
+        {
+          "id": "b",
+          "text": "Watch the cool rain make puddles",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 2,
+            "socialAwareness": 0,
+            "relationshipSkills": 0,
+            "responsibleDecisionMaking": 0
+          },
+          "consequence": "Watching the splashing water makes you feel better."
+        },
+        {
+          "id": "c",
+          "text": "Cross your arms and sulk alone",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": -2,
+            "socialAwareness": 0,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "You stay upset and miss the bus jokes."
+        }
+      ],
+      "hint": {
+        "text": "What can help you feel better right now?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ysit-02",
+        "ysit-03",
+        "ysit-12"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-sit-mvbjv5p79c03",
+        "rsit-03",
+        "gen-sit-mvbjt88tfd4d"
+      ],
+      "createdAt": "2026-10-18T08:02:06.455Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "situation",
+          "ageBand": "6-7",
+          "competency": "selfManagement",
+          "difficulty": 1,
+          "construct": "compas-coping"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A shows strong relationship skills by adapting plans to stay connected with a friend. Option B displays clear self-management through self-soothing and finding enjoyment in a rainy situation. Option C works against self-management by giving in to sulking."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The item perfectly captures the requested construct of coping by engaging versus escaping.",
+            "The consequence for Option A ('I see something blue!') is a lovely, age-appropriate example of 'show, don't preach' to indicate they are playing I-Spy.",
+            "The scenario is highly relatable for young children on a rainy school bus trip."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are realistic and naturally follow the child's choice to adapt, problem-solve, or withdraw."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "The sadness of missing out on running outside is clearly named and allowed."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The item shows the outcome through actions (like playing a guessing game or missing jokes) rather than lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "The situation allows for two healthy coping mechanisms (reframing and problem-solving) without forcing a single 'right' answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The negative option describes a common reaction (sulking) without mocking or labeling the child."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language or medical advice is used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "A rainy school bus trip is a very common and relatable experience for Indian children."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "The options clearly map to problem-solving (A), adapting (B), and escaping (C) as requested."
+            }
+          }
+        },
+        "maxSimilarity": 0.8946317728519179,
+        "mostSimilarId": "gen-sit-mvbjv5p79c03"
+      }
+    },
+    {
+      "id": "gen-sit-mvdjf63p6e41",
+      "kind": "situation",
+      "title": "Shadows in the Dark",
+      "text": "The lights go out at home. Bhavna tells Harsh he cannot play shadows. Harsh sits alone and looks sad. What do you do?",
+      "ageBand": "6-7",
+      "readingLevel": 1,
+      "wordCount": 40,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [
+        "responsibleDecisionMaking",
+        "socialAwareness"
+      ],
+      "valueTags": [
+        "inclusion",
+        "kindness"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "Tell Bhavna, \"Harsh can play with us.\"",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 2,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Harsh smiles and makes a shadow bird."
+        },
+        {
+          "id": "b",
+          "text": "Play only with Bhavna",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": -1,
+            "relationshipSkills": -1,
+            "responsibleDecisionMaking": -1
+          },
+          "consequence": "Harsh sits alone in the dark."
+        },
+        {
+          "id": "c",
+          "text": "Ask Papa to help us share",
+          "scores": {
+            "selfAwareness": 0,
+            "selfManagement": 0,
+            "socialAwareness": 1,
+            "relationshipSkills": 1,
+            "responsibleDecisionMaking": 1
+          },
+          "consequence": "Papa brings a torch so everyone plays."
+        }
+      ],
+      "hint": {
+        "text": "How does Harsh feel sitting alone?"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ysit-06",
+        "ysit-05",
+        "ysit-11"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "sit-15",
+        "gen-sit-mvdjbw2k7f76",
+        "gen-sit-mvbjhml2d23c"
+      ],
+      "createdAt": "2026-10-18T08:02:23.269Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "situation",
+          "ageBand": "6-7",
+          "competency": "responsibleDecisionMaking",
+          "difficulty": 1,
+          "construct": "inclusion-upstander"
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "Option A shows excellent relationship skills by speaking up to include a sibling who is being left out. Option C is also a good responsible choice for a young child asking an adult for assistance. Option B works against social awareness and fairness by ignoring the excluded child."
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The scenario of playing shadow puppets during a power cut is a highly relatable and culturally authentic experience for Indian children.",
+            "The item fulfills the required construct perfectly by offering a calm way to speak up and an option to involve a trusted adult.",
+            "The weakest line is consequence A ('Harsh smiles and makes a shadow bird') because it conveniently ignores Bhavna's reaction, but it remains acceptable for the 6-7 age band's simplicity."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "Consequences are believable for young children, even though Bhavna's reaction to being challenged is left out."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "Harsh's sadness is clearly stated and allowed to exist without being artificially minimized."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The value of inclusion is shown entirely through the children's actions and the outcomes, with no lecturing."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "The situation has clear helpful choices (A and C) which fit the developmental stage of a 6-7 year old."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "Choosing to play only with Bhavna results in a natural, sad consequence for Harsh without mocking the player."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No clinical language or diagnoses are used; the emotional language is simple and age-appropriate."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Power cuts (load shedding) and making shadow puppets are classic, recognizable parts of growing up in India."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "The scenario clearly features a child being excluded, with options to speak up calmly or ask an adult for help."
+            }
+          }
+        },
+        "maxSimilarity": 0.8853521368092174,
+        "mostSimilarId": "sit-15"
+      }
+    },
+    {
+      "id": "gen-pz-mvdjfaggc518",
+      "kind": "puzzle",
+      "title": "Chirag's chalk pieces",
+      "text": "Chirag has 8 pieces of chalk. He gives 3 pieces away. Then he finds 1 more piece. How many pieces does Chirag have now?",
+      "ageBand": "6-7",
+      "readingLevel": 2,
+      "wordCount": 27,
+      "expectedTimeSec": 25,
+      "difficulty": 2,
+      "primaryCompetencies": [],
+      "valueTags": [
+        "counting",
+        "addition",
+        "subtraction"
+      ],
+      "options": [
+        {
+          "id": "a",
+          "text": "5",
+          "consequence": "Remember to add the chalk he found!"
+        },
+        {
+          "id": "b",
+          "text": "6",
+          "consequence": "Chirag puts all 6 pieces in his box."
+        },
+        {
+          "id": "c",
+          "text": "7",
+          "consequence": "Count back 3 first, then add 1."
+        }
+      ],
+      "hint": {
+        "text": "What is 8 take away 3, plus 1?"
+      },
+      "puzzle": {
+        "domain": "math",
+        "correctOptionId": "b",
+        "explanation": "8 take away 3 leaves 5. Then 5 plus 1 makes 6.",
+        "computation": "8 - 3 + 1"
+      },
+      "source": "generated",
+      "seedIds": [
+        "ypz-01",
+        "ypz-02",
+        "ypz-04"
+      ],
+      "status": "draft",
+      "similarIds": [
+        "gen-pz-mvbjzdl268c0",
+        "gen-pz-mvdjbzbadbb9",
+        "ypz-01"
+      ],
+      "createdAt": "2026-10-18T08:02:28.912Z",
+      "pipeline": {
+        "runId": "20261018T075331-1df5",
+        "target": {
+          "kind": "puzzle",
+          "ageBand": "6-7",
+          "domain": "math",
+          "difficulty": 2
+        },
+        "models": {
+          "generator": "gemini-3.8-flash",
+          "grader": "gemini-3.6-flash",
+          "curator": "gemini-3.1-pro-preview",
+          "embedding": "gemini-embedding-001"
+        },
+        "grade": {
+          "rationale": "This is a simple two-step math word problem requiring subtraction and addition (8 - 3 + 1 = 6). For 6–7 year olds, managing two sequential math steps makes it a moderate challenge. The language is clear and easy to read.",
+          "solvedOptionId": "b"
+        },
+        "curation": {
+          "accept": true,
+          "safe": true,
+          "fitsGame": true,
+          "hintIsNudge": true,
+          "explanationIsKind": true,
+          "reasons": [
+            "The math is accurate and age-appropriate.",
+            "The consequences are gentle and guide the child without shaming.",
+            "The hint translates the word problem into a simpler equation, which is a helpful nudge for this age group."
+          ],
+          "originalPlot": true,
+          "openChoice": false,
+          "principles": {
+            "honestConsequences": {
+              "pass": true,
+              "note": "The correct answer results in a simple, believable action."
+            },
+            "feelingsStayReal": {
+              "pass": true,
+              "note": "No feelings are invalidated."
+            },
+            "showNotPreach": {
+              "pass": true,
+              "note": "The item focuses on the math puzzle without adding unnecessary moral lessons."
+            },
+            "certaintyFits": {
+              "pass": true,
+              "note": "There is only one correct mathematical answer."
+            },
+            "noShaming": {
+              "pass": true,
+              "note": "The incorrect options offer gentle corrections rather than making the child feel bad."
+            },
+            "notATherapist": {
+              "pass": true,
+              "note": "No medical or psychological language is used."
+            },
+            "realForIndianChildren": {
+              "pass": true,
+              "note": "Chirag and chalk pieces are very familiar in an Indian school context."
+            },
+            "constructVisible": {
+              "pass": true,
+              "note": "No specific construct was required, and the math focus is clear."
+            }
+          }
+        },
+        "maxSimilarity": 0.8481131932668091,
+        "mostSimilarId": "gen-pz-mvbjzdl268c0"
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "id": "gen-sit-mvdj4scqd1b0",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "selfAwareness",
+        "difficulty": 1,
+        "construct": "pons-hidden"
+      },
+      "stage": "category",
+      "reasons": [
+        "Off-category: aimed at selfAwareness (0), but the grader found the best option mainly shows socialAwareness (2), relationshipSkills (1)"
+      ],
+      "createdAt": "2026-10-18T07:54:18.899Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Aarav's Balloon",
+        "text": "Aarav drops his red balloon. He laughs, but his chin shakes. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "selfAwareness",
+          "socialAwareness"
+        ],
+        "valueTags": [
+          "feelings",
+          "empathy",
+          "caring"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Laugh along with Aarav",
+            "consequence": "Aarav looks down and blinks back tears."
+          },
+          {
+            "id": "b",
+            "text": "Ask Aarav if he feels sad",
+            "consequence": "Aarav nods quietly and holds your hand."
+          },
+          {
+            "id": "c",
+            "text": "Say, \"Go get another balloon!\"",
+            "consequence": "Aarav stays still and looks at the floor."
+          }
+        ],
+        "hint": {
+          "text": "Is Aarav really happy right now?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 2,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 1,
+        "expectedTimeSec": 25,
+        "rationale": "Noticing that Aarav's laughter hides true sadness (his shaking chin) requires subtle social awareness. Asking him gently if he is sad demonstrates empathy and supportive relationship skills, whereas laughing along misinterprets his distress."
+      },
+      "maxSimilarity": 0.8912611418619426,
+      "mostSimilarId": "gen-sit-mvbjivah635a"
+    },
+    {
+      "id": "gen-sit-mvdj52ma95cf",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "socialAwareness",
+        "difficulty": 1,
+        "construct": "inclusion-upstander"
+      },
+      "stage": "curator",
+      "reasons": [
+        "honestConsequences: \"The others make space, and Kiran smiles.\" is a magical reward; kids who just said \"Do not talk to him\" wouldn't instantly comply.",
+        "The item is a direct clone of the 'Alone at lunch' seed example, merely changing the setting to tuition and the name to Kiran.",
+        "The weakest line is 'The others make space, and Kiran smiles.' This is a magically easy resolution that ignores the resistance of kids who just told the player not to talk to him."
+      ],
+      "createdAt": "2026-10-18T07:54:32.194Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "A Seat for Kiran",
+        "text": "Kiran sits alone and looks sad at tuition. Other kids say, \"Do not talk to him.\" What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "socialAwareness",
+          "relationshipSkills"
+        ],
+        "valueTags": [
+          "inclusion",
+          "kindness"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Say to them, \"Kiran can sit here.\"",
+            "consequence": "The others make space, and Kiran smiles."
+          },
+          {
+            "id": "b",
+            "text": "Ignore Kiran like the other kids do",
+            "consequence": "Kiran stays alone and looks at the floor."
+          },
+          {
+            "id": "c",
+            "text": "Tell the teacher that Kiran is left out",
+            "consequence": "The teacher brings Kiran to join your group."
+          }
+        ],
+        "hint": {
+          "text": "How would you feel if nobody talked to you?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 2,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -2,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -1
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 1,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 1,
+        "expectedTimeSec": 25,
+        "rationale": "Inviting a left-out peer to sit together (Option A) demonstrates strong social awareness and relationship skills by actively resisting peer exclusion. Ignoring the child (Option B) lacks empathy and yields to peer pressure. Seeking help from a teacher (Option C) is a reasonable secondary choice for young children."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item is a direct clone of the 'Alone at lunch' seed example, merely changing the setting to tuition and the name to Kiran.",
+          "The weakest line is 'The others make space, and Kiran smiles.' This is a magically easy resolution that ignores the resistance of kids who just told the player not to talk to him."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": false,
+            "note": "\"The others make space, and Kiran smiles.\" is a magical reward; kids who just said \"Do not talk to him\" wouldn't instantly comply."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Kiran's sadness and isolation are allowed to exist naturally in the negative consequence."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The item shows the impact of the player's choices without any moralizing or lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is a clear best action (inclusion) for this age group, and the scenario doesn't pretend otherwise."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "Choosing to ignore Kiran results in a sad but realistic outcome without mocking or labeling the player."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or diagnoses are used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Tuition classes are a very common and relatable setting for Indian children."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of standing with someone left out is perfectly aligned with the scenario."
+          }
+        }
+      },
+      "maxSimilarity": 0.9030377751158674,
+      "mostSimilarId": "ysit-06"
+    },
+    {
+      "id": "gen-sit-mvdj5m1z5f17",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "responsibleDecisionMaking",
+        "difficulty": 2,
+        "construct": "inclusion-upstander"
+      },
+      "stage": "category",
+      "reasons": [
+        "Off-category: aimed at responsibleDecisionMaking (1), but the grader found the best option mainly shows socialAwareness (2), relationshipSkills (2)"
+      ],
+      "createdAt": "2026-10-18T07:54:57.383Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "A Game by the Stall",
+        "text": "Kids at the market say Ishita cannot play. Ishita looks sad and stands alone. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "responsibleDecisionMaking",
+          "socialAwareness"
+        ],
+        "valueTags": [
+          "inclusion",
+          "kindness",
+          "standing up"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Say, \"Ishita can play with us!\"",
+            "consequence": "One kid shrugs, and Ishita smiles and joins in."
+          },
+          {
+            "id": "b",
+            "text": "Laugh and go play with the kids",
+            "consequence": "You play, but Ishita sits alone by the stall."
+          },
+          {
+            "id": "c",
+            "text": "Tell Papa that Ishita is left out",
+            "consequence": "Papa gently talks to the kids so Ishita can play."
+          }
+        ],
+        "hint": {
+          "text": "How would you feel if no one let you play?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 2,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -2,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -1
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 1,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 1,
+        "expectedTimeSec": 25,
+        "rationale": "Option A shows active inclusion and empathy, demonstrating high social awareness and relationship skills. Option B joins in the unkind exclusion of a peer. Option C is a safe and helpful fallback for a young child seeking adult assistance."
+      },
+      "maxSimilarity": 0.888183468327016,
+      "mostSimilarId": "sit-15"
+    },
+    {
+      "id": "gen-sit-mvdj5rca4b01",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "selfAwareness",
+        "difficulty": 1,
+        "construct": "pons-hidden"
+      },
+      "stage": "category",
+      "reasons": [
+        "Off-category: aimed at selfAwareness (0), but the grader found the best option mainly shows socialAwareness (2), relationshipSkills (1)"
+      ],
+      "createdAt": "2026-10-18T07:55:04.234Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Shaking Hands",
+        "text": "At cousin Irfan's house, his toy truck breaks. Irfan laughs loudly, but his hands shake. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "selfAwareness",
+          "socialAwareness"
+        ],
+        "valueTags": [
+          "empathy",
+          "noticing feelings"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Laugh along and pick another toy.",
+            "consequence": "Irfan looks down quietly and drops the wheels."
+          },
+          {
+            "id": "b",
+            "text": "Ask gently, 'Are you feeling sad?'",
+            "consequence": "Irfan stops laughing and nods his head."
+          },
+          {
+            "id": "c",
+            "text": "Say, 'Good, you do not care!'",
+            "consequence": "Irfan blinks fast and hides the broken toy."
+          }
+        ],
+        "hint": {
+          "text": "What do Irfan's shaking hands show?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -1,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 2,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -2,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "Noticing body language like shaking hands when someone is masking sadness demonstrates subtle social awareness. Option B shows empathy by gently checking on Irfan's true feelings, while the other options miss or dismiss his underlying distress."
+      },
+      "maxSimilarity": 0.8794663739756671,
+      "mostSimilarId": "gen-sit-mvbjivah635a"
+    },
+    {
+      "id": "gen-sit-mvdj5rfo7e23",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "relationshipSkills",
+        "difficulty": 2,
+        "construct": "fair-sharing"
+      },
+      "stage": "curator",
+      "reasons": [
+        "The item is a direct clone of the seed example 'One tablet, two children'.",
+        "It swaps the tablet for a yellow hoop and the sister for Lakshmi, but keeps the exact same problem, options (snatch, take turns, give up and sulk), and best answer.",
+        "Fails the originalPlot check."
+      ],
+      "createdAt": "2026-10-18T07:55:04.356Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Yellow Hoop",
+        "text": "There is only one yellow hoop at practice. You and Lakshmi both want it now. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "relationshipSkills",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "fairness",
+          "turn-taking"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Snatch the hoop and run away",
+            "consequence": "Lakshmi looks upset, and you play all alone."
+          },
+          {
+            "id": "b",
+            "text": "Count ten jumps each, then swap",
+            "consequence": "You both take turns and have fun jumping."
+          },
+          {
+            "id": "c",
+            "text": "Walk away sadly and sit down",
+            "consequence": "Lakshmi plays, but you sit alone feeling sad."
+          }
+        ],
+        "hint": {
+          "text": "Can you find a way to share?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": -1,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 1,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 1,
+              "selfManagement": 0,
+              "socialAwareness": 0,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 1,
+        "expectedTimeSec": 25,
+        "rationale": "Taking turns by counting jumps is a constructive way to resolve a resource dispute, showing strong relationship skills and responsible decision-making. Snatching demonstrates poor impulse control, while withdrawing passively misses the chance to problem-solve together."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": false,
+        "reasons": [
+          "The item is a direct clone of the seed example 'One tablet, two children'.",
+          "It swaps the tablet for a yellow hoop and the sister for Lakshmi, but keeps the exact same problem, options (snatch, take turns, give up and sulk), and best answer.",
+          "Fails the originalPlot check."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are believable and natural without magical rewards."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Sadness is named and allowed in option C without being dismissed."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown through the outcomes of the choices, with no adult lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is one clear best answer for this situation, which fits the scenario."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "None of the options or consequences mock or shame the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No diagnostic words or medical advice are used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "The setting and names are culturally appropriate and the language is simple."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of sharing a limited resource is clearly demonstrated."
+          }
+        }
+      },
+      "maxSimilarity": 0.9101907851190228,
+      "mostSimilarId": "sit-08"
+    },
+    {
+      "id": "gen-pz-mvdj67og914e",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "puzzle",
+        "ageBand": "6-7",
+        "domain": "reasoning",
+        "difficulty": 1
+      },
+      "stage": "curator",
+      "reasons": [
+        "The item is a direct clone of the 'Kiki's bead necklace' seed example, just swapping beads for chalk shapes and colors for shapes. The consequences are almost word-for-word identical."
+      ],
+      "createdAt": "2026-10-18T07:55:25.408Z",
+      "candidate": {
+        "kind": "puzzle",
+        "title": "Aarav's Chalk Hop",
+        "text": "Aarav hops on playground chalk shapes. He hops on circle, square, circle, square, circle. What comes next?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [],
+        "valueTags": [
+          "patterns"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Square",
+            "consequence": "Aarav hops neatly onto the square."
+          },
+          {
+            "id": "b",
+            "text": "Circle",
+            "consequence": "Two circles together break the pattern."
+          },
+          {
+            "id": "c",
+            "text": "Triangle",
+            "consequence": "There is no triangle on this path."
+          }
+        ],
+        "hint": {
+          "text": "What comes after every circle?"
+        },
+        "puzzle": {
+          "domain": "reasoning",
+          "correctOptionId": "a",
+          "explanation": "The pattern goes circle, square, circle, square. A square comes next."
+        }
+      },
+      "grade": {
+        "optionScores": [],
+        "difficulty": 1,
+        "readingLevel": 1,
+        "expectedTimeSec": 15,
+        "solvedOptionId": "a",
+        "rationale": "This is a basic pattern recognition puzzle where the shapes alternate between circle and square. Identifying that 'Square' comes next is straightforward for 6-7 year olds. No SEL competencies are directly evaluated in this cognitive task."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item is a direct clone of the 'Kiki's bead necklace' seed example, just swapping beads for chalk shapes and colors for shapes. The consequences are almost word-for-word identical."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences logically follow the choices without exaggeration."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "No feelings are bypassed or invalidated."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The puzzle focuses on the pattern without lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is only one correct answer to this pattern puzzle."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The incorrect options are corrected gently."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical or therapeutic language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Aarav playing with chalk shapes is a relatable scenario."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "No construct was provided, so this passes by default."
+          }
+        }
+      },
+      "maxSimilarity": 0.8149608353517008,
+      "mostSimilarId": "ypz-03"
+    },
+    {
+      "id": "gen-sit-mvdj6evebfac",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "socialAwareness",
+        "difficulty": 2,
+        "construct": "inclusion-upstander"
+      },
+      "stage": "curator",
+      "reasons": [
+        "The item is a direct retelling of the seed example 'Alone at lunch'. It uses the exact same problem (exclusion from sitting), the same turn, and the same three options (tell the peer they can sit with you, join the exclusion, or tell the teacher).",
+        "To be original while meeting the construct, the situation needs a different context for exclusion, such as picking teams for a game, doing a group project, or sharing materials."
+      ],
+      "createdAt": "2026-10-18T07:55:34.730Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Tuition Mat",
+        "text": "Mehul stammers when he reads. Abdul laughs and will not share a mat with him. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "socialAwareness",
+          "relationshipSkills"
+        ],
+        "valueTags": [
+          "inclusion",
+          "kindness",
+          "courage"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Tell Abdul, \"Mehul sits with us.\"",
+            "consequence": "Mehul sits by you and reads slowly."
+          },
+          {
+            "id": "b",
+            "text": "Laugh with Abdul and sit away",
+            "consequence": "Mehul looks down and holds his book tight."
+          },
+          {
+            "id": "c",
+            "text": "Tell the tuition teacher about it",
+            "consequence": "The teacher makes space for everyone on the mat."
+          }
+        ],
+        "hint": {
+          "text": "How does Mehul feel right now?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 1,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -2,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 1,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 30,
+        "rationale": "Option A directly demonstrates inclusion and relationship skills by standing up for Mehul. Option B shows a clear lack of empathy and encourages exclusion. Option C is a reasonable alternative for young children seeking adult support."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item is a direct retelling of the seed example 'Alone at lunch'. It uses the exact same problem (exclusion from sitting), the same turn, and the same three options (tell the peer they can sit with you, join the exclusion, or tell the teacher).",
+          "To be original while meeting the construct, the situation needs a different context for exclusion, such as picking teams for a game, doing a group project, or sharing materials."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are realistic and show the outcome without exaggerating rewards or punishments."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Mehul's sadness is shown naturally through his body language ('looks down and holds his book tight')."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown entirely through the actions and consequences without any adult lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "The situation has clear helpful and unhelpful choices, and the consequences reflect this appropriately."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The negative option's consequence focuses on Mehul's reaction rather than shaming the player."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "Stammering is described simply as a behavior without using medical or diagnostic labels."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Sitting on a mat at tuition is a very recognizable and culturally accurate scenario for Indian children."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of standing with someone left out due to a difference is clearly visible."
+          }
+        }
+      },
+      "maxSimilarity": 0.8714070227938925,
+      "mostSimilarId": "gen-sit-mvbjfnp37afb"
+    },
+    {
+      "id": "gen-sit-mvdj6sqp98ec",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "selfManagement",
+        "difficulty": 2,
+        "construct": "inhibition-delay"
+      },
+      "stage": "curator",
+      "reasons": [
+        "honestConsequences: \"Pooja comes back quickly, and you share it happily\" is a magical reward; it is Pooja's biscuit, so assuming she shares it just because the player waited is unrealistic.",
+        "The plot is a direct clone of the 'Ice cream after dinner' seed, just swapping ice cream for a biscuit and drawing for clapping games.",
+        "The weakest line is 'Pooja comes back quickly, and you share it happily.' It offers a magical reward by assuming Pooja will share her biscuit just because the player managed to wait."
+      ],
+      "createdAt": "2026-10-18T07:55:52.706Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Playground Biscuit",
+        "text": "Pooja leaves her sweet biscuit on the bench. She says, \"Wait for me!\" You really want a bite. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "selfManagement",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "patience",
+          "waiting",
+          "honesty"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Look away and play clapping games",
+            "consequence": "Pooja comes back quickly, and you share it happily."
+          },
+          {
+            "id": "b",
+            "text": "Eat a little piece right now",
+            "consequence": "It tastes yummy, but Pooja notices the missing piece."
+          },
+          {
+            "id": "c",
+            "text": "Eat a bite, then tell Pooja",
+            "consequence": "Pooja looks sad, but is glad you told her."
+          }
+        ],
+        "hint": {
+          "text": "What can you do to make waiting easier?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 2,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -1,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 1,
+        "expectedTimeSec": 25,
+        "rationale": "Distracting oneself when tempted by another child's food demonstrates clear self-management. Taking someone else's food without permission shows poor impulse control and irresponsible decision-making, even if admitted afterward."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "reasons": [
+          "The plot is a direct clone of the 'Ice cream after dinner' seed, just swapping ice cream for a biscuit and drawing for clapping games.",
+          "The weakest line is 'Pooja comes back quickly, and you share it happily.' It offers a magical reward by assuming Pooja will share her biscuit just because the player managed to wait."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": false,
+            "note": "\"Pooja comes back quickly, and you share it happily\" is a magical reward; it is Pooja's biscuit, so assuming she shares it just because the player waited is unrealistic."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Pooja's sadness in option C is acknowledged and allowed to exist without being brushed away."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The consequences show the outcomes through actions and reactions without using 'should' or lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is a clear best answer for this age group regarding impulse control, and the options reflect that."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The consequences are neutral and do not mock or label the child for giving in to temptation."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical, diagnostic, or clinical language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Biscuits and clapping games are very common and relatable for young Indian children."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The situation directly tests the construct of waiting for something tempting when it is hard."
+          }
+        }
+      },
+      "maxSimilarity": 0.8818920658454629,
+      "mostSimilarId": "gen-sit-mvbjna23c162"
+    },
+    {
+      "id": "gen-sit-mvdj72r4dc1b",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "responsibleDecisionMaking",
+        "difficulty": 1,
+        "construct": "online-safety"
+      },
+      "stage": "curator",
+      "reasons": [
+        "showNotPreach: The phrase 'keeps you safe' in option A's consequence fails because it summarizes the lesson instead of showing what the teacher actually does.",
+        "The item fails the originalPlot check because it is a direct clone of the first seed example, merely swapping the home setting for a playground and the mother for a teacher.",
+        "Option A's consequence fails showNotPreach by explicitly stating 'keeps you safe', which summarizes the lesson rather than showing the teacher's actions."
+      ],
+      "createdAt": "2026-10-18T07:56:05.680Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Playground Game",
+        "text": "You sit with Noor in the school playground. A stranger in the game asks where you live. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "online safety",
+          "asking for help"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Tell our teacher right away",
+            "consequence": "The teacher closes the chat and keeps you safe."
+          },
+          {
+            "id": "b",
+            "text": "Type my home address",
+            "consequence": "Noor worries that a stranger knows your house."
+          },
+          {
+            "id": "c",
+            "text": "Turn off the screen and hide it",
+            "consequence": "The message is still there when you open it."
+          }
+        ],
+        "hint": {
+          "text": "Who is a trusted grown-up nearby?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 0,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": 0,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "Telling a teacher when a stranger in a game asks for personal information demonstrates strong responsible decision-making and appropriate help-seeking. Sharing home address is an unsafe choice, while turning off and hiding the screen avoids getting necessary support from an adult."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item fails the originalPlot check because it is a direct clone of the first seed example, merely swapping the home setting for a playground and the mother for a teacher.",
+          "Option A's consequence fails showNotPreach by explicitly stating 'keeps you safe', which summarizes the lesson rather than showing the teacher's actions."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "The consequences are believable and avoid magical rewards or catastrophic punishments."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Noor's worry in option B is acknowledged and not dismissed."
+          },
+          "showNotPreach": {
+            "pass": false,
+            "note": "The phrase 'keeps you safe' in option A's consequence fails because it summarizes the lesson instead of showing what the teacher actually does."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is a clear best answer for this safety situation, which fits the construct."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "None of the options or consequences mock or shame the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical or diagnostic language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "The playground setting and language are appropriate for the age group."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of online safety and not sharing personal details is clearly visible."
+          }
+        }
+      },
+      "maxSimilarity": 0.8970008082425655,
+      "mostSimilarId": "rsit-19"
+    },
+    {
+      "id": "gen-sit-mvdj7jj60b92",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "relationshipSkills",
+        "difficulty": 1,
+        "construct": "honesty-repair"
+      },
+      "stage": "curator",
+      "reasons": [
+        "The item fails the originalPlot check because it is a direct clone of the seed example 'The broken cup'.",
+        "The setting and objects are changed (juice on a gift instead of a broken cup), but the options and consequences are almost word-for-word identical ('sad, but he thanks you', 'finds the wet box and feels upset', 'feel bad inside')."
+      ],
+      "createdAt": "2026-10-18T07:56:27.426Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Juice on the Gift",
+        "text": "At the wedding party, you spill juice on Harsh's gift box. Nobody saw you do it. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "relationshipSkills",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "honesty",
+          "owning up",
+          "apologising"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Tell Harsh and help clean it up",
+            "consequence": "Harsh is sad, but he thanks you for helping."
+          },
+          {
+            "id": "b",
+            "text": "Walk away and say nothing",
+            "consequence": "Harsh finds the wet box and feels upset."
+          },
+          {
+            "id": "c",
+            "text": "Blame another kid for the spill",
+            "consequence": "Harsh looks confused, and you feel bad inside."
+          }
+        ],
+        "hint": {
+          "text": "What would help Harsh feel better?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 1,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": -2,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -2
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "Accidentally spoiling something when nobody is watching creates a strong impulse to hide or deny responsibility. Option A demonstrates courage, honesty, and repair skills, while B and C represent dishonest avoidance."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item fails the originalPlot check because it is a direct clone of the seed example 'The broken cup'.",
+          "The setting and objects are changed (juice on a gift instead of a broken cup), but the options and consequences are almost word-for-word identical ('sad, but he thanks you', 'finds the wet box and feels upset', 'feel bad inside')."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are realistic; Harsh is still sad about the gift even when the child tells the truth."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Harsh's sadness and the child's internal guilt are acknowledged and not brushed away."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown through the natural outcomes of the choices without any adult lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is one clear best answer for this age group regarding honesty and taking responsibility."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The negative options result in natural internal guilt rather than external mocking or shaming."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical or diagnostic language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Attending a wedding party and spilling juice is a very relatable scenario for an Indian child."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of owning up to a mistake when nobody saw is clearly the core of the situation."
+          }
+        }
+      },
+      "maxSimilarity": 0.9021732783590948,
+      "mostSimilarId": "gen-sit-mvbjrlajb972"
+    },
+    {
+      "id": "gen-sit-mvdj7n2r08d8",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "selfAwareness",
+        "difficulty": 1,
+        "construct": "pons-hidden"
+      },
+      "stage": "category",
+      "reasons": [
+        "Off-category: aimed at selfAwareness (0), but the grader found the best option mainly shows socialAwareness (2), relationshipSkills (1)"
+      ],
+      "createdAt": "2026-10-18T07:56:32.019Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Wet Eyes on the Bus",
+        "text": "Farhan drops his toy on the bus. He laughs, but his eyes look wet. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "selfAwareness",
+          "socialAwareness"
+        ],
+        "valueTags": [
+          "noticing feelings",
+          "empathy"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Laugh along with him",
+            "consequence": "Farhan stops laughing and looks out the window."
+          },
+          {
+            "id": "b",
+            "text": "Ask softly, \"Are you feeling sad?\"",
+            "consequence": "Farhan nods quietly and sits close to you."
+          },
+          {
+            "id": "c",
+            "text": "Tell everyone Farhan is laughing",
+            "consequence": "Farhan hides his red face behind his bag."
+          }
+        ],
+        "hint": {
+          "text": "What do Farhan's wet eyes show?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -1,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 2,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 1,
+        "expectedTimeSec": 25,
+        "rationale": "This scenario tests social awareness by requiring children to look past surface behavior (laughing) to notice true feelings (tears). Option B demonstrates strong empathy and gentle communication. Options A and C ignore the emotional nuance and could worsen Farhan's distress."
+      },
+      "maxSimilarity": 0.886520619127146,
+      "mostSimilarId": "gen-sit-mvbjivah635a"
+    },
+    {
+      "id": "gen-sit-mvdj8gih0fca",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "selfManagement",
+        "difficulty": 1,
+        "construct": "compas-coping"
+      },
+      "stage": "curator",
+      "reasons": [
+        "honestConsequences: Fails because the technical issue is magically resolved: \"Rahul presses restart, and your car runs fast.\"",
+        "feelingsStayReal: Fails because the child's valid annoyance is instantly erased by a fake-positive interaction: \"You feel much better.\"",
+        "Option A forces the child to be fake-positive ('That was fun') when they are actually very annoyed, which is unrealistic for a 6-year-old.",
+        "Option A's consequence magically erases the child's frustration just because the friend smiled.",
+        "Option B's consequence magically fixes the internet or device issue that caused the screen to freeze in the first place."
+      ],
+      "createdAt": "2026-10-18T07:57:10.169Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Frozen Car Screen",
+        "text": "You lose the online game because your screen freezes. You feel very annoyed. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "selfManagement",
+          "relationshipSkills"
+        ],
+        "valueTags": [
+          "staying calm",
+          "handling disappointment"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Say, \"Good win, Rahul! That was fun.\"",
+            "consequence": "Rahul sends a smile. You feel much better."
+          },
+          {
+            "id": "b",
+            "text": "Ask Rahul to start a new race.",
+            "consequence": "Rahul presses restart, and your car runs fast."
+          },
+          {
+            "id": "c",
+            "text": "Turn off the screen and sulk alone.",
+            "consequence": "You sit quietly, but the mad feeling stays."
+          }
+        ],
+        "hint": {
+          "text": "How can you help yourself feel better?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 2,
+              "socialAwareness": 1,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 0,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": 0,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "Losing a game because of a technical glitch is very frustrating for young children. Option A shows excellent self-management and relationship skills through sportsmanship, while Option C shows poor self-management."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "Option A forces the child to be fake-positive ('That was fun') when they are actually very annoyed, which is unrealistic for a 6-year-old.",
+          "Option A's consequence magically erases the child's frustration just because the friend smiled.",
+          "Option B's consequence magically fixes the internet or device issue that caused the screen to freeze in the first place."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": false,
+            "note": "Fails because the technical issue is magically resolved: \"Rahul presses restart, and your car runs fast.\""
+          },
+          "feelingsStayReal": {
+            "pass": false,
+            "note": "Fails because the child's valid annoyance is instantly erased by a fake-positive interaction: \"You feel much better.\""
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The outcomes are shown through actions rather than adult lectures."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "The situation is not a genuine dilemma; trying again is clearly better than sulking."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "Option C allows the child to sulk without mocking or labeling them."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or diagnoses are used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Playing online games with friends is a common and relatable scenario."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The options clearly show engaging (asking to restart) versus escaping (turning off the screen and sulking)."
+          }
+        }
+      },
+      "maxSimilarity": 0.88663649661105,
+      "mostSimilarId": "gen-sit-mvb1356i36b5"
+    },
+    {
+      "id": "gen-sit-mvdj8o6l8d2f",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "responsibleDecisionMaking",
+        "difficulty": 1,
+        "construct": "online-safety"
+      },
+      "stage": "curator",
+      "reasons": [
+        "realForIndianChildren: The pronoun switch in 'Tenzin is at the vegetable market... What do you do?' is confusing for a 6-7 year old to read.",
+        "The item is a direct clone of the first seed example, merely changing 'Mummy' to 'Ma' and 'name and school' to 'house'.",
+        "The perspective is confusing for a young reader: it starts in the third person ('Tenzin is...') but suddenly switches to the second person ('What do you do?')."
+      ],
+      "createdAt": "2026-10-18T07:57:20.109Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Question in the Game",
+        "text": "Tenzin is at the vegetable market with Ma. A fun online game asks, \"Where is your house?\" What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "online safety",
+          "asking for help"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Show Ma the screen right now",
+            "consequence": "Ma turns off the chat and thanks you."
+          },
+          {
+            "id": "b",
+            "text": "Type my home address",
+            "consequence": "Ma sees the screen and puts the phone away."
+          },
+          {
+            "id": "c",
+            "text": "Type a made-up house name",
+            "consequence": "More pop-up questions appear and make you worry."
+          }
+        ],
+        "hint": {
+          "text": "Who can help you stay safe?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 0,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "Asking a trusted adult when an online game requests personal information shows strong responsible decision-making and relationship skills. Sharing a real address puts personal safety at risk, while making up a fake name ignores the important step of checking with a parent."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": false,
+        "reasons": [
+          "The item is a direct clone of the first seed example, merely changing 'Mummy' to 'Ma' and 'name and school' to 'house'.",
+          "The perspective is confusing for a young reader: it starts in the third person ('Tenzin is...') but suddenly switches to the second person ('What do you do?')."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are realistic and mild."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "No feelings are invalidated."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown through the mother's actions, without lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is a clear best answer for online safety."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "No options or consequences mock the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical or diagnostic language is used."
+          },
+          "realForIndianChildren": {
+            "pass": false,
+            "note": "The pronoun switch in 'Tenzin is at the vegetable market... What do you do?' is confusing for a 6-7 year old to read."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of online safety and asking for help is clearly visible."
+          }
+        }
+      },
+      "maxSimilarity": 0.8737460916855033,
+      "mostSimilarId": "ysit-11"
+    },
+    {
+      "id": "gen-sit-mvdj8vhydd2d",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "relationshipSkills",
+        "difficulty": 2,
+        "construct": "fair-sharing"
+      },
+      "stage": "curator",
+      "reasons": [
+        "The item fails the originalPlot check because it is a direct clone of the seed example 'One tablet, two children'. It just swaps the tablet for a spinner, Diya for Siddharth, and Mummy for Papa, keeping the exact same problem, options, and consequences."
+      ],
+      "createdAt": "2026-10-18T07:57:29.590Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "One Toy Spinner",
+        "text": "Papa buys one toy spinner at the market. You and Siddharth both want to spin it first. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "relationshipSkills",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "fairness",
+          "taking turns"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Grab the spinner and run away",
+            "consequence": "Siddharth cries, and Papa takes the spinner away."
+          },
+          {
+            "id": "b",
+            "text": "Take turns spinning it three times each",
+            "consequence": "You both giggle and watch it whirl happily."
+          },
+          {
+            "id": "c",
+            "text": "Walk away sadly without a go",
+            "consequence": "Siddharth plays alone, and you feel left out."
+          }
+        ],
+        "hint": {
+          "text": "How can you both enjoy the new toy?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": -1,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 1,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 1,
+              "selfManagement": 0,
+              "socialAwareness": 0,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 1,
+        "readingLevel": 1,
+        "expectedTimeSec": 25,
+        "rationale": "Taking turns is a clear example of positive relationship skills and fair decision-making. Grabbing the toy demonstrates a lack of self-management and consideration for others, while giving up entirely avoids constructive problem-solving."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item fails the originalPlot check because it is a direct clone of the seed example 'One tablet, two children'. It just swaps the tablet for a spinner, Diya for Siddharth, and Mummy for Papa, keeping the exact same problem, options, and consequences."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are believable and follow naturally from the choices."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "The feeling of being left out is acknowledged without being dismissed."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown through the outcomes rather than stated by an adult."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is one clear best answer for this age-appropriate sharing scenario."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The consequences do not mock or label the child for making a poor choice."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or medical advice is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "The scenario and language are culturally appropriate and easy for a 6-7 year old to read."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of sharing a limited item, grabbing, giving up, and taking turns is clearly visible."
+          }
+        }
+      },
+      "maxSimilarity": 0.8940987247032288,
+      "mostSimilarId": "ysit-08"
+    },
+    {
+      "id": "gen-sit-mvdj9iokc1d8",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "selfAwareness",
+        "difficulty": 1,
+        "construct": "gross-body-cues"
+      },
+      "stage": "curator",
+      "reasons": [
+        "The item is a direct clone of the seed example 'Hot face at the swings'.",
+        "It changes the swing to a ball, Riya to Tenzin, and fists to a tight tummy, but the options (breathe, push, hide) and consequences are identical in structure.",
+        "Fails the originalPlot check."
+      ],
+      "createdAt": "2026-10-18T07:57:59.636Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Tight Tummy at the Park",
+        "text": "Tenzin kicks your ball into the bushes. Your tummy feels tight and your face gets hot. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "selfAwareness",
+          "selfManagement"
+        ],
+        "valueTags": [
+          "noticing feelings",
+          "calming down"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Yell at Tenzin and push him",
+            "consequence": "Tenzin pushes back, and you both feel upset."
+          },
+          {
+            "id": "b",
+            "text": "Stop and take two deep breaths",
+            "consequence": "Your face cools down, and your tummy relaxes."
+          },
+          {
+            "id": "c",
+            "text": "Walk away and hide your face",
+            "consequence": "Your tummy stays tight, and you feel unhappy."
+          }
+        ],
+        "hint": {
+          "text": "What is your tight tummy telling you?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": 0,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 1,
+              "selfManagement": 2,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 0,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "Recognizing physical signs of anger like a tight tummy helps kids regulate their emotions. Option B directly demonstrates self-management by taking deep breaths to calm down, while Option A acts on aggressive impulses and scores poorly."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "reasons": [
+          "The item is a direct clone of the seed example 'Hot face at the swings'.",
+          "It changes the swing to a ball, Riya to Tenzin, and fists to a tight tummy, but the options (breathe, push, hide) and consequences are identical in structure.",
+          "Fails the originalPlot check."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are believable and follow naturally from the actions."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "The tight tummy and unhappy feelings are acknowledged without being dismissed."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The consequences show the physical results of breathing versus hiding, without lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "Taking a breath is clearly the best immediate response to physical anger signals."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "No options or consequences shame the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "The scenario and names are appropriate for Indian children."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of noticing body signals first is clearly visible in the text and options."
+          }
+        }
+      },
+      "maxSimilarity": 0.8984725259366523,
+      "mostSimilarId": "rsit-02"
+    },
+    {
+      "id": "gen-sit-mvdjaud12d36",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "responsibleDecisionMaking",
+        "difficulty": 2,
+        "construct": "inhibition-delay"
+      },
+      "stage": "curator",
+      "reasons": [
+        "realForIndianChildren: The text says 'for Aarav' but then asks 'What do you do?', which is a confusing perspective shift for a 6-7 year old.",
+        "The item is a direct clone of the 'Ice cream after dinner' seed, merely swapping Papa/ice cream for Dadi/laddoos.",
+        "The weakest line is 'Dadi puts fresh laddoos on the table for Aarav... What do you do?' because it confusingly mixes third-person and second-person perspectives."
+      ],
+      "createdAt": "2026-10-18T07:59:01.429Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "A Box of Laddoos",
+        "text": "Dadi puts fresh laddoos on the table for Aarav. She says, 'Wait until evening.' What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "responsibleDecisionMaking",
+          "selfManagement"
+        ],
+        "valueTags": [
+          "patience",
+          "self-control"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Play with toys in my room",
+            "consequence": "You build a tall house, and evening comes fast."
+          },
+          {
+            "id": "b",
+            "text": "Eat a laddoo right now",
+            "consequence": "It is sweet, but Dadi sees the crumb trail."
+          },
+          {
+            "id": "c",
+            "text": "Ask Dadi for a cucumber slice",
+            "consequence": "Dadi smiles and cuts a crunchy slice for you."
+          }
+        ],
+        "hint": {
+          "text": "What can help your tummy while you wait?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 2,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": -1
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 1,
+              "selfManagement": 1,
+              "socialAwareness": 0,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 1,
+        "expectedTimeSec": 30,
+        "rationale": "This scenario tests self-management and delayed gratification when tempted by a treat. Option A demonstrates excellent self-management by redirecting attention to follow Dadi's boundary. Option B represents poor impulse control, while Option C shows constructive communication and awareness of hunger."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "reasons": [
+          "The item is a direct clone of the 'Ice cream after dinner' seed, merely swapping Papa/ice cream for Dadi/laddoos.",
+          "The weakest line is 'Dadi puts fresh laddoos on the table for Aarav... What do you do?' because it confusingly mixes third-person and second-person perspectives."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are realistic and avoid magical rewards or catastrophic punishments."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "No feelings are bypassed or invalidated."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The outcomes show the results of the actions naturally without lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "The situation has clear better choices for waiting, which fits the age and construct."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The consequence for eating the laddoo is objective and does not shame the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or inappropriate medical advice is used."
+          },
+          "realForIndianChildren": {
+            "pass": false,
+            "note": "The text says 'for Aarav' but then asks 'What do you do?', which is a confusing perspective shift for a 6-7 year old."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of waiting when it's hard is clearly demonstrated."
+          }
+        }
+      },
+      "maxSimilarity": 0.8966270171815004,
+      "mostSimilarId": "rsit-04"
+    },
+    {
+      "id": "gen-sit-mvdjcee3193d",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "selfAwareness",
+        "difficulty": 1,
+        "construct": "pons-hidden"
+      },
+      "stage": "category",
+      "reasons": [
+        "Off-category: aimed at selfAwareness (0), but the grader found the best option mainly shows socialAwareness (2), relationshipSkills (2)"
+      ],
+      "createdAt": "2026-10-18T08:00:14.043Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Drawing on the Bus",
+        "text": "Imran drops his drawing on the bus floor. He laughs, but his chin is shaking. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "selfAwareness",
+          "socialAwareness"
+        ],
+        "valueTags": [
+          "noticing feelings",
+          "kindness"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Laugh loudly with Imran",
+            "consequence": "Imran stops laughing and looks at his shoes."
+          },
+          {
+            "id": "b",
+            "text": "Whisper, \"Are you okay?\"",
+            "consequence": "Imran sighs softly and hugs his drawing."
+          },
+          {
+            "id": "c",
+            "text": "Ignore him and sit down",
+            "consequence": "Imran picks up his dirty paper all alone."
+          }
+        ],
+        "hint": {
+          "text": "What is Imran really feeling inside?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -2,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 2,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "Imran's shaking chin is a subtle clue that he is embarrassed or upset despite his nervous laugh. Option B shows great social awareness by looking past the superficial laugh and offering gentle, quiet support."
+      },
+      "maxSimilarity": 0.8688191575854285,
+      "mostSimilarId": "ysit-02"
+    },
+    {
+      "id": "gen-sit-mvdjcklp6783",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "socialAwareness",
+        "difficulty": 2,
+        "construct": "turiel-moral-convention"
+      },
+      "stage": "curator",
+      "reasons": [
+        "The item is a direct clone of the 'Quiet in the library' seed example, merely swapping the library for a park and the quiet rule for a grass rule.",
+        "Because it fails the originalPlot check, it cannot be accepted."
+      ],
+      "createdAt": "2026-10-18T08:00:22.093Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Park Sign",
+        "text": "The park sign says stay off the grass. Gopal falls on the grass and cries in pain. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "socialAwareness",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "helping",
+          "rules",
+          "empathy"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Stay on the path like the rule says",
+            "consequence": "Gopal sits in the grass and cries alone."
+          },
+          {
+            "id": "b",
+            "text": "Call the park guard to help him",
+            "consequence": "The guard hurries over and helps Gopal stand up."
+          },
+          {
+            "id": "c",
+            "text": "Tell Gopal, \"Get off the grass!\"",
+            "consequence": "Gopal feels worse because his arm really hurts."
+          }
+        ],
+        "hint": {
+          "text": "What does Gopal need most right now?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 2,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -2,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 1,
+        "expectedTimeSec": 25,
+        "rationale": "Getting an adult to help an injured peer balances respect for rules with genuine care and empathy. Ignoring Gopal or shouting at him while he is hurt displays a lack of empathy and poor relationship skills."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "reasons": [
+          "The item is a direct clone of the 'Quiet in the library' seed example, merely swapping the library for a park and the quiet rule for a grass rule.",
+          "Because it fails the originalPlot check, it cannot be accepted."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "The consequences are believable and follow naturally from the choices."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Gopal's pain and sadness are acknowledged and not brushed aside."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson emerges through the consequences without any adult lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is a clear best answer for a 6-7 year old when someone is physically hurt."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The consequences do not mock or shame the child for choosing the wrong options."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical advice or diagnostic language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Parks with 'stay off the grass' signs and guards are common enough, and the language is simple."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The conflict between a conventional rule and someone's wellbeing is clearly shown."
+          }
+        }
+      },
+      "maxSimilarity": 0.8577840613437471,
+      "mostSimilarId": "gen-sit-mvbjivah635a"
+    },
+    {
+      "id": "gen-sit-mvdjcwb6435e",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "selfManagement",
+        "difficulty": 2,
+        "construct": "dodge-ambiguous"
+      },
+      "stage": "curator",
+      "reasons": [
+        "honestConsequences: Fail on 'Thank you for not yelling.' This is an unnatural, magical reward that does not sound like a real 6-year-old's reaction.",
+        "showNotPreach: Fail on 'Thank you for not yelling.' This is an adult moral placed in a child's mouth to summarize the lesson.",
+        "realForIndianChildren: Fail on 'Thank you for not yelling.' A 6-7 year old child would not naturally speak this way in this context.",
+        "The item is a direct clone of the seed 'The wet drawing', just swapping the water bottle for a cap and the desk for the playground.",
+        "The weakest line is Option C's consequence: 'Yash turns and says, \"Thank you for not yelling.\"' This is highly unnatural for a 6-year-old and preaches the lesson directly."
+      ],
+      "createdAt": "2026-10-18T08:00:37.266Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Cap in the Mud",
+        "text": "Yash runs across the playground. His elbow knocks your cap into the mud. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "selfManagement",
+          "socialAwareness"
+        ],
+        "valueTags": [
+          "calmness",
+          "checking first"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Ask, \"Did you mean to do that?\"",
+            "consequence": "Yash says, \"No, I tripped!\" He picks it up."
+          },
+          {
+            "id": "b",
+            "text": "Push Yash and knock his cap off",
+            "consequence": "Yash pushes back, and you both get muddy."
+          },
+          {
+            "id": "c",
+            "text": "Say, \"It was just an accident.\"",
+            "consequence": "Yash turns and says, \"Thank you for not yelling.\""
+          }
+        ],
+        "hint": {
+          "text": "Did Yash see your cap before he ran past?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 1,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": -1,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 2,
+              "socialAwareness": 2,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 0
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "For young children, reacting calmly when someone ruins their property requires solid self-management and empathy. Option C clearly shows social awareness by recognizing the situation was unintentional. Option B demonstrates poor impulse control and unsafe behavior."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "reasons": [
+          "The item is a direct clone of the seed 'The wet drawing', just swapping the water bottle for a cap and the desk for the playground.",
+          "The weakest line is Option C's consequence: 'Yash turns and says, \"Thank you for not yelling.\"' This is highly unnatural for a 6-year-old and preaches the lesson directly."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": false,
+            "note": "Fail on 'Thank you for not yelling.' This is an unnatural, magical reward that does not sound like a real 6-year-old's reaction."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "No hard feelings are bypassed or dismissed with 'it's fine'."
+          },
+          "showNotPreach": {
+            "pass": false,
+            "note": "Fail on 'Thank you for not yelling.' This is an adult moral placed in a child's mouth to summarize the lesson."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "The situation has a clear best approach (checking first) and the options reflect that without pretending all are equal."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "No option or consequence shames or mocks the child for their choice."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical, diagnostic, or therapeutic language is used."
+          },
+          "realForIndianChildren": {
+            "pass": false,
+            "note": "Fail on 'Thank you for not yelling.' A 6-7 year old child would not naturally speak this way in this context."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of ambiguous intent and checking first is clearly visible in the setup and options."
+          }
+        }
+      },
+      "maxSimilarity": 0.8779102588251781,
+      "mostSimilarId": "ysit-02"
+    },
+    {
+      "id": "gen-sit-mvdjdbig0a70",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "responsibleDecisionMaking",
+        "difficulty": 1,
+        "construct": "online-safety"
+      },
+      "stage": "curator",
+      "reasons": [
+        "realForIndianChildren: The mix of 'Leela plays' and 'What do you do?' / 'Type where I live' is highly confusing for early readers, and 'Meenakshi Aunty' appears out of nowhere.",
+        "The item is an exact structural clone of the first seed example, merely swapping the setting and the specific question asked by the stranger.",
+        "The perspective shifts confusingly between third-person ('Leela plays') and first-person ('What do you do?', 'Type where I live').",
+        "Option A introduces 'Meenakshi Aunty', a character who is never established in the setup text."
+      ],
+      "createdAt": "2026-10-18T08:00:56.968Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "The Party Tablet",
+        "text": "Leela plays a tablet game at Sneha's party. A new player types, 'Where do you live?' What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "online safety",
+          "asking for help"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Show Meenakshi Aunty the screen",
+            "consequence": "Meenakshi Aunty turns off the chat and smiles at Leela."
+          },
+          {
+            "id": "b",
+            "text": "Type where I live",
+            "consequence": "The player asks for more secrets. Leela feels worried."
+          },
+          {
+            "id": "c",
+            "text": "Close the game and say nothing",
+            "consequence": "Leela stops playing, but she still feels uneasy inside."
+          }
+        ],
+        "hint": {
+          "text": "Who is a grown-up nearby who can help?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 0,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 0,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "Asking a trusted adult for help when asked for personal information online is a key safety rule for young children. Telling an adult shows strong responsible decision-making, whereas giving out personal details puts safety at risk."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": false,
+        "hintIsNudge": true,
+        "reasons": [
+          "The item is an exact structural clone of the first seed example, merely swapping the setting and the specific question asked by the stranger.",
+          "The perspective shifts confusingly between third-person ('Leela plays') and first-person ('What do you do?', 'Type where I live').",
+          "Option A introduces 'Meenakshi Aunty', a character who is never established in the setup text."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "The adult intervenes safely and the negative consequence is mild but clear."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Leela's worry and unease are acknowledged and allowed to exist."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The consequences show the outcomes of the actions without lecturing the player."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is a clear best answer for this safety situation, and the scores reflect that."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "No options or consequences mock or shame the child for their choice."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or diagnosis is used."
+          },
+          "realForIndianChildren": {
+            "pass": false,
+            "note": "The mix of 'Leela plays' and 'What do you do?' / 'Type where I live' is highly confusing for early readers, and 'Meenakshi Aunty' appears out of nowhere."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of online safety and a stranger asking for personal details is clearly visible."
+          }
+        }
+      },
+      "maxSimilarity": 0.8862193952735054,
+      "mostSimilarId": "ysit-11"
+    },
+    {
+      "id": "gen-sit-mvdjdvls6721",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "relationshipSkills",
+        "difficulty": 1,
+        "construct": "help-seeking"
+      },
+      "stage": "curator",
+      "reasons": [
+        "realForIndianChildren: Fails on 'Type a fake home address to them.' as 6-7 year olds are unlikely to have the cognitive skill to invent and type a fake address.",
+        "The weakest line is 'Yash plays a tablet game with you.' because Yash is introduced but then completely vanishes from the scenario and options, which is confusing.",
+        "Option B ('Type a fake home address to them.') is developmentally unrealistic for 6-7 year olds, who are just learning to write and would struggle to invent and type a fake address.",
+        "The hint 'Which grown-up can help you right now?' gives away the answer since only one option involves a grown-up."
+      ],
+      "createdAt": "2026-10-18T08:01:23.008Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "A Strange Message",
+        "text": "Yash plays a tablet game with you. A stranger asks for your address, and you feel worried. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "relationshipSkills",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "asking for help",
+          "safety"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Tell Mummy right away and show her.",
+            "consequence": "Mummy blocks the stranger and gives you a hug."
+          },
+          {
+            "id": "b",
+            "text": "Type a fake home address to them.",
+            "consequence": "The stranger keeps asking questions. You still feel worried."
+          },
+          {
+            "id": "c",
+            "text": "Keep it secret and close the game.",
+            "consequence": "You close it, but the scary feeling stays inside."
+          }
+        ],
+        "hint": {
+          "text": "Which grown-up can help you right now?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 1,
+              "selfManagement": 0,
+              "socialAwareness": 0,
+              "relationshipSkills": 1,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": 0,
+              "relationshipSkills": 0,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 0,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "Telling a parent when feeling worried online demonstrates strong safety awareness and responsible decision-making. Tricking a stranger or keeping the situation secret are tempting short-term actions for young children but fail to involve a trusted adult for safety."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": false,
+        "explanationIsKind": true,
+        "reasons": [
+          "The weakest line is 'Yash plays a tablet game with you.' because Yash is introduced but then completely vanishes from the scenario and options, which is confusing.",
+          "Option B ('Type a fake home address to them.') is developmentally unrealistic for 6-7 year olds, who are just learning to write and would struggle to invent and type a fake address.",
+          "The hint 'Which grown-up can help you right now?' gives away the answer since only one option involves a grown-up."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Mummy blocking the stranger is a realistic, protective consequence that doesn't over-reward."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "The consequence 'the scary feeling stays inside' accurately names and allows the emotional weight of keeping a secret."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson about online safety is shown entirely through the consequences without any adult lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is one clear best answer for a safety issue involving a stranger online."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The options and consequences do not mock or shame the child for making a less safe choice."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical or diagnostic language is used; the big worry correctly points to a grown-up."
+          },
+          "realForIndianChildren": {
+            "pass": false,
+            "note": "Fails on 'Type a fake home address to them.' as 6-7 year olds are unlikely to have the cognitive skill to invent and type a fake address."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of reaching for help when feeling unsafe is clearly central to the scenario."
+          }
+        }
+      },
+      "maxSimilarity": 0.9145772530690268,
+      "mostSimilarId": "ysit-11"
+    },
+    {
+      "id": "gen-sit-mvdje0kq9c4d",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "socialAwareness",
+        "difficulty": 2,
+        "construct": "inclusion-upstander"
+      },
+      "stage": "curator",
+      "reasons": [
+        "honestConsequences: Fails on 'Nikhil shares a block, and Parveen smiles happily.' This is a magical reward where the antagonist instantly complies and becomes kind.",
+        "The item is a direct clone of the 'Alone at lunch' seed, merely swapping lunch for tuition, sitting for playing blocks, and Tenzin for Parveen.",
+        "The weakest line is 'Nikhil shares a block, and Parveen smiles happily.' It is unrealistic for a child who just actively excluded someone to instantly change their mind and share just because another child spoke up."
+      ],
+      "createdAt": "2026-10-18T08:01:29.450Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Blocks at Tuition",
+        "text": "At tuition, Nikhil says new girl Parveen cannot play. Parveen looks sad. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "socialAwareness",
+          "relationshipSkills"
+        ],
+        "valueTags": [
+          "inclusion",
+          "kindness",
+          "sharing"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Tell Nikhil, \"Parveen can play with us!\"",
+            "consequence": "Nikhil shares a block, and Parveen smiles happily."
+          },
+          {
+            "id": "b",
+            "text": "Tell teacher that Nikhil will not share",
+            "consequence": "The teacher comes and invites Parveen to join."
+          },
+          {
+            "id": "c",
+            "text": "Play only with Nikhil and ignore Parveen",
+            "consequence": "Parveen sits alone in the corner with no blocks."
+          }
+        ],
+        "hint": {
+          "text": "How would you feel if nobody shared?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 1,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 1
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": 1,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": 0
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 0,
+              "socialAwareness": -2,
+              "relationshipSkills": -1,
+              "responsibleDecisionMaking": -1
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 2,
+        "expectedTimeSec": 25,
+        "rationale": "Option A clearly shows relationship skills and fairness by inviting the new child to join. Option B immediately tattles without attempting peer resolution, while Option C ignores a sad peer."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item is a direct clone of the 'Alone at lunch' seed, merely swapping lunch for tuition, sitting for playing blocks, and Tenzin for Parveen.",
+          "The weakest line is 'Nikhil shares a block, and Parveen smiles happily.' It is unrealistic for a child who just actively excluded someone to instantly change their mind and share just because another child spoke up."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": false,
+            "note": "Fails on 'Nikhil shares a block, and Parveen smiles happily.' This is a magical reward where the antagonist instantly complies and becomes kind."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Parveen's sadness is acknowledged naturally without being dismissed or bypassed."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The consequences describe actions and reactions without inserting a moral lesson or adult lecture."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "This is a clear-cut situation about inclusion, and the options correctly reflect that without pretending exclusion is equally fine."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The negative option (c) shows the natural consequence of Parveen sitting alone without mocking the player for choosing it."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or diagnoses are used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Tuition is a very common and recognizable setting for Indian children."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of standing with a new child who is being excluded is clearly the core of the scenario."
+          }
+        }
+      },
+      "maxSimilarity": 0.8804561270087199,
+      "mostSimilarId": "ysit-06"
+    },
+    {
+      "id": "gen-sit-mvdjfcihdeba",
+      "runId": "20261018T075331-1df5",
+      "target": {
+        "kind": "situation",
+        "ageBand": "6-7",
+        "competency": "relationshipSkills",
+        "difficulty": 2,
+        "construct": "honesty-repair"
+      },
+      "stage": "curator",
+      "reasons": [
+        "honestConsequences: Fail on 'rebuilding happily' because the honest choice is magically rewarded with instant good cheer despite the destroyed castle.",
+        "feelingsStayReal: Fail on 'rebuilding happily' because it rushes to a happy ending, erasing Yash's natural frustration over losing his hard work.",
+        "The plot is a direct copy of the seed 'The broken cup' (breaking something unseen, blaming a non-human thing, or running away), just moved to an online game.",
+        "The weakest line is 'Yash sighs, but you both start rebuilding happily', which forces an unrealistic emotional turnaround."
+      ],
+      "createdAt": "2026-10-18T08:02:31.577Z",
+      "candidate": {
+        "kind": "situation",
+        "title": "Castle in the Game",
+        "text": "You play an online game with Yash. You break his big castle by mistake and nobody saw. What do you do?",
+        "ageBand": "6-7",
+        "primaryCompetencies": [
+          "relationshipSkills",
+          "responsibleDecisionMaking"
+        ],
+        "valueTags": [
+          "honesty",
+          "making amends",
+          "teamwork"
+        ],
+        "options": [
+          {
+            "id": "a",
+            "text": "Tell Yash and help build it again",
+            "consequence": "Yash sighs, but you both start rebuilding happily."
+          },
+          {
+            "id": "b",
+            "text": "Say the game had a bug",
+            "consequence": "Yash looks confused and wonders why it vanished."
+          },
+          {
+            "id": "c",
+            "text": "Leave the game quickly",
+            "consequence": "Yash sits alone trying to fix the castle."
+          }
+        ],
+        "hint": {
+          "text": "How can you help Yash feel better?"
+        }
+      },
+      "grade": {
+        "optionScores": [
+          {
+            "optionId": "a",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": 1,
+              "socialAwareness": 1,
+              "relationshipSkills": 2,
+              "responsibleDecisionMaking": 2
+            }
+          },
+          {
+            "optionId": "b",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -1,
+              "socialAwareness": -1,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -2
+            }
+          },
+          {
+            "optionId": "c",
+            "scores": {
+              "selfAwareness": 0,
+              "selfManagement": -2,
+              "socialAwareness": -1,
+              "relationshipSkills": -2,
+              "responsibleDecisionMaking": -2
+            }
+          }
+        ],
+        "difficulty": 2,
+        "readingLevel": 1,
+        "expectedTimeSec": 25,
+        "rationale": "Accidentally breaking a friend's creation when no one saw creates a strong temptation to lie or run away. Option A demonstrates honesty, responsibility, and teamwork by telling the truth and offering to fix it together."
+      },
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The plot is a direct copy of the seed 'The broken cup' (breaking something unseen, blaming a non-human thing, or running away), just moved to an online game.",
+          "The weakest line is 'Yash sighs, but you both start rebuilding happily', which forces an unrealistic emotional turnaround."
+        ],
+        "originalPlot": false,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": false,
+            "note": "Fail on 'rebuilding happily' because the honest choice is magically rewarded with instant good cheer despite the destroyed castle."
+          },
+          "feelingsStayReal": {
+            "pass": false,
+            "note": "Fail on 'rebuilding happily' because it rushes to a happy ending, erasing Yash's natural frustration over losing his hard work."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The item shows the outcomes through actions without lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is one clear best answer for this age group and situation."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The consequences for the negative choices are natural and do not mock the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or diagnoses are used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Playing online building games (like Minecraft) is relatable for urban Indian children in this age band."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The situation clearly sets up a scenario of making a mistake unseen and choosing whether to own up."
+          }
+        }
+      },
+      "maxSimilarity": 0.8830992932409538,
+      "mostSimilarId": "gen-sit-mvbjtt0y294d"
+    }
+  ]
+}

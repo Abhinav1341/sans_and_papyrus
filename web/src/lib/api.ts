@@ -27,7 +27,7 @@ export async function api<T>(path: string, init: { method?: string; body?: unkno
 }
 
 export interface PublicAccount { type: 'email' | 'google' | 'guest'; email: string | null }
-export interface PublicPlayer { heroName: string | null; age: number | null; ageBand: '8-10' | '11-14'; roundsPlayed: number }
+export interface PublicPlayer { heroName: string | null; age: number | null; ageBand: '6-7' | '8-10' | '11-14'; roundsPlayed: number }
 export interface Me { signedIn: boolean; account?: PublicAccount; player?: PublicPlayer | null }
 
 /** An item as the server sends it: no scores and no answers. */

@@ -36,7 +36,8 @@ export type PuzzleDomain = z.infer<typeof PuzzleDomain>;
 export const ItemKind = z.enum(["situation", "puzzle"]);
 export type ItemKind = z.infer<typeof ItemKind>;
 
-export const AgeBand = z.enum(["8-10", "11-14"]);
+/** 6-7: short, plain stories with three choices for the youngest players (they also get the easiest 8-10 items). */
+export const AgeBand = z.enum(["6-7", "8-10", "11-14"]);
 export type AgeBand = z.infer<typeof AgeBand>;
 
 /** How strongly an option reflects each competency: -2 (works against it) to +2 (shows it well). */

@@ -162,13 +162,20 @@ It reads the question bank that `generator/` writes to Firestore (`seedItems` + 
 
 - **Accounts (grown-ups only):** email + password (scrypt-hashed), Google sign-in, or **Play as a guest**.
   The session is a signed, httpOnly cookie. Children never type an email; a Captain lives inside the account.
-- **The Captain's age** (picked in the Captain builder) sets the question band (8–10 or 11–14), the starting
-  level and the round size (3 items up to age 8, 4 for 9–10, 5 for 11+). Ages 6–7 get the easiest 8–10 items.
+- **The Captain's age** (picked in the Captain builder) sets the question band (6–7, 8–10 or 11–14), the starting
+  level and the round size (3 items up to age 8, 4 for 9–10, 5 for 11+). Ages 6–7 have their own short stories
+  (one main character, feelings said plainly, three choices) and may also get the easiest 8–10 items.
 - **Bonus rounds:** each story gate opens a round. For every item, code builds a shortlist (right band and
-  level, no recent repeats or near-duplicates, varied categories, gentle focus on growing skills, about one
-  puzzle per round) and **Gemini 3.5 Flash-Lite picks one** with a reason. If Gemini is slow or off, code picks.
+  level, no recent repeats or near-duplicates, varied categories, gentle focus on growing skills, the skills the
+  story is showing at that gate (`src/server/gates.ts`), about one puzzle per round, and a riddle first at the
+  "solve the riddle" gates) and **Gemini 3.5 Flash-Lite picks one** with a reason, knowing the story moment.
+  If Gemini is slow or off, code picks.
   Each answer updates Elo-style skill levels from the option's CASEL scores, the time taken and hint use.
   Children never see scores, timers or "wrong"; every choice shows its consequence and the story goes on.
+- **Coaching after a choice:** a strong choice gets one line from Fizz naming the skill it showed ("You noticed
+  how someone else felt. That is a real skill."). A weak one gets "Want to try another way?": the child may pick
+  once more (the first choice is dimmed) and see that outcome too. Only the first choice is measured. Genuine
+  dilemmas get neither: Fizz says "Both could work" before the choice, and nothing is measured.
 - **Parent Corner:** a growth report written by **Gemini 3.8 Flash** from aggregated play (cached, refreshed
   after new play). "Delete all data" erases the account and every record of play on the server.
 - **Tuning:** every number (round sizes, starting levels, learning rate, variety rules) is in `src/server/config.ts`.

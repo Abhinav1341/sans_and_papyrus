@@ -10,11 +10,12 @@
  * Options:
  *   --count N          how many candidates to generate (default 5)
  *   --kind K           situation | puzzle | mixed (default situation; mixed = about 1 puzzle in 4)
- *   --band B           8-10 | 11-14 | any (default any)
+ *   --band B           6-7 | 8-10 | 11-14 | any (default any: alternates 8-10 and 11-14)
  *   --competency C     focus one CASEL competency (situations)
  *   --domain D         math | reasoning | vocabulary (puzzles)
  *   --concurrency N    candidates processed at once (default 2)
  *   --local-only       skip Firestore; results go only to output/
+ *   --draft-examples   also learn from same-band draft seeds (a new band under review); results are still drafts
  */
 import { join } from "node:path";
 import { parseArgs } from "node:util";
@@ -36,6 +37,7 @@ const { values } = parseArgs({
     domain: { type: "string" },
     concurrency: { type: "string", default: "2" },
     "local-only": { type: "boolean", default: false },
+    "draft-examples": { type: "boolean", default: false },
   },
 });
 
@@ -44,7 +46,7 @@ const fail = (msg: string) => {
   process.exit(1);
 };
 if (!["situation", "puzzle", "mixed"].includes(values.kind!)) fail("--kind must be situation, puzzle or mixed");
-if (!["8-10", "11-14", "any"].includes(values.band!)) fail("--band must be 8-10, 11-14 or any");
+if (!["6-7", "8-10", "11-14", "any"].includes(values.band!)) fail("--band must be 6-7, 8-10, 11-14 or any");
 if (values.competency && !COMPETENCIES.includes(values.competency as Competency)) fail(`--competency must be one of ${COMPETENCIES.join(", ")}`);
 if (values.domain && !PUZZLE_DOMAINS.includes(values.domain as PuzzleDomain)) fail(`--domain must be one of ${PUZZLE_DOMAINS.join(", ")}`);
 
@@ -55,6 +57,7 @@ const opts: ExpandOptions = {
   competency: values.competency as Competency | undefined,
   domain: values.domain as PuzzleDomain | undefined,
   concurrency: Math.max(1, Number(values.concurrency) || 2),
+  draftExamples: values["draft-examples"],
 };
 
 const { summary, file } = await expandBank(opts, {

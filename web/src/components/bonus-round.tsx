@@ -14,14 +14,20 @@ import { fizzFaceSVG } from '@/art/portrait';
 import { pushHero } from './boot';
 import { Button, Icon, Svg } from './ui';
 
-type Feedback = { consequence: string; explanation: string | null; voice: { consequence: string | null; explanation: string | null; done: string | null } };
+/** A line Fizz says after a choice: naming the skill shown, or offering another try. */
+type Said = { text: string; voice: string };
+type Feedback = {
+  consequence: string; explanation: string | null; voice: { consequence: string | null; explanation: string | null; done: string | null };
+  skill?: Said | null; retry?: Said | null;
+};
 type Next = { done: boolean; number?: number; item?: RoundItem };
 type Started = { roundId: string; size: number; number: number; item: RoundItem };
 type Phase =
   | { at: 'intro' }
   | { at: 'age' }
   | { at: 'loading'; text: string }
-  | { at: 'item'; item: RoundItem; number: number; hintOpen: boolean; picked?: string }
+  // `retry`: trying another way after a weak first choice (that choice is dimmed; nothing is measured).
+  | { at: 'item'; item: RoundItem; number: number; hintOpen: boolean; picked?: string; retry?: { first: string; last: boolean; done: string | null } }
   | { at: 'feedback'; item: RoundItem; chosen: string; feedback: Feedback; number: number; last: boolean }
   | { at: 'done' }
   | { at: 'error'; message: string };
@@ -35,6 +41,13 @@ const questionLine = (item: RoundItem): Line => ({ text: `${item.title}. ${item.
 /** Fizz's "Both could work" line, read after the question on a genuine dilemma. */
 const openLines = (item: RoundItem): { key: string; line: Line }[] =>
   item.open ? [{ key: 'open', line: { text: item.open.text, url: item.open.voice, speaker: 'fizz' } }] : [];
+/** What happened, then Fizz: the skill a strong choice showed, or an offer to try another way. */
+const feedbackLines = (fb: Feedback): { key: string; line: Line }[] => [
+  { key: 'c', line: { text: fb.consequence, url: fb.voice.consequence, speaker: 'narrator' } },
+  ...(fb.explanation ? [{ key: 'x', line: { text: fb.explanation, url: fb.voice.explanation, speaker: 'narrator' as const } }] : []),
+  ...(fb.skill ? [{ key: 'skill', line: { text: fb.skill.text, url: fb.skill.voice, speaker: 'fizz' as const } }] : []),
+  ...(fb.retry ? [{ key: 'try', line: { text: fb.retry.text, url: fb.retry.voice, speaker: 'fizz' as const } }] : []),
+];
 const optionLines = (item: RoundItem): Line[] => item.options.map((o) => ({ text: o.text, url: o.voice, speaker: 'narrator' }));
 
 /* ---------- reading aloud, with the word being spoken ---------- */
@@ -138,7 +151,17 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
     r.stop();
     sfx('tap');
     setPhase({ ...phase, picked: optionId }); // the choice lights up at once, while the server saves it
-    const { item, number } = phase;
+    const { item, number, retry } = phase;
+    if (retry) {
+      // Trying another way: show what this choice does. Nothing is measured, and the next item is already on its way.
+      try {
+        const res = await api<{ feedback: Feedback }>('round/retry', { body: { roundId: round.current.id, itemId: item.id, optionId } });
+        sfx('pop');
+        setPhase({ at: 'feedback', item, chosen: optionId, feedback: { ...res.feedback, voice: { ...res.feedback.voice, done: retry.done } }, number, last: retry.last });
+        r.start(feedbackLines(res.feedback));
+      } catch (e) { fail(e); }
+      return;
+    }
     const responseTimeMs = Math.round(clock() - shownAt.current);
     try {
       const res = await api<{ feedback: Feedback; answered: number; size: number; done: boolean }>('round/answer', {
@@ -154,10 +177,7 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
       sfx(item.kind === 'puzzle' ? 'chime' : 'pop');
       const fb = res.feedback;
       setPhase({ at: 'feedback', item, chosen: optionId, feedback: fb, number, last: res.done });
-      r.start([
-        { key: 'c', line: { text: fb.consequence, url: fb.voice.consequence, speaker: 'narrator' } },
-        ...(fb.explanation ? [{ key: 'x', line: { text: fb.explanation, url: fb.voice.explanation, speaker: 'narrator' as const } }] : []),
-      ]);
+      r.start(feedbackLines(fb));
       prefetch([fb.voice.done]);
     } catch (e) { fail(e); }
   };
@@ -177,6 +197,14 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
       if (res.done || !res.item) { setPhase({ at: 'done' }); return; }
       show(res.item, res.number ?? 1);
     } catch (e) { fail(e); }
+  };
+
+  /** "Try another way": back to the same item with the first choice dimmed. */
+  const tryAgain = () => {
+    if (phase.at !== 'feedback') return;
+    r.stop();
+    sfx('pop');
+    setPhase({ at: 'item', item: phase.item, number: phase.number, hintOpen: false, retry: { first: phase.chosen, last: phase.last, done: phase.feedback.voice.done } });
   };
 
   const openHint = (item: RoundItem) => {
@@ -242,7 +270,7 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
         </div>
       );
     case 'item': {
-      const { item, number, hintOpen, picked } = phase;
+      const { item, number, hintOpen, picked, retry } = phase;
       const titleWords = captionWords(`${item.title}.`).length;
       const readAll = () => r.start([
         { key: 'q', line: questionLine(item) },
@@ -264,15 +292,15 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
           ) : null}
           <div className="round-options" role="group" aria-label="Your choice">
             {item.options.map((o, i) => (
-              <button key={o.id} type="button" disabled={!!picked} aria-pressed={picked === o.id}
-                className={`round-option${r.reading(`o${i}`) ? ' reading' : ''}${picked === o.id ? ' picked' : picked ? ' dim' : ''}`}
+              <button key={o.id} type="button" disabled={!!picked || retry?.first === o.id} aria-pressed={picked === o.id}
+                className={`round-option${r.reading(`o${i}`) ? ' reading' : ''}${picked === o.id ? ' picked' : picked || retry?.first === o.id ? ' dim' : ''}`}
                 onClick={() => { void choose(o.id); }} {...(i === 0 ? { 'data-autofocus': true } : {})}>
                 <span className="num" aria-hidden="true">{LETTERS[i]}</span>
                 <span className="ttl">{o.text}</span>
               </button>
             ))}
           </div>
-          {item.hint ? (
+          {retry ? null : item.hint ? (
             hintOpen ? (
               <div className="round-caption round-hint" role="note">
                 <div className="who" style={{ color: 'var(--c-fizz)' }}><Svg html={fizzFaceSVG('happy', 'hintfz')} className="face" />Fizz</div>
@@ -291,10 +319,7 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
     }
     case 'feedback': {
       const { item, chosen, feedback, number, last } = phase;
-      const replay = () => r.start([
-        { key: 'c', line: { text: feedback.consequence, url: feedback.voice.consequence, speaker: 'narrator' } },
-        ...(feedback.explanation ? [{ key: 'x', line: { text: feedback.explanation, url: feedback.voice.explanation, speaker: 'narrator' as const } }] : []),
-      ], { force: true });
+      const replay = () => r.start(feedbackLines(feedback), { force: true });
       return (
         <div className="round-item">
           {top(item.title, number, replay)}
@@ -304,6 +329,14 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
             <p className="line"><Words text={feedback.consequence} on={r.wordOf('c')} /></p>
             {feedback.explanation ? <p className="line round-explain"><Words text={feedback.explanation} on={r.wordOf('x')} /></p> : null}
           </div>
+          {feedback.skill || feedback.retry ? (
+            <div className="round-caption round-hint round-coach" role="note">
+              <div className="who" style={{ color: 'var(--c-fizz)' }}><Svg html={fizzFaceSVG(feedback.skill ? 'excited' : 'happy', 'coachfz')} className="face" />Fizz</div>
+              {feedback.skill ? <p className="line"><Words text={feedback.skill.text} on={r.wordOf('skill')} /></p> : null}
+              {feedback.retry ? <p className="line"><Words text={feedback.retry.text} on={r.wordOf('try')} /></p> : null}
+            </div>
+          ) : null}
+          {feedback.retry ? <Button variant="ghost" icon="replay" onClick={tryAgain}>Try another way</Button> : null}
           <Button variant="sun" xl icon={last ? 'check' : 'next'} onClick={() => { void next(); }} data-autofocus>{last ? 'Finish' : 'Next'}</Button>
         </div>
       );

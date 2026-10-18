@@ -91,6 +91,15 @@ export function checkCandidate(c: GeneratedSituation, target: { kind: string; ag
   const words = countWords(c.text);
   if (words > maxWords) problems.push(`Text is ${words} words; the limit for ages ${c.ageBand} is ${maxWords}`);
 
+  if (c.ageBand === "6-7") {
+    const y = PIPELINE_CONFIG.young;
+    if (c.options.length !== y.options) problems.push(`Ages 6-7 need exactly ${y.options} options (got ${c.options.length})`);
+    for (const o of c.options) {
+      if (countWords(o.text) > y.maxOptionWords) problems.push(`Option ${o.id} is ${countWords(o.text)} words; ages 6-7 need ${y.maxOptionWords} or fewer`);
+      if (countWords(o.consequence) > y.maxConsequenceWords) problems.push(`Consequence ${o.id} is ${countWords(o.consequence)} words; ages 6-7 need ${y.maxConsequenceWords} or fewer`);
+    }
+  }
+
   const ids = c.options.map((o) => o.id);
   if (ids.join(",") !== ["a", "b", "c", "d"].slice(0, ids.length).join(",")) problems.push(`Option ids must be a, b, c, d in order (got ${ids.join(", ")})`);
   const texts = c.options.map((o) => o.text.trim().toLowerCase());

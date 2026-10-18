@@ -6,7 +6,7 @@
  */
 import { createHash } from 'node:crypto';
 import { GoogleAuth } from 'google-auth-library';
-import type { Situation } from '../../lib/schemas';
+import type { Competency, Situation } from '../../lib/schemas';
 import { COLLECTIONS, GAME } from './config';
 import { db } from './db';
 
@@ -19,6 +19,24 @@ export type VoicePart = 'q' | 'hint' | 'x' | `o.${string}` | `c.${string}`;
 export const DONE_LINE = 'Brilliant work, Captain! The crew says thank you.';
 /** Fizz says this before a genuine dilemma (an open choice): more than one answer is okay. One shared clip. */
 export const OPEN_LINE = 'Both could work. Which feels right to you?';
+/** Fizz offers this after a weak choice: the child may pick again (only the first choice is measured). */
+export const TRY_LINE = 'Want to try another way?';
+/** Fizz names the skill after a strong choice: what the child did, never who they are, and no score. */
+export const SKILL_LINES: Record<Competency, string> = {
+  selfAwareness: 'You noticed your own feelings. That is a real skill.',
+  selfManagement: 'You stayed calm and chose carefully. That is a real skill.',
+  socialAwareness: 'You noticed how someone else felt. That is a real skill.',
+  relationshipSkills: 'You found a way to work it out together. That is a real skill.',
+  responsibleDecisionMaking: 'You thought about what happens next. That is a real skill.',
+};
+
+/** Lines that are the same for every item and child, so each is one shared clip (`/api/voice?part=<key>`). */
+export const SHARED_LINES: Record<string, { text: string; speaker: Speaker }> = {
+  done: { text: DONE_LINE, speaker: 'narrator' },
+  open: { text: OPEN_LINE, speaker: 'fizz' },
+  try: { text: TRY_LINE, speaker: 'fizz' },
+  ...Object.fromEntries(Object.entries(SKILL_LINES).map(([k, text]) => [`skill.${k}`, { text, speaker: 'fizz' as const }])),
+};
 
 /** What a part says, and who says it. Null when the item has no such part. */
 export function partText(item: Situation, part: string): { text: string; speaker: Speaker } | null {
@@ -43,8 +61,12 @@ export function voiceUrl(item: Situation, part: VoicePart): string | null {
   const p = partText(item, part);
   return p ? `/api/voice?item=${encodeURIComponent(item.id)}&part=${encodeURIComponent(part)}&v=${clipHash(p.speaker, p.text)}` : null;
 }
-export const doneVoiceUrl = () => `/api/voice?part=done&v=${clipHash('narrator', DONE_LINE)}`;
-export const openVoiceUrl = () => `/api/voice?part=open&v=${clipHash('fizz', OPEN_LINE)}`;
+export const sharedVoiceUrl = (key: string) => {
+  const l = SHARED_LINES[key];
+  return `/api/voice?part=${encodeURIComponent(key)}&v=${clipHash(l.speaker, l.text)}`;
+};
+export const doneVoiceUrl = () => sharedVoiceUrl('done');
+export const openVoiceUrl = () => sharedVoiceUrl('open');
 
 /* ---------- synthesis ---------- */
 

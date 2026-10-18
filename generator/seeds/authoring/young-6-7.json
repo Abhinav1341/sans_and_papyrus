@@ -1,0 +1,684 @@
+[
+ {
+  "id": "ysit-01",
+  "band": "6-7",
+  "title": "The red crayon",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [
+   "socialAwareness"
+  ],
+  "tags": [
+   "sharing",
+   "empathy"
+  ],
+  "basis": "Desire-based emotion (Pons, Harris & de Rosnay, Test of Emotion Comprehension): the same event makes one child happy and another sad because they wanted different things; understood from about age 5.",
+  "text": "You and Meera both want the red crayon. You get it first. Meera looks sad. She wanted to colour a red apple. What do you do?",
+  "hint": "What did Meera want to colour?",
+  "options": [
+   [
+    "Use it quickly, then give it to Meera",
+    {
+     "socialAwareness": 2,
+     "relationshipSkills": 1,
+     "responsibleDecisionMaking": 1
+    },
+    "Meera waits. Soon her apple is red too."
+   ],
+   [
+    "Keep it. I got it first",
+    {
+     "socialAwareness": -1,
+     "relationshipSkills": -1
+    },
+    "You colour happily. Meera sits quietly with no red."
+   ],
+   [
+    "Hide the crayon in my bag",
+    {
+     "socialAwareness": -1,
+     "relationshipSkills": -2,
+     "responsibleDecisionMaking": -1
+    },
+    "Meera looks everywhere. Now nobody is colouring."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-02",
+  "band": "6-7",
+  "title": "The wet drawing",
+  "difficulty": 2,
+  "readingLevel": 1,
+  "comp": [
+   "socialAwareness",
+   "selfManagement"
+  ],
+  "tags": [
+   "patience",
+   "checking first"
+  ],
+  "basis": "Ambiguous provocation and hostile attribution (Dodge, social information processing): checking before assuming someone meant harm.",
+  "text": "Kabir walks past your desk. Your water bottle falls and wets your drawing. Kabir stops and looks at the puddle. Did he mean it? What do you do?",
+  "hint": "Do you know yet if Kabir did it on purpose?",
+  "options": [
+   [
+    "Ask, \"Was that an accident?\"",
+    {
+     "socialAwareness": 2,
+     "selfManagement": 2,
+     "relationshipSkills": 1
+    },
+    "\"Sorry! My bag hit it,\" Kabir says. He helps you wipe it."
+   ],
+   [
+    "Shout at Kabir and push him",
+    {
+     "socialAwareness": -1,
+     "selfManagement": -2,
+     "relationshipSkills": -2,
+     "responsibleDecisionMaking": -1
+    },
+    "Kabir looks shocked. The teacher comes, and you both feel bad."
+   ],
+   [
+    "Wipe it and stay quiet all day",
+    {
+     "selfManagement": 1,
+     "relationshipSkills": -1
+    },
+    "The drawing dries a little, but you feel upset all day."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-03",
+  "band": "6-7",
+  "title": "Hot face at the swings",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [
+   "selfAwareness",
+   "selfManagement"
+  ],
+  "tags": [
+   "calming down",
+   "patience"
+  ],
+  "basis": "Gross process model of emotion regulation: noticing the body's signals of anger before acting on them.",
+  "text": "You were waiting for the swing. Riya runs and takes it first. Your face feels hot. Your hands make fists. What do you do?",
+  "hint": "What is your body telling you?",
+  "options": [
+   [
+    "Take three big, slow breaths",
+    {
+     "selfAwareness": 2,
+     "selfManagement": 2,
+     "responsibleDecisionMaking": 1
+    },
+    "Your hands relax. Now you can think about what to say."
+   ],
+   [
+    "Pull Riya off the swing",
+    {
+     "socialAwareness": -1,
+     "selfManagement": -2,
+     "relationshipSkills": -2,
+     "responsibleDecisionMaking": -2
+    },
+    "Riya slips onto the sand and starts to cry."
+   ],
+   [
+    "Run off and hide",
+    {
+     "selfAwareness": -1,
+     "relationshipSkills": -1
+    },
+    "The angry feeling stays, and you miss your turn."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-04",
+  "band": "6-7",
+  "title": "Ice cream after dinner",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [
+   "selfManagement",
+   "responsibleDecisionMaking"
+  ],
+  "tags": [
+   "patience",
+   "waiting"
+  ],
+  "basis": "Inhibitory control and delay of gratification (Diamond 2013): waiting for something tempting, helped by a smart way to wait.",
+  "text": "Papa bought ice cream. He says, \"We will eat it after dinner.\" The freezer is right there. Papa is busy on the phone. What do you do?",
+  "hint": "What could you do so you don't think about it?",
+  "options": [
+   [
+    "Go and draw until dinner",
+    {
+     "selfManagement": 2,
+     "responsibleDecisionMaking": 2
+    },
+    "Dinner comes fast. Then everyone has ice cream together."
+   ],
+   [
+    "Eat a big spoon now, quietly",
+    {
+     "selfManagement": -2,
+     "responsibleDecisionMaking": -1
+    },
+    "It is yummy, but Papa finds the open box later."
+   ],
+   [
+    "Ask Papa, \"Can I have some now?\"",
+    {
+     "selfManagement": 1,
+     "relationshipSkills": 1
+    },
+    "Papa says, \"After dinner,\" and you wait a long time."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-05",
+  "band": "6-7",
+  "title": "The broken cup",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [
+   "responsibleDecisionMaking",
+   "relationshipSkills"
+  ],
+  "tags": [
+   "honesty",
+   "owning up"
+  ],
+  "basis": "WHO life skills (decision making): owning up to a mistake nobody saw, and helping put it right.",
+  "text": "You are playing ball inside. The ball hits Mummy's cup and it breaks. Nobody saw. Mummy calls, \"What was that noise?\" What do you do?",
+  "hint": "How would you want someone to tell you?",
+  "options": [
+   [
+    "Say, \"It was me. I'm sorry.\"",
+    {
+     "responsibleDecisionMaking": 2,
+     "relationshipSkills": 2,
+     "selfAwareness": 1
+    },
+    "Mummy looks sad about her cup, but thanks you for telling her."
+   ],
+   [
+    "Say, \"The cat did it!\"",
+    {
+     "responsibleDecisionMaking": -2,
+     "relationshipSkills": -1
+    },
+    "Mummy looks at the sleepy cat. Your tummy feels heavy."
+   ],
+   [
+    "Hide the pieces under the sofa",
+    {
+     "responsibleDecisionMaking": -2,
+     "relationshipSkills": -1
+    },
+    "Later Mummy finds them and is upset nobody told her."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-06",
+  "band": "6-7",
+  "title": "Alone at lunch",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [
+   "socialAwareness",
+   "responsibleDecisionMaking"
+  ],
+  "tags": [
+   "inclusion",
+   "kindness"
+  ],
+  "basis": "Inclusion of a child who is different (WHO life skills: empathy); upstander responses at an age-appropriate level.",
+  "text": "Tenzin is new. He speaks only a little Hindi. He sits alone at lunch. Your friends say, \"Don't sit with him.\" What do you do?",
+  "hint": "How might Tenzin feel, sitting alone?",
+  "options": [
+   [
+    "Tell my friends, \"Tenzin can sit with us!\"",
+    {
+     "socialAwareness": 2,
+     "responsibleDecisionMaking": 2,
+     "relationshipSkills": 1
+    },
+    "One friend frowns, but Tenzin smiles and sits with you."
+   ],
+   [
+    "Do what my friends say",
+    {
+     "socialAwareness": -1,
+     "responsibleDecisionMaking": -1,
+     "relationshipSkills": -1
+    },
+    "Tenzin eats alone again. He looks at the floor."
+   ],
+   [
+    "Tell the teacher Tenzin is alone",
+    {
+     "socialAwareness": 1,
+     "responsibleDecisionMaking": 1,
+     "relationshipSkills": 1
+    },
+    "The teacher helps Tenzin find a place to sit."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-07",
+  "band": "6-7",
+  "title": "Lost at the market",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [
+   "relationshipSkills",
+   "responsibleDecisionMaking"
+  ],
+  "tags": [
+   "asking for help",
+   "safety"
+  ],
+  "basis": "WHO life skills (coping with stress): help-seeking through a trusted grown-up; staying put when lost.",
+  "text": "You are at the market with Papa. You stop to look at balloons. Now you cannot see Papa! Your heart beats fast. What do you do?",
+  "hint": "Who nearby could help you?",
+  "options": [
+   [
+    "Stay here and ask the shopkeeper",
+    {
+     "relationshipSkills": 2,
+     "responsibleDecisionMaking": 2,
+     "selfManagement": 1
+    },
+    "The shopkeeper calls out loudly. Papa hurries back and holds your hand."
+   ],
+   [
+    "Run around looking for Papa",
+    {
+     "selfManagement": -1,
+     "responsibleDecisionMaking": -1
+    },
+    "Everything looks different, and it is harder to find Papa."
+   ],
+   [
+    "Walk home by myself",
+    {
+     "responsibleDecisionMaking": -2,
+     "relationshipSkills": -1
+    },
+    "The road is long. Papa is still searching at the market."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-08",
+  "band": "6-7",
+  "title": "One tablet, two children",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [
+   "relationshipSkills",
+   "responsibleDecisionMaking"
+  ],
+  "tags": [
+   "fairness",
+   "taking turns"
+  ],
+  "basis": "Fairness and turn-taking in early and middle childhood: finding a fair way that works for both.",
+  "text": "There is one tablet. You and your little sister Diya both want to play now. What do you do?",
+  "hint": "Is there a way you can both have a go?",
+  "options": [
+   [
+    "Set a timer and take turns",
+    {
+     "relationshipSkills": 2,
+     "responsibleDecisionMaking": 2
+    },
+    "Ding! Your turn ends, Diya plays, and nobody fights."
+   ],
+   [
+    "Grab it and play first",
+    {
+     "relationshipSkills": -2,
+     "responsibleDecisionMaking": -1
+    },
+    "Diya cries, and Mummy puts the tablet away."
+   ],
+   [
+    "Give it to her and sulk",
+    {
+     "relationshipSkills": 1,
+     "selfManagement": -1
+    },
+    "Diya is happy, but you feel left out all evening."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-09",
+  "band": "6-7",
+  "title": "Quiet in the library",
+  "difficulty": 2,
+  "readingLevel": 1,
+  "comp": [
+   "responsibleDecisionMaking",
+   "socialAwareness"
+  ],
+  "tags": [
+   "helping",
+   "rules"
+  ],
+  "basis": "Turiel social domain theory: young children can see that someone being hurt matters more than a 'be quiet' rule.",
+  "text": "In the library, everyone must be quiet. Your friend Anjali trips and hurts her knee. She is crying. What do you do?",
+  "hint": "What matters more right now?",
+  "options": [
+   [
+    "Stay quiet. That is the rule",
+    {
+     "responsibleDecisionMaking": -1,
+     "socialAwareness": -1
+    },
+    "Anjali keeps crying, and nobody comes to help her."
+   ],
+   [
+    "Go and tell the teacher quickly",
+    {
+     "responsibleDecisionMaking": 2,
+     "socialAwareness": 2
+    },
+    "The teacher comes fast and puts a plaster on Anjali's knee."
+   ],
+   [
+    "Laugh because she fell",
+    {
+     "socialAwareness": -2,
+     "relationshipSkills": -2
+    },
+    "Anjali feels worse, and she turns away from you."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-10",
+  "band": "6-7",
+  "title": "\"I don't care\"",
+  "difficulty": 2,
+  "readingLevel": 1,
+  "comp": [
+   "socialAwareness"
+  ],
+  "tags": [
+   "empathy",
+   "noticing feelings"
+  ],
+  "basis": "Hidden emotion (Pons, Harris & de Rosnay, Test of Emotion Comprehension): noticing a clue that someone feels different inside from what they show.",
+  "text": "Ishaan is not picked for the race. He says, \"I don't care.\" But his eyes look wet, and he looks at the ground. What do you do?",
+  "hint": "What do Ishaan's eyes tell you?",
+  "options": [
+   [
+    "Sit with him and ask, \"Are you sad?\"",
+    {
+     "socialAwareness": 2,
+     "relationshipSkills": 1
+    },
+    "Ishaan nods a little. You sit together and watch the race."
+   ],
+   [
+    "Say, \"Okay!\" and run to the race",
+    {
+     "socialAwareness": -1
+    },
+    "You run off. Ishaan sits alone on the steps."
+   ],
+   [
+    "Say, \"Don't cry. It's only a race.\"",
+    {
+     "socialAwareness": -1,
+     "relationshipSkills": -1
+    },
+    "Ishaan turns away and wipes his eyes."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-11",
+  "band": "6-7",
+  "title": "A message in the game",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [
+   "responsibleDecisionMaking"
+  ],
+  "tags": [
+   "online safety",
+   "asking for help"
+  ],
+  "basis": "Online safety: never sharing personal details with someone unknown, and telling a trusted grown-up.",
+  "text": "You are playing a game on Mummy's phone. A message pops up: \"Hi! What is your name and school?\" You don't know who it is. What do you do?",
+  "hint": "Who should know about this message?",
+  "options": [
+   [
+    "Show Mummy the message",
+    {
+     "responsibleDecisionMaking": 2,
+     "relationshipSkills": 1
+    },
+    "Mummy reads it and blocks it. You keep playing safely."
+   ],
+   [
+    "Type my name and school",
+    {
+     "responsibleDecisionMaking": -2
+    },
+    "Mummy sees it later and turns the chat off."
+   ],
+   [
+    "Close the game and say nothing",
+    {
+     "responsibleDecisionMaking": 1,
+     "relationshipSkills": -1
+    },
+    "The message is gone, but you keep thinking about it."
+   ]
+  ]
+ },
+ {
+  "id": "ysit-12",
+  "band": "6-7",
+  "title": "My tower, my turn",
+  "difficulty": 2,
+  "readingLevel": 1,
+  "comp": [
+   "relationshipSkills",
+   "selfManagement"
+  ],
+  "tags": [
+   "speaking up",
+   "calm words"
+  ],
+  "basis": "WHO life skills (effective communication): saying clearly and calmly what you need, instead of hitting out or staying silent.",
+  "text": "You are building a tower with blocks. Bunty keeps taking your blocks for his car. You feel cross. What do you do?",
+  "hint": "How could you keep your tower and still play nicely?",
+  "options": [
+   [
+    "Say, \"Please stop. I need those blocks.\"",
+    {
+     "relationshipSkills": 2,
+     "selfManagement": 2
+    },
+    "Bunty frowns, then puts some blocks back."
+   ],
+   [
+    "Knock his car over",
+    {
+     "relationshipSkills": -2,
+     "selfManagement": -2
+    },
+    "Bunty shouts, and now both games are broken."
+   ],
+   [
+    "Let him take them all",
+    {
+     "relationshipSkills": -1,
+     "selfAwareness": -1
+    },
+    "Your tower gets smaller and smaller. You feel sad inside."
+   ]
+  ]
+ },
+ {
+  "id": "ypz-01",
+  "band": "6-7",
+  "title": "Ro's balloons",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [],
+  "tags": [
+   "counting"
+  ],
+  "basis": "Early number: adding within 10 with a story.",
+  "text": "Ro has 3 balloons. Kiki gives him 2 more. How many balloons does Ro have now?",
+  "hint": "Hold up 3 fingers, then 2 more.",
+  "options": [
+   [
+    "4",
+    {},
+    "Count again. One balloon is hiding!"
+   ],
+   [
+    "5",
+    {},
+    "Ro holds all his balloons up high!"
+   ],
+   [
+    "6",
+    {},
+    "That is one balloon more than Ro has."
+   ]
+  ],
+  "puzzle": {
+   "domain": "math",
+   "correct": "b",
+   "explanation": "3 balloons and 2 more make 3 + 2 = 5.",
+   "computation": "3 + 2"
+  }
+ },
+ {
+  "id": "ypz-02",
+  "band": "6-7",
+  "title": "Mangoes in the basket",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [],
+  "tags": [
+   "taking away"
+  ],
+  "basis": "Early number: taking away within 10 with a story.",
+  "text": "There are 7 mangoes in a basket. Meera eats 2. How many mangoes are left?",
+  "hint": "Start at 7 and count back 2.",
+  "options": [
+   [
+    "4",
+    {},
+    "Count back again, slowly from 7."
+   ],
+   [
+    "5",
+    {},
+    "Five mangoes wait in the basket."
+   ],
+   [
+    "9",
+    {},
+    "Eating makes fewer mangoes, not more."
+   ]
+  ],
+  "puzzle": {
+   "domain": "math",
+   "correct": "b",
+   "explanation": "7 take away 2 leaves 7 - 2 = 5 mangoes.",
+   "computation": "7 - 2"
+  }
+ },
+ {
+  "id": "ypz-03",
+  "band": "6-7",
+  "title": "Kiki's bead necklace",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [],
+  "tags": [
+   "patterns"
+  ],
+  "basis": "Early reasoning: continuing a repeating pattern.",
+  "text": "Kiki makes a necklace: red bead, blue bead, red bead, blue bead, red bead. Which colour comes next?",
+  "hint": "Say the colours out loud. What do you hear?",
+  "options": [
+   [
+    "Red",
+    {},
+    "Two reds side by side break the pattern."
+   ],
+   [
+    "Blue",
+    {},
+    "Red, blue, red, blue. Kiki's necklace is perfect!"
+   ],
+   [
+    "Green",
+    {},
+    "There is no green bead in this pattern yet."
+   ]
+  ],
+  "puzzle": {
+   "domain": "reasoning",
+   "correct": "b",
+   "explanation": "The colours take turns: red, blue, red, blue. After red comes blue."
+  }
+ },
+ {
+  "id": "ypz-04",
+  "band": "6-7",
+  "title": "Big and small",
+  "difficulty": 1,
+  "readingLevel": 1,
+  "comp": [],
+  "tags": [
+   "opposites"
+  ],
+  "basis": "Early vocabulary: opposites.",
+  "text": "The elephant is big. The mouse is the opposite of big. What is the mouse?",
+  "hint": "Think of the tiniest animal you know.",
+  "options": [
+   [
+    "Small",
+    {},
+    "The tiny mouse squeaks and runs away!"
+   ],
+   [
+    "Grey",
+    {},
+    "Grey is a colour. The mouse can be grey and small."
+   ],
+   [
+    "Loud",
+    {},
+    "Loud is about sound. The mouse is very quiet."
+   ]
+  ],
+  "puzzle": {
+   "domain": "vocabulary",
+   "correct": "a",
+   "explanation": "Big and small are opposites. The elephant is big, so the mouse is small."
+  }
+ }
+]

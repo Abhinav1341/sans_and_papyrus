@@ -8,7 +8,7 @@
  *   npm run bank:rejudge -- --apply         also save each verdict and the openChoice flag
  *                                           (generated items in Firestore; seeds in seeds/*.json, then upload-seeds)
  */
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 import type { Situation } from "../../web/lib/schemas";
@@ -108,7 +108,8 @@ if (values.apply) {
     await bank.db.collection(CFG.collections.generated).doc(v.id).update({ openChoice: v.openChoice, "pipeline.rejudge": { model, at: summary.at, accept: v.accept, failed: v.failed, curation: v.curation } });
   // Seeds: the JSON files are the source of truth, so the flag goes there (run bank:upload-seeds afterwards).
   const flags = new Map(judged.filter((v) => v.source === "seed").map((v) => [v.id, v.openChoice]));
-  for (const f of ["seed-situations.json", "seed-puzzles.json", "seed-situations-research.json"]) {
+  for (const f of ["seed-situations.json", "seed-puzzles.json", "seed-situations-research.json", "seed-young.json"]) {
+    if (!existsSync(join(generatorDir, "seeds", f))) continue;
     const path = join(generatorDir, "seeds", f);
     const raw = readFileSync(path, "utf8");
     const indent = raw.match(/^\[\r?\n( +)/)?.[1].length ?? 2; // keep each file's own formatting

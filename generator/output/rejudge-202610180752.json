@@ -1,0 +1,168 @@
+{
+  "summary": {
+    "model": "gemini-3.1-pro-preview",
+    "at": "2026-10-18T07:52:55.406Z",
+    "all": {
+      "judged": 2,
+      "accepted": 2,
+      "stopped": 0,
+      "openChoice": 0
+    },
+    "seeds": {
+      "judged": 2,
+      "accepted": 2,
+      "stopped": 0,
+      "openChoice": 0
+    },
+    "generated": {
+      "judged": 0,
+      "accepted": 0,
+      "stopped": 0,
+      "openChoice": 0
+    },
+    "errors": 0,
+    "failedBy": {},
+    "usage": {
+      "gemini-3.1-pro-preview": {
+        "calls": 2,
+        "inputTokens": 6828,
+        "outputTokens": 970,
+        "thinkingTokens": 3749
+      }
+    },
+    "costUsd": 0.070284
+  },
+  "verdicts": [
+    {
+      "id": "ysit-06",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "Alone at lunch",
+      "construct": "inclusion-upstander",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The situation is highly realistic for Indian schools, especially with the specific detail of Tenzin speaking little Hindi.",
+        "The consequence for option A is excellent because it includes a friend frowning, showing that doing the right thing doesn't magically make everyone agree.",
+        "The construct is perfectly executed, including the required option to tell an adult.",
+        "The language is perfectly tuned for 6-7 year olds."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The situation is highly realistic for Indian schools, especially with the specific detail of Tenzin speaking little Hindi.",
+          "The consequence for option A is excellent because it includes a friend frowning, showing that doing the right thing doesn't magically make everyone agree.",
+          "The construct is perfectly executed, including the required option to tell an adult.",
+          "The language is perfectly tuned for 6-7 year olds."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "The friend frowning in option A makes the consequence realistic rather than magically perfect."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Tenzin looking at the floor in option B acknowledges his sadness without minimizing it."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown through Tenzin's reactions, with no adult lecturing or moralizing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is a clear best answer (A), an okay answer (C), and a poor answer (B), which fits the scenario."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "Option B's consequence focuses on Tenzin's feelings rather than shaming the player."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or diagnoses are used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Tenzin is a realistic name in India, and the Hindi language barrier is a very authentic detail."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The item perfectly matches the construct of standing with someone left out and includes telling an adult."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-12",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "My tower, my turn",
+      "construct": "assertive-communication",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The consequences are highly realistic, especially Bunty frowning before returning the blocks rather than instantly apologizing.",
+        "The options perfectly match the construct (assertive, aggressive, passive) without making the passive or aggressive choices cartoonish.",
+        "Weakest line: 'How could you keep your tower and still play nicely?' (The hint is a bit direct, but acceptable for this age)."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "reasons": [
+          "The consequences are highly realistic, especially Bunty frowning before returning the blocks rather than instantly apologizing.",
+          "The options perfectly match the construct (assertive, aggressive, passive) without making the passive or aggressive choices cartoonish.",
+          "Weakest line: 'How could you keep your tower and still play nicely?' (The hint is a bit direct, but acceptable for this age)."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Bunty's reaction (frowning but complying) is very believable for a child."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "The sadness in option C is allowed to exist without being brushed away."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown entirely through the natural outcomes of the actions."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is one clear best answer (A), which fits this straightforward boundary-setting scenario."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The aggressive and passive options have negative outcomes but do not mock the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Bunty is a familiar name, and block play is universal and age-appropriate."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The assertive, aggressive, and passive options are clearly represented."
+          }
+        }
+      }
+    }
+  ]
+}

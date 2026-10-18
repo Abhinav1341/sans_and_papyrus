@@ -27,7 +27,9 @@ export const PIPELINE_CONFIG = {
   categoryTopN: 2,
 
   /** Maximum words in the situation text (options are counted separately). */
-  maxTextWords: { "8-10": 70, "11-14": 110 } as const,
+  maxTextWords: { "6-7": 40, "8-10": 70, "11-14": 110 } as const,
+  /** Ages 6–7: exactly three options, short enough to hear and remember. */
+  young: { options: 3, maxOptionWords: 8, maxConsequenceWords: 14 },
 
   /** Cosine similarity above this counts as a near-duplicate of something already in the bank. */
   duplicateThreshold: 0.92,

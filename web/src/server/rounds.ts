@@ -9,7 +9,7 @@
  * transaction open, so the choice is made first and saved only if nobody moved the round on meanwhile.
  */
 import { randomUUID } from 'node:crypto';
-import type { PlayEvent } from '../../lib/schemas';
+import type { PlayEvent, Situation } from '../../lib/schemas';
 import { loadBank, toClientItem, type ClientItem } from './bank';
 import { COLLECTIONS, GAME } from './config';
 import { db } from './db';
@@ -17,9 +17,24 @@ import { applyAnswer, shortlist, shuffledOptionIds, type AnswerInput, type Round
 import { HttpError } from './http';
 import { pickNext } from './picker';
 import { getPlayer, parsePlayer } from './players';
-import { doneVoiceUrl, voiceUrl } from './tts';
+import { doneVoiceUrl, sharedVoiceUrl, SKILL_LINES, TRY_LINE, voiceUrl } from './tts';
 
 const now = () => new Date().toISOString();
+
+/**
+ * Coaching after a situation choice (never puzzles or dilemmas): Fizz names the skill a strong choice showed
+ * (the focus skill this option shows best), or offers to try another way after a weak one.
+ */
+function coaching(item: Situation, optionId: string, performance: number, openChoice: boolean, retryAllowed: boolean) {
+  const none = { skill: null, retry: null };
+  if (item.kind !== 'situation' || openChoice) return none;
+  const option = item.options.find((o) => o.id === optionId);
+  const skill = [...item.primaryCompetencies].sort((a, b) => (option?.scores?.[b] ?? 0) - (option?.scores?.[a] ?? 0))[0];
+  return {
+    skill: performance >= GAME.nameSkillFrom && skill ? { text: SKILL_LINES[skill], voice: sharedVoiceUrl(`skill.${skill}`) } : null,
+    retry: retryAllowed && performance < GAME.offerRetryBelow ? { text: TRY_LINE, voice: sharedVoiceUrl('try') } : null,
+  };
+}
 
 async function loadRound(accountId: string, roundId: string): Promise<Round> {
   const r = await db().get<Round>(COLLECTIONS.rounds, roundId);
@@ -53,13 +68,13 @@ async function serveNext(round: Round, lastStruggled: boolean): Promise<Round | 
   if (!candidates.length) return null; // the bank for this age has run out: end the round kindly
   // The first item is picked by code, instantly: the child is waiting on the "Let's go" tap. Later items
   // are picked by Gemini while the child hears the last consequence, so its time is never noticed.
-  const picker = await pickNext(p, candidates, lastStruggled, { ai: round.served.length > 0 });
+  const picker = await pickNext(p, candidates, lastStruggled, { ai: round.served.length > 0, gateId: round.gateId });
   const item = byId.get(picker.chosenId)!;
   return db().transaction(async (tx) => {
     const stored = await tx.get<Round>(COLLECTIONS.rounds, round.id);
     if (stored && (stored.current || stored.status !== 'active' || stored.served.length !== round.served.length)) return stored;
     const next: Round = {
-      ...round,
+      ...(stored ?? round), // keeps anything saved meanwhile (a "try another way" choice)
       served: [...round.served, item.id],
       current: { itemId: item.id, optionOrder: shuffledOptionIds(item), servedAt: Date.now(), picker },
       updatedAt: now(),
@@ -152,6 +167,7 @@ export async function answerItem(accountId: string, roundId: string, itemId: str
         // Puzzles get a gentle walk-through after any answer; the child is never told "wrong".
         explanation: item.kind === 'puzzle' ? item.puzzle!.explanation : null,
         voice: { consequence: voiceUrl(item, `c.${option.id}`), explanation: voiceUrl(item, 'x'), done: done ? doneVoiceUrl() : null },
+        ...coaching(item, option.id, out.performance, !!out.openChoice, true),
       },
       answered: answered.length,
       size: round.size,
@@ -171,4 +187,36 @@ export async function nextItem(accountId: string, roundId: string) {
     if (stored && !stored.current) tx.set(COLLECTIONS.rounds, round.id, { ...stored, status: 'done', updatedAt: now() } satisfies Round);
   });
   return { done: true as const };
+}
+
+/**
+ * "Try another way": after a weak first choice, the child may pick once more and see what that choice does.
+ * Practice only: skills, events and the round's progress are untouched, and only the first choice is measured.
+ */
+export async function retryItem(accountId: string, roundId: string, itemId: string, optionId: string) {
+  const { byId } = await loadBank();
+  const item = byId.get(itemId);
+  const option = item?.options.find((o) => o.id === optionId);
+  return db().transaction(async (tx) => {
+    const round = await tx.get<Round>(COLLECTIONS.rounds, roundId);
+    const player = parsePlayer(await tx.get<unknown>(COLLECTIONS.players, accountId), accountId);
+    if (!round || round.playerId !== accountId) throw new HttpError(404, 'That bonus round was not found.');
+    if (!round.answered.includes(itemId)) throw new HttpError(409, 'Choose an answer first.');
+    if ((round.retries ?? []).some((x) => x.itemId === itemId)) throw new HttpError(409, 'You already tried another way.');
+    if (!item) throw new HttpError(410, 'This item is no longer available.');
+    if (!option) throw new HttpError(400, 'That choice is not part of this item.');
+    if (!player) throw new HttpError(409, 'Set up your Captain first.');
+    if (item.kind !== 'situation' || item.openChoice) throw new HttpError(409, 'This one has no other way to try.');
+    // Scored on a copy only to choose Fizz's words; nothing is saved to the profile.
+    const { performance } = applyAnswer(player, item, { optionId, responseTimeMs: item.expectedTimeSec * 1000, hintOpened: false });
+    tx.set(COLLECTIONS.rounds, round.id, { ...round, retries: [...(round.retries ?? []), { itemId, optionId, at: now() }], updatedAt: now() } satisfies Round);
+    return {
+      feedback: {
+        consequence: option.consequence,
+        explanation: null,
+        voice: { consequence: voiceUrl(item, `c.${option.id}`), explanation: null, done: null },
+        ...coaching(item, option.id, performance, false, false),
+      },
+    };
+  });
 }

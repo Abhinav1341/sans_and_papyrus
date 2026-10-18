@@ -8,7 +8,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { Firestore } from "@google-cloud/firestore";
-import { Situation, type CurationResult, type GeneratedSituation, type GradeResult } from "../../web/lib/schemas";
+import { Situation, type AgeBand, type CurationResult, type GeneratedSituation, type GradeResult } from "../../web/lib/schemas";
 import { PIPELINE_CONFIG } from "./config";
 import type { ModelUsage } from "./gemini";
 
@@ -16,7 +16,7 @@ export type Stage = "generator" | "rules" | "duplicate" | "grader" | "category" 
 
 export interface Target {
   kind: "situation" | "puzzle";
-  ageBand: "8-10" | "11-14";
+  ageBand: AgeBand;
   competency?: Situation["primaryCompetencies"][number];
   domain?: NonNullable<Situation["puzzle"]>["domain"];
   /** Difficulty the generator was asked for (1–4); the grader's own rating is stored on the item. */
@@ -76,11 +76,12 @@ export interface RunSummary {
 
 const SEEDS_DIR = join(import.meta.dirname, "..", "seeds");
 // seed-situations-research.json: research-based seeds, "draft" until a person approves them (scripts/build-research-seeds.ts)
-const SEED_FILES = ["seed-situations.json", "seed-puzzles.json", "seed-situations-research.json"];
+// seed-young.json: seeds for ages 6-7, built the same way (--out seed-young.json)
+const SEED_FILES = ["seed-situations.json", "seed-puzzles.json", "seed-situations-research.json", "seed-young.json"];
 
 /** Seeds from generator/seeds, validated against the schema. */
 export function loadSeeds(): Situation[] {
-  return SEED_FILES.flatMap((f) => JSON.parse(readFileSync(join(SEEDS_DIR, f), "utf8")) as unknown[]).map((s) =>
+  return SEED_FILES.filter((f) => existsSync(join(SEEDS_DIR, f))).flatMap((f) => JSON.parse(readFileSync(join(SEEDS_DIR, f), "utf8")) as unknown[]).map((s) =>
     Situation.parse(s)
   );
 }

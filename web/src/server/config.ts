@@ -16,9 +16,9 @@ export const GAME = {
   roundSize(age: number): number {
     return age <= 8 ? 3 : age <= 10 ? 4 : 5;
   },
-  /** The question bank's age bands. Ages 6–7 use the 8–10 band's easiest items. */
-  ageBand(age: number): '8-10' | '11-14' {
-    return age <= 10 ? '8-10' : '11-14';
+  /** The question bank's age bands. Ages 6–7 have their own short stories, plus the 8–10 band's easiest items. */
+  ageBand(age: number): '6-7' | '8-10' | '11-14' {
+    return age <= 7 ? '6-7' : age <= 10 ? '8-10' : '11-14';
   },
   /** Starting skill level for every skill, from age. Matches item difficulty via itemRating(). */
   initialSkill(age: number): number {
@@ -31,11 +31,16 @@ export const GAME = {
   },
 
   /**
-   * Stepping up: an 8–10 player who has outgrown their band (level at or above this) may also get the
-   * gentlest 11–14 items (difficulty up to `maxDifficulty`). Older-band difficulty is counted
-   * `bandOffset` higher for them (two steps), and own-band items win ties by `preferOwnBand`.
+   * Stepping up into the next band's gentlest items (difficulty up to `maxDifficulty`), counted `bandOffset`
+   * harder for the younger player. Own-band items win ties by `preferOwnBand`.
+   * - 6–7: the easiest 8–10 items are always allowed (one step harder), so a small 6–7 bank never runs dry.
+   * - 8–10: only a player who has outgrown their band (level at or above `fromLevel`) gets 11–14 items.
    */
-  stepUp: { fromLevel: 1260, minAge: 8, maxDifficulty: 2, bandOffset: 300, preferOwnBand: 0.3 },
+  stepUp: {
+    '6-7': { to: '8-10', fromLevel: 0, maxDifficulty: 2, bandOffset: 150 },
+    '8-10': { to: '11-14', fromLevel: 1260, maxDifficulty: 2, bandOffset: 300 },
+  } as Partial<Record<string, { to: string; fromLevel: number; maxDifficulty: number; bandOffset: number }>>,
+  preferOwnBand: 0.3,
 
   /** Elo-style learning rate for skill updates. */
   kFactor: 28,
@@ -53,6 +58,14 @@ export const GAME = {
   thoughtfulHintShare: 0.3,
   /** Asking for help is a strength: a thoughtful hint lifts relationship skills by this much. */
   helpSeekingBoost: 5,
+
+  /** A story gate's own skills (src/server/gates.ts) win this much in the shortlist; riddle gates favour a puzzle twice as much. */
+  gateFit: 0.35,
+
+  /** After a choice: Fizz names the skill when it showed the item's focus skills this well (0–1), and
+   *  offers "Try another way?" below this (situations only, never dilemmas). */
+  nameSkillFrom: 0.8,
+  offerRetryBelow: 0.5,
 
   /** Variety. */
   recentWindow: 30,       // items a child shouldn't see again soon

@@ -4,7 +4,7 @@
  * - B (grader) never sees A's target or the puzzle answer, so its grading is independent.
  * - C (curator) sees the finished item, B's grading and the seed style.
  */
-import type { Competency, GeneratedSituation, GradeResult, PuzzleDomain, Situation } from "../../web/lib/schemas";
+import type { AgeBand, Competency, GeneratedSituation, GradeResult, PuzzleDomain, Situation } from "../../web/lib/schemas";
 import type { Construct } from "./constructs";
 
 export const COMPETENCY_GUIDE = `The five CASEL competencies:
@@ -14,7 +14,17 @@ export const COMPETENCY_GUIDE = `The five CASEL competencies:
 - relationshipSkills: sharing, cooperating, resolving conflict, apologising, asking for help
 - responsibleDecisionMaking: thinking about consequences; honesty, fairness and safety`;
 
-const AGE_GUIDE = {
+const AGE_GUIDE: Record<AgeBand, string> = {
+  "6-7": `Ages 6–7 (first readers; the game reads every word aloud): the child playing is "you", the main
+character; at most one other named child or grown-up, and never switch to telling the story about someone else.
+At most three short sentences in the present tense, very common words. Other children react like real
+6-year-olds: a kind choice helps a little, it does not make everyone instantly happy or grateful. For
+self-awareness, the best option names your own feeling ("I feel nervous") or notices it in your body.
+Make the problem your own, not a copy of an example with new names or objects. Say plainly what people feel and want ("Meera looks sad. She
+wanted the red crayon."); if the research idea needs a hidden feeling, make the clue easy to see. Exactly THREE
+options (ids a, b, c), each at most 8 words, said the way a 6-year-old would say it. Consequences at most 12 words.
+Hints are a simple question. Puzzles: counting, adding or taking away within 20, shapes, patterns, opposites,
+simple words. Keep the text under 35 words.`,
   "8-10": "Ages 8–10: short sentences, everyday words, situations at home, school and the playground. Keep the text under 60 words.",
   "11-14": "Ages 11–14: slightly richer language, situations with friends, school pressure, teams, phones and group chats. Keep the text under 100 words.",
 } as const;
@@ -75,7 +85,7 @@ For a puzzle (kind "puzzle"):
 
 export function generatorPrompt(args: {
   kind: "situation" | "puzzle";
-  ageBand: "8-10" | "11-14";
+  ageBand: AgeBand;
   competency?: Competency;
   domain?: PuzzleDomain;
   difficulty: number;

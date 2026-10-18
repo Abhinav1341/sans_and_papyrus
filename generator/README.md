@@ -6,7 +6,7 @@ the game (in `../web`) only reads Firestore. This folder is never deployed.
 **Flow:** each situation is built on a research construct (`src/constructs.ts`: emotion understanding, intent-reading,
 perspective taking, coping, reappraisal, moral vs conventional rules, duty reasoning, life skills) → A writes it
 (Gemini 3.8 Flash) → code checks hard rules → code rejects near-duplicates (embeddings) → B grades blind (Gemini 3.6 Flash)
-→ code checks the grading and the category → C, the Satori-lens judge (Gemini 3.8 Flash), checks safety and eight principles
+→ code checks the grading and the category → C, the Satori-lens judge (Gemini 3.1 Pro, a different model family), checks safety and eight principles
 (honest consequences, feelings stay real, show don't preach, room for dilemmas, no shaming, not a therapist, real for Indian
 children, construct visible) → items are saved as **drafts** → people approve them (`bank:review-*`) before any child sees them.
 
@@ -31,10 +31,17 @@ npm run bank:dashboard                         # output/dashboard.html: runs, fu
 npm run bank:export                            # output/bank-readable.md: every item as a readable document
 npm run bank:review-export                     # drafts → output/review/review-<date>.md (readable) + .csv (decisions)
 npm run bank:review-apply -- --file <csv>      # approve/reject; situations need 2 reviewers, puzzles 1 (--dry-run to preview)
+npm run bank:rejudge                           # run the current judge again over the whole bank (measures it; changes no status)
+npm run bank:stats                             # numbers for the game's /how-it-works page (web/src/data/ai-pipeline.json)
+npx tsx scripts/build-research-seeds.ts seeds/authoring/young-6-7.json --out seed-young.json   # build + check seeds
+npm run bank:expand -- --band 6-7 --kind mixed --count 40 --draft-examples                   # a new band before its seeds are approved
 ```
 
-Options: `--count`, `--kind situation|puzzle|mixed`, `--band 8-10|11-14|any`, `--competency`, `--domain`,
-`--concurrency`, `--local-only` (skip Firestore).
+Options: `--count`, `--kind situation|puzzle|mixed`, `--band 6-7|8-10|11-14|any`, `--competency`, `--domain`,
+`--concurrency`, `--local-only` (skip Firestore), `--draft-examples` (also learn from same-band draft seeds).
+
+**Ages 6–7** have their own band: at most 35 words, one main character, feelings said plainly, exactly three
+options of up to 8 words, short consequences, difficulty 1–2, and only the research ideas young children can use.
 
 ## Where things go
 

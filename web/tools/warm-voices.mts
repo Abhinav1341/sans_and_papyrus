@@ -6,10 +6,10 @@
  * Run from web/ after the bank changes:  npm run voices:warm
  */
 import { loadBank } from '../src/server/bank';
-import { clip, DONE_LINE, OPEN_LINE, partText, type Speaker } from '../src/server/tts';
+import { clip, partText, SHARED_LINES, type Speaker } from '../src/server/tts';
 
 const { items } = await loadBank(true);
-const lines: { text: string; speaker: Speaker }[] = [{ text: DONE_LINE, speaker: 'narrator' }, { text: OPEN_LINE, speaker: 'fizz' }];
+const lines: { text: string; speaker: Speaker }[] = Object.values(SHARED_LINES);
 for (const item of items) {
   const parts = ['q', 'hint', 'x', ...item.options.flatMap((o) => [`o.${o.id}`, `c.${o.id}`])];
   for (const part of parts) {

@@ -16,7 +16,7 @@ import { limit, resetLimits } from '../src/server/limits';
 import { getPlayer, upsertPlayer } from '../src/server/players';
 import { getReport } from '../src/server/report';
 import { checkReport } from '../src/server/report-check';
-import { answerItem, nextItem, startRound } from '../src/server/rounds';
+import { answerItem, nextItem, retryItem, startRound } from '../src/server/rounds';
 import { createSessionValue, readSessionValue } from '../src/server/session';
 
 process.env.GAME_AI = 'off'; // no AI in tests: exercise the code fallbacks
@@ -31,7 +31,7 @@ async function rejects(p: Promise<unknown>, status: number, msg: string) {
 }
 
 const seedsDir = join(import.meta.dirname, '..', '..', 'generator', 'seeds');
-const bank = ['seed-situations.json', 'seed-puzzles.json'].flatMap((f) => JSON.parse(readFileSync(join(seedsDir, f), 'utf8')) as unknown[]).map((x) => Situation.parse(x));
+const bank = ['seed-situations.json', 'seed-puzzles.json', 'seed-young.json'].flatMap((f) => JSON.parse(readFileSync(join(seedsDir, f), 'utf8')) as unknown[]).map((x) => Situation.parse(x));
 const byId = new Map(bank.map((i) => [i.id, i]));
 
 const db = new MemoryDb();
@@ -147,11 +147,24 @@ const offered = (pl: ReturnType<typeof withSkills>) => {
 const strongOffers = offered(withSkills(9, 1400));
 const older = strongOffers.filter((i) => i.ageBand === '11-14');
 check(older.length > 0, `a strong 9-year-old is offered some 11-14 items (${older.length})`);
-check(older.every((i) => i.difficulty <= GAME.stepUp.maxDifficulty), 'only the gentlest 11-14 items (difficulty 1-2)');
+check(older.every((i) => i.difficulty <= GAME.stepUp['8-10']!.maxDifficulty), 'only the gentlest 11-14 items (difficulty 1-2)');
 check(offered(withSkills(9, GAME.initialSkill(9))).every((i) => i.ageBand === '8-10'), 'a typical 9-year-old stays in the 8-10 band');
-check(offered(withSkills(7, 1400)).every((i) => i.ageBand === '8-10'), 'under-8s never step up, however strong');
+const young = offered(withSkills(7, 1400));
+check(withSkills(7, 850).ageBand === '6-7' && GAME.ageBand(6) === '6-7', 'ages 6 and 7 → band 6-7');
+check(young.every((i) => i.ageBand === '6-7' || (i.ageBand === '8-10' && i.difficulty <= GAME.stepUp['6-7']!.maxDifficulty)), 'a 7-year-old gets 6-7 items and only the easiest 8-10 items, never 11-14, however strong');
+const typicalSix = offered(withSkills(6, GAME.initialSkill(6)));
+check(typicalSix.some((i) => i.ageBand === '6-7'), `a typical 6-year-old is offered their own band's items (${typicalSix.filter((i) => i.ageBand === '6-7').length})`);
 const olderPuzzle = bank.find((i) => i.ageBand === '11-14')!;
-check(ratingFor(withSkills(9, 1000), olderPuzzle) === GAME.itemRating(olderPuzzle.difficulty) + GAME.stepUp.bandOffset, 'older-band items count harder for a younger player');
+check(ratingFor(withSkills(9, 1000), olderPuzzle) === GAME.itemRating(olderPuzzle.difficulty) + GAME.stepUp['8-10']!.bandOffset, 'older-band items count harder for a younger player');
+
+console.log('\nRounds fit their story gate');
+const gateRound = (gateId: string): Round => ({ ...midRound, gateId, served: [], answered: [] });
+const typical = withSkills(9, GAME.initialSkill(9));
+const riddleOpeners = Array.from({ length: 20 }, () => shortlist(bank, typical, gateRound('g-c3-rescue'), byId)[0].item.kind);
+check(riddleOpeners.filter((k) => k === 'puzzle').length >= 15, `a "solve the riddle" gate opens with a puzzle (${riddleOpeners.filter((k) => k === 'puzzle').length}/20)`);
+check(Array.from({ length: 20 }, () => shortlist(bank, typical, gateRound('g-c2-gap'), byId)[0].item.kind).every((k) => k === 'situation'), 'other gates never open with a puzzle');
+const gapTops = Array.from({ length: 20 }, () => shortlist(bank, typical, gateRound('g-c2-gap'), byId)[0]);
+check(gapTops.filter((c) => c.why.includes('fits the story moment')).length >= 10, `the Big Gap mostly opens with a teamwork or decision item (${gapTops.filter((c) => c.why.includes('fits the story moment')).length}/20)`);
 
 console.log('\nAge change re-centres skills');
 const pBefore = (await getPlayer(acct.id))!;
@@ -240,6 +253,29 @@ await deleteAccountAndData(acct.id);
 const left = ['accounts', 'players', 'rounds', 'playEvents', 'parentReports'].map((c) => [...(db.data.get(c)?.values() ?? [])].filter((d) => JSON.stringify(d).includes(acct.id)).length);
 check(left.every((n) => n === 0), 'nothing about the account is left');
 check((await db.get(COLLECTIONS.accounts, other.id)) !== null, "other accounts are untouched");
+
+console.log('\nTry another way, and naming the skill');
+const focusSum = (i: Situation, id: string) => i.primaryCompetencies.reduce((n, c) => n + (i.options.find((o) => o.id === id)!.scores?.[c] ?? 0), 0);
+const focusBest = (i: Situation) => [...i.options].sort((a, b) => focusSum(i, b.id) - focusSum(i, a.id))[0].id;
+const focusWorst = (i: Situation) => [...i.options].sort((a, b) => focusSum(i, a.id) - focusSum(i, b.id))[0].id;
+const coach = await signUpWithEmail('coach@example.com', 'password123');
+await upsertPlayer(coach.id, 'Kiki', 9);
+const cr = await startRound(coach.id, 'g-c2-gap');
+const ci = byId.get(cr.item.id)!;
+const weakAns = await answerItem(coach.id, cr.roundId, ci.id, { optionId: focusWorst(ci), responseTimeMs: ci.expectedTimeSec * 1000, hintOpened: false });
+check(!!weakAns.feedback.retry && !weakAns.feedback.skill, 'a weak first choice gets "Want to try another way?" and no skill line');
+const measured = JSON.stringify((await getPlayer(coach.id))!.skills);
+const second = await retryItem(coach.id, cr.roundId, ci.id, focusBest(ci));
+check(!!second.feedback.skill && !second.feedback.retry, `a strong second try names the skill ("${second.feedback.skill?.text}") and offers no third try`);
+check(JSON.stringify((await getPlayer(coach.id))!.skills) === measured, 'the second try moves no skill: only the first choice is measured');
+await rejects(retryItem(coach.id, cr.roundId, ci.id, focusBest(ci)), 409, 'only one more try per item');
+await rejects(retryItem(other.id, cr.roundId, ci.id, focusBest(ci)), 404, "nobody can try again in someone else's round");
+const cn = await nextItem(coach.id, cr.roundId);
+if (!cn.done && cn.item.kind === 'situation') {
+  const ni = byId.get(cn.item.id)!;
+  const strongAns = await answerItem(coach.id, cr.roundId, ni.id, { optionId: focusBest(ni), responseTimeMs: ni.expectedTimeSec * 1000, hintOpened: false });
+  check(!!strongAns.feedback.skill && !strongAns.feedback.retry, 'a strong first choice names the skill and offers no retry');
+}
 
 console.log('\nParent note word check');
 const note = { summary: 'Growing in noticing how friends feel.', strengths: ['Noticing others'], growingAreas: ['Staying calm is not changing yet'], habits: ['Points out when someone is left out'], tryAtHome: ['Ask what a story character might mean'] };

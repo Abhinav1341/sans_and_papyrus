@@ -1,0 +1,1081 @@
+{
+  "summary": {
+    "model": "gemini-3.1-pro-preview",
+    "at": "2026-10-18T07:51:03.101Z",
+    "all": {
+      "judged": 16,
+      "accepted": 13,
+      "stopped": 3,
+      "openChoice": 0
+    },
+    "seeds": {
+      "judged": 16,
+      "accepted": 13,
+      "stopped": 3,
+      "openChoice": 0
+    },
+    "generated": {
+      "judged": 0,
+      "accepted": 0,
+      "stopped": 0,
+      "openChoice": 0
+    },
+    "errors": 0,
+    "failedBy": {
+      "honestConsequences": 1,
+      "constructVisible": 2,
+      "hintIsNudge": 1
+    },
+    "usage": {
+      "gemini-3.1-pro-preview": {
+        "calls": 16,
+        "inputTokens": 53464,
+        "outputTokens": 7612,
+        "thinkingTokens": 18686
+      }
+    },
+    "costUsd": 0.422504
+  },
+  "verdicts": [
+    {
+      "id": "ypz-01",
+      "source": "seed",
+      "status": "draft",
+      "kind": "puzzle",
+      "ageBand": "6-7",
+      "title": "Ro's balloons",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The puzzle is perfectly pitched for the 6-7 age band.",
+        "The hint is practical and encourages physical counting.",
+        "The consequences are gentle and encouraging."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The puzzle is perfectly pitched for the 6-7 age band.",
+          "The hint is practical and encourages physical counting.",
+          "The consequences are gentle and encouraging."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "The consequences logically follow the math without over-praising or punishing."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "No feelings are invalidated."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The item teaches addition through a simple scenario without lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is only one correct answer to the math problem."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "Incorrect options are handled gently ('One balloon is hiding!')."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical or psychological language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Balloons and simple counting are universally understood by Indian children."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "No specific construct was required."
+          }
+        }
+      }
+    },
+    {
+      "id": "ypz-02",
+      "source": "seed",
+      "status": "draft",
+      "kind": "puzzle",
+      "ageBand": "6-7",
+      "title": "Mangoes in the basket",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The math puzzle is age-appropriate and culturally relevant with the use of mangoes.",
+        "The consequences are gentle and guide the child well without making them feel bad for a wrong answer.",
+        "The explanation is clear, kind, and reinforces the math concept simply."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The math puzzle is age-appropriate and culturally relevant with the use of mangoes.",
+          "The consequences are gentle and guide the child well without making them feel bad for a wrong answer.",
+          "The explanation is clear, kind, and reinforces the math concept simply."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "The consequences logically follow the math choices without over-rewarding or punishing."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "No feelings are involved or invalidated in this simple math puzzle."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The item sticks to math facts and logic without any moralizing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "As a math puzzle, there is exactly one correct answer, which fits perfectly."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "Incorrect options are corrected gently ('Count back again', 'Eating makes fewer')."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical, psychological, or diagnostic content is present."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Mangoes are a very familiar and culturally relevant fruit for Indian children."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "No specific research construct was required."
+          }
+        }
+      }
+    },
+    {
+      "id": "ypz-03",
+      "source": "seed",
+      "status": "draft",
+      "kind": "puzzle",
+      "ageBand": "6-7",
+      "title": "Kiki's bead necklace",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The puzzle is age-appropriate, clear, and perfectly matches the style of the seed examples.",
+        "The hint is an excellent nudge, encouraging the child to use auditory cues to recognize the pattern.",
+        "The explanation is simple, kind, and easy for a 6-7 year old to understand."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The puzzle is age-appropriate, clear, and perfectly matches the style of the seed examples.",
+          "The hint is an excellent nudge, encouraging the child to use auditory cues to recognize the pattern.",
+          "The explanation is simple, kind, and easy for a 6-7 year old to understand."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "The consequences accurately reflect the outcome of the child's choice in the puzzle."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "No feelings are involved or bypassed in this logic puzzle."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The item teaches patterns through the puzzle itself without any lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "As a logic puzzle, there is exactly one correct answer, which fits perfectly."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The incorrect options are corrected gently without making the child feel silly."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical or therapeutic language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "The language is simple, accessible, and culturally neutral for early readers."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "No specific research construct was required."
+          }
+        }
+      }
+    },
+    {
+      "id": "ypz-04",
+      "source": "seed",
+      "status": "draft",
+      "kind": "puzzle",
+      "ageBand": "6-7",
+      "title": "Big and small",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The puzzle is age-appropriate and tests a simple vocabulary concept.",
+        "The consequences are gentle and helpfully explain why the incorrect options don't fit the prompt.",
+        "The hint nudges the child toward the concept of smallness without directly giving the word."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The puzzle is age-appropriate and tests a simple vocabulary concept.",
+          "The consequences are gentle and helpfully explain why the incorrect options don't fit the prompt.",
+          "The hint nudges the child toward the concept of smallness without directly giving the word."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences logically follow the choices without over-rewarding or punishing."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "No feelings are invalidated."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The explanations are factual and do not lecture."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is only one correct opposite for 'big' among the choices."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "Incorrect choices are corrected gently."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical or therapeutic language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "The vocabulary and context are perfectly suited for a 6-7 year old."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "No specific construct was required, but the vocabulary focus is clear."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-01",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "The red crayon",
+      "construct": "pons-desire",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The item perfectly captures a common early-childhood conflict over shared resources.",
+        "The consequences are realistic and show the impact of the child's choice on their peer without being preachy.",
+        "The hint gently guides the child to consider Meera's perspective without giving away the answer."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item perfectly captures a common early-childhood conflict over shared resources.",
+          "The consequences are realistic and show the impact of the child's choice on their peer without being preachy.",
+          "The hint gently guides the child to consider Meera's perspective without giving away the answer."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are natural and believable without exaggerated rewards or punishments."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Meera's sadness is acknowledged and allowed to exist without being dismissed."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The value of sharing is shown through the outcomes rather than stated by an adult."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "Sharing is clearly the best choice here, and the situation does not pretend otherwise."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The options and consequences describe actions and outcomes neutrally without labeling the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or diagnoses are used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Sharing crayons is a universal and highly relatable classroom scenario for 6-7 year olds."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The situation clearly shows two children wanting the same thing, resulting in different feelings when one gets it."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-02",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "The wet drawing",
+      "construct": "dodge-ambiguous",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The scenario perfectly captures the 'accident or on purpose' construct in a highly relatable classroom setting.",
+        "The consequences are realistic, especially the gentle resolution in option A and the lingering upset feeling in option C.",
+        "The hint gently guides the child to consider intent without giving away the answer."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The scenario perfectly captures the 'accident or on purpose' construct in a highly relatable classroom setting.",
+          "The consequences are realistic, especially the gentle resolution in option A and the lingering upset feeling in option C.",
+          "The hint gently guides the child to consider intent without giving away the answer."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are believable; Kabir helping to wipe the drawing makes sense after a genuine accident."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Option C acknowledges that staying quiet and not resolving the issue leaves the child feeling upset."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown through the interactions and feelings, with no adult lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is one clear best answer (asking) for this specific situation."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "No options or consequences shame the child, even when they choose to shout."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language is used; the situation is an everyday peer conflict."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "A water bottle spilling on a drawing is a very common and realistic event in Indian classrooms."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of ambiguous intent is clearly central to the prompt and options."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-03",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "Hot face at the swings",
+      "construct": "gross-body-cues",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The item perfectly captures the requested construct by describing physical signs of anger (hot face, fists) without naming the emotion in the prompt.",
+        "The consequence for the correct option is highly realistic; it doesn't magically give the child the swing back, but simply restores their ability to think.",
+        "The weakest line is perhaps 'Run off and hide' as it's a slight overreaction for losing a swing, but it remains well within normal 6-7 year old behavior."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item perfectly captures the requested construct by describing physical signs of anger (hot face, fists) without naming the emotion in the prompt.",
+          "The consequence for the correct option is highly realistic; it doesn't magically give the child the swing back, but simply restores their ability to think.",
+          "The weakest line is perhaps 'Run off and hide' as it's a slight overreaction for losing a swing, but it remains well within normal 6-7 year old behavior."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Option A does not magically get the swing back; it only solves the internal physical state so the child can think."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Option C acknowledges that 'The angry feeling stays', validating the emotion without erasing it."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The consequences describe direct outcomes (relaxing, crying, missing a turn) without any adult lecturing or 'shoulds'."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "For a 6-7 year old, pausing to breathe when feeling physical rage is a clear, universally helpful first step."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The consequences for the negative choices are factual and natural, avoiding any labels or mockery."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "Uses simple, age-appropriate physical descriptions (hot face, fists) rather than clinical jargon."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "A playground dispute over a swing is a universal and highly recognizable scenario for Indian children."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The text explicitly describes the body signals of a strong feeling without naming it, exactly as the construct requested."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-04",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "Ice cream after dinner",
+      "construct": "inhibition-delay",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The situation perfectly captures the construct of waiting for a tempting reward.",
+        "The consequences are realistic and honest, especially how distraction makes time feel faster (Option A) while focusing on the wait makes it feel long (Option C).",
+        "The language and scenario are highly appropriate and relatable for 6-7-year-olds in India."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The situation perfectly captures the construct of waiting for a tempting reward.",
+          "The consequences are realistic and honest, especially how distraction makes time feel faster (Option A) while focusing on the wait makes it feel long (Option C).",
+          "The language and scenario are highly appropriate and relatable for 6-7-year-olds in India."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Distraction realistically makes the wait feel shorter, while sneaking a bite realistically leaves evidence."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "The difficulty of waiting is acknowledged in Option C ('you wait a long time')."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The benefit of distraction is shown through the experience of time passing, not stated as a rule."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is a clear best strategy (distraction) for this specific self-management challenge."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "Sneaking a bite is handled with a factual consequence, not a lecture or labels."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or concepts are used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "The scenario of 'Papa' bringing ice cream for after dinner is very common and relatable."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The temptation and the challenge of waiting are central to the setup and options."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-05",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "The broken cup",
+      "construct": "honesty-repair",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The consequences are beautifully balanced: Mummy is still sad about the cup, avoiding a magical 'everything is fine' ending.",
+        "The physical description of guilt ('Your tummy feels heavy') is perfect for the 6-7 age band.",
+        "The item wisely avoids having the 6-7 year old clean up broken glass, which is a good safety choice."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "reasons": [
+          "The consequences are beautifully balanced: Mummy is still sad about the cup, avoiding a magical 'everything is fine' ending.",
+          "The physical description of guilt ('Your tummy feels heavy') is perfect for the 6-7 age band.",
+          "The item wisely avoids having the 6-7 year old clean up broken glass, which is a good safety choice."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Mummy is sad but thankful; no magical erasure of the broken cup."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "'Your tummy feels heavy' is a great age-appropriate description of guilt."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown entirely through Mummy's reactions and the child's physical feelings."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is one clear honest choice, which fits the scenario."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The negative choices result in natural consequences and internal feelings, not mockery."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Playing ball inside and breaking a cup is a universal childhood experience."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The scenario perfectly matches the 'owning up' construct."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-06",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "Alone at lunch",
+      "construct": "inclusion-upstander",
+      "accept": false,
+      "failed": [
+        "honestConsequences",
+        "constructVisible"
+      ],
+      "openChoice": false,
+      "reasons": [
+        "The item fails the construct requirement because it does not include an option to speak up calmly or an option to tell a trusted adult.",
+        "The weakest line is the consequence for option A ('Tenzin smiles. He shows you a clapping game from home.'), which magically erases the social conflict with the friends who told the player not to sit with him."
+      ],
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item fails the construct requirement because it does not include an option to speak up calmly or an option to tell a trusted adult.",
+          "The weakest line is the consequence for option A ('Tenzin smiles. He shows you a clapping game from home.'), which magically erases the social conflict with the friends who told the player not to sit with him."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": false,
+            "note": "Option A's consequence ignores the friends' reaction entirely, magically erasing the social risk set up in the prompt."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Tenzin's sadness and isolation are portrayed realistically without being dismissed."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown through Tenzin's reactions (looking at the floor, eating alone) rather than stated."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "Including the new student is the clear best choice here, and the scores reflect that."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "No options or consequences shame the child for their choice."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical or diagnostic language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "The situation of a new student speaking little Hindi is very common and realistic in Indian schools."
+          },
+          "constructVisible": {
+            "pass": false,
+            "note": "The construct explicitly requires 'an option to speak up calmly, and an option to tell a trusted adult', which are missing."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-07",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "Lost at the market",
+      "construct": "help-seeking",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The scenario is highly relatable and culturally accurate for an Indian context.",
+        "The physical sensation of fear ('Your heart beats fast') is named without being overly frightening.",
+        "The consequences are realistic and avoid catastrophic outcomes for the incorrect choices, keeping the tone safe for 6-7 year olds."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The scenario is highly relatable and culturally accurate for an Indian context.",
+          "The physical sensation of fear ('Your heart beats fast') is named without being overly frightening.",
+          "The consequences are realistic and avoid catastrophic outcomes for the incorrect choices, keeping the tone safe for 6-7 year olds."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "The consequences are believable; the shopkeeper calling out is a realistic way a lost child is found in a market."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "The physical feeling of panic ('Your heart beats fast') is acknowledged and not dismissed."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson of staying put and asking a safe adult is shown through the outcomes, without any lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "For a 6-7 year old who is lost, staying put and asking a stationary adult is the clear, safest choice."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The incorrect options describe the natural difficulties of the choices without mocking the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language is used; the situation is a normal childhood fear."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Getting separated in a busy market and asking a shopkeeper for help is a very common and culturally relevant safety strategy in India."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The child faces an unsafe situation and the best option involves reaching out to an adult for help."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-08",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "One tablet, two children",
+      "construct": "fair-sharing",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The item perfectly captures the requested construct of sharing a limited resource with grabbing, giving up, and a fair solution.",
+        "The consequences are highly realistic for a sibling dynamic, especially Mummy putting the tablet away when fighting occurs.",
+        "Feelings are handled well; feeling 'left out all evening' validates the child's emotion without dismissing it.",
+        "The weakest line is 'Ding! Your turn ends, Diya plays, and nobody fights' as it is slightly idealized, but it remains perfectly acceptable and clear for the 6-7 age band."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item perfectly captures the requested construct of sharing a limited resource with grabbing, giving up, and a fair solution.",
+          "The consequences are highly realistic for a sibling dynamic, especially Mummy putting the tablet away when fighting occurs.",
+          "Feelings are handled well; feeling 'left out all evening' validates the child's emotion without dismissing it.",
+          "The weakest line is 'Ding! Your turn ends, Diya plays, and nobody fights' as it is slightly idealized, but it remains perfectly acceptable and clear for the 6-7 age band."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are believable; fighting over the tablet realistically results in a parent taking it away."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "The feeling of being 'left out all evening' is named and allowed to exist without being magically fixed."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown through the natural outcomes of the actions rather than an adult lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is one clear best answer (taking turns) for a situation that genuinely has a fair solution."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The options and consequences describe actions and feelings without mocking or labeling the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No medical or diagnostic language is used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Sharing a tablet with a sibling is a very common and relatable scenario for children in India."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct is fully visible: limited resource (tablet), grabbing (b), giving up sadly (c), and a fair way (a)."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-09",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "Quiet in the library",
+      "construct": "turiel-moral-convention",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The situation perfectly captures the research construct of a conventional rule (library silence) conflicting with wellbeing (a hurt friend).",
+        "The consequences are realistic and show the impact of the choices without preaching.",
+        "The language is simple, direct, and appropriate for the 6-7 age band.",
+        "The hint gently prompts the child to weigh priorities without giving away the answer."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The situation perfectly captures the research construct of a conventional rule (library silence) conflicting with wellbeing (a hurt friend).",
+          "The consequences are realistic and show the impact of the choices without preaching.",
+          "The language is simple, direct, and appropriate for the 6-7 age band.",
+          "The hint gently prompts the child to weigh priorities without giving away the answer."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "The teacher providing first aid is a realistic and helpful outcome for telling an adult."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Anjali feeling worse and turning away in option C is a natural, unforced emotional reaction."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson emerges naturally from the outcomes; no adult lectures the child about rules."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is a clear best answer here, as getting help for an injury objectively overrides the quiet rule."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The consequences describe what happens neutrally without calling the child mean or bad."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "A plaster for a scraped knee is standard first aid, not a medical diagnosis or treatment."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Tripping in a school library and getting a plaster from a teacher is a very common, relatable scenario."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The conflict between the 'stay quiet' rule and the friend's wellbeing is the core of the situation."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-10",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "Socks for my birthday",
+      "construct": "pons-hidden",
+      "accept": false,
+      "failed": [
+        "constructVisible"
+      ],
+      "openChoice": false,
+      "reasons": [
+        "The item completely misses the required research construct.",
+        "The construct asks for a scenario where the player must notice someone else's hidden feelings, but this item is about the player managing their own disappointment."
+      ],
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "reasons": [
+          "The item completely misses the required research construct.",
+          "The construct asks for a scenario where the player must notice someone else's hidden feelings, but this item is about the player managing their own disappointment."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are realistic; politeness keeps the peace, while rudeness causes awkwardness without being overly catastrophic."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "The child's disappointment is validated by allowing them to express it to Mummy later in the best option."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The social impact is shown through Aunty's smile fading and the room going quiet, rather than an adult lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "For a 6-7 year old, basic politeness when receiving a gift is a clear expectation with one best answer."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The negative options result in natural social friction, not mockery or labeling of the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or heavy psychological themes are present."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Receiving clothes instead of toys from relatives is a highly relatable experience for Indian children."
+          },
+          "constructVisible": {
+            "pass": false,
+            "note": "The text 'Aunty is smiling and waiting' does not contain a character showing a fake outward feeling with a clue to a different internal feeling."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-11",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "A message in the game",
+      "construct": "online-safety",
+      "accept": true,
+      "failed": [],
+      "openChoice": false,
+      "reasons": [
+        "The item perfectly captures the online safety construct without introducing frightening elements.",
+        "Consequences are realistic and mild, avoiding catastrophic outcomes for the unsafe choice.",
+        "The hint gently guides the child toward seeking adult help without giving the answer away.",
+        "The scenario of playing on 'Mummy's phone' is highly relatable and age-appropriate for a 6-7-year-old in India."
+      ],
+      "curation": {
+        "accept": true,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": true,
+        "explanationIsKind": true,
+        "reasons": [
+          "The item perfectly captures the online safety construct without introducing frightening elements.",
+          "Consequences are realistic and mild, avoiding catastrophic outcomes for the unsafe choice.",
+          "The hint gently guides the child toward seeking adult help without giving the answer away.",
+          "The scenario of playing on 'Mummy's phone' is highly relatable and age-appropriate for a 6-7-year-old in India."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Consequences are believable and mild, fitting the safety construct without being overly punitive."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "Option C acknowledges the lingering uneasy feeling ('you keep thinking about it') without dismissing it."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The lesson is shown through the actions (Mummy blocking the chat) rather than an adult lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "This is a safety situation with one clear best answer, which is appropriately rewarded."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "None of the options or consequences shame or mock the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language or diagnoses are used."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Playing games on a parent's phone is a very common and realistic scenario for this age group in India."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of online safety and telling a trusted adult is clearly the core of the situation."
+          }
+        }
+      }
+    },
+    {
+      "id": "ysit-12",
+      "source": "seed",
+      "status": "draft",
+      "kind": "situation",
+      "ageBand": "6-7",
+      "title": "My tower, my turn",
+      "construct": "assertive-communication",
+      "accept": false,
+      "failed": [
+        "hintIsNudge"
+      ],
+      "openChoice": false,
+      "reasons": [
+        "The weakest line is the hint: 'What words could tell Bunty how you feel?'. The correct option (A) states a boundary and a need ('I need those blocks'), not a feeling. This mismatch will confuse a child looking for an 'I feel' statement.",
+        "The consequence for Option A ('Bunty stops. \"Can I have the small ones?\" he asks.') borders on magical, as children who snatch blocks rarely pivot instantly to polite negotiation, though it is borderline acceptable for this young age band."
+      ],
+      "curation": {
+        "accept": false,
+        "safe": true,
+        "fitsGame": true,
+        "hintIsNudge": false,
+        "reasons": [
+          "The weakest line is the hint: 'What words could tell Bunty how you feel?'. The correct option (A) states a boundary and a need ('I need those blocks'), not a feeling. This mismatch will confuse a child looking for an 'I feel' statement.",
+          "The consequence for Option A ('Bunty stops. \"Can I have the small ones?\" he asks.') borders on magical, as children who snatch blocks rarely pivot instantly to polite negotiation, though it is borderline acceptable for this young age band."
+        ],
+        "originalPlot": true,
+        "openChoice": false,
+        "principles": {
+          "honestConsequences": {
+            "pass": true,
+            "note": "Option A's consequence is slightly idealized but models a healthy, believable negotiation for 6-7 year olds."
+          },
+          "feelingsStayReal": {
+            "pass": true,
+            "note": "The passive option correctly names the lingering feeling ('You feel sad inside') without dismissing it."
+          },
+          "showNotPreach": {
+            "pass": true,
+            "note": "The outcomes naturally show why speaking up works better than aggression or passivity, without an adult lecturing."
+          },
+          "certaintyFits": {
+            "pass": true,
+            "note": "There is one clear, healthy way to handle this boundary violation, and the options reflect that."
+          },
+          "noShaming": {
+            "pass": true,
+            "note": "The aggressive and passive options have natural, unfortunate consequences but do not mock or label the child."
+          },
+          "notATherapist": {
+            "pass": true,
+            "note": "No clinical language is used; the situation uses simple, everyday emotional words like 'cross' and 'sad'."
+          },
+          "realForIndianChildren": {
+            "pass": true,
+            "note": "Building blocks and the name 'Bunty' are highly relatable and age-appropriate for young children in India."
+          },
+          "constructVisible": {
+            "pass": true,
+            "note": "The construct of responding to unfairness with clear, calm assertiveness is perfectly demonstrated."
+          }
+        }
+      }
+    }
+  ]
+}

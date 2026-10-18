@@ -5,7 +5,7 @@
 import { createHash, randomBytes } from "node:crypto";
 import {
   COMPETENCIES, CurationResult, GeneratedSituation, GradeResult, PUZZLE_DOMAINS, PUZZLE_EVERY_N_ITEMS,
-  Situation, z, type Competency, type PuzzleDomain,
+  Situation, z, type AgeBand, type Competency, type PuzzleDomain,
 } from "../../web/lib/schemas";
 import { PIPELINE_CONFIG as CFG } from "./config";
 import { CONSTRUCTS, constructById } from "./constructs";
@@ -22,10 +22,12 @@ import {
 export interface ExpandOptions {
   count: number;
   kind: "situation" | "puzzle" | "mixed";
-  ageBand: "8-10" | "11-14" | "any";
+  ageBand: AgeBand | "any";
   competency?: Competency;
   domain?: PuzzleDomain;
   concurrency: number;
+  /** Also learn from draft seeds (a new band before its seeds are approved). Output is still a draft for review. */
+  draftExamples?: boolean;
 }
 
 export interface ExpandDeps {
@@ -60,7 +62,7 @@ function planTargets(opts: ExpandOptions, bank: BankEntry[]): Target[] {
   const coverage = (c: string) => bank.filter((b) => b.kind === "situation" && b.competencies.includes(c)).length;
   const constructUse = new Map<string, number>();
   for (const b of bank) if (b.construct) constructUse.set(b.construct, (constructUse.get(b.construct) ?? 0) + 1);
-  const pickConstruct = (competency: Competency, band: "8-10" | "11-14") => {
+  const pickConstruct = (competency: Competency, band: AgeBand) => {
     const fits = CONSTRUCTS.filter((c) => c.competencies.includes(competency) && c.bands.includes(band));
     const best = [...fits].sort((a, b) => (constructUse.get(a.id) ?? 0) - (constructUse.get(b.id) ?? 0) || Math.random() - 0.5)[0];
     if (best) constructUse.set(best.id, (constructUse.get(best.id) ?? 0) + 1);
@@ -70,11 +72,12 @@ function planTargets(opts: ExpandOptions, bank: BankEntry[]): Target[] {
   const domains = opts.domain ? [opts.domain] : [...PUZZLE_DOMAINS];
   const targets: Target[] = [];
   let s = 0, p = 0;
-  const difficultyFor = (i: number, band: "8-10" | "11-14") => (band === "8-10" ? [1, 2, 3, 2, 3] : [2, 3, 4, 3, 4])[Math.floor(i / 2) % 5];
+  const difficultyFor = (i: number, band: AgeBand) =>
+    ({ "6-7": [1, 1, 2, 1, 2], "8-10": [1, 2, 3, 2, 3], "11-14": [2, 3, 4, 3, 4] })[band][Math.floor(i / 2) % 5];
   for (let i = 0; i < opts.count; i++) {
     const kind =
       opts.kind === "mixed" ? ((i + 1) % PUZZLE_EVERY_N_ITEMS === 0 ? "puzzle" : "situation") : opts.kind;
-    const ageBand = opts.ageBand === "any" ? (i % 2 === 0 ? "8-10" : "11-14") : opts.ageBand;
+    const ageBand: AgeBand = opts.ageBand === "any" ? (i % 2 === 0 ? "8-10" : "11-14") : opts.ageBand;
     if (kind === "situation") {
       const competency = competencies[s++ % competencies.length];
       targets.push({ kind, ageBand, competency, difficulty: difficultyFor(i, ageBand), construct: pickConstruct(competency, ageBand) });
@@ -91,7 +94,8 @@ function pickExamples(seeds: Situation[], t: Target): Situation[] {
   const score = (s: Situation) =>
     (constructSeeds.includes(s.id) ? 6 : 0) +
     (s.kind === t.kind ? 10 : 0) +
-    (s.ageBand === t.ageBand ? 3 : 0) +
+    // Ages 6-7 are written very differently, so a 6-7 example beats a closer research idea from an older band.
+    (s.ageBand === t.ageBand ? (t.ageBand === "6-7" ? 8 : 3) : 0) +
     (t.competency && s.primaryCompetencies.includes(t.competency) ? 2 : 0) +
     (t.domain && s.puzzle?.domain === t.domain ? 2 : 0) +
     Math.random();
@@ -150,7 +154,8 @@ export async function expandBank(opts: ExpandOptions, deps: ExpandDeps) {
     const label = `[${i + 1}/${targets.length}]`;
     labels.set(t, label);
     log(`${label} start: ${t.kind} ${t.ageBand} ${t.competency ?? t.domain}${t.construct ? ` · ${t.construct}` : ""}, difficulty ${t.difficulty}`);
-    const examples = pickExamples(seeds.filter((s) => s.status === "active"), t); // drafts never teach the generator
+    // Drafts never teach the generator, unless asked for a new band whose seeds are still being reviewed.
+    const examples = pickExamples(seeds.filter((s) => s.status === "active" || (opts.draftExamples && s.ageBand === t.ageBand)), t);
     const avoidTitles = bank.map((b) => b.title).slice(-80);
 
     // A: generate

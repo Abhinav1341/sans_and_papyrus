@@ -25,7 +25,7 @@ const live = process.argv.includes('--live');
 const seedsDir = join(import.meta.dirname, '..', '..', 'generator', 'seeds');
 const bank: Situation[] = live
   ? (await loadBank(true)).items
-  : ['seed-situations.json', 'seed-puzzles.json', 'seed-situations-research.json']
+  : ['seed-situations.json', 'seed-puzzles.json', 'seed-situations-research.json', 'seed-young.json']
       .flatMap((f) => JSON.parse(readFileSync(join(seedsDir, f), 'utf8')) as unknown[])
       .map((x) => Situation.parse(x));
 const situations = bank.filter((i) => i.kind === 'situation');
@@ -35,7 +35,7 @@ const sum = (o: Situation['options'][number], cs: readonly Competency[]) => cs.r
 const normal = (i: Situation) => i.expectedTimeSec * 1000; // a calm, unhurried answer
 /** A player whose level matches the item, so every skill is expected to score 0.5 (a fair, neutral test). */
 const neutralFor = (i: Situation) => {
-  const p = createPlayer('audit', i.ageBand === '8-10' ? 9 : 12, 'Audit');
+  const p = createPlayer('audit', i.ageBand === '6-7' ? 7 : i.ageBand === '8-10' ? 9 : 12, 'Audit');
   for (const s of Object.keys(p.skills) as Skill[]) p.skills[s] = ratingFor(p, i);
   return p;
 };
@@ -122,7 +122,7 @@ function simulate(age: number, style: Style, n: number) {
 }
 
 const N = 120;
-for (const age of [9, 12]) {
+for (const age of [7, 9, 12]) {
   console.log(`\nRules, age ${age} (${N} items per simulated child):`);
   const run = Object.fromEntries((['best', 'worst', 'random', 'best-rushed', 'best-hint'] as Style[]).map((s) => [s, simulate(age, s, N)]));
   const delta = (s: Style, k: Skill) => run[s].p.skills[k] - run[s].start[k];
@@ -136,8 +136,15 @@ for (const age of [9, 12]) {
   }
   check(delta('best-hint', 'relationshipSkills') >= delta('best', 'relationshipSkills'), `a thoughtful hint never costs relationship skills (${delta('best-hint', 'relationshipSkills').toFixed(0)} vs ${delta('best', 'relationshipSkills').toFixed(0)})`);
   const stepped = run.best.seen.filter((i) => i.ageBand !== run.best.p.ageBand).length;
-  const weakStepped = run.worst.seen.filter((i) => i.ageBand !== run.worst.p.ageBand).length;
-  check(weakStepped === 0, `a struggling child never gets older-band items (${weakStepped})`);
+  if (age === 7) {
+    // 6–7s may always get the easiest 8–10 items, and nothing harder or older.
+    const outside = Object.values(run).flatMap((r) => r.seen).filter((i) => i.ageBand !== '6-7' && !(i.ageBand === '8-10' && i.difficulty <= GAME.stepUp['6-7']!.maxDifficulty)).length;
+    check(outside === 0, `a 6–7-year-old only gets their own band or the easiest 8–10 items (${outside} outside)`);
+    console.log(`  · ${run.random.seen.filter((i) => i.ageBand === '6-7').length} of ${run.random.seen.length} items came from the 6–7 band`);
+  } else {
+    const weakStepped = run.worst.seen.filter((i) => i.ageBand !== run.worst.p.ageBand).length;
+    check(weakStepped === 0, `a struggling child never gets older-band items (${weakStepped})`);
+  }
   if (age === 9) console.log(`  · a strong 9-year-old got ${stepped} older-band items after outgrowing their band`);
   const repeats = run.random.seen.length - new Set(run.random.seen.map((i) => i.id)).size;
   console.log(`  · ${new Set(run.random.seen.map((i) => i.id)).size} different items in ${run.random.seen.length} plays (${repeats} repeats)`);
@@ -152,7 +159,7 @@ if (open) {
 
 const strong = createPlayer('x', 9, 'X');
 for (const s of Object.keys(strong.skills) as Skill[]) strong.skills[s] = 900;
-const older = bank.find((i) => i.ageBand === '11-14' && i.difficulty <= GAME.stepUp.maxDifficulty);
+const older = bank.find((i) => i.ageBand === '11-14' && i.difficulty <= GAME.stepUp['8-10']!.maxDifficulty);
 if (older) check(!canStepUp(strong, older), 'a 9-year-old at the starting level cannot step up');
 
 console.log(`\n${failures ? `${failures} rule conflict(s) found.` : 'No rule conflicts.'} ${findings.length} item finding(s) on ${flagged} item(s).`);

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-10-17T10:43:50.101Z",
+  "asOf": "2026-10-18T08:13:08.695Z",
   "models": {
     "writer": "gemini-3.8-flash",
     "grader": "gemini-3.6-flash",
@@ -9,16 +9,16 @@
     "report": "gemini-3.8-flash"
   },
   "generation": {
-    "runs": 11,
-    "requested": 137,
-    "accepted": 111,
+    "runs": 13,
+    "requested": 207,
+    "accepted": 135,
     "rejectedByStage": {
       "rules": 6,
-      "category": 11,
-      "duplicate": 8,
-      "curator": 1
+      "category": 20,
+      "duplicate": 9,
+      "curator": 37
     },
-    "costUsd": 1.75,
+    "costUsd": 4.28,
     "examples": [
       {
         "stage": "rules",
@@ -43,82 +43,43 @@
     ]
   },
   "rejudge": {
-    "file": "rejudge-202610171040.json",
+    "file": "rejudge-202610180752.json",
     "model": "gemini-3.1-pro-preview",
-    "at": "2026-10-17T10:40:52.513Z",
+    "at": "2026-10-18T07:52:55.406Z",
     "all": {
-      "judged": 167,
-      "accepted": 108,
-      "stopped": 59,
-      "openChoice": 6
+      "judged": 2,
+      "accepted": 2,
+      "stopped": 0,
+      "openChoice": 0
     },
     "seeds": {
-      "judged": 56,
-      "accepted": 36,
-      "stopped": 20,
-      "openChoice": 2
+      "judged": 2,
+      "accepted": 2,
+      "stopped": 0,
+      "openChoice": 0
     },
     "generated": {
-      "judged": 111,
-      "accepted": 72,
-      "stopped": 39,
-      "openChoice": 4
+      "judged": 0,
+      "accepted": 0,
+      "stopped": 0,
+      "openChoice": 0
     },
     "errors": 0,
-    "failedBy": {
-      "honestConsequences": 23,
-      "feelingsStayReal": 4,
-      "showNotPreach": 23,
-      "fitsGame": 9,
-      "hintIsNudge": 9,
-      "realForIndianChildren": 7,
-      "constructVisible": 5,
-      "safe": 3,
-      "noShaming": 2,
-      "explanationIsKind": 12,
-      "certaintyFits": 2,
-      "notATherapist": 3,
-      "originalPlot": 1
-    },
+    "failedBy": {},
     "usage": {
       "gemini-3.1-pro-preview": {
-        "calls": 167,
-        "inputTokens": 609240,
-        "outputTokens": 82124,
-        "thinkingTokens": 236433
+        "calls": 2,
+        "inputTokens": 6828,
+        "outputTokens": 970,
+        "thinkingTokens": 3749
       }
     },
-    "costUsd": 5.041164,
-    "quotes": [
-      {
-        "title": "The Quest Door Keys",
-        "source": "generated",
-        "check": "honestConsequences",
-        "note": "Fails on \"The gate clicks open on their first try!\" because inserting only the first of three required keys would not logically open the gate."
-      },
-      {
-        "title": "The leaked answers",
-        "source": "generated",
-        "check": "honestConsequences",
-        "note": "\"replaces the questions before the test starts\" is unbelievable; a school cannot rewrite and print a terminal exam in under an hour."
-      },
-      {
-        "title": "The broken sketch pen",
-        "source": "generated",
-        "check": "honestConsequences",
-        "note": "Fails on 'Rohan appreciates your honesty, and you share your colours happily.' A kind choice is magically rewarded without any friction."
-      },
-      {
-        "title": "Heated debate",
-        "source": "generated",
-        "check": "honestConsequences",
-        "note": "\"agrees to try your opening argument\" - A teammate who rejects every idea is unlikely to instantly agree just because you asked calmly; this is a magical reward."
-      }
-    ]
+    "costUsd": 0.070284,
+    "quotes": []
   },
   "play": {
-    "answers": 89,
-    "aiPicks": 64,
+    "answers": 115,
+    "aiPicks": 80,
     "reports": 3,
     "reportsChecked": 0,
     "reportsRewritten": 0

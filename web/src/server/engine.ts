@@ -11,6 +11,7 @@ import {
   type Competency, type PlayerProfile, type Situation, type SkillLevels,
 } from '../../lib/schemas';
 import { GAME } from './config';
+import { GATES } from './gates';
 
 export type Skill = keyof SkillLevels;
 
@@ -50,13 +51,15 @@ export const levelFor = (p: PlayerProfile, i: Situation) => avg(skillsOf(i).map(
 
 /** An item's difficulty on the skill scale, for this player: items from the older band count harder. */
 export const ratingFor = (p: PlayerProfile, i: Situation) =>
-  GAME.itemRating(i.difficulty) + (i.ageBand !== p.ageBand ? GAME.stepUp.bandOffset : 0);
+  GAME.itemRating(i.difficulty) + (i.ageBand !== p.ageBand ? GAME.stepUp[p.ageBand]?.bandOffset ?? 0 : 0);
 
-/** A strong 8–10 player may get the gentlest 11–14 items once their own band can no longer stretch them. */
+/**
+ * The next band's gentlest items: always open to 6–7s (alongside their own short stories), and open to a
+ * strong 8–10 player once their own band can no longer stretch them. Never to 11–14s or younger bands.
+ */
 export function canStepUp(p: PlayerProfile, i: Situation): boolean {
-  const s = GAME.stepUp;
-  return p.ageBand === '8-10' && i.ageBand === '11-14' && (p.age ?? 9) >= s.minAge
-    && i.difficulty <= s.maxDifficulty && levelFor(p, i) >= s.fromLevel;
+  const s = GAME.stepUp[p.ageBand];
+  return !!s && i.ageBand === s.to && i.difficulty <= s.maxDifficulty && levelFor(p, i) >= s.fromLevel;
 }
 const caselAverage = (p: PlayerProfile) => avg(COMPETENCIES.map((c) => p.skills[c]));
 
@@ -73,6 +76,8 @@ export interface Round {
   answered: string[];
   current: { itemId: string; optionOrder: string[]; servedAt: number; picker: PickerInfo } | null;
   ease: number;               // added to the target level for the next item
+  /** "Try another way" choices: practice after a weak first choice, never measured (one per item). */
+  retries?: { itemId: string; optionId: string; at: string }[];
   status: 'active' | 'done';
   createdAt: string;
   updatedAt: string;
@@ -111,13 +116,15 @@ export function shortlist(bank: Situation[], p: PlayerProfile, round: Round, byI
   const puzzleDue = p.itemsSinceLastPuzzle >= PUZZLE_EVERY_N_ITEMS - 1;
   const recentCats = p.recentCategories ?? [];
   const casel = caselAverage(p);
+  const gate = GATES[round.gateId];
 
   const eligible = (strictRecent: number) =>
     bank.filter((i) => {
       if (inRound.has(i.id)) return false;
       if (i.ageBand !== band && !canStepUp(p, i)) return false;
       if (strictRecent > 0 && recent.slice(-strictRecent).includes(i.id)) return false; // slice(-0) would be everything
-      if (i.kind === 'puzzle' && (isFirst || puzzlesInRound >= GAME.maxPuzzlesPerRound)) return false;
+      // Puzzles never open a round, except where the story itself asks for a riddle.
+      if (i.kind === 'puzzle' && ((isFirst && !gate?.riddle) || puzzlesInRound >= GAME.maxPuzzlesPerRound)) return false;
       return true;
     });
   // Prefer items not seen recently; if the bank for this band is small, relax step by step.
@@ -131,7 +138,7 @@ export function shortlist(bank: Situation[], p: PlayerProfile, round: Round, byI
     const target = level + GAME.stretch + round.ease;
     const rating = ratingFor(p, item);
     let score = -Math.abs(rating - target) / 150;
-    if (item.ageBand !== band) { score -= GAME.stepUp.preferOwnBand; why.push('a stretch from the older band'); }
+    if (item.ageBand !== band) { score -= GAME.preferOwnBand; why.push('a stretch from the older band'); }
 
     if (avoidSimilar.has(item.id)) { score -= 1.2; why.push('similar to a recent item'); }
     const cat = categoryOf(item);
@@ -143,6 +150,10 @@ export function shortlist(bank: Situation[], p: PlayerProfile, round: Round, byI
       // Gently favour the competencies that are still growing.
       const gap = (casel - level) / 100;
       if (gap > 0) { score += Math.min(0.6, gap * 0.6); why.push('a growing skill'); }
+      // And the skill the story is showing at this gate.
+      if (gate?.skills.some((s) => item.primaryCompetencies.includes(s))) { score += GAME.gateFit; why.push('fits the story moment'); }
+    } else if (gate?.riddle) {
+      score += GAME.gateFit * 2; why.push('the story asks for a riddle');
     } else if (puzzleDue) {
       score += 0.9; why.push('puzzle due');
     } else {

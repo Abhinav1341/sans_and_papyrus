@@ -1,0 +1,961 @@
+[
+ {
+  "id": "ysit-01",
+  "kind": "situation",
+  "title": "The red crayon",
+  "text": "You and Meera both want the red crayon. You get it first. Meera looks sad. She wanted to colour a red apple. What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 46,
+  "expectedTimeSec": 48,
+  "difficulty": 1,
+  "primaryCompetencies": [
+   "socialAwareness"
+  ],
+  "valueTags": [
+   "sharing",
+   "empathy"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Use it quickly, then give it to Meera",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 2,
+     "relationshipSkills": 1,
+     "responsibleDecisionMaking": 1
+    },
+    "consequence": "Meera waits. Soon her apple is red too."
+   },
+   {
+    "id": "b",
+    "text": "Keep it. I got it first",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": -1,
+     "relationshipSkills": -1,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "You colour happily. Meera sits quietly with no red."
+   },
+   {
+    "id": "c",
+    "text": "Hide the crayon in my bag",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": -1,
+     "relationshipSkills": -2,
+     "responsibleDecisionMaking": -1
+    },
+    "consequence": "Meera looks everywhere. Now nobody is colouring."
+   }
+  ],
+  "hint": {
+   "text": "What did Meera want to colour?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.399Z"
+ },
+ {
+  "id": "ysit-02",
+  "kind": "situation",
+  "title": "The wet drawing",
+  "text": "Kabir walks past your desk. Your water bottle falls and wets your drawing. Kabir stops and looks at the puddle. Did he mean it? What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 46,
+  "expectedTimeSec": 48,
+  "difficulty": 2,
+  "primaryCompetencies": [
+   "socialAwareness",
+   "selfManagement"
+  ],
+  "valueTags": [
+   "patience",
+   "checking first"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Ask, \"Was that an accident?\"",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 2,
+     "socialAwareness": 2,
+     "relationshipSkills": 1,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "\"Sorry! My bag hit it,\" Kabir says. He helps you wipe it."
+   },
+   {
+    "id": "b",
+    "text": "Shout at Kabir and push him",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": -2,
+     "socialAwareness": -1,
+     "relationshipSkills": -2,
+     "responsibleDecisionMaking": -1
+    },
+    "consequence": "Kabir looks shocked. The teacher comes, and you both feel bad."
+   },
+   {
+    "id": "c",
+    "text": "Wipe it and stay quiet all day",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 1,
+     "socialAwareness": 0,
+     "relationshipSkills": -1,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "The drawing dries a little, but you feel upset all day."
+   }
+  ],
+  "hint": {
+   "text": "Do you know yet if Kabir did it on purpose?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.401Z"
+ },
+ {
+  "id": "ysit-03",
+  "kind": "situation",
+  "title": "Hot face at the swings",
+  "text": "You were waiting for the swing. Riya runs and takes it first. Your face feels hot. Your hands make fists. What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 38,
+  "expectedTimeSec": 40,
+  "difficulty": 1,
+  "primaryCompetencies": [
+   "selfAwareness",
+   "selfManagement"
+  ],
+  "valueTags": [
+   "calming down",
+   "patience"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Take three big, slow breaths",
+    "scores": {
+     "selfAwareness": 2,
+     "selfManagement": 2,
+     "socialAwareness": 0,
+     "relationshipSkills": 0,
+     "responsibleDecisionMaking": 1
+    },
+    "consequence": "Your hands relax. Now you can think about what to say."
+   },
+   {
+    "id": "b",
+    "text": "Pull Riya off the swing",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": -2,
+     "socialAwareness": -1,
+     "relationshipSkills": -2,
+     "responsibleDecisionMaking": -2
+    },
+    "consequence": "Riya slips onto the sand and starts to cry."
+   },
+   {
+    "id": "c",
+    "text": "Run off and hide",
+    "scores": {
+     "selfAwareness": -1,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": -1,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "The angry feeling stays, and you miss your turn."
+   }
+  ],
+  "hint": {
+   "text": "What is your body telling you?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.401Z"
+ },
+ {
+  "id": "ysit-04",
+  "kind": "situation",
+  "title": "Ice cream after dinner",
+  "text": "Papa bought ice cream. He says, \"We will eat it after dinner.\" The freezer is right there. Papa is busy on the phone. What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 45,
+  "expectedTimeSec": 47,
+  "difficulty": 1,
+  "primaryCompetencies": [
+   "selfManagement",
+   "responsibleDecisionMaking"
+  ],
+  "valueTags": [
+   "patience",
+   "waiting"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Go and draw until dinner",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 2,
+     "socialAwareness": 0,
+     "relationshipSkills": 0,
+     "responsibleDecisionMaking": 2
+    },
+    "consequence": "Dinner comes fast. Then everyone has ice cream together."
+   },
+   {
+    "id": "b",
+    "text": "Eat a big spoon now, quietly",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": -2,
+     "socialAwareness": 0,
+     "relationshipSkills": 0,
+     "responsibleDecisionMaking": -1
+    },
+    "consequence": "It is yummy, but Papa finds the open box later."
+   },
+   {
+    "id": "c",
+    "text": "Ask Papa, \"Can I have some now?\"",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 1,
+     "socialAwareness": 0,
+     "relationshipSkills": 1,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "Papa says, \"After dinner,\" and you wait a long time."
+   }
+  ],
+  "hint": {
+   "text": "What could you do so you don't think about it?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.401Z"
+ },
+ {
+  "id": "ysit-05",
+  "kind": "situation",
+  "title": "The broken cup",
+  "text": "You are playing ball inside. The ball hits Mummy's cup and it breaks. Nobody saw. Mummy calls, \"What was that noise?\" What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 42,
+  "expectedTimeSec": 44,
+  "difficulty": 1,
+  "primaryCompetencies": [
+   "responsibleDecisionMaking",
+   "relationshipSkills"
+  ],
+  "valueTags": [
+   "honesty",
+   "owning up"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Say, \"It was me. I'm sorry.\"",
+    "scores": {
+     "selfAwareness": 1,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": 2,
+     "responsibleDecisionMaking": 2
+    },
+    "consequence": "Mummy looks sad about her cup, but thanks you for telling her."
+   },
+   {
+    "id": "b",
+    "text": "Say, \"The cat did it!\"",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": -1,
+     "responsibleDecisionMaking": -2
+    },
+    "consequence": "Mummy looks at the sleepy cat. Your tummy feels heavy."
+   },
+   {
+    "id": "c",
+    "text": "Hide the pieces under the sofa",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": -1,
+     "responsibleDecisionMaking": -2
+    },
+    "consequence": "Later Mummy finds them and is upset nobody told her."
+   }
+  ],
+  "hint": {
+   "text": "How would you want someone to tell you?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.401Z"
+ },
+ {
+  "id": "ysit-06",
+  "kind": "situation",
+  "title": "Alone at lunch",
+  "text": "Tenzin is new. He speaks only a little Hindi. He sits alone at lunch. Your friends say, \"Don't sit with him.\" What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 44,
+  "expectedTimeSec": 46,
+  "difficulty": 1,
+  "primaryCompetencies": [
+   "socialAwareness",
+   "responsibleDecisionMaking"
+  ],
+  "valueTags": [
+   "inclusion",
+   "kindness"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Tell my friends, \"Tenzin can sit with us!\"",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 2,
+     "relationshipSkills": 1,
+     "responsibleDecisionMaking": 2
+    },
+    "consequence": "One friend frowns, but Tenzin smiles and sits with you."
+   },
+   {
+    "id": "b",
+    "text": "Do what my friends say",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": -1,
+     "relationshipSkills": -1,
+     "responsibleDecisionMaking": -1
+    },
+    "consequence": "Tenzin eats alone again. He looks at the floor."
+   },
+   {
+    "id": "c",
+    "text": "Tell the teacher Tenzin is alone",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 1,
+     "relationshipSkills": 1,
+     "responsibleDecisionMaking": 1
+    },
+    "consequence": "The teacher helps Tenzin find a place to sit."
+   }
+  ],
+  "hint": {
+   "text": "How might Tenzin feel, sitting alone?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.402Z"
+ },
+ {
+  "id": "ysit-07",
+  "kind": "situation",
+  "title": "Lost at the market",
+  "text": "You are at the market with Papa. You stop to look at balloons. Now you cannot see Papa! Your heart beats fast. What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 41,
+  "expectedTimeSec": 43,
+  "difficulty": 1,
+  "primaryCompetencies": [
+   "relationshipSkills",
+   "responsibleDecisionMaking"
+  ],
+  "valueTags": [
+   "asking for help",
+   "safety"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Stay here and ask the shopkeeper",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 1,
+     "socialAwareness": 0,
+     "relationshipSkills": 2,
+     "responsibleDecisionMaking": 2
+    },
+    "consequence": "The shopkeeper calls out loudly. Papa hurries back and holds your hand."
+   },
+   {
+    "id": "b",
+    "text": "Run around looking for Papa",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": -1,
+     "socialAwareness": 0,
+     "relationshipSkills": 0,
+     "responsibleDecisionMaking": -1
+    },
+    "consequence": "Everything looks different, and it is harder to find Papa."
+   },
+   {
+    "id": "c",
+    "text": "Walk home by myself",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": -1,
+     "responsibleDecisionMaking": -2
+    },
+    "consequence": "The road is long. Papa is still searching at the market."
+   }
+  ],
+  "hint": {
+   "text": "Who nearby could help you?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.402Z"
+ },
+ {
+  "id": "ysit-08",
+  "kind": "situation",
+  "title": "One tablet, two children",
+  "text": "There is one tablet. You and your little sister Diya both want to play now. What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 36,
+  "expectedTimeSec": 38,
+  "difficulty": 1,
+  "primaryCompetencies": [
+   "relationshipSkills",
+   "responsibleDecisionMaking"
+  ],
+  "valueTags": [
+   "fairness",
+   "taking turns"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Set a timer and take turns",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": 2,
+     "responsibleDecisionMaking": 2
+    },
+    "consequence": "Ding! Your turn ends, Diya plays, and nobody fights."
+   },
+   {
+    "id": "b",
+    "text": "Grab it and play first",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": -2,
+     "responsibleDecisionMaking": -1
+    },
+    "consequence": "Diya cries, and Mummy puts the tablet away."
+   },
+   {
+    "id": "c",
+    "text": "Give it to her and sulk",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": -1,
+     "socialAwareness": 0,
+     "relationshipSkills": 1,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "Diya is happy, but you feel left out all evening."
+   }
+  ],
+  "hint": {
+   "text": "Is there a way you can both have a go?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.402Z"
+ },
+ {
+  "id": "ysit-09",
+  "kind": "situation",
+  "title": "Quiet in the library",
+  "text": "In the library, everyone must be quiet. Your friend Anjali trips and hurts her knee. She is crying. What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 38,
+  "expectedTimeSec": 40,
+  "difficulty": 2,
+  "primaryCompetencies": [
+   "responsibleDecisionMaking",
+   "socialAwareness"
+  ],
+  "valueTags": [
+   "helping",
+   "rules"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Stay quiet. That is the rule",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": -1,
+     "relationshipSkills": 0,
+     "responsibleDecisionMaking": -1
+    },
+    "consequence": "Anjali keeps crying, and nobody comes to help her."
+   },
+   {
+    "id": "b",
+    "text": "Go and tell the teacher quickly",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 2,
+     "relationshipSkills": 0,
+     "responsibleDecisionMaking": 2
+    },
+    "consequence": "The teacher comes fast and puts a plaster on Anjali's knee."
+   },
+   {
+    "id": "c",
+    "text": "Laugh because she fell",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": -2,
+     "relationshipSkills": -2,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "Anjali feels worse, and she turns away from you."
+   }
+  ],
+  "hint": {
+   "text": "What matters more right now?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.402Z"
+ },
+ {
+  "id": "ysit-10",
+  "kind": "situation",
+  "title": "\"I don't care\"",
+  "text": "Ishaan is not picked for the race. He says, \"I don't care.\" But his eyes look wet, and he looks at the ground. What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 49,
+  "expectedTimeSec": 51,
+  "difficulty": 2,
+  "primaryCompetencies": [
+   "socialAwareness"
+  ],
+  "valueTags": [
+   "empathy",
+   "noticing feelings"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Sit with him and ask, \"Are you sad?\"",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 2,
+     "relationshipSkills": 1,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "Ishaan nods a little. You sit together and watch the race."
+   },
+   {
+    "id": "b",
+    "text": "Say, \"Okay!\" and run to the race",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": -1,
+     "relationshipSkills": 0,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "You run off. Ishaan sits alone on the steps."
+   },
+   {
+    "id": "c",
+    "text": "Say, \"Don't cry. It's only a race.\"",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": -1,
+     "relationshipSkills": -1,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "Ishaan turns away and wipes his eyes."
+   }
+  ],
+  "hint": {
+   "text": "What do Ishaan's eyes tell you?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.403Z"
+ },
+ {
+  "id": "ysit-11",
+  "kind": "situation",
+  "title": "A message in the game",
+  "text": "You are playing a game on Mummy's phone. A message pops up: \"Hi! What is your name and school?\" You don't know who it is. What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 44,
+  "expectedTimeSec": 46,
+  "difficulty": 1,
+  "primaryCompetencies": [
+   "responsibleDecisionMaking"
+  ],
+  "valueTags": [
+   "online safety",
+   "asking for help"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Show Mummy the message",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": 1,
+     "responsibleDecisionMaking": 2
+    },
+    "consequence": "Mummy reads it and blocks it. You keep playing safely."
+   },
+   {
+    "id": "b",
+    "text": "Type my name and school",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": 0,
+     "responsibleDecisionMaking": -2
+    },
+    "consequence": "Mummy sees it later and turns the chat off."
+   },
+   {
+    "id": "c",
+    "text": "Close the game and say nothing",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": -1,
+     "responsibleDecisionMaking": 1
+    },
+    "consequence": "The message is gone, but you keep thinking about it."
+   }
+  ],
+  "hint": {
+   "text": "Who should know about this message?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.403Z"
+ },
+ {
+  "id": "ysit-12",
+  "kind": "situation",
+  "title": "My tower, my turn",
+  "text": "You are building a tower with blocks. Bunty keeps taking your blocks for his car. You feel cross. What do you do?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 38,
+  "expectedTimeSec": 40,
+  "difficulty": 2,
+  "primaryCompetencies": [
+   "relationshipSkills",
+   "selfManagement"
+  ],
+  "valueTags": [
+   "speaking up",
+   "calm words"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Say, \"Please stop. I need those blocks.\"",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": 2,
+     "socialAwareness": 0,
+     "relationshipSkills": 2,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "Bunty frowns, then puts some blocks back."
+   },
+   {
+    "id": "b",
+    "text": "Knock his car over",
+    "scores": {
+     "selfAwareness": 0,
+     "selfManagement": -2,
+     "socialAwareness": 0,
+     "relationshipSkills": -2,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "Bunty shouts, and now both games are broken."
+   },
+   {
+    "id": "c",
+    "text": "Let him take them all",
+    "scores": {
+     "selfAwareness": -1,
+     "selfManagement": 0,
+     "socialAwareness": 0,
+     "relationshipSkills": -1,
+     "responsibleDecisionMaking": 0
+    },
+    "consequence": "Your tower gets smaller and smaller. You feel sad inside."
+   }
+  ],
+  "hint": {
+   "text": "How could you keep your tower and still play nicely?"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.403Z"
+ },
+ {
+  "id": "ypz-01",
+  "kind": "puzzle",
+  "title": "Ro's balloons",
+  "text": "Ro has 3 balloons. Kiki gives him 2 more. How many balloons does Ro have now?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 19,
+  "expectedTimeSec": 38,
+  "difficulty": 1,
+  "primaryCompetencies": [],
+  "valueTags": [
+   "counting"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "4",
+    "consequence": "Count again. One balloon is hiding!"
+   },
+   {
+    "id": "b",
+    "text": "5",
+    "consequence": "Ro holds all his balloons up high!"
+   },
+   {
+    "id": "c",
+    "text": "6",
+    "consequence": "That is one balloon more than Ro has."
+   }
+  ],
+  "hint": {
+   "text": "Hold up 3 fingers, then 2 more."
+  },
+  "puzzle": {
+   "domain": "math",
+   "correctOptionId": "b",
+   "explanation": "3 balloons and 2 more make 3 + 2 = 5.",
+   "computation": "3 + 2"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.403Z"
+ },
+ {
+  "id": "ypz-02",
+  "kind": "puzzle",
+  "title": "Mangoes in the basket",
+  "text": "There are 7 mangoes in a basket. Meera eats 2. How many mangoes are left?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 18,
+  "expectedTimeSec": 36,
+  "difficulty": 1,
+  "primaryCompetencies": [],
+  "valueTags": [
+   "taking away"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "4",
+    "consequence": "Count back again, slowly from 7."
+   },
+   {
+    "id": "b",
+    "text": "5",
+    "consequence": "Five mangoes wait in the basket."
+   },
+   {
+    "id": "c",
+    "text": "9",
+    "consequence": "Eating makes fewer mangoes, not more."
+   }
+  ],
+  "hint": {
+   "text": "Start at 7 and count back 2."
+  },
+  "puzzle": {
+   "domain": "math",
+   "correctOptionId": "b",
+   "explanation": "7 take away 2 leaves 7 - 2 = 5 mangoes.",
+   "computation": "7 - 2"
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.404Z"
+ },
+ {
+  "id": "ypz-03",
+  "kind": "puzzle",
+  "title": "Kiki's bead necklace",
+  "text": "Kiki makes a necklace: red bead, blue bead, red bead, blue bead, red bead. Which colour comes next?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 21,
+  "expectedTimeSec": 42,
+  "difficulty": 1,
+  "primaryCompetencies": [],
+  "valueTags": [
+   "patterns"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Red",
+    "consequence": "Two reds side by side break the pattern."
+   },
+   {
+    "id": "b",
+    "text": "Blue",
+    "consequence": "Red, blue, red, blue. Kiki's necklace is perfect!"
+   },
+   {
+    "id": "c",
+    "text": "Green",
+    "consequence": "There is no green bead in this pattern yet."
+   }
+  ],
+  "hint": {
+   "text": "Say the colours out loud. What do you hear?"
+  },
+  "puzzle": {
+   "domain": "reasoning",
+   "correctOptionId": "b",
+   "explanation": "The colours take turns: red, blue, red, blue. After red comes blue."
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.404Z"
+ },
+ {
+  "id": "ypz-04",
+  "kind": "puzzle",
+  "title": "Big and small",
+  "text": "The elephant is big. The mouse is the opposite of big. What is the mouse?",
+  "ageBand": "6-7",
+  "readingLevel": 1,
+  "wordCount": 18,
+  "expectedTimeSec": 36,
+  "difficulty": 1,
+  "primaryCompetencies": [],
+  "valueTags": [
+   "opposites"
+  ],
+  "options": [
+   {
+    "id": "a",
+    "text": "Small",
+    "consequence": "The tiny mouse squeaks and runs away!"
+   },
+   {
+    "id": "b",
+    "text": "Grey",
+    "consequence": "Grey is a colour. The mouse can be grey and small."
+   },
+   {
+    "id": "c",
+    "text": "Loud",
+    "consequence": "Loud is about sound. The mouse is very quiet."
+   }
+  ],
+  "hint": {
+   "text": "Think of the tiniest animal you know."
+  },
+  "puzzle": {
+   "domain": "vocabulary",
+   "correctOptionId": "a",
+   "explanation": "Big and small are opposites. The elephant is big, so the mouse is small."
+  },
+  "source": "seed",
+  "seedIds": [],
+  "status": "draft",
+  "similarIds": [],
+  "createdAt": "2026-10-18T07:52:28.404Z"
+ }
+]

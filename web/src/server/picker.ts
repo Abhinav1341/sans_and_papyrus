@@ -6,6 +6,7 @@
 import { PickerOutput, type PlayerProfile } from '../../lib/schemas';
 import { GAME } from './config';
 import { categoryOf, type Candidate, type PickerInfo } from './engine';
+import { GATES } from './gates';
 import { geminiJson } from './gemini';
 
 const LABEL: Record<string, string> = {
@@ -23,6 +24,7 @@ From the shortlist, choose the ONE item that best helps this child right now:
 - keep the child in a comfortable stretch: not too easy, never discouraging;
 - after a struggle or a hint, choose something more manageable;
 - favour variety and the skills that are still growing, without drilling one skill;
+- when a story moment is given, prefer an item whose skill fits it (the crew is showing that skill in the story);
 - every shortlisted item is already safe and age-appropriate.
 
 Reply with the item's id and one short, warm reason a parent could read (max 25 words, no jargon, no scores).`;
@@ -44,7 +46,7 @@ export function describeChild(p: PlayerProfile, lastStruggled: boolean): string 
 }
 
 /** `ai: false` takes the code's top choice at once (used for a round's first item, while the child waits). */
-export async function pickNext(p: PlayerProfile, candidates: Candidate[], lastStruggled: boolean, { ai = true } = {}): Promise<PickerInfo> {
+export async function pickNext(p: PlayerProfile, candidates: Candidate[], lastStruggled: boolean, { ai = true, gateId = '' } = {}): Promise<PickerInfo> {
   const shortlistIds = candidates.map((c) => c.item.id);
   const fallback = (): PickerInfo => ({
     shortlistIds,
@@ -71,7 +73,7 @@ export async function pickNext(p: PlayerProfile, candidates: Candidate[], lastSt
     const out = await geminiJson({
       model: GAME.models.picker,
       system: SYSTEM,
-      prompt: `Child:\n${describeChild(p, lastStruggled)}\n\nShortlist (rank 1 is the code's own best guess):\n${JSON.stringify(list, null, 1)}`,
+      prompt: `Child:\n${describeChild(p, lastStruggled)}\n${GATES[gateId] ? `\nStory moment: ${GATES[gateId].moment}\n` : ''}\nShortlist (rank 1 is the code's own best guess):\n${JSON.stringify(list, null, 1)}`,
       schema: PickerOutput,
       temperature: 0.4,
       timeoutMs: GAME.pickerTimeoutMs,
