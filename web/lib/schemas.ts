@@ -64,6 +64,9 @@ export const Option = z.object({
   text: z.string().min(1).max(160),
   scores: CompetencyScores.optional(),  // set by B; required on situations, optional on puzzles
   consequence: z.string().min(5).max(160), // one-line in-story outcome, shown after the choice
+  /** Weaker options: what Fizz says after this choice, why it didn't help (the effect on others or the situation),
+   *  so the child can try again knowing more. Used only once the item's whys are approved (whyApproved). */
+  why: z.string().min(5).max(200).optional(),
 });
 export type Option = z.infer<typeof Option>;
 
@@ -101,6 +104,8 @@ export const Situation = z
     /** A genuine dilemma: more than one option is an okay choice. The game says so ("Both could work")
      *  and the choice is recorded but never moves skill levels. Set by the judge, confirmed by reviewers. */
     openChoice: z.boolean().optional(),
+    /** A person approved the options' "why" lines (generator: npm run bank:whys, then the why review). */
+    whyApproved: z.boolean().optional(),
 
     // Provenance and curation
     source: z.enum(["seed", "generated"]),

@@ -11,7 +11,7 @@ import { clip, partText, SHARED_LINES, type Speaker } from '../src/server/tts';
 const { items } = await loadBank(true);
 const lines: { text: string; speaker: Speaker }[] = Object.values(SHARED_LINES);
 for (const item of items) {
-  const parts = ['q', 'hint', 'x', ...item.options.flatMap((o) => [`o.${o.id}`, `c.${o.id}`])];
+  const parts = ['q', 'hint', 'x', ...item.options.flatMap((o) => [`o.${o.id}`, `c.${o.id}`, `w.${o.id}`])];
   for (const part of parts) {
     const line = partText(item, part);
     if (line) lines.push(line);

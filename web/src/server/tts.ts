@@ -12,15 +12,28 @@ import { db } from './db';
 
 export type Speaker = 'narrator' | 'fizz';
 
-/** Parts of an item that can be spoken. `o.<id>` is an option, `c.<id>` its consequence. */
-export type VoicePart = 'q' | 'hint' | 'x' | `o.${string}` | `c.${string}`;
+/** Parts of an item that can be spoken. `o.<id>` is an option, `c.<id>` its consequence, `w.<id>` its why. */
+export type VoicePart = 'q' | 'hint' | 'x' | `o.${string}` | `c.${string}` | `w.${string}`;
 
 /** Said when a round ends. Fixed text (no child's name), so it is one shared clip. */
 export const DONE_LINE = 'Brilliant work, Captain! The crew says thank you.';
 /** Fizz says this before a genuine dilemma (an open choice): more than one answer is okay. One shared clip. */
 export const OPEN_LINE = 'Both could work. Which feels right to you?';
-/** Fizz offers this after a weak choice: the child may pick again (only the first choice is measured). */
-export const TRY_LINE = 'Want to try another way?';
+/** Fizz says this after a weak choice: the child picks again (only the first choice is measured). */
+export const TRY_LINE = "Let's try another way.";
+/** After two weak choices on one item, Fizz shows the most helpful option. */
+export const GUIDE_LINE = "Let's try this one together.";
+/**
+ * Fizz's "why" after a weak choice, when the item has no approved why of its own: one gentle line about the
+ * skill the choice missed most. Never "wrong" or "bad": what the choice did, so the next try can do better.
+ */
+export const WHY_LINES: Record<Competency, string> = {
+  selfAwareness: 'Hmm. That choice skipped noticing your own feelings first.',
+  selfManagement: 'Hmm. That choice came from a big feeling, before stopping to think.',
+  socialAwareness: "Hmm. That choice didn't notice how the other person was feeling.",
+  relationshipSkills: 'Hmm. That choice made it harder to get along together.',
+  responsibleDecisionMaking: 'Hmm. That choice could make things harder later on.',
+};
 /** Fizz names the skill after a strong choice: what the child did, never who they are, and no score. */
 export const SKILL_LINES: Record<Competency, string> = {
   selfAwareness: 'You noticed your own feelings. That is a real skill.',
@@ -35,6 +48,8 @@ export const SHARED_LINES: Record<string, { text: string; speaker: Speaker }> = 
   done: { text: DONE_LINE, speaker: 'narrator' },
   open: { text: OPEN_LINE, speaker: 'fizz' },
   try: { text: TRY_LINE, speaker: 'fizz' },
+  guide: { text: GUIDE_LINE, speaker: 'fizz' },
+  ...Object.fromEntries(Object.entries(WHY_LINES).map(([k, text]) => [`why.${k}`, { text, speaker: 'fizz' as const }])),
   ...Object.fromEntries(Object.entries(SKILL_LINES).map(([k, text]) => [`skill.${k}`, { text, speaker: 'fizz' as const }])),
 };
 
@@ -48,6 +63,7 @@ export function partText(item: Situation, part: string): { text: string; speaker
   if (!option) return null;
   if (kind === 'o') return { text: option.text, speaker: 'narrator' };
   if (kind === 'c') return { text: option.consequence, speaker: 'narrator' };
+  if (kind === 'w') return item.whyApproved && option.why ? { text: option.why, speaker: 'fizz' } : null;
   return null;
 }
 

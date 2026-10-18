@@ -172,10 +172,14 @@ It reads the question bank that `generator/` writes to Firestore (`seedItems` + 
   If Gemini is slow or off, code picks.
   Each answer updates Elo-style skill levels from the option's CASEL scores, the time taken and hint use.
   Children never see scores, timers or "wrong"; every choice shows its consequence and the story goes on.
-- **Coaching after a choice:** a strong choice gets one line from Fizz naming the skill it showed ("You noticed
-  how someone else felt. That is a real skill."). A weak one gets "Want to try another way?": the child may pick
-  once more (the first choice is dimmed) and see that outcome too. Only the first choice is measured. Genuine
-  dilemmas get neither: Fizz says "Both could work" before the choice, and nothing is measured.
+- **Coaching after a choice (guided retry):** a strong choice gets one line from Fizz naming the skill it showed
+  ("You noticed how someone else felt. That is a real skill."). After a weak one, Fizz says **why** it didn't help
+  (the item's own approved line about its effect on others or the problem, else a gentle line about the skill it
+  missed) and the child must try another way: there is no skipping. Tried options are dimmed; after two weak tries
+  Fizz shows the most helpful option ("Let's try this one together"), so every child ends on a helpful way and hears
+  the skill named. Only the first choice is measured. An okay choice simply moves on. Genuine dilemmas get none of
+  this: Fizz says "Both could work" before the choice, and nothing is measured. The "why" lines are written offline
+  (`generator`: `npm run bank:whys`), checked by code and the judge, and approved by a person before they are used.
 - **Parent Corner:** a growth report written by **Gemini 3.8 Flash** from aggregated play (cached, refreshed
   after new play). "Delete all data" erases the account and every record of play on the server.
 - **Tuning:** every number (round sizes, starting levels, learning rate, variety rules) is in `src/server/config.ts`.

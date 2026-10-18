@@ -220,6 +220,12 @@ svg .flowdown { animation: flowdown 1s linear infinite; }
 .round-option.picked { background: rgba(127, 230, 201, .2); box-shadow: inset 0 0 0 3px var(--mint); transform: translateY(4px); }
 .round-option.picked .num { background: var(--mint); color: var(--text-dark); }
 .round-option.dim { opacity: .45; }
+/* Guided retry: the option Fizz shows after two weak tries. A slow glow (well under once a second), still in Calm mode. */
+.round-option.guide { background: rgba(127, 230, 201, .14); box-shadow: inset 0 0 0 3px var(--mint), 0 0 18px rgba(127, 230, 201, .45); animation: guide-glow 2.6s ease-in-out infinite; }
+.round-option.guide .num { background: var(--mint); color: var(--text-dark); }
+@keyframes guide-glow { 50% { box-shadow: inset 0 0 0 3px var(--mint), 0 0 6px rgba(127, 230, 201, .2); } }
+.calm .round-option.guide { animation: none; }
+@media (prefers-reduced-motion: reduce) { .round-option.guide { animation: none; } }
 /* Waiting: a skeleton of the round with a soft shimmer */
 .round-wait .round-caption .line { font-size: var(--fs-base); color: var(--text-soft); }
 .sk { position: relative; overflow: hidden; background: rgba(255, 255, 255, .08); }

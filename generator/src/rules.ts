@@ -17,6 +17,19 @@ const BANNED_RE = new RegExp(`\\b(${BANNED.map((w) => w.replace(/[-]/g, "\\-")).
 
 /** Consequence lines show outcomes in the story; they never grade the child. */
 const JUDGING_RE = /\b(wrong|incorrect|bad choice|you failed|shame on you|good job|correct answer)\b/i;
+/** Fizz's "why" lines also avoid telling-off words and morals. */
+const SCOLDING_RE = /\b(bad|naughty|should|must|shouldn't|mustn't|the lesson|always remember|never ever)\b/i;
+
+/** Problems with a line Fizz says to a child (a "why" line): unsuitable, judging or scolding words, or too long. */
+export function lineProblems(text: string, maxWords: number): string[] {
+  const problems: string[] = [];
+  const banned = text.match(BANNED_RE);
+  if (banned) problems.push(`word not suitable for children: "${banned[1]}"`);
+  const judging = text.match(JUDGING_RE) ?? text.match(SCOLDING_RE);
+  if (judging) problems.push(`judging or scolding word: "${judging[1]}"`);
+  if (countWords(text) > maxWords) problems.push(`${countWords(text)} words (at most ${maxWords})`);
+  return problems;
+}
 
 /* ------------------------------------------------------------------ */
 /* Safe arithmetic evaluator for maths puzzles                         */

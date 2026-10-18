@@ -40,7 +40,8 @@
           "relationshipSkills": -1,
           "responsibleDecisionMaking": -1
         },
-        "consequence": "You sit out, but the fluttery feeling comes back next time."
+        "consequence": "You sit out, but the fluttery feeling comes back next time.",
+        "why": "Hiding away kept those nervous jitters trapped inside for later. Maybe there is a way to face the fluttery feeling gently?"
       },
       {
         "id": "c",
@@ -64,7 +65,8 @@
           "relationshipSkills": 0,
           "responsibleDecisionMaking": 0
         },
-        "consequence": "It's over quickly, but nobody could follow the story."
+        "consequence": "It's over quickly, but nobody could follow the story.",
+        "why": "Rushing made it hard for the class to understand the page. What could help you feel steadier while reading?"
       }
     ],
     "source": "seed",
@@ -74,7 +76,8 @@
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
       "text": "What is your body telling you about how you feel?"
-    }
+    },
+    "whyApproved": true
   },
   {
     "id": "sit-02",
@@ -145,7 +148,7 @@
     ],
     "source": "seed",
     "seedIds": [],
-    "status": "active",
+    "status": "draft",
     "similarIds": [],
     "createdAt": "2026-10-16T00:00:00.000Z"
   },
@@ -218,7 +221,7 @@
     ],
     "source": "seed",
     "seedIds": [],
-    "status": "active",
+    "status": "draft",
     "similarIds": [],
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
@@ -295,7 +298,7 @@
     ],
     "source": "seed",
     "seedIds": [],
-    "status": "active",
+    "status": "draft",
     "similarIds": [],
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
@@ -330,7 +333,8 @@
           "relationshipSkills": 0,
           "responsibleDecisionMaking": -1
         },
-        "consequence": "It's 2 a.m., and you feel even more tired and worried."
+        "consequence": "It's 2 a.m., and you feel even more tired and worried.",
+        "why": "Looking at a screen kept your mind running fast instead of resting. Maybe there is a calmer way to help your racing thoughts settle down?"
       },
       {
         "id": "b",
@@ -366,7 +370,8 @@
           "relationshipSkills": 0,
           "responsibleDecisionMaking": 0
         },
-        "consequence": "The worry grows bigger than any result could be."
+        "consequence": "The worry grows bigger than any result could be.",
+        "why": "Expecting the worst made your fear feel completely real before anything has actually happened. Maybe sharing this heavy feeling could help lighten the load?"
       }
     ],
     "source": "seed",
@@ -376,7 +381,8 @@
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
       "text": "Is there someone or something that helps you feel calm?"
-    }
+    },
+    "whyApproved": true
   },
   {
     "id": "sit-06",
@@ -436,7 +442,7 @@
     ],
     "source": "seed",
     "seedIds": [],
-    "status": "active",
+    "status": "draft",
     "similarIds": [],
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
@@ -471,7 +477,8 @@
           "relationshipSkills": -1,
           "responsibleDecisionMaking": 0
         },
-        "consequence": "Kabir sits on the steps by himself all break."
+        "consequence": "Kabir sits on the steps by himself all break.",
+        "why": "Leaving Kabir meant he stayed by himself all break. How do you think your friend might be feeling right now?"
       },
       {
         "id": "b",
@@ -495,7 +502,8 @@
           "relationshipSkills": -1,
           "responsibleDecisionMaking": -1
         },
-        "consequence": "Kabir looks even sadder and walks away."
+        "consequence": "Kabir looks even sadder and walks away.",
+        "why": "Calling Kabir boring made him feel even sadder and walk away. What could make things easier for him?"
       },
       {
         "id": "d",
@@ -514,7 +522,8 @@
     "seedIds": [],
     "status": "active",
     "similarIds": [],
-    "createdAt": "2026-10-16T00:00:00.000Z"
+    "createdAt": "2026-10-16T00:00:00.000Z",
+    "whyApproved": true
   },
   {
     "id": "sit-08",
@@ -585,7 +594,7 @@
     ],
     "source": "seed",
     "seedIds": [],
-    "status": "active",
+    "status": "draft",
     "similarIds": [],
     "createdAt": "2026-10-16T00:00:00.000Z"
   },
@@ -618,7 +627,8 @@
           "relationshipSkills": -1,
           "responsibleDecisionMaking": 0
         },
-        "consequence": "The project's done, but you're exhausted and annoyed."
+        "consequence": "The project's done, but you're exhausted and annoyed.",
+        "why": "Carrying the whole workload left you exhausted and annoyed. How could you both handle the project so it feels fairer?"
       },
       {
         "id": "b",
@@ -642,7 +652,8 @@
           "relationshipSkills": -2,
           "responsibleDecisionMaking": -1
         },
-        "consequence": "Rohan feels embarrassed and helps even less."
+        "consequence": "Rohan feels embarrassed and helps even less.",
+        "why": "Complaining to the class left Rohan embarrassed, and now he is helping even less. What could make it easier to work through this together?"
       },
       {
         "id": "d",
@@ -664,7 +675,8 @@
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
       "text": "Could there be a reason Rohan keeps putting it off?"
-    }
+    },
+    "whyApproved": true
   },
   {
     "id": "sit-10",
@@ -694,7 +706,8 @@
           "relationshipSkills": -1,
           "responsibleDecisionMaking": -1
         },
-        "consequence": "At home, the homework makes no sense and you feel stuck."
+        "consequence": "At home, the homework makes no sense and you feel stuck.",
+        "why": "Keeping quiet left you confused all on your own. Maybe letting someone know when you are stuck could make it easier?"
       },
       {
         "id": "b",
@@ -730,7 +743,8 @@
           "relationshipSkills": -1,
           "responsibleDecisionMaking": -2
         },
-        "consequence": "You finish, but you still don't know how to do it."
+        "consequence": "You finish, but you still don't know how to do it.",
+        "why": "Copying got the page filled, but the maths stays tricky for you. Maybe asking someone to explain could help it make sense?"
       }
     ],
     "source": "seed",
@@ -740,7 +754,8 @@
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
       "text": "Do you think you're the only one who's confused?"
-    }
+    },
+    "whyApproved": true
   },
   {
     "id": "sit-11",
@@ -812,7 +827,7 @@
     ],
     "source": "seed",
     "seedIds": [],
-    "status": "active",
+    "status": "draft",
     "similarIds": [],
     "createdAt": "2026-10-16T00:00:00.000Z"
   },
@@ -872,7 +887,7 @@
     ],
     "source": "seed",
     "seedIds": [],
-    "status": "active",
+    "status": "draft",
     "similarIds": [],
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
@@ -907,7 +922,8 @@
           "relationshipSkills": 0,
           "responsibleDecisionMaking": -2
         },
-        "consequence": "The teacher notices, and all of your parents get a call."
+        "consequence": "The teacher notices, and all of your parents get a call.",
+        "why": "Following along kept your friends from laughing, but it still led to trouble with your parents and teacher. How might you handle a dare next time?"
       },
       {
         "id": "b",
@@ -943,7 +959,8 @@
           "relationshipSkills": 0,
           "responsibleDecisionMaking": 0
         },
-        "consequence": "It works, but you know you couldn't just say no."
+        "consequence": "It works, but you know you couldn't just say no.",
+        "why": "Making up an excuse helped you dodge the dare, but it left you feeling uneasy inside. How could you stand up for what you actually want?"
       }
     ],
     "source": "seed",
@@ -953,7 +970,8 @@
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
       "text": "Is there a way to say no and still stay friends?"
-    }
+    },
+    "whyApproved": true
   },
   {
     "id": "sit-14",
@@ -984,7 +1002,8 @@
           "relationshipSkills": -1,
           "responsibleDecisionMaking": -2
         },
-        "consequence": "The jokes keep coming, and Tara leaves the group."
+        "consequence": "The jokes keep coming, and Tara leaves the group.",
+        "why": "Joining in made Tara feel completely alone while the teasing grew bigger. Maybe there is a way to support her or stop the laughter instead?"
       },
       {
         "id": "b",
@@ -1030,7 +1049,8 @@
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
       "text": "How might Tara feel seeing those emojis?"
-    }
+    },
+    "whyApproved": true
   },
   {
     "id": "sit-15",
@@ -1102,7 +1122,7 @@
     ],
     "source": "seed",
     "seedIds": [],
-    "status": "active",
+    "status": "draft",
     "similarIds": [],
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
@@ -1150,7 +1170,8 @@
           "relationshipSkills": 0,
           "responsibleDecisionMaking": 0
         },
-        "consequence": "You stop practising, and the hoop gathers dust."
+        "consequence": "You stop practising, and the hoop gathers dust.",
+        "why": "Telling yourself that stopped you from playing basketball after weeks of hard practice. What might help you handle these tough feelings?"
       },
       {
         "id": "c",
@@ -1174,7 +1195,8 @@
           "relationshipSkills": -2,
           "responsibleDecisionMaking": -1
         },
-        "consequence": "Your friend doesn't understand why you're upset with them."
+        "consequence": "Your friend doesn't understand why you're upset with them.",
+        "why": "Ignoring your best friend leaves them confused about why you pulled away. How might your friend be feeling right now?"
       }
     ],
     "source": "seed",
@@ -1184,6 +1206,7 @@
     "createdAt": "2026-10-16T00:00:00.000Z",
     "hint": {
       "text": "What would you say to a friend who didn't get picked?"
-    }
+    },
+    "whyApproved": true
   }
 ]

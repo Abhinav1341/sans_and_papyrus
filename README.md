@@ -47,5 +47,5 @@ Don't run `gcloud run deploy` from a laptop: it skips GitHub and puts code live 
 ## Question bank
 
 The questions live in Firestore, not in the repo, so they are **not** part of a release. Generated items
-stay as drafts until people approve them (situations need two reviewers, puzzles one); approved items
+stay as drafts until a person approves them; approved items
 reach the live game within 5 minutes. The steps are in generator/README.md.

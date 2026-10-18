@@ -4,10 +4,11 @@
  *   npm run bank:review-export                       drafts in Firestore → output/review/review-<date>.md + .csv
  *   npm run bank:review-export -- --from-run <file>  drafts from a local run file instead (for --local-only runs)
  *   npm run bank:review-apply -- --file <csv> [--dry-run]
+ *   npm run bank:review-recheck [-- --dry-run]       drafts that already have enough approvals under the current rule go live
  *
  * In the CSV, fill "decision" with approve or reject, "reviewers" with your name (two names separated by ";"
  * if two people reviewed together) and, for a rejection, a "note" saying why. Blank rows are skipped.
- * Situations go live after approvals from PIPELINE_CONFIG.requiredApprovals.situation different people;
+ * Situations go live after approvals from PIPELINE_CONFIG.requiredApprovals.situation different people (currently one);
  * puzzles after .puzzle. A rejection keeps the item out of the game for good.
  */
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -86,7 +87,7 @@ async function exportDrafts() {
   const md = [
     `# Items waiting for review (${drafts.length})`, "",
     "Every item passed the rule checks, the duplicate check, the blind grader and the Satori-lens judge. None is live yet.",
-    `Situations need ${CFG.requiredApprovals.situation} approvals from different people; puzzles need ${CFG.requiredApprovals.puzzle}.`,
+    `Each situation needs ${CFG.requiredApprovals.situation} approval(s) and each puzzle ${CFG.requiredApprovals.puzzle} before it goes live.`,
     `Record decisions in review-${stamp}.csv, then run: npm run bank:review-apply -- --file output/review/review-${stamp}.csv`, "",
     ...drafts.map(describe),
   ].join("\n");
@@ -134,7 +135,22 @@ async function applyDecisions() {
   console.log(`\n${values["dry-run"] ? "Dry run, nothing saved. " : ""}${live} live, ${waiting} waiting for another approval, ${rejected} rejected, ${skipped} skipped.`);
 }
 
+/** After the approval rule changes: drafts that already have enough approvals go live. */
+async function recheck() {
+  const bank = new FirestoreBank();
+  let live = 0;
+  for (const item of await bank.loadByStatus("draft")) {
+    const n = item.review?.approvals.length ?? 0;
+    if (n < required(item)) continue;
+    console.log(`✓ ${item.id} "${item.title}" approvals ${n}/${required(item)}: now live`);
+    if (!values["dry-run"]) await bank.saveReview(item.id, "active", item.review!);
+    live++;
+  }
+  console.log(`\n${values["dry-run"] ? "Dry run, nothing saved. " : ""}${live} drafts now live.`);
+}
+
 if (command === "export") await exportDrafts();
+else if (command === "recheck") await recheck();
 else if (command === "apply") await applyDecisions();
-else throw new Error('Use "export" or "apply".');
+else throw new Error('Use "export", "apply" or "recheck".');
 process.exit(0); // Firestore keeps the process alive otherwise

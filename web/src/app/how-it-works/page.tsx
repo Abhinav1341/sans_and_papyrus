@@ -32,7 +32,7 @@ export default function HowItWorksPage() {
     { who: 'Blind grader', m: pipeline.models.grader, what: 'Scores every answer on the five social-emotional skills without being told what the writer was aiming for.', stop: stopped('grader') },
     { who: 'Code', what: 'If the grader’s reading doesn’t match the writer’s aim, the item is out. Two models had to agree independently.', stop: stopped('category') },
     { who: 'Judge', m: pipeline.models.judge, what: 'A different, larger model reads it as a child psychologist would, against eight principles: believable consequences, feelings that stay real, no preaching, no shaming, and more.', stop: stopped('curator') },
-    { who: 'People', what: 'Two different reviewers approve each situation (one for a puzzle) before any child can see it.' },
+    { who: 'People', what: 'A person reads and approves every question before any child can see it.' },
   ];
 
   return (

@@ -33,8 +33,11 @@ const examples = ["rules", "duplicate", "category", "curator"].flatMap((stage) =
   return r ? [{ stage, title: r.candidate!.title, reason: r.reasons[0].replace(/\bgen-[\w-]+/g, "an earlier item") }] : [];
 });
 
-// 2. The judge rerun: the newest output/rejudge-*.json.
-const rejudgeFile = readdirSync(out).filter((f) => /^rejudge-\d+\.json$/.test(f)).sort().pop();
+// 2. The judge rerun over the whole bank: the newest output/rejudge-*.json that judged the most items
+// (small targeted reruns, such as checking a few new seeds, don't replace it).
+const rejudgeFile = readdirSync(out).filter((f) => /^rejudge-\d+\.json$/.test(f))
+  .map((f) => ({ f, n: (JSON.parse(readFileSync(join(out, f), "utf8")).verdicts ?? []).length }))
+  .sort((a, b) => b.n - a.n || b.f.localeCompare(a.f))[0]?.f;
 type Verdict = { id: string; source: string; title: string; accept: boolean; failed: string[]; openChoice: boolean;
   curation?: { principles?: Record<string, { pass: boolean; note: string }>; reasons: string[] } };
 const rejudge = rejudgeFile ? JSON.parse(readFileSync(join(out, rejudgeFile), "utf8")) as { summary: Record<string, any>; verdicts: Verdict[] } : null;

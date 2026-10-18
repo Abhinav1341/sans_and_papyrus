@@ -14,11 +14,13 @@ import { fizzFaceSVG } from '@/art/portrait';
 import { pushHero } from './boot';
 import { Button, Icon, Svg } from './ui';
 
-/** A line Fizz says after a choice: naming the skill shown, or offering another try. */
+/** A line Fizz says after a choice: why it didn't help, the skill it showed, or the next step. */
 type Said = { text: string; voice: string };
 type Feedback = {
   consequence: string; explanation: string | null; voice: { consequence: string | null; explanation: string | null; done: string | null };
-  skill?: Said | null; retry?: Said | null;
+  why?: Said | null; skill?: Said | null; retry?: Said | null;
+  /** After two weak tries: the most helpful option, which the child now picks. */
+  guide?: (Said & { optionId: string }) | null;
 };
 type Next = { done: boolean; number?: number; item?: RoundItem };
 type Started = { roundId: string; size: number; number: number; item: RoundItem };
@@ -26,9 +28,10 @@ type Phase =
   | { at: 'intro' }
   | { at: 'age' }
   | { at: 'loading'; text: string }
-  // `retry`: trying another way after a weak first choice (that choice is dimmed; nothing is measured).
-  | { at: 'item'; item: RoundItem; number: number; hintOpen: boolean; picked?: string; retry?: { first: string; last: boolean; done: string | null } }
-  | { at: 'feedback'; item: RoundItem; chosen: string; feedback: Feedback; number: number; last: boolean }
+  // `retry`: a guided retry after a weak choice. Tried options are dimmed; with `guide`, only that option is open.
+  // Nothing in a retry is measured.
+  | { at: 'item'; item: RoundItem; number: number; hintOpen: boolean; picked?: string; retry?: { tried: string[]; last: boolean; done: string | null; guide?: string } }
+  | { at: 'feedback'; item: RoundItem; chosen: string; feedback: Feedback; number: number; last: boolean; tried?: string[] }
   | { at: 'done' }
   | { at: 'error'; message: string };
 
@@ -41,13 +44,17 @@ const questionLine = (item: RoundItem): Line => ({ text: `${item.title}. ${item.
 /** Fizz's "Both could work" line, read after the question on a genuine dilemma. */
 const openLines = (item: RoundItem): { key: string; line: Line }[] =>
   item.open ? [{ key: 'open', line: { text: item.open.text, url: item.open.voice, speaker: 'fizz' } }] : [];
-/** What happened, then Fizz: the skill a strong choice showed, or an offer to try another way. */
-const feedbackLines = (fb: Feedback): { key: string; line: Line }[] => [
-  { key: 'c', line: { text: fb.consequence, url: fb.voice.consequence, speaker: 'narrator' } },
-  ...(fb.explanation ? [{ key: 'x', line: { text: fb.explanation, url: fb.voice.explanation, speaker: 'narrator' as const } }] : []),
-  ...(fb.skill ? [{ key: 'skill', line: { text: fb.skill.text, url: fb.skill.voice, speaker: 'fizz' as const } }] : []),
-  ...(fb.retry ? [{ key: 'try', line: { text: fb.retry.text, url: fb.retry.voice, speaker: 'fizz' as const } }] : []),
-];
+/** What happened, then Fizz: why a weak choice didn't help and what's next, or the skill a strong choice showed. */
+const feedbackLines = (fb: Feedback): { key: string; line: Line }[] => {
+  const next = fb.guide ?? fb.retry;
+  return [
+    { key: 'c', line: { text: fb.consequence, url: fb.voice.consequence, speaker: 'narrator' } },
+    ...(fb.explanation ? [{ key: 'x', line: { text: fb.explanation, url: fb.voice.explanation, speaker: 'narrator' as const } }] : []),
+    ...(fb.why ? [{ key: 'why', line: { text: fb.why.text, url: fb.why.voice, speaker: 'fizz' as const } }] : []),
+    ...(fb.skill ? [{ key: 'skill', line: { text: fb.skill.text, url: fb.skill.voice, speaker: 'fizz' as const } }] : []),
+    ...(next ? [{ key: 'try', line: { text: next.text, url: next.voice, speaker: 'fizz' as const } }] : []),
+  ];
+};
 const optionLines = (item: RoundItem): Line[] => item.options.map((o) => ({ text: o.text, url: o.voice, speaker: 'narrator' }));
 
 /* ---------- reading aloud, with the word being spoken ---------- */
@@ -108,7 +115,11 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
   }, [gateId]);
 
   useEffect(() => {
-    const t = window.setTimeout(() => document.querySelector<HTMLElement>('.gate [data-autofocus]')?.focus({ preventScroll: true }), 80);
+    const t = window.setTimeout(() => {
+      const el = document.querySelector<HTMLElement>('.gate [data-autofocus]');
+      el?.focus({ preventScroll: true });
+      if (el?.dataset.reveal) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); // a guided retry's open option
+    }, 80);
     return () => window.clearTimeout(t);
   }, [phase.at]);
 
@@ -157,7 +168,7 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
       try {
         const res = await api<{ feedback: Feedback }>('round/retry', { body: { roundId: round.current.id, itemId: item.id, optionId } });
         sfx('pop');
-        setPhase({ at: 'feedback', item, chosen: optionId, feedback: { ...res.feedback, voice: { ...res.feedback.voice, done: retry.done } }, number, last: retry.last });
+        setPhase({ at: 'feedback', item, chosen: optionId, feedback: { ...res.feedback, voice: { ...res.feedback.voice, done: retry.done } }, number, last: retry.last, tried: [...retry.tried, optionId] });
         r.start(feedbackLines(res.feedback));
       } catch (e) { fail(e); }
       return;
@@ -204,7 +215,10 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
     if (phase.at !== 'feedback') return;
     r.stop();
     sfx('pop');
-    setPhase({ at: 'item', item: phase.item, number: phase.number, hintOpen: false, retry: { first: phase.chosen, last: phase.last, done: phase.feedback.voice.done } });
+    setPhase({
+      at: 'item', item: phase.item, number: phase.number, hintOpen: false,
+      retry: { tried: phase.tried ?? [phase.chosen], last: phase.last, done: phase.feedback.voice.done, guide: phase.feedback.guide?.optionId },
+    });
   };
 
   const openHint = (item: RoundItem) => {
@@ -271,6 +285,9 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
       );
     case 'item': {
       const { item, number, hintOpen, picked, retry } = phase;
+      /** In a guided retry: options already tried are closed, and once Fizz shows the way, only that one is open. */
+      const closed = (id: string) => !!retry && (retry.tried.includes(id) || (!!retry.guide && retry.guide !== id));
+      const firstOpen = item.options.find((o) => !closed(o.id))?.id;
       const titleWords = captionWords(`${item.title}.`).length;
       const readAll = () => r.start([
         { key: 'q', line: questionLine(item) },
@@ -292,9 +309,10 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
           ) : null}
           <div className="round-options" role="group" aria-label="Your choice">
             {item.options.map((o, i) => (
-              <button key={o.id} type="button" disabled={!!picked || retry?.first === o.id} aria-pressed={picked === o.id}
-                className={`round-option${r.reading(`o${i}`) ? ' reading' : ''}${picked === o.id ? ' picked' : picked || retry?.first === o.id ? ' dim' : ''}`}
-                onClick={() => { void choose(o.id); }} {...(i === 0 ? { 'data-autofocus': true } : {})}>
+              <button key={o.id} type="button" disabled={!!picked || closed(o.id)} aria-pressed={picked === o.id}
+                className={`round-option${r.reading(`o${i}`) ? ' reading' : ''}${retry?.guide === o.id && !picked ? ' guide' : ''}${picked === o.id ? ' picked' : picked || closed(o.id) ? ' dim' : ''}`}
+                onClick={() => { void choose(o.id); }}
+                {...(retry ? (o.id === firstOpen ? { 'data-autofocus': true, 'data-reveal': true } : {}) : i === 0 ? { 'data-autofocus': true } : {})}>
                 <span className="num" aria-hidden="true">{LETTERS[i]}</span>
                 <span className="ttl">{o.text}</span>
               </button>
@@ -329,15 +347,18 @@ export function BonusRound({ gateId, title, heroName, onDone }: { gateId: string
             <p className="line"><Words text={feedback.consequence} on={r.wordOf('c')} /></p>
             {feedback.explanation ? <p className="line round-explain"><Words text={feedback.explanation} on={r.wordOf('x')} /></p> : null}
           </div>
-          {feedback.skill || feedback.retry ? (
+          {feedback.why || feedback.skill || feedback.retry ? (
             <div className="round-caption round-hint round-coach" role="note">
               <div className="who" style={{ color: 'var(--c-fizz)' }}><Svg html={fizzFaceSVG(feedback.skill ? 'excited' : 'happy', 'coachfz')} className="face" />Fizz</div>
+              {feedback.why ? <p className="line"><Words text={feedback.why.text} on={r.wordOf('why')} /></p> : null}
               {feedback.skill ? <p className="line"><Words text={feedback.skill.text} on={r.wordOf('skill')} /></p> : null}
-              {feedback.retry ? <p className="line"><Words text={feedback.retry.text} on={r.wordOf('try')} /></p> : null}
+              {feedback.retry ? <p className="line"><Words text={(feedback.guide ?? feedback.retry).text} on={r.wordOf('try')} /></p> : null}
             </div>
           ) : null}
-          {feedback.retry ? <Button variant="ghost" icon="replay" onClick={tryAgain}>Try another way</Button> : null}
-          <Button variant="sun" xl icon={last ? 'check' : 'next'} onClick={() => { void next(); }} data-autofocus>{last ? 'Finish' : 'Next'}</Button>
+          {/* A weak choice always leads to another try: no skipping, so every child ends on a helpful way. */}
+          {feedback.retry
+            ? <Button variant="sun" xl icon="replay" onClick={tryAgain} data-autofocus>Try another way</Button>
+            : <Button variant="sun" xl icon={last ? 'check' : 'next'} onClick={() => { void next(); }} data-autofocus>{last ? 'Finish' : 'Next'}</Button>}
         </div>
       );
     }

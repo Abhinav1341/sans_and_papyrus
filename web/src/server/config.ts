@@ -62,10 +62,12 @@ export const GAME = {
   /** A story gate's own skills (src/server/gates.ts) win this much in the shortlist; riddle gates favour a puzzle twice as much. */
   gateFit: 0.35,
 
-  /** After a choice: Fizz names the skill when it showed the item's focus skills this well (0–1), and
-   *  offers "Try another way?" below this (situations only, never dilemmas). */
+  /** After a choice: Fizz names the skill when it showed the item's focus skills this well (0–1). Below
+   *  `offerRetryBelow` Fizz says why it didn't help and the child tries again (situations only, never dilemmas);
+   *  after `guideAfter` such choices on one item, Fizz shows the most helpful option. */
   nameSkillFrom: 0.8,
   offerRetryBelow: 0.5,
+  guideAfter: 2,
 
   /** Variety. */
   recentWindow: 30,       // items a child shouldn't see again soon

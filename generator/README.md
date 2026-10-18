@@ -30,7 +30,7 @@ npm run bank:expand -- --kind puzzle --domain math --count 12
 npm run bank:dashboard                         # output/dashboard.html: runs, funnel, coverage, costs, item browser
 npm run bank:export                            # output/bank-readable.md: every item as a readable document
 npm run bank:review-export                     # drafts → output/review/review-<date>.md (readable) + .csv (decisions)
-npm run bank:review-apply -- --file <csv>      # approve/reject; situations need 2 reviewers, puzzles 1 (--dry-run to preview)
+npm run bank:review-apply -- --file <csv>      # approve/reject; each item needs one reviewer (--dry-run to preview)
 npm run bank:rejudge                           # run the current judge again over the whole bank (measures it; changes no status)
 npm run bank:stats                             # numbers for the game's /how-it-works page (web/src/data/ai-pipeline.json)
 npx tsx scripts/build-research-seeds.ts seeds/authoring/young-6-7.json --out seed-young.json   # build + check seeds

@@ -11,8 +11,11 @@
     "bank:dashboard": "tsx scripts/dashboard.ts",
     "bank:review-export": "tsx scripts/review.ts export",
     "bank:review-apply": "tsx scripts/review.ts apply",
+    "bank:review-recheck": "tsx scripts/review.ts recheck",
     "bank:rejudge": "tsx scripts/rejudge.ts",
-    "bank:stats": "tsx scripts/export-stats.ts"
+    "bank:stats": "tsx scripts/export-stats.ts",
+    "bank:enforce-judge": "tsx scripts/enforce-judge.ts",
+    "bank:whys": "tsx scripts/whys.ts"
   },
   "dependencies": {
     "@google-cloud/firestore": "^9.3.1",

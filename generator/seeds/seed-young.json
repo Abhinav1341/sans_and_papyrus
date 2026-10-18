@@ -39,7 +39,8 @@
      "relationshipSkills": -1,
      "responsibleDecisionMaking": 0
     },
-    "consequence": "You colour happily. Meera sits quietly with no red."
+    "consequence": "You colour happily. Meera sits quietly with no red.",
+    "why": "Meera felt left out and could not finish her apple. Maybe you two can both use the crayon?"
    },
    {
     "id": "c",
@@ -51,7 +52,8 @@
      "relationshipSkills": -2,
      "responsibleDecisionMaking": -1
     },
-    "consequence": "Meera looks everywhere. Now nobody is colouring."
+    "consequence": "Meera looks everywhere. Now nobody is colouring.",
+    "why": "Hiding it made Meera feel upset, and drawing stopped. Maybe there is a way you both can colour?"
    }
   ],
   "hint": {
@@ -59,9 +61,10 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
-  "createdAt": "2026-10-18T07:52:28.399Z"
+  "createdAt": "2026-10-18T07:52:28.399Z",
+  "whyApproved": true
  },
  {
   "id": "ysit-02",
@@ -234,7 +237,8 @@
      "relationshipSkills": 0,
      "responsibleDecisionMaking": -1
     },
-    "consequence": "It is yummy, but Papa finds the open box later."
+    "consequence": "It is yummy, but Papa finds the open box later.",
+    "why": "Taking a spoon meant Papa found the open box later. How might Papa feel now?"
    },
    {
     "id": "c",
@@ -254,9 +258,10 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
-  "createdAt": "2026-10-18T07:52:28.401Z"
+  "createdAt": "2026-10-18T07:52:28.401Z",
+  "whyApproved": true
  },
  {
   "id": "ysit-05",
@@ -299,7 +304,8 @@
      "relationshipSkills": -1,
      "responsibleDecisionMaking": -2
     },
-    "consequence": "Mummy looks at the sleepy cat. Your tummy feels heavy."
+    "consequence": "Mummy looks at the sleepy cat. Your tummy feels heavy.",
+    "why": "Blaming the cat leaves you feeling worried inside. Maybe sharing what really happened would help you feel lighter?"
    },
    {
     "id": "c",
@@ -311,7 +317,8 @@
      "relationshipSkills": -1,
      "responsibleDecisionMaking": -2
     },
-    "consequence": "Later Mummy finds them and is upset nobody told her."
+    "consequence": "Later Mummy finds them and is upset nobody told her.",
+    "why": "Hiding the cup made Mummy sad later. Maybe telling her what happened could help fix things together?"
    }
   ],
   "hint": {
@@ -319,9 +326,10 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
-  "createdAt": "2026-10-18T07:52:28.401Z"
+  "createdAt": "2026-10-18T07:52:28.401Z",
+  "whyApproved": true
  },
  {
   "id": "ysit-06",
@@ -364,7 +372,8 @@
      "relationshipSkills": -1,
      "responsibleDecisionMaking": -1
     },
-    "consequence": "Tenzin eats alone again. He looks at the floor."
+    "consequence": "Tenzin eats alone again. He looks at the floor.",
+    "why": "Tenzin still has nobody to sit with at lunch. How might Tenzin feel right now?"
    },
    {
     "id": "c",
@@ -384,15 +393,16 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
-  "createdAt": "2026-10-18T07:52:28.402Z"
+  "createdAt": "2026-10-18T07:52:28.402Z",
+  "whyApproved": true
  },
  {
   "id": "ysit-07",
   "kind": "situation",
   "title": "Lost at the market",
-  "text": "You are at the market with Papa. You stop to look at balloons. Now you cannot see Papa! Your heart beats fast. What do you do?",
+  "text": "You are at the market with Papa. You stop to look at balloons. Now you cannot see Papa! What do you do?",
   "ageBand": "6-7",
   "readingLevel": 1,
   "wordCount": 41,
@@ -429,7 +439,8 @@
      "relationshipSkills": 0,
      "responsibleDecisionMaking": -1
     },
-    "consequence": "Everything looks different, and it is harder to find Papa."
+    "consequence": "Everything looks different, and it is harder to find Papa.",
+    "why": "Running moves you farther away from where Papa last saw you. Maybe staying in one spot could help?"
    },
    {
     "id": "c",
@@ -441,7 +452,8 @@
      "relationshipSkills": -1,
      "responsibleDecisionMaking": -2
     },
-    "consequence": "The road is long. Papa is still searching at the market."
+    "consequence": "The road is long. Papa is still searching at the market.",
+    "why": "Leaving the market makes it tricky for Papa to spot you. Maybe someone safe nearby can help?"
    }
   ],
   "hint": {
@@ -449,9 +461,10 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
-  "createdAt": "2026-10-18T07:52:28.402Z"
+  "createdAt": "2026-10-18T07:52:28.402Z",
+  "whyApproved": true
  },
  {
   "id": "ysit-08",
@@ -494,11 +507,12 @@
      "relationshipSkills": -2,
      "responsibleDecisionMaking": -1
     },
-    "consequence": "Diya cries, and Mummy puts the tablet away."
+    "consequence": "Diya cries, and Mummy puts the tablet away.",
+    "why": "Grabbing left Diya upset, and now no one gets to play. What might help you both have fun?"
    },
    {
     "id": "c",
-    "text": "Give it to her and sulk",
+    "text": "Give it to her and be sad.",
     "scores": {
      "selfAwareness": 0,
      "selfManagement": -1,
@@ -514,16 +528,17 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
-  "createdAt": "2026-10-18T07:52:28.402Z"
+  "createdAt": "2026-10-18T07:52:28.402Z",
+  "whyApproved": true
  },
  {
   "id": "ysit-09",
   "kind": "situation",
   "title": "Quiet in the library",
   "text": "In the library, everyone must be quiet. Your friend Anjali trips and hurts her knee. She is crying. What do you do?",
-  "ageBand": "6-7",
+  "ageBand": "8-10",
   "readingLevel": 1,
   "wordCount": 38,
   "expectedTimeSec": 40,
@@ -547,7 +562,8 @@
      "relationshipSkills": 0,
      "responsibleDecisionMaking": -1
     },
-    "consequence": "Anjali keeps crying, and nobody comes to help her."
+    "consequence": "Anjali keeps crying, and nobody comes to help her.",
+    "why": "Anjali felt all alone when you stayed quiet. Maybe there is a gentle way to find help, even in a library?"
    },
    {
     "id": "b",
@@ -571,7 +587,8 @@
      "relationshipSkills": -2,
      "responsibleDecisionMaking": 0
     },
-    "consequence": "Anjali feels worse, and she turns away from you."
+    "consequence": "Anjali feels worse, and she turns away from you.",
+    "why": "Laughing made Anjali feel embarrassed and upset. When a friend falls, how might you help her feel cared for?"
    }
   ],
   "hint": {
@@ -579,16 +596,17 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
-  "createdAt": "2026-10-18T07:52:28.402Z"
+  "createdAt": "2026-10-18T07:52:28.402Z",
+  "whyApproved": true
  },
  {
   "id": "ysit-10",
   "kind": "situation",
   "title": "\"I don't care\"",
   "text": "Ishaan is not picked for the race. He says, \"I don't care.\" But his eyes look wet, and he looks at the ground. What do you do?",
-  "ageBand": "6-7",
+  "ageBand": "8-10",
   "readingLevel": 1,
   "wordCount": 49,
   "expectedTimeSec": 51,
@@ -687,7 +705,8 @@
      "relationshipSkills": 0,
      "responsibleDecisionMaking": -2
     },
-    "consequence": "Mummy sees it later and turns the chat off."
+    "consequence": "Mummy sees it later and turns the chat off.",
+    "why": "Answering someone you do not know made Mummy turn the chat off. What might help here?"
    },
    {
     "id": "c",
@@ -707,15 +726,16 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
-  "createdAt": "2026-10-18T07:52:28.403Z"
+  "createdAt": "2026-10-18T07:52:28.403Z",
+  "whyApproved": true
  },
  {
   "id": "ysit-12",
   "kind": "situation",
   "title": "My tower, my turn",
-  "text": "You are building a tower with blocks. Bunty keeps taking your blocks for his car. You feel cross. What do you do?",
+  "text": "You are building a tower with blocks. Bunty keeps taking your blocks for his car. What do you do?",
   "ageBand": "6-7",
   "readingLevel": 1,
   "wordCount": 38,
@@ -752,7 +772,8 @@
      "relationshipSkills": -2,
      "responsibleDecisionMaking": 0
     },
-    "consequence": "Bunty shouts, and now both games are broken."
+    "consequence": "Bunty shouts, and now both games are broken.",
+    "why": "Knocking the car made Bunty shout, and both games broke. What might help you both feel better?"
    },
    {
     "id": "c",
@@ -764,7 +785,8 @@
      "relationshipSkills": -1,
      "responsibleDecisionMaking": 0
     },
-    "consequence": "Your tower gets smaller and smaller. You feel sad inside."
+    "consequence": "Your tower gets smaller and smaller. You feel sad inside.",
+    "why": "Giving the blocks away left you feeling sad inside. What might help you feel better about your tower?"
    }
   ],
   "hint": {
@@ -772,9 +794,10 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
-  "createdAt": "2026-10-18T07:52:28.403Z"
+  "createdAt": "2026-10-18T07:52:28.403Z",
+  "whyApproved": true
  },
  {
   "id": "ypz-01",
@@ -818,7 +841,7 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
   "createdAt": "2026-10-18T07:52:28.403Z"
  },
@@ -864,7 +887,7 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
   "createdAt": "2026-10-18T07:52:28.404Z"
  },
@@ -909,7 +932,7 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
   "createdAt": "2026-10-18T07:52:28.404Z"
  },
@@ -954,7 +977,7 @@
   },
   "source": "seed",
   "seedIds": [],
-  "status": "draft",
+  "status": "active",
   "similarIds": [],
   "createdAt": "2026-10-18T07:52:28.404Z"
  }

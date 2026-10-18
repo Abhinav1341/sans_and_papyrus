@@ -11,13 +11,14 @@ import { createGuest, deleteAccountAndData, signInWithEmail, signUpWithEmail, up
 import { setBankForTests } from '../src/server/bank';
 import { COLLECTIONS, GAME } from '../src/server/config';
 import { MemoryDb, setDb } from '../src/server/db';
-import { categoryOf, createPlayer, ratingFor, shortlist, type Round } from '../src/server/engine';
+import { applyAnswer, categoryOf, createPlayer, ratingFor, shortlist, type Round } from '../src/server/engine';
 import { limit, resetLimits } from '../src/server/limits';
 import { getPlayer, upsertPlayer } from '../src/server/players';
 import { getReport } from '../src/server/report';
 import { checkReport } from '../src/server/report-check';
 import { answerItem, nextItem, retryItem, startRound } from '../src/server/rounds';
 import { createSessionValue, readSessionValue } from '../src/server/session';
+import { partText } from '../src/server/tts';
 
 process.env.GAME_AI = 'off'; // no AI in tests: exercise the code fallbacks
 
@@ -254,27 +255,36 @@ const left = ['accounts', 'players', 'rounds', 'playEvents', 'parentReports'].ma
 check(left.every((n) => n === 0), 'nothing about the account is left');
 check((await db.get(COLLECTIONS.accounts, other.id)) !== null, "other accounts are untouched");
 
-console.log('\nTry another way, and naming the skill');
+console.log('\nGuided retry: why, try again, guide; naming the skill');
 const focusSum = (i: Situation, id: string) => i.primaryCompetencies.reduce((n, c) => n + (i.options.find((o) => o.id === id)!.scores?.[c] ?? 0), 0);
 const focusBest = (i: Situation) => [...i.options].sort((a, b) => focusSum(i, b.id) - focusSum(i, a.id))[0].id;
-const focusWorst = (i: Situation) => [...i.options].sort((a, b) => focusSum(i, a.id) - focusSum(i, b.id))[0].id;
+const perfOf = (i: Situation, id: string) => applyAnswer(createPlayer('x', 9, 'X'), i, { optionId: id, responseTimeMs: i.expectedTimeSec * 1000, hintOpened: false }).performance;
+const weakOf = (i: Situation) => i.options.filter((o) => perfOf(i, o.id) < GAME.offerRetryBelow).map((o) => o.id);
 const coach = await signUpWithEmail('coach@example.com', 'password123');
 await upsertPlayer(coach.id, 'Kiki', 9);
 const cr = await startRound(coach.id, 'g-c2-gap');
 const ci = byId.get(cr.item.id)!;
-const weakAns = await answerItem(coach.id, cr.roundId, ci.id, { optionId: focusWorst(ci), responseTimeMs: ci.expectedTimeSec * 1000, hintOpened: false });
-check(!!weakAns.feedback.retry && !weakAns.feedback.skill, 'a weak first choice gets "Want to try another way?" and no skill line');
+const [weak1, weak2] = weakOf(ci);
+const weakAns = await answerItem(coach.id, cr.roundId, ci.id, { optionId: weak1, responseTimeMs: ci.expectedTimeSec * 1000, hintOpened: false });
+check(!!weakAns.feedback.why && !!weakAns.feedback.retry && !weakAns.feedback.skill && !weakAns.feedback.guide,
+  `a weak first choice: Fizz says why ("${weakAns.feedback.why?.text}") and the child tries again (no skill line, no guide yet)`);
 const measured = JSON.stringify((await getPlayer(coach.id))!.skills);
+if (weak2) {
+  const again = await retryItem(coach.id, cr.roundId, ci.id, weak2);
+  check(!!again.feedback.why && !!again.feedback.retry && again.feedback.guide?.optionId === focusBest(ci), 'a second weak try: another why, and Fizz shows the most helpful option');
+}
+await rejects(retryItem(coach.id, cr.roundId, ci.id, weak2 ?? weak1), 409, 'the same way can only be tried once');
 const second = await retryItem(coach.id, cr.roundId, ci.id, focusBest(ci));
-check(!!second.feedback.skill && !second.feedback.retry, `a strong second try names the skill ("${second.feedback.skill?.text}") and offers no third try`);
-check(JSON.stringify((await getPlayer(coach.id))!.skills) === measured, 'the second try moves no skill: only the first choice is measured');
-await rejects(retryItem(coach.id, cr.roundId, ci.id, focusBest(ci)), 409, 'only one more try per item');
+check(!!second.feedback.skill && !second.feedback.retry && !second.feedback.why, `the helpful way names the skill ("${second.feedback.skill?.text}") and ends the retry`);
+check(JSON.stringify((await getPlayer(coach.id))!.skills) === measured, 'retries move no skill: only the first choice is measured');
 await rejects(retryItem(other.id, cr.roundId, ci.id, focusBest(ci)), 404, "nobody can try again in someone else's round");
+const own = { ...ci, whyApproved: true, options: ci.options.map((o) => (o.id === weak1 ? { ...o, why: 'That made the others feel left behind. Maybe there is a way to cross together?' } : o)) };
+check(partText(own, `w.${weak1}`)?.text.startsWith('That made') && partText(ci, `w.${weak1}`) === null, "an item's own why is spoken only once a person has approved it");
 const cn = await nextItem(coach.id, cr.roundId);
 if (!cn.done && cn.item.kind === 'situation') {
   const ni = byId.get(cn.item.id)!;
   const strongAns = await answerItem(coach.id, cr.roundId, ni.id, { optionId: focusBest(ni), responseTimeMs: ni.expectedTimeSec * 1000, hintOpened: false });
-  check(!!strongAns.feedback.skill && !strongAns.feedback.retry, 'a strong first choice names the skill and offers no retry');
+  check(!!strongAns.feedback.skill && !strongAns.feedback.retry, 'a strong first choice names the skill and needs no retry');
 }
 
 console.log('\nParent note word check');

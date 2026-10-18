@@ -17,22 +17,40 @@ import { applyAnswer, shortlist, shuffledOptionIds, type AnswerInput, type Round
 import { HttpError } from './http';
 import { pickNext } from './picker';
 import { getPlayer, parsePlayer } from './players';
-import { doneVoiceUrl, sharedVoiceUrl, SKILL_LINES, TRY_LINE, voiceUrl } from './tts';
+import { doneVoiceUrl, GUIDE_LINE, sharedVoiceUrl, SKILL_LINES, TRY_LINE, voiceUrl, WHY_LINES } from './tts';
 
 const now = () => new Date().toISOString();
 
+/** Sum of an option's scores on the item's focus skills. */
+const focusScore = (item: Situation, optionId: string) =>
+  item.primaryCompetencies.reduce((n, c) => n + (item.options.find((o) => o.id === optionId)?.scores?.[c] ?? 0), 0);
+
 /**
- * Coaching after a situation choice (never puzzles or dilemmas): Fizz names the skill a strong choice showed
- * (the focus skill this option shows best), or offers to try another way after a weak one.
+ * Coaching after a situation choice (never puzzles or dilemmas), so every child ends on a helpful way:
+ * - a strong choice: Fizz names the skill it showed (the focus skill this option shows best);
+ * - a weak choice: Fizz says why it didn't help (the item's own approved line, else a gentle line about the
+ *   skill it missed), and the child tries again. After `guideAfter` weak choices Fizz shows the most helpful option;
+ * - an okay choice: nothing more; the round goes on.
+ * `weakBefore` is how many weak choices the child already made on this item.
  */
-function coaching(item: Situation, optionId: string, performance: number, openChoice: boolean, retryAllowed: boolean) {
-  const none = { skill: null, retry: null };
+function coaching(item: Situation, optionId: string, performance: number, openChoice: boolean, weakBefore: number) {
+  const none = { skill: null, why: null, retry: null, guide: null };
   if (item.kind !== 'situation' || openChoice) return none;
   const option = item.options.find((o) => o.id === optionId);
-  const skill = [...item.primaryCompetencies].sort((a, b) => (option?.scores?.[b] ?? 0) - (option?.scores?.[a] ?? 0))[0];
+  const bySkill = (dir: 1 | -1) => [...item.primaryCompetencies].sort((a, b) => dir * ((option?.scores?.[b] ?? 0) - (option?.scores?.[a] ?? 0)))[0];
+  if (performance >= GAME.nameSkillFrom) {
+    const skill = bySkill(1);
+    return { ...none, skill: skill ? { text: SKILL_LINES[skill], voice: sharedVoiceUrl(`skill.${skill}`) } : null };
+  }
+  if (performance >= GAME.offerRetryBelow) return none;
+  const missed = bySkill(-1);
+  const own = voiceUrl(item, `w.${optionId}`);
+  const why = own && option?.why ? { text: option.why, voice: own } : missed ? { text: WHY_LINES[missed], voice: sharedVoiceUrl(`why.${missed}`) } : null;
+  const best = [...item.options].sort((a, b) => focusScore(item, b.id) - focusScore(item, a.id))[0].id;
   return {
-    skill: performance >= GAME.nameSkillFrom && skill ? { text: SKILL_LINES[skill], voice: sharedVoiceUrl(`skill.${skill}`) } : null,
-    retry: retryAllowed && performance < GAME.offerRetryBelow ? { text: TRY_LINE, voice: sharedVoiceUrl('try') } : null,
+    ...none, why,
+    retry: { text: TRY_LINE, voice: sharedVoiceUrl('try') },
+    guide: weakBefore + 1 >= GAME.guideAfter ? { optionId: best, text: GUIDE_LINE, voice: sharedVoiceUrl('guide') } : null,
   };
 }
 
@@ -167,7 +185,7 @@ export async function answerItem(accountId: string, roundId: string, itemId: str
         // Puzzles get a gentle walk-through after any answer; the child is never told "wrong".
         explanation: item.kind === 'puzzle' ? item.puzzle!.explanation : null,
         voice: { consequence: voiceUrl(item, `c.${option.id}`), explanation: voiceUrl(item, 'x'), done: done ? doneVoiceUrl() : null },
-        ...coaching(item, option.id, out.performance, !!out.openChoice, true),
+        ...coaching(item, option.id, out.performance, !!out.openChoice, 0),
       },
       answered: answered.length,
       size: round.size,
@@ -190,8 +208,9 @@ export async function nextItem(accountId: string, roundId: string) {
 }
 
 /**
- * "Try another way": after a weak first choice, the child may pick once more and see what that choice does.
- * Practice only: skills, events and the round's progress are untouched, and only the first choice is measured.
+ * Guided retry: after a weak choice the child picks again (each try hears why it did or didn't help) until they
+ * find a helpful way; Fizz shows the most helpful option after two weak tries. Practice only: skills, events and
+ * the round's progress are untouched, and only the first choice is measured.
  */
 export async function retryItem(accountId: string, roundId: string, itemId: string, optionId: string) {
   const { byId } = await loadBank();
@@ -202,7 +221,9 @@ export async function retryItem(accountId: string, roundId: string, itemId: stri
     const player = parsePlayer(await tx.get<unknown>(COLLECTIONS.players, accountId), accountId);
     if (!round || round.playerId !== accountId) throw new HttpError(404, 'That bonus round was not found.');
     if (!round.answered.includes(itemId)) throw new HttpError(409, 'Choose an answer first.');
-    if ((round.retries ?? []).some((x) => x.itemId === itemId)) throw new HttpError(409, 'You already tried another way.');
+    const tried = (round.retries ?? []).filter((x) => x.itemId === itemId);
+    if (tried.some((x) => x.optionId === optionId)) throw new HttpError(409, 'You already tried that way.');
+    if (item && tried.length >= item.options.length - 1) throw new HttpError(409, 'Every other way has been tried.');
     if (!item) throw new HttpError(410, 'This item is no longer available.');
     if (!option) throw new HttpError(400, 'That choice is not part of this item.');
     if (!player) throw new HttpError(409, 'Set up your Captain first.');
@@ -215,7 +236,7 @@ export async function retryItem(accountId: string, roundId: string, itemId: stri
         consequence: option.consequence,
         explanation: null,
         voice: { consequence: voiceUrl(item, `c.${option.id}`), explanation: null, done: null },
-        ...coaching(item, option.id, performance, false, false),
+        ...coaching(item, option.id, performance, false, 1 + tried.length), // every earlier try on this item was weak
       },
     };
   });
