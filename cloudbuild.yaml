@@ -18,7 +18,7 @@ steps:
   - id: deploy
     name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
     entrypoint: gcloud
-    args: ["run", "deploy", "${_SERVICE}", "--image", "${_IMAGE}:${SHORT_SHA}", "--region", "${_REGION}", "--quiet"]
+    args: ["run", "deploy", "${_SERVICE}", "--image", "${_IMAGE}:${SHORT_SHA}", "--region", "${_REGION}", "--min-instances", "1", "--quiet"]
 
 images: ["${_IMAGE}:${SHORT_SHA}"]
 options:

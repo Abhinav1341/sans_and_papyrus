@@ -279,7 +279,7 @@ check(!!second.feedback.skill && !second.feedback.retry && !second.feedback.why,
 check(JSON.stringify((await getPlayer(coach.id))!.skills) === measured, 'retries move no skill: only the first choice is measured');
 await rejects(retryItem(other.id, cr.roundId, ci.id, focusBest(ci)), 404, "nobody can try again in someone else's round");
 const own = { ...ci, whyApproved: true, options: ci.options.map((o) => (o.id === weak1 ? { ...o, why: 'That made the others feel left behind. Maybe there is a way to cross together?' } : o)) };
-check(partText(own, `w.${weak1}`)?.text.startsWith('That made') && partText(ci, `w.${weak1}`) === null, "an item's own why is spoken only once a person has approved it");
+check(partText(own, `w.${weak1}`)?.text.startsWith('That made') && partText({ ...own, whyApproved: false }, `w.${weak1}`) === null, "an item's own why is spoken only once a person has approved it");
 const cn = await nextItem(coach.id, cr.roundId);
 if (!cn.done && cn.item.kind === 'situation') {
   const ni = byId.get(cn.item.id)!;

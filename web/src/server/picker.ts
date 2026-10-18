@@ -69,6 +69,8 @@ export async function pickNext(p: PlayerProfile, candidates: Candidate[], lastSt
     title: c.item.title,
     story: c.item.text.slice(0, 160),
   }));
+  const started = Date.now();
+  const timed = (info: PickerInfo): PickerInfo => ({ ...info, latencyMs: Date.now() - started });
   try {
     const out = await geminiJson({
       model: GAME.models.picker,
@@ -78,10 +80,10 @@ export async function pickNext(p: PlayerProfile, candidates: Candidate[], lastSt
       temperature: 0.4,
       timeoutMs: GAME.pickerTimeoutMs,
     });
-    if (!shortlistIds.includes(out.situationId)) return fallback();
-    return { shortlistIds, chosenId: out.situationId, reason: out.reason.trim().slice(0, 200), source: 'ai' };
+    if (!shortlistIds.includes(out.situationId)) return timed(fallback());
+    return timed({ shortlistIds, chosenId: out.situationId, reason: out.reason.trim().slice(0, 200), source: 'ai' });
   } catch (err) {
     console.warn(`AI picker unavailable, using code fallback: ${(err as Error).message}`);
-    return fallback();
+    return timed(fallback());
   }
 }

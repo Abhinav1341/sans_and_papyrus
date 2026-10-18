@@ -25,6 +25,8 @@ interface StoredReport {
   source: 'ai' | 'fallback';
   /** The code check on the AI note: problems found in the first draft, and whether a rewrite fixed them. */
   check?: { firstDraftProblems: string[]; rewritten: boolean; passed: boolean };
+  /** How long writing the note took, Gemini calls and any rewrite included. */
+  latencyMs?: number;
 }
 
 export function summarise(p: PlayerProfile) {
@@ -157,6 +159,7 @@ async function buildReport(accountId: string, refresh: boolean) {
   const s = summarise(p);
   let report: ParentReport, source: StoredReport['source'] = 'ai';
   let check: StoredReport['check'];
+  const started = Date.now();
   try {
     if (!GAME.aiEnabled) throw new Error('AI is switched off (GAME_AI=off)');
     const write = (extra = '') => geminiJson({ model: GAME.models.report, system: SYSTEM, prompt: JSON.stringify(s, null, 1) + extra, schema: ParentReport, temperature: 0.4, timeoutMs: 20000 });
@@ -174,7 +177,7 @@ async function buildReport(accountId: string, refresh: boolean) {
     report = fallbackReport(s);
     source = 'fallback';
   }
-  const stored: StoredReport = { playerId: accountId, report, basedOnEvents: itemsPlayed, createdAt: new Date().toISOString(), source, ...(check ? { check } : {}) };
+  const stored: StoredReport = { playerId: accountId, report, basedOnEvents: itemsPlayed, createdAt: new Date().toISOString(), source, ...(check ? { check } : {}), latencyMs: Date.now() - started };
   await db().set(COLLECTIONS.reports, accountId, stored);
   return { status: 'ready' as const, ...stored, stats, shape };
 }

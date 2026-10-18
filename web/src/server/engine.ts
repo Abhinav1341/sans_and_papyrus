@@ -88,6 +88,7 @@ export interface PickerInfo {
   chosenId: string;
   reason: string;
   source: 'ai' | 'fallback';
+  latencyMs?: number;
 }
 
 export interface Candidate {

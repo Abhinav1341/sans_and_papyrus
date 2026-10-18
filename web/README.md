@@ -147,7 +147,7 @@ The first deploy, or a one-off deploy from a laptop:
 
 ```
 gcloud run deploy sans-and-papyrus --source . --project project-b87959c5-a26a-49fe-adf --region asia-south1 \
-  --allow-unauthenticated --min-instances 0 --max-instances 3 \
+  --allow-unauthenticated --min-instances 1 --max-instances 3 \
   --update-env-vars GOOGLE_CLOUD_PROJECT=project-b87959c5-a26a-49fe-adf,GOOGLE_CLOUD_LOCATION=global,GOOGLE_GENAI_USE_VERTEXAI=true,SESSION_SECRET=<your secret>
 ```
 

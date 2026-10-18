@@ -281,6 +281,7 @@ export const PickerDecision = z.object({
   chosenId: z.string(),
   reason: z.string().max(200),       // shown in the demo panel and used in parent reports
   source: z.enum(["ai", "fallback"]),
+  latencyMs: z.number().int().nonnegative().optional(), // time spent asking Gemini (fallbacks after a timeout included); absent when Gemini wasn't asked
 });
 export type PickerDecision = z.infer<typeof PickerDecision>;
 
