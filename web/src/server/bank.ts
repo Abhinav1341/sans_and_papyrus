@@ -45,7 +45,7 @@ export interface ClientItem {
   /** Spoken versions (Cloud Text-to-Speech) of the question and the hint. */
   voice: { q: string | null; hint: string | null };
   /** A genuine dilemma: Fizz says more than one answer is okay, and the choice isn't measured. */
-  open: { text: string; voice: string } | null;
+  open: { text: string; voice: string | null } | null;
 }
 
 export function toClientItem(item: Situation, optionOrder: string[]): ClientItem {

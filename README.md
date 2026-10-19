@@ -21,7 +21,7 @@ Built for the **Google Cloud AI Builder Cup 2026** (theme: Sustainability & Soci
   help, Fizz (the host) says *why* and the child tries another way until they find a helpful one; after two tries,
   Fizz shows the way. A good choice gets one line naming the skill it showed. Real dilemmas get "Both could work.
   Which feels right to you?" and are never scored.
-- **Safe by design.** No ads, purchases, free text or real names; play as a guest with nothing to sign up for.
+- **Safe by design.** No ads, purchases or free text; a child's real name is optional and never leaves the device; play as a guest with nothing to sign up for.
 
 ## How the AI works
 
@@ -107,7 +107,7 @@ audio) are in [generator/README.md](generator/README.md).
 
 ## Privacy
 
-Grown-ups sign in (Google, email or guest); children never type an email or a real name. Gemini sees only the
+Grown-ups sign in (Google, email or guest); children never type an email. A child's real name is optional, stays on the device and is shown only in the Parent Corner. Gemini sees only the
 child's age, the in-game name they picked and a summary of play, never raw answers or the account email. "Delete all data" in the Parent Corner
 removes everything; ending a guest session deletes that guest's data. Full policy: `/privacy` on the live site.
 

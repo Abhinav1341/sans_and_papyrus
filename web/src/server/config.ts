@@ -8,7 +8,8 @@ export const GAME = {
     report: process.env.GEMINI_REPORT_MODEL ?? 'gemini-3.8-flash',      // quality: parents read it
   },
   /** GAME_AI=off skips Gemini (tests, offline development): code picks items and writes a plain report. */
-  get aiEnabled() { return process.env.GAME_AI !== 'off'; }, // read on use, so tests can switch it
+  // Read on use, so tests can switch it. Off in offline mode (no Google Cloud project on a laptop).
+  get aiEnabled() { return process.env.GAME_AI !== 'off' && !!process.env.GOOGLE_CLOUD_PROJECT?.trim(); },
   /** If the AI picker hasn't answered by then, code picks the top candidate instead. */
   pickerTimeoutMs: 3500,
 

@@ -8,7 +8,7 @@ import { createHash } from 'node:crypto';
 import { GoogleAuth } from 'google-auth-library';
 import type { Competency, Situation } from '../../lib/schemas';
 import { COLLECTIONS, GAME } from './config';
-import { db } from './db';
+import { db, isOffline } from './db';
 
 export type Speaker = 'narrator' | 'fizz';
 
@@ -74,10 +74,12 @@ export const clipHash = (speaker: Speaker, text: string) =>
 
 /** The URL the browser fetches for one part of an item. */
 export function voiceUrl(item: Situation, part: VoicePart): string | null {
+  if (isOffline()) return null; // offline: the browser's own voice reads it
   const p = partText(item, part);
   return p ? `/api/voice?item=${encodeURIComponent(item.id)}&part=${encodeURIComponent(part)}&v=${clipHash(p.speaker, p.text)}` : null;
 }
-export const sharedVoiceUrl = (key: string) => {
+export const sharedVoiceUrl = (key: string): string | null => {
+  if (isOffline()) return null;
   const l = SHARED_LINES[key];
   return `/api/voice?part=${encodeURIComponent(key)}&v=${clipHash(l.speaker, l.text)}`;
 };
@@ -90,6 +92,7 @@ let auth: GoogleAuth | null = null;
 
 /** Fetches the Google access token ahead of time, so the first clip doesn't wait for sign-in. */
 export async function warmTts(): Promise<void> {
+  if (isOffline()) return;
   auth ??= new GoogleAuth({ scopes: ['https://www.googleapis.com/auth/cloud-platform'] });
   await (await auth.getClient()).getAccessToken();
 }

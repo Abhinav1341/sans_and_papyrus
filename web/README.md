@@ -30,6 +30,15 @@ npm run dev
 
 Open http://localhost:3000.
 
+**Two ways to run locally:**
+- **Offline (no Google Cloud needed):** with no `web/.env.local` (or no `GOOGLE_CLOUD_PROJECT` in it), `npm run dev`
+  starts in offline mode: an in-memory database loaded with every seed question from `generator/seeds`, Gemini off
+  (code picks the questions and writes a plain parent report), and the browser's own voice reading aloud. Play as a
+  guest. Nothing is saved, and a restart starts fresh. Good for working on the story, screens and bonus-round UI.
+- **Connected (the real bank, Gemini and Cloud voices):** your Google account needs access to the project (Abhinav
+  grants it). Install the gcloud CLI, run `gcloud auth application-default login`, and create `web/.env.local` with
+  `GOOGLE_CLOUD_PROJECT`, `GOOGLE_CLOUD_LOCATION=global` and `GOOGLE_GENAI_USE_VERTEXAI=true` (see the settings table below).
+
 Handy links for testing:
 - `?demo=1` skips sign-in and makes a Captain.
 - `?demo=all` also unlocks every chapter.

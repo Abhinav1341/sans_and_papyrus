@@ -15,7 +15,7 @@ import { pushHero } from './boot';
 import { Button, Icon, Svg } from './ui';
 
 /** A line Fizz says after a choice: why it didn't help, the skill it showed, or the next step. */
-type Said = { text: string; voice: string };
+type Said = { text: string; voice: string | null };
 type Feedback = {
   consequence: string; explanation: string | null; voice: { consequence: string | null; explanation: string | null; done: string | null };
   why?: Said | null; skill?: Said | null; retry?: Said | null;

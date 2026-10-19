@@ -2,6 +2,8 @@
  * A tiny document-store interface over Firestore. The game logic only uses these calls, so tests
  * can swap in the in-memory version and run the whole flow without Google Cloud.
  */
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { Firestore } from '@google-cloud/firestore';
 
 /** Reads and writes inside a transaction: all reads first, writes are applied together at the end. */
@@ -128,9 +130,33 @@ export class MemoryDb implements Db {
   }
 }
 
+/**
+ * Offline mode, for running the game on a laptop with no Google Cloud access (for example a teammate without
+ * gcloud): when no GOOGLE_CLOUD_PROJECT is set outside production, the game uses an in-memory database loaded
+ * with the seed questions from generator/seeds, Gemini is off (code picks) and the browser reads aloud.
+ * Nothing is saved: a restart starts fresh. Production always uses Firestore (and fails loudly without a project).
+ */
+export const isOffline = () => process.env.NODE_ENV !== 'production' && !process.env.GOOGLE_CLOUD_PROJECT?.trim();
+
+function offlineDb(): MemoryDb {
+  const m = new MemoryDb();
+  const dir = join(process.cwd(), '..', 'generator', 'seeds');
+  let n = 0;
+  if (existsSync(dir))
+    for (const f of readdirSync(dir).filter((f) => f.endsWith('.json') && f.startsWith('seed-'))) {
+      for (const item of JSON.parse(readFileSync(join(dir, f), 'utf8')) as { id: string }[]) {
+        // Every seed, including drafts, so there is plenty to play with locally. Never used in production.
+        void m.set('seedItems', item.id, { ...item, status: 'active' });
+        n++;
+      }
+    }
+  console.warn(`Offline mode (no GOOGLE_CLOUD_PROJECT): in-memory database with ${n} seed questions, Gemini off, browser voices. Nothing is saved.`);
+  return m;
+}
+
 let instance: Db | null = null;
 export function db(): Db {
-  return (instance ??= new FirestoreDb());
+  return (instance ??= isOffline() ? offlineDb() : new FirestoreDb());
 }
 /** Tests only: replace the database. */
 export function setDb(d: Db) {
