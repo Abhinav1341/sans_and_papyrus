@@ -59,6 +59,9 @@ p { margin: 0; }
   animation: twinkle 6s ease-in-out infinite alternate;
 }
 @keyframes twinkle { from { opacity: .45; } to { opacity: .85; } }
+/* Phones: the game fills the screen and hides the backdrop, so it is not drawn at all (two full-screen
+   GPU layers, one twinkling forever, that Android phones would otherwise keep in memory). */
+body > .backdrop { display: none; }
 
 .device {
   position: relative; z-index: 1;
@@ -71,6 +74,7 @@ p { margin: 0; }
 /* On wide screens the game stays phone-shaped, centred like a real phone */
 @media (min-width: 520px) {
   body { display: grid; place-items: center; }
+  body > .backdrop { display: block; }
   .device {
     width: min(var(--device-w), calc((100dvh - 40px) * 0.4614));
     height: min(var(--device-h), calc(100dvh - 40px));

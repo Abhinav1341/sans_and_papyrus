@@ -3,6 +3,11 @@
 .stage { position: absolute; inset: 0; cursor: pointer; overflow: hidden; }
 .stage-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .stage-fx { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+/* Android Chrome gives every small looping animation in the film (swaying sweets, twinkling stars,
+   flapping birds, sparkles) its own GPU layer: about 300 in a busy scene, more graphics memory than
+   many Android phones have, so parts of the picture drop out and flicker, worst when a scene change
+   swaps them all at once. `contents` tells Chrome to draw them in place instead, as Safari does. */
+.stage-svg, .stage-fx, .insert, .panels { will-change: contents; }
 
 /* Letterbox bars for big cinematic moments */
 .stage::before, .stage::after { content: ""; position: absolute; left: 0; right: 0; height: 0; background: #05030f; z-index: 6; transition: height .6s var(--ease-out); pointer-events: none; }

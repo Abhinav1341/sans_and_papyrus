@@ -223,8 +223,11 @@ export class Engine {
     for (const [who, g] of this.auras) {
       const a = this.actors.get(who);
       if (!a) continue;
-      g.setAttribute('transform', `translate(${f1(a.x)} ${f1(a.y - a.lift)}) scale(${Math.round(a.s * 100) / 100})`);
-      g.style.display = a.visible && a.alpha > 0.01 ? '' : 'none';
+      // Written only when changed (this runs every frame).
+      const t = `translate(${f1(a.x)} ${f1(a.y - a.lift)}) scale(${Math.round(a.s * 100) / 100})`;
+      if (g.getAttribute('transform') !== t) g.setAttribute('transform', t);
+      const d = a.visible && a.alpha > 0.01 ? '' : 'none';
+      if (g.style.display !== d) g.style.display = d;
     }
   }
   /** An anime power banner: the power's icon and name on a slanted ribbon in its colour. */
@@ -495,21 +498,21 @@ export class Engine {
     this.animateScreenFx(dt);
   }
 
+  /**
+   * Nearer characters (lower down) are drawn in front. They are moved in the page only when the
+   * drawn order is actually wrong: moving one restarts its emote and redoes all its style work, and
+   * doing that every frame made phones flicker.
+   */
   private sortDepth() {
-    const list = [...this.actors.values()];
-    let sorted = true;
-    for (let i = 1; i < list.length; i++) if (list[i].y < list[i - 1].y) { sorted = false; break; }
-    if (sorted) {
-      // DOM order might still differ from map order after moves; check the DOM directly.
-      const kids = this.actorsG.children;
-      for (let i = 1; i < kids.length; i++) {
-        const a = this.actors.get(kids[i - 1].getAttribute('data-actor') as CastId);
-        const b = this.actors.get(kids[i].getAttribute('data-actor') as CastId);
-        if (a && b && b.y < a.y - 0.5) { sorted = false; break; }
+    const kids = this.actorsG.children;
+    for (let i = 1; i < kids.length; i++) {
+      const a = this.actors.get(kids[i - 1].getAttribute('data-actor') as CastId);
+      const b = this.actors.get(kids[i].getAttribute('data-actor') as CastId);
+      if (a && b && b.y < a.y) {
+        [...this.actors.values()].sort((p, q) => p.y - q.y).forEach((p) => this.actorsG.append(p.root));
+        return;
       }
-      if (sorted) return;
     }
-    list.sort((a, b) => a.y - b.y).forEach((a) => this.actorsG.append(a.root));
   }
 
   render() {
