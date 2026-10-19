@@ -1,10 +1,12 @@
 'use client';
-// Make your Captain. The name comes from a picker (no typing, so no personal data is collected).
-// The child also picks one of three voices; the Captain speaks in it throughout the story.
+// Make your Captain. The Captain's name comes from a picker: the story speaks it in recorded voices,
+// and it is the only name the server sees. The child's own name is optional and stays on this
+// device; only the Parent Corner shows it. The child also picks one of three voices; the Captain
+// speaks in it throughout the story.
 import { useEffect, useMemo, useState } from 'react';
 import type { VoiceId } from '@/lib/voice';
 import { useRouter } from 'next/navigation';
-import { store, type VoiceChoice } from '@/lib/store';
+import { store, cleanChildName, CHILD_NAME_MAX, type VoiceChoice } from '@/lib/store';
 import { SKINS, HAIR_COLORS, HAIR_STYLES, EYE_COLORS, OUTFITS, captainLook, type Look } from '@/art/looks';
 import { figureSVG } from '@/art/figure';
 import { faceSVG } from '@/art/portrait';
@@ -17,11 +19,11 @@ import { pushHero, useGuard, useMusic } from './boot';
 const HAIR_LABEL: Record<string, string> = { short: 'Short', spiky: 'Spiky', bob: 'Bob', ponytail: 'Ponytail', braid: 'Braid', curly: 'Curly', bun: 'Bun', long: 'Long' };
 const VOICES: VoiceChoice[] = ['a', 'b', 'c'];
 const AGES = [6, 7, 8, 9, 10, 11, 12, 13, 14];
-type Draft = { name: string; look: Look; voice: VoiceChoice; age: number | null };
+type Draft = { name: string; childName: string; look: Look; voice: VoiceChoice; age: number | null };
 
 function savedDraft(): Draft {
   const h = store.get().hero;
-  return h ? { name: h.name, look: { ...h.look }, voice: h.voice, age: h.age ?? null } : { name: HERO_NAMES[0], voice: 'a', age: null, look: { skin: SKINS[3], hair: 'spiky', hairColor: HAIR_COLORS[0], eyes: EYE_COLORS[0], outfit: OUTFITS[2] } };
+  return h ? { name: h.name, childName: h.childName ?? '', look: { ...h.look }, voice: h.voice, age: h.age ?? null } : { name: HERO_NAMES[0], childName: '', voice: 'a', age: null, look: { skin: SKINS[3], hair: 'spiky', hairColor: HAIR_COLORS[0], eyes: EYE_COLORS[0], outfit: OUTFITS[2] } };
 }
 
 export function HeroBuilder({ editing }: { editing: boolean }) {
@@ -48,8 +50,11 @@ export function HeroBuilder({ editing }: { editing: boolean }) {
   );
 
   const save = async () => {
+    const typed = draft.childName.trim();
+    const childName = typed ? cleanChildName(typed) : null;
+    if (typed && !childName) { toast('Names can use letters, spaces, dots, hyphens and apostrophes'); document.getElementById('child-name')?.focus(); return; }
     if (!draft.age) { toast('Grown-ups: please pick the Captain’s age'); document.getElementById('age-row')?.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-    store.update((s) => { s.hero = { name: draft.name, look: { ...draft.look }, voice: draft.voice, age: draft.age! }; });
+    store.update((s) => { s.hero = { name: draft.name, look: { ...draft.look }, voice: draft.voice, age: draft.age!, ...(childName ? { childName } : {}) }; });
     sfx('fanfare');
     // The server uses the age to pitch bonus rounds; the game still works offline if this fails.
     pushHero().catch(() => toast('Saved on this device. Bonus rounds will sync when you are online.'));
@@ -70,8 +75,17 @@ export function HeroBuilder({ editing }: { editing: boolean }) {
       </div>
 
       <div>
-        <h3>Name</h3>
-        <div className="chip-row" role="group" aria-label="Name">
+        <h3><label htmlFor="child-name">Your name</label> <small className="muted">(optional: only grown-ups see it, in the Parent Corner)</small></h3>
+        <div className="field">
+          <input id="child-name" type="text" autoComplete="off" autoCapitalize="words" autoCorrect="off" spellCheck={false}
+            maxLength={CHILD_NAME_MAX} placeholder="Type your name" value={draft.childName}
+            onChange={(e) => setDraft({ ...draft, childName: e.target.value })} />
+        </div>
+      </div>
+
+      <div>
+        <h3>Captain name <small className="muted">(the story calls you this)</small></h3>
+        <div className="chip-row" role="group" aria-label="Captain name">
           {HERO_NAMES.map((n) => (
             <button key={n} type="button" className="chip" aria-pressed={draft.name === n}
               onClick={() => { sfx('pop'); setDraft({ ...draft, name: n }); say('fizz', captainCall(n), { force: true }); }}>{n}</button>

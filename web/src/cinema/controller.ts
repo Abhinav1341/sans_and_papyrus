@@ -1,7 +1,9 @@
 // Plays a chapter like a film: scene by scene, shot by shot. Each shot runs its animation and its
 // spoken line together; captions highlight the word being spoken. In movie mode the story moves
 // on by itself; otherwise a tap moves on. A tap during a shot finishes it at once (never loses
-// anything). Progress is saved at every shot, so a chapter resumes exactly where it stopped.
+// anything); taps during a scene transition wait, so no shot is ever skipped (a skipped shot would
+// leave characters who enter in it off screen). Progress is saved at every shot, so a chapter
+// resumes exactly where it stopped.
 import gsap from 'gsap';
 import { Engine } from './engine';
 import { Director } from './director';
@@ -33,6 +35,14 @@ export interface UI {
 
 const HOLD = { slow: 1.5, normal: 0.8, fast: 0.35 } as const;
 
+/** Waits `n` animation frames (lets a phone paint a newly built set while it is still covered). */
+const frames = (n: number) => new Promise<void>((done) => {
+  const step = () => { if (--n <= 0) done(); else requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+});
+
+type CoverKind = Exclude<Transition, 'cut'>;
+
 export class Controller {
   readonly eng: Engine;
   private dir: Director;
@@ -41,7 +51,8 @@ export class Controller {
   private tl: gsap.core.Timeline | null = null;
   private speech: Speech | null = null;
   private line: { speaker: Speaker; text: string; tone?: Tone } | null = null;
-  private phase: 'idle' | 'running' | 'done' | 'overlay' | 'end' = 'idle';
+  /** `busy`: a shot is being set up behind a transition; taps wait until it starts. */
+  private phase: 'idle' | 'busy' | 'running' | 'done' | 'overlay' | 'end' = 'idle';
   private token = 0;
   private destroyed = false;
   private paused = false;
@@ -50,6 +61,7 @@ export class Controller {
   private raf = 0;
   private startedAt = 0;
   private cover: HTMLDivElement;
+  private coverKind: CoverKind = 'fade';
   private overlayResolve: (() => void) | null = null;
 
   constructor(host: HTMLDivElement, private chapter: ChapterRef, private flat: FlatShot[], private hero: Hero, private ui: UI) {
@@ -60,7 +72,6 @@ export class Controller {
     this.dir = new Director(this.eng, () => this.skipping, { insert: (id) => this.ui.setInsert(id) });
     this.cover = document.createElement('div');
     this.cover.className = 'trans-cover';
-    this.cover.innerHTML = '<div class="iris-hole"></div>';
     host.append(this.cover);
   }
 
@@ -150,10 +161,12 @@ export class Controller {
     if (this.destroyed) return;
     if (i >= this.flat.length) { this.complete(); return; }
     this.idx = i;
+    this.phase = 'busy';
     store.update((s) => { s.progress = { chapter: this.chapter.id, shot: i }; });
     this.ui.setWaiting(false);
     if (i % 4 === 0) this.preloadFrom(i + 1);
     const fs = this.flat[i];
+    let covered: Transition | null = null;
     if (fs.sceneIndex !== this.sceneIdx) {
       const first = this.sceneIdx === -1;
       const trans: Transition = first ? 'cut' : fs.scene.trans ?? 'fade';
@@ -162,9 +175,16 @@ export class Controller {
       this.ui.setCaption(null);
       this.setupScene(fs.scene, fs.sceneIndex);
       playMusic(fs.scene.mood ?? 'playful');
-      this.reveal(trans);
+      if (trans !== 'cut') {
+        // The new set is drawn while the screen is still covered; phones need a frame or two for it.
+        await frames(2);
+        if (my !== this.token) return;
+        covered = trans;
+      }
     }
     const shot = fs.shot;
+    if (isLine(shot)) return this.playLine(shot, my, covered);
+    if (covered) this.reveal(covered);
     if (isTitle(shot)) return this.showOverlay({ kind: 'title', title: shot.title }, 'narrator', titleSpeech(shot.title), my);
     if (isGate(shot)) { sfx('drumroll'); return this.showOverlay({ kind: 'gate', gate: shot.gate }, 'fizz', gateSpeech(shot.gate, this.hero.name), my); }
     if (isReward(shot)) {
@@ -174,18 +194,21 @@ export class Controller {
       sfx('fanfare');
       return this.showOverlay({ kind: 'reward', id }, 'fizz', rewardSpeech(id), my);
     }
-    if (isLine(shot)) return this.playLine(shot, my);
   }
 
-  private async playLine(shot: LineShot, my: number) {
-    this.phase = 'running';
-    this.startedAt = performance.now();
+  /** `covered`: a new scene is waiting behind this transition, to be revealed as the shot starts. */
+  private async playLine(shot: LineShot, my: number, covered: Transition | null = null) {
+    if (shot.mood) playMusic(shot.mood);
+    // A shot's own transition; a new scene is already covered, so it is not covered twice.
+    const own = shot.trans && shot.trans !== 'cut' ? shot.trans : null;
+    if (own && !covered) { await this.coverWith(own); if (my !== this.token) return; }
+    const trans = covered ?? own;
+    // Inserts and panels change behind the transition (or on the cut), never just before it.
     if (shot.insert !== undefined) this.ui.setInsert(shot.insert);
     else this.ui.setInsert(null);
     this.ui.setPanels(shot.panels ?? null);
-    if (shot.mood) playMusic(shot.mood);
-    const trans = shot.trans && shot.trans !== 'cut' ? shot.trans : null;
-    if (trans) { await this.coverWith(trans); if (my !== this.token) return; }
+    this.phase = 'running';
+    this.startedAt = performance.now();
 
     const raw = shot.t ?? shot.n;
     const speaker: Speaker = shot.t ? (shot.who ?? 'narrator') : 'narrator';
@@ -269,7 +292,8 @@ export class Controller {
   }
 
   next() {
-    if (this.destroyed || this.phase === 'overlay' || this.phase === 'end') return;
+    // Only a finished shot moves on (never one still being set up behind a transition).
+    if (this.destroyed || this.phase !== 'done') return;
     sfx('tap');
     this.goto(this.idx + 1);
   }
@@ -377,24 +401,29 @@ export class Controller {
   }
 
   /* ---------- transitions ---------- */
+  // The cover is one layer that only ever changes opacity, position or its iris radius (no layout,
+  // no giant shadows), so phones can draw every frame of it without flicker.
   private coverWith(kind: Transition): Promise<void> {
     if (kind === 'cut') return Promise.resolve();
     const el = this.cover;
-    const k = this.eng.calm && (kind === 'iris' || kind === 'wipe') ? 'fade' : kind;
-    el.className = `trans-cover on ${k}`;
     gsap.killTweensOf(el);
-    const hole = el.firstElementChild as HTMLElement;
-    gsap.killTweensOf(hole);
+    // Still opening from the last transition: close again from where it is, so nothing jumps.
+    const midway = el.classList.contains('on');
+    if (!midway) {
+      this.coverKind = this.eng.calm && (kind === 'iris' || kind === 'wipe') ? 'fade' : kind;
+      el.className = `trans-cover on ${this.coverKind}`;
+    }
+    const k = this.coverKind;
     return new Promise<void>((done) => {
       if (k === 'iris') {
-        gsap.set(el, { opacity: 1, xPercent: 0 });
-        gsap.fromTo(hole, { '--r': '75vmax' }, { '--r': '0vmax', duration: 0.6, ease: 'power2.in', onComplete: done });
+        if (!midway) gsap.set(el, { opacity: 1, xPercent: 0, '--r': '75vmax' });
+        gsap.to(el, { '--r': '0vmax', duration: 0.6, ease: 'power2.in', onComplete: done });
       } else if (k === 'wipe') {
-        gsap.set(el, { opacity: 1 });
-        gsap.fromTo(el, { xPercent: -120 }, { xPercent: 0, duration: 0.45, ease: 'power2.inOut', onComplete: done });
+        if (!midway) gsap.set(el, { opacity: 1, xPercent: -120, force3D: true });
+        gsap.to(el, { xPercent: 0, duration: 0.45, ease: 'power2.inOut', force3D: true, onComplete: done });
       } else {
-        gsap.set(el, { xPercent: 0 });
-        gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: k === 'white' ? 0.7 : 0.35, ease: 'sine.inOut', onComplete: done });
+        if (!midway) gsap.set(el, { opacity: 0, xPercent: 0, force3D: true });
+        gsap.to(el, { opacity: 1, duration: k === 'white' ? 0.7 : 0.35, ease: 'sine.inOut', onComplete: done });
       }
     });
   }
@@ -402,10 +431,11 @@ export class Controller {
   private reveal(kind: Transition) {
     if (kind === 'cut') return;
     const el = this.cover;
-    const hole = el.firstElementChild as HTMLElement;
+    gsap.killTweensOf(el);
     const done = () => { el.className = 'trans-cover'; };
-    if (el.classList.contains('iris')) { gsap.fromTo(hole, { '--r': '0vmax' }, { '--r': '75vmax', duration: 0.7, ease: 'power2.out', onComplete: done }); return; }
-    if (el.classList.contains('wipe')) { gsap.to(el, { xPercent: 120, duration: 0.5, ease: 'power2.inOut', onComplete: done }); return; }
-    gsap.to(el, { opacity: 0, duration: el.classList.contains('white') ? 0.8 : 0.45, ease: 'sine.inOut', onComplete: done });
+    const k = this.coverKind;
+    if (k === 'iris') gsap.to(el, { '--r': '75vmax', duration: 0.7, ease: 'power2.out', onComplete: done });
+    else if (k === 'wipe') gsap.to(el, { xPercent: 120, duration: 0.5, ease: 'power2.inOut', force3D: true, onComplete: done });
+    else gsap.to(el, { opacity: 0, duration: k === 'white' ? 0.8 : 0.45, ease: 'sine.inOut', onComplete: done });
   }
 }

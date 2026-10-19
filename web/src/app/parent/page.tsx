@@ -11,6 +11,7 @@ import { deleteAccount, fetchMe, saveGuestWithEmail, saveGuestWithGoogle, signOu
 import { GOOGLE_G } from '@/art/icons';
 import { useGuard, useMusic } from '@/components/boot';
 import { SkillShape, type ShapeAxis } from '@/components/skill-shape';
+import { HERO_NAMES } from '@/data/ui-lines';
 
 const HOLD_MS = 3000;
 const C = 2 * Math.PI * 88;
@@ -75,7 +76,18 @@ function List({ title, items }: { title: string; items: string[] }) {
   return <div className="card"><p style={{ fontWeight: 800 }}>{title}</p><ul className="report-list">{items.map((t, i) => <li key={i}>{t}</li>)}</ul></div>;
 }
 
-function Report() {
+/**
+ * The server writes the report about the Captain ("Captain Aarav", "Aarav"): it never sees the
+ * child's own name. On this device the report names the child instead, when a grown-up added one.
+ */
+function personalise(captain: string | undefined, childName: string | undefined): (text: string) => string {
+  if (!childName) return (text) => text;
+  const names = [...new Set([...HERO_NAMES, ...(captain ? [captain] : [])])].map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const re = new RegExp(`\\b(?:Captain\\s+)?(?:${names.join('|')})\\b`, 'g');
+  return (text) => text.replace(re, () => childName);
+}
+
+function Report({ captain, childName }: { captain?: string; childName?: string }) {
   const [state, setState] = useState<ReportState>({ status: 'loading' });
   const fetchReport = (refresh: boolean) =>
     api<ReportState>(`report${refresh ? '?refresh=1' : ''}`).then(setState).catch((e: Error) => setState({ status: 'error', message: e.message }));
@@ -86,7 +98,15 @@ function Report() {
   if (state.status === 'no-captain') return <div className="card"><p className="muted">Set up the Captain (with their age) to start the report.</p></div>;
   if (state.status === 'too-early')
     return <div className="card"><p className="muted">The report starts after a few bonus-round choices ({state.itemsPlayed} of {state.needed} so far). Bonus rounds appear inside the story.</p></div>;
-  const r = state.report;
+  const name = personalise(captain, childName);
+  const r: ParentReport = {
+    summary: name(state.report.summary),
+    strengths: state.report.strengths.map(name),
+    growingAreas: state.report.growingAreas.map(name),
+    habits: state.report.habits.map(name),
+    tryAtHome: state.report.tryAtHome.map(name),
+    ...(state.report.thinkingSkills ? { thinkingSkills: name(state.report.thinkingSkills) } : {}),
+  };
   return (
     <>
       <div className="card">
@@ -168,13 +188,19 @@ export default function ParentPage() {
       </div>
       {!open ? <HoldGate onOpen={() => setOpen(true)} /> : (
         <div className="stack">
-          <div className="card"><p style={{ fontWeight: 800 }}>Captain {s.hero?.name}{s.hero?.age ? `, age ${s.hero.age}` : ''}</p></div>
+          <div className="card stack">
+            <p style={{ fontWeight: 800 }}>{s.hero?.childName ?? `Captain ${s.hero?.name}`}{s.hero?.age ? `, age ${s.hero.age}` : ''}</p>
+            {s.hero?.childName ? <p className="muted" style={{ fontSize: 14 }}>Plays as Captain {s.hero.name}. Your child&rsquo;s name stays on this device.</p> : <>
+              <p className="muted" style={{ fontSize: 14 }}>The report uses the Captain&rsquo;s name. You can add your child&rsquo;s own name; it stays on this device.</p>
+              <button type="button" className="linkish" style={{ alignSelf: 'flex-start' }} onClick={() => router.push('/hero/edit')}>Add your child&rsquo;s name</button>
+            </>}
+          </div>
           {guest ? <GuestSave onSaved={(a) => {
             setAccount(a);
             store.update((st) => { st.auth = { signedIn: true, method: a.type }; });
             toast('Progress saved. Sign in with it on any device.');
           }} /> : null}
-          <Report />
+          <Report captain={s.hero?.name} childName={s.hero?.childName} />
           <Button variant="ghost" onClick={async () => {
             if (guest && !endArmed) { setEndArmed(true); return; }
             await signOut(); store.update((st) => { st.auth = { signedIn: false, method: null }; }); router.replace('/login');

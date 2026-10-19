@@ -16,12 +16,12 @@ export default function PrivacyPage() {
         <Link href="/" className="linkish">Back to the game</Link>
       </div>
       <h2 id="privacy-h">Privacy</h2>
-      <p className="muted">Last updated 17 October 2026. Party Galaxy is a prototype built for the Google Cloud AI Builder Cup 2026.</p>
+      <p className="muted">Last updated 19 October 2026. Party Galaxy is a prototype built for the Google Cloud AI Builder Cup 2026.</p>
 
       <div className="card stack">
         <h3>The short version</h3>
         <ul className="report-list">
-          <li>A grown-up signs in. Children never type an email or a real name.</li>
+          <li>A grown-up signs in. Children never type an email. A child&rsquo;s own name is optional and never leaves the device.</li>
           <li>We keep only what helps the game fit the child and write the parent report.</li>
           <li>No ads, no purchases, and nothing is sold or shared for marketing.</li>
           <li>Grown-ups can delete everything at any time from the Parent Corner.</li>
@@ -34,7 +34,7 @@ export default function PrivacyPage() {
           <li><strong>The grown-up&rsquo;s account:</strong> an email address and a scrambled (hashed) password, or for Google sign-in the Google account ID and email address. We ask Google only for the email address, not contacts, photos or anything else. Guests get an account with no personal details.</li>
           <li><strong>The Captain:</strong> the in-game name the child chooses (please don&rsquo;t use a real name) and their age.</li>
           <li><strong>Bonus-round play:</strong> which answer was chosen, how long it took, whether a hint was used, and the skill levels the game works out from this.</li>
-          <li><strong>On this device only:</strong> story progress, the Captain&rsquo;s look and settings, kept in the browser&rsquo;s local storage. One cookie keeps the grown-up signed in.</li>
+          <li><strong>On this device only:</strong> story progress, the Captain&rsquo;s look and settings, and the child&rsquo;s own name if one was added, kept in the browser&rsquo;s local storage. The child&rsquo;s name is shown only in the Parent Corner and is never sent to our server or to Gemini. One cookie keeps the grown-up signed in.</li>
         </ul>
       </div>
 

@@ -48,6 +48,8 @@ export abstract class Actor {
   private lastRoot = '';
   private lastFlip = '';
   private lastShadow = '';
+  private lastEmote = '';
+  private lastVis = '';
 
   constructor(readonly id: CastId) {
     this.root = document.createElementNS(NS, 'g');
@@ -111,7 +113,8 @@ export abstract class Actor {
     const fl = `scale(${Math.round(sx * 1000) / 1000} ${Math.round(sy * 1000) / 1000}) ${spin}rotate(${f1(poseRot)})`;
     if (fl !== this.lastFlip) { this.flipG.setAttribute('transform', fl); this.lastFlip = fl; }
     // The emote floats above the head on the side the character faces, never mirrored.
-    this.emoteG.setAttribute('transform', `translate(${f1(this.face * 20 * this.s)} ${f1(-this.heightNow() * this.s - 20)}) scale(${f1(this.s * 100) / 100})`);
+    const em = `translate(${f1(this.face * 20 * this.s)} ${f1(-this.heightNow() * this.s - 20)}) scale(${f1(this.s * 100) / 100})`;
+    if (em !== this.lastEmote) { this.emoteG.setAttribute('transform', em); this.lastEmote = em; }
     const k = Math.max(0, 1 - Math.min(lift, 600) / 700);
     const sh = `${f1(this.x)}|${f1(this.y)}|${f1(46 * this.s * k)}|${f1(0.24 * k)}`;
     if (sh !== this.lastShadow) {
@@ -122,10 +125,17 @@ export abstract class Actor {
       this.shadow.setAttribute('opacity', String(f1(0.24 * k * 100) / 100));
       this.lastShadow = sh;
     }
+    // Written only when something changed: phones redo style work for every write, even an equal one.
     const vis = this.visible && this.alpha > 0.01;
-    this.root.style.display = vis ? '' : 'none';
-    this.shadow.style.display = vis && Math.abs(poseRot) < 30 ? '' : 'none';
-    this.root.setAttribute('opacity', String(Math.round(this.alpha * 100) / 100));
+    const shadowOn = vis && Math.abs(poseRot) < 30;
+    const op = String(Math.round(this.alpha * 100) / 100);
+    const v = `${vis}|${shadowOn}|${op}`;
+    if (v !== this.lastVis) {
+      this.root.style.display = vis ? '' : 'none';
+      this.shadow.style.display = shadowOn ? '' : 'none';
+      this.root.setAttribute('opacity', op);
+      this.lastVis = v;
+    }
   }
 }
 

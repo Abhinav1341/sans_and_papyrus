@@ -44,6 +44,7 @@ function Player({ chapter }: { chapter: ChapterRef }) {
   const stageRef = useRef<HTMLDivElement>(null);
   const ctl = useRef<Controller | null>(null);
   const [caption, setCaption] = useState<Caption | null>(null);
+  const [captionOn, setCaptionOn] = useState(false);
   const [overlay, setOverlay] = useState<Overlay | null>(null);
   const [insert, setInsert] = useState<string | null>(null);
   const [panels, setPanels] = useState<Panel[] | null>(null);
@@ -57,7 +58,9 @@ function Player({ chapter }: { chapter: ChapterRef }) {
   useEffect(() => {
     const host = stageRef.current;
     if (!host) return;
-    const c = new Controller(host, chapter, flat, store.get().hero!, { setCaption, setOverlay, setInsert, setPanels, setWaiting });
+    // A cleared caption keeps its last line while the band fades out (see .captions.off).
+    const showCaption = (cap: Caption | null) => { if (cap) setCaption(cap); setCaptionOn(!!cap); };
+    const c = new Controller(host, chapter, flat, store.get().hero!, { setCaption: showCaption, setOverlay, setInsert, setPanels, setWaiting });
     ctl.current = c;
     // Test hook (?debug=1): lets automated checks read the camera and actors.
     if (new URLSearchParams(window.location.search).get('debug') === '1') (window as unknown as { __pg?: Controller }).__pg = c;
@@ -105,7 +108,7 @@ function Player({ chapter }: { chapter: ChapterRef }) {
           <IconButton icon="film" label={movie ? 'Movie mode is on' : 'Movie mode is off'} on={movie} onClick={toggleMovie} />
         </div>
       </div>
-      <Captions caption={caption} heroName={hero.name} waiting={waiting} onTap={() => ctl.current?.tap()} />
+      <Captions caption={caption} on={captionOn} heroName={hero.name} waiting={waiting} onTap={() => ctl.current?.tap()} />
       {overlay ? <OverlayCard overlay={overlay} chapter={chapter} heroName={hero.name} onDone={() => ctl.current?.overlayDone()} onLeave={leave} /> : null}
       {paused ? (
         <SettingsSheet title="Paused" onClose={() => pause(false)}
@@ -125,18 +128,18 @@ function speakerName(sp: Speaker, heroName: string) {
   return CREW_NAMES[sp] || sp;
 }
 
-function Captions({ caption, heroName, waiting, onTap }: { caption: Caption | null; heroName: string; waiting: boolean; onTap: () => void }) {
+function Captions({ caption, on, heroName, waiting, onTap }: { caption: Caption | null; on: boolean; heroName: string; waiting: boolean; onTap: () => void }) {
   if (!caption) return <div className="captions empty" aria-hidden="true" />;
   const narr = caption.speaker === 'narrator';
   return (
-    <div className={`captions${narr ? ' narr' : ''}`} onClick={onTap}>
+    <div className={`captions${narr ? ' narr' : ''}${on ? '' : ' off'}`} onClick={on ? onTap : undefined} aria-hidden={on ? undefined : true}>
       <div className="who" style={{ color: SPEAKER_COLOR[caption.speaker] }}>
         {narr ? <Icon name="book" /> : null}{speakerName(caption.speaker, heroName)}
       </div>
       <p className="line" aria-live="polite">
         {caption.words.map((w, i) => <span key={i} className={i === caption.idx ? 'w on' : i < caption.idx ? 'w said' : 'w'}>{w} </span>)}
       </p>
-      {waiting ? <span className="tap-next" aria-hidden="true"><Icon name="down" /></span> : null}
+      {waiting && on ? <span className="tap-next" aria-hidden="true"><Icon name="down" /></span> : null}
     </div>
   );
 }

@@ -1,13 +1,30 @@
 'use client';
 // Save data: versioned schema, validated on load, kept on this device only (localStorage).
-// Data minimisation: no real names (the name comes from a picker), no free text, no analytics.
+// Data minimisation: the Captain's name comes from a picker; no free text, no analytics. A child's
+// own name is optional, and stays on this device: only the Parent Corner shows it.
 import { useSyncExternalStore } from 'react';
 import type { Look } from '@/art/looks';
 
 export type VoiceChoice = 'a' | 'b' | 'c';
 export type Speed = 'slow' | 'normal' | 'fast';
 
-export interface Hero { name: string; look: Look; voice: VoiceChoice; age?: number } // age (6–14) is set in the builder; it decides the starting level of bonus rounds
+export interface Hero {
+  name: string;        // the Captain's name, from the picker: the story speaks it, and the server sees only this one
+  look: Look;
+  voice: VoiceChoice;
+  age?: number;        // 6–14, set in the builder; it decides the starting level of bonus rounds
+  childName?: string;  // the child's own name (optional): never sent anywhere, used only in the Parent Corner
+}
+
+export const CHILD_NAME_MAX = 30;
+// Letters in any script (with their accents and vowel signs), joined by spaces, dots, hyphens or apostrophes.
+const CHILD_NAME = new RegExp(`^[\\p{L}\\p{M}]+(?:[ .'’-]+[\\p{L}\\p{M}]+)*\\.?$`, 'u');
+/** A child's name as typed, tidied up; null when it is empty or is not a name. */
+export function cleanChildName(x: unknown): string | null {
+  if (typeof x !== 'string') return null;
+  const n = x.normalize('NFC').replace(/\s+/g, ' ').trim();
+  return n.length <= CHILD_NAME_MAX && CHILD_NAME.test(n) ? n : null;
+}
 export interface Settings {
   voice: boolean;   // read every line aloud
   sound: boolean;   // sound effects
@@ -71,8 +88,9 @@ export function migrate(raw: unknown): Save {
   const prog = obj(d.progress);
   const legacy = d.v === 1;
   const look = readLook(h.look);
+  const childName = cleanChildName(h.childName);
   const hero: Hero | null = typeof h.name === 'string' && look
-    ? { name: h.name, look, voice: h.voice === 'b' || h.voice === 'c' ? h.voice : 'a', ...(typeof h.age === 'number' && h.age >= 6 && h.age <= 14 ? { age: Math.round(h.age) } : {}) }
+    ? { name: h.name, look, voice: h.voice === 'b' || h.voice === 'c' ? h.voice : 'a', ...(typeof h.age === 'number' && h.age >= 6 && h.age <= 14 ? { age: Math.round(h.age) } : {}), ...(childName ? { childName } : {}) }
     : null;
   const speed: Speed = s.speed === 'slow' || s.speed === 'normal' || s.speed === 'fast' ? s.speed
     : s.textSpeed === 'slow' ? 'slow' : s.textSpeed === 'fast' || s.textSpeed === 'instant' ? 'fast' : 'normal';

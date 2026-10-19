@@ -11,19 +11,21 @@
 .stage.letterbox::before { height: 7%; }
 .stage.letterbox::after { height: 7%; }
 
-/* Scene transitions */
-.trans-cover { position: absolute; inset: 0; z-index: 7; pointer-events: none; opacity: 0; background: #0b0820; display: none; }
-.trans-cover.on { display: block; }
+/* Scene transitions: one layer that always exists and only changes opacity, position or the iris
+   radius (no layout, no giant shadow), so phones draw it without flicker. It sits above the subtitles:
+   the old line goes dark with the scene, and the new one arrives behind the cover. */
+.trans-cover { position: absolute; inset: 0; z-index: 16; pointer-events: none; opacity: 0; visibility: hidden; background: #0b0820; will-change: opacity, transform; }
+.trans-cover.on { visibility: visible; }
 .trans-cover.white { background: #fffaf0; }
-.trans-cover.iris { background: transparent; display: grid; place-items: center; }
-.trans-cover .iris-hole { display: none; }
-.trans-cover.iris .iris-hole { --r: 75vmax; display: block; width: calc(var(--r) * 2); height: calc(var(--r) * 2); border-radius: 50%; box-shadow: 0 0 0 200vmax #0b0820; flex: 0 0 auto; }
+.trans-cover.iris { --r: 75vmax; background: radial-gradient(circle at 50% 50%, transparent var(--r), #0b0820 calc(var(--r) + 1px)); }
 .trans-cover.wipe { background: repeating-linear-gradient(120deg, #7B61FF 0 40px, #ff9fcf 40px 80px, #ffd36e 80px 120px, #7fe6c9 120px 160px); width: 140%; left: -20%; }
 
 /* HUD: small and quiet so the film stays the star */
 .story-hud { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); left: 12px; right: 12px; z-index: 20; display: flex; align-items: center; gap: 8px; }
 @media (min-width: 520px) { .story-hud { top: 40px; } }
-.story-hud .icon-btn { background: rgba(11, 8, 32, .55); }
+.story-hud .icon-btn { background: rgba(11, 8, 32, .62); }
+/* No background blur over the moving film: phones redraw a blur every frame, and it flickers. */
+.story .icon-btn { -webkit-backdrop-filter: none; backdrop-filter: none; }
 .story-hud .right { margin-left: auto; display: flex; gap: 8px; }
 .ep-chip { flex: 1 1 auto; min-width: 0; font-family: var(--font-display); font-weight: 800; font-size: 13px; color: var(--text-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 1px 3px rgba(0, 0, 0, .7); }
 
@@ -34,7 +36,10 @@
   background: linear-gradient(180deg, rgba(11, 8, 32, 0) 0%, rgba(11, 8, 32, .82) 34%, rgba(11, 8, 32, .94) 100%);
   cursor: pointer; min-height: 30%;
   display: flex; flex-direction: column; justify-content: flex-end;
+  transition: opacity .2s ease; will-change: opacity;
 }
+/* Between lines the band fades away (keeping its last line) instead of blinking off and on. */
+.captions.off { opacity: 0; pointer-events: none; }
 .captions.empty { background: none; pointer-events: none; min-height: 0; padding: 0; }
 .captions .who { display: flex; align-items: center; gap: 6px; font-family: var(--font-display); font-weight: 800; font-size: 20px; text-shadow: 0 2px 0 rgba(0, 0, 0, .5); }
 .captions .who .ico { width: 22px; height: 22px; }
